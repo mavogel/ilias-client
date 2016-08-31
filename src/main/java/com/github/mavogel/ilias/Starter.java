@@ -16,10 +16,10 @@ import java.util.Objects;
 public class Starter {
 
     public static void main(String[] args) {
-        Validate.notNull(args);
-        Validate.noNullElements(args);
-        Validate.isTrue(args.length == 1);
-        Validate.isTrue(!args[0].isEmpty());
+        Validate.notNull(args, "No arguments given");
+        Validate.isTrue(args.length == 1, "Only one argument is allowed. The 'config.properties'");
+        Validate.noNullElements(args, "The argument is null");
+        Validate.isTrue(!args[0].isEmpty(), "The argument is empty");
         run(ConfigurationsUtils.createLoginConfiguration(args[0]));
     }
 

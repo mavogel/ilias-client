@@ -27,11 +27,12 @@ public class ConfigurationsUtils {
                 new FileBasedConfigurationBuilder<FileBasedConfiguration>(PropertiesConfiguration.class)
                         .configure(params.properties().setFileName(propertyFilename));
         LoginConfiguration.LOGIN_MODE loginMode = null;
-        String client, username, password;
+        String client, username, password, loginModeRaw = "";
 
         try {
             Configuration config = builder.getConfiguration();
-            loginMode = LoginConfiguration.LOGIN_MODE.valueOf(config.getString("login.mode"));
+            loginModeRaw = config.getString("login.mode");
+            loginMode = LoginConfiguration.LOGIN_MODE.valueOf(loginModeRaw);
             client = config.getString("login.client");
             username = config.getString("login.username");
             password = config.getString("login.password");
@@ -43,6 +44,8 @@ public class ConfigurationsUtils {
                     throw new RuntimeException("Console is not available!");
                 }
             }
+        } catch (IllegalArgumentException iae) {
+            throw new RuntimeException("Login mode '" + loginModeRaw + "' is unknown");
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
@@ -55,7 +58,8 @@ public class ConfigurationsUtils {
             case CAS:
                 return LoginConfiguration.asCASLogin();
             default:
-                throw new UnsupportedOperationException(String.format("LOGIN_MODE: '%s' not yet supported", loginMode));
+                // should not happen
+                return null;
         }
     }
 }

@@ -10,6 +10,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import java.io.Console;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by mavogel on 8/30/16.
@@ -76,6 +77,51 @@ public class ConfigurationsUtilsTest {
         } catch (Exception e) {
             // == verify
             PowerMock.verifyAll();
+            throw e;
+        }
+    }
+
+    @Test
+    public void shouldReadStdConfiguration() throws Exception {
+        // == prepare
+        String testFile = TEST_RES_DIR + "testConfigStdLogin.properties";
+
+        // == go
+        LoginConfiguration validLoginConfiguration = ConfigurationsUtils.createLoginConfiguration(testFile);
+
+        // == verify
+        assertEquals(LoginConfiguration.LOGIN_MODE.STD, validLoginConfiguration.getLoginMode());
+        assertEquals("MY_CLIENT", validLoginConfiguration.getClient());
+        assertEquals("user", validLoginConfiguration.getUsername());
+        assertEquals("pass", validLoginConfiguration.getPassword());
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void shouldFailDueToUnknownMode() throws Exception {
+        // == prepare
+        String testFile = TEST_RES_DIR + "testConfigUnknownMode.properties";
+
+        try {
+            // == go
+            ConfigurationsUtils.createLoginConfiguration(testFile);
+        } catch (Exception e) {
+            // verify
+            assertTrue(e.getMessage().contains("Login mode"));
+            throw e;
+        }
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldFailEmptyClientString() throws Exception {
+        // == prepare
+        String testFile = TEST_RES_DIR + "bogusTestConfig.properties";
+
+        try {
+            // == go
+            ConfigurationsUtils.createLoginConfiguration(testFile);
+        } catch (Exception e) {
+            // verify
+            assertTrue(e.getMessage().contains("empty"));
             throw e;
         }
     }

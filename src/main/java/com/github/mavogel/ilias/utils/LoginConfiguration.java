@@ -33,9 +33,9 @@ public class LoginConfiguration {
                                final String client,
                                final String username,
                                final String password) {
-        Validate.notEmpty(client);
-        Validate.notEmpty(username);
-        Validate.notEmpty(password);
+        Validate.notEmpty(client, "client is empty");
+        Validate.notEmpty(username,"username is empty");
+        Validate.notEmpty(password, "password is empty");
         this.loginMode = loginMode;
         this.client = client;
         this.username = username;
