@@ -27,12 +27,13 @@ public class ConfigurationsUtils {
                 new FileBasedConfigurationBuilder<FileBasedConfiguration>(PropertiesConfiguration.class)
                         .configure(params.properties().setFileName(propertyFilename));
         LoginConfiguration.LOGIN_MODE loginMode = null;
-        String client, username, password, loginModeRaw = "";
+        String endpoint, client, username, password, loginModeRaw = "";
 
         try {
             Configuration config = builder.getConfiguration();
             loginModeRaw = config.getString("login.mode");
             loginMode = LoginConfiguration.LOGIN_MODE.valueOf(loginModeRaw);
+            endpoint = config.getString("endpoint");
             client = config.getString("login.client");
             username = config.getString("login.username");
             password = config.getString("login.password");
@@ -52,9 +53,9 @@ public class ConfigurationsUtils {
 
         switch (loginMode) {
             case STD:
-                return LoginConfiguration.asStandardLogin(client, username, password);
+                return LoginConfiguration.asStandardLogin(endpoint, client, username, password);
             case LDAP:
-                return LoginConfiguration.asLDAPLogin(client, username, password);
+                return LoginConfiguration.asLDAPLogin(endpoint, client, username, password);
             case CAS:
                 return LoginConfiguration.asCASLogin();
             default:

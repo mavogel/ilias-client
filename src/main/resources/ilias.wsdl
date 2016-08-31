@@ -1685,7 +1685,7 @@
 </binding>
 <service name="ILIASSoapWebservice">
   <port name="ILIASSoapWebservicePort" binding="tns:ILIASSoapWebserviceBinding">
-    <soap:address location="https://ilias.hs-karlsruhe.de/webservice/soap/server.php"/>
+    <soap:address location="https://mycompany.com/webservice/soap/server.php"/>
   </port>
 </service>
 </definitions>

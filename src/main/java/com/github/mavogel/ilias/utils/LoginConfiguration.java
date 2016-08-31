@@ -27,16 +27,19 @@ public class LoginConfiguration {
     };
 
     private final LOGIN_MODE loginMode;
-    private final String client, username, password;
+    private final String endpoint, client, username, password;
 
     private LoginConfiguration(final LOGIN_MODE loginMode,
+                               final String endpoint,
                                final String client,
                                final String username,
                                final String password) {
+        Validate.notEmpty(endpoint, "endpoint is empty");
         Validate.notEmpty(client, "client is empty");
         Validate.notEmpty(username,"username is empty");
         Validate.notEmpty(password, "password is empty");
         this.loginMode = loginMode;
+        this.endpoint = endpoint;
         this.client = client;
         this.username = username;
         this.password = password;
@@ -45,25 +48,29 @@ public class LoginConfiguration {
     /**
      * Creates a login configuration with standard login
      *
+     * @param endpoint the endpoint of the ilias server
      * @param client the client id
      * @param username the username
      * @param password the password
      * @return the configuration
      */
-    public static LoginConfiguration asStandardLogin(final String client, final String username, final String password) {
-        return new LoginConfiguration(LOGIN_MODE.STD, client, username, password);
+    public static LoginConfiguration asStandardLogin(final String endpoint, final String client,
+                                                     final String username, final String password) {
+        return new LoginConfiguration(LOGIN_MODE.STD, endpoint, client, username, password);
     }
 
     /**
      * Creates a login configuration with LDAP login
      *
+     * @param endpoint the endpoint of the ilias server
      * @param client the client id
      * @param username the username
      * @param password the password
      * @return the configuration
      */
-    public static LoginConfiguration asLDAPLogin(final String client, final String username, final String password) {
-        return new LoginConfiguration(LOGIN_MODE.LDAP, client, username, password);
+    public static LoginConfiguration asLDAPLogin(final String endpoint,final String client,
+                                                 final String username, final String password) {
+        return new LoginConfiguration(LOGIN_MODE.LDAP, endpoint, client, username, password);
     }
 
     /**
@@ -77,6 +84,8 @@ public class LoginConfiguration {
     public LOGIN_MODE getLoginMode() {
         return loginMode;
     }
+
+    public String getEndpoint() { return endpoint; }
 
     public String getClient() {
         return client;

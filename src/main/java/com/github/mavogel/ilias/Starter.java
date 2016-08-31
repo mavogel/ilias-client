@@ -28,6 +28,8 @@ public class Starter {
         String sid = "";
         try {
             ILIASSoapWebserviceLocator locator = new ILIASSoapWebserviceLocator();
+            locator.setILIASSoapWebservicePortEndpointAddress(loginConfiguration.getEndpoint());
+
             endpoint = locator.getILIASSoapWebservicePort();
             sid = endpoint.loginLDAP(loginConfiguration.getClient(), loginConfiguration.getUsername(), loginConfiguration.getPassword());
             System.out.printf("sid: %s%n", sid);

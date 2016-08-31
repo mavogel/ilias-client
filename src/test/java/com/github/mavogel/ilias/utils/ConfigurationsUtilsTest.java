@@ -33,6 +33,7 @@ public class ConfigurationsUtilsTest {
 
         // == verify
         assertEquals(LoginConfiguration.LOGIN_MODE.LDAP, validLoginConfiguration.getLoginMode());
+        assertEquals("https://mycompany.com/webservice/soap/server.php", validLoginConfiguration.getEndpoint());
         assertEquals("MY_CLIENT", validLoginConfiguration.getClient());
         assertEquals("user", validLoginConfiguration.getUsername());
         assertEquals("pass", validLoginConfiguration.getPassword());
@@ -56,6 +57,7 @@ public class ConfigurationsUtilsTest {
         // == verify
         PowerMock.verifyAll();
         assertEquals(LoginConfiguration.LOGIN_MODE.LDAP, validLoginConfiguration.getLoginMode());
+        assertEquals("https://mycompany.com/webservice/soap/server.php", validLoginConfiguration.getEndpoint());
         assertEquals("MY_CLIENT", validLoginConfiguration.getClient());
         assertEquals("user", validLoginConfiguration.getUsername());
         assertEquals("mypass123", validLoginConfiguration.getPassword());
@@ -91,6 +93,7 @@ public class ConfigurationsUtilsTest {
 
         // == verify
         assertEquals(LoginConfiguration.LOGIN_MODE.STD, validLoginConfiguration.getLoginMode());
+        assertEquals("https://mycompany.com/webservice/soap/server.php", validLoginConfiguration.getEndpoint());
         assertEquals("MY_CLIENT", validLoginConfiguration.getClient());
         assertEquals("user", validLoginConfiguration.getUsername());
         assertEquals("pass", validLoginConfiguration.getPassword());
