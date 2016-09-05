@@ -1,5 +1,6 @@
 package com.github.mavogel.ilias.utils;
 
+import com.github.mavogel.ilias.model.IliasNode;
 import org.jdom.JDOMException;
 import org.junit.Test;
 
@@ -12,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -86,7 +88,7 @@ public class XMLUtilsTest {
     }
 
     @Test
-    public void shouldParseMultopleCourseRefIds() throws IOException, JDOMException, ParserConfigurationException {
+    public void shouldParseMultipleCourseRefIds() throws IOException, JDOMException, ParserConfigurationException {
         // == prepare
         final String testFile = TEST_RES_DIR + "selectedMultipleCourses.xml";
         final String courseXml = Files.lines(Paths.get(testFile)).collect(Collectors.joining());
@@ -97,5 +99,50 @@ public class XMLUtilsTest {
         // == verify
         assertTrue(courseRefIds != null);
         assertEquals(new ArrayList<>(Arrays.asList(29651, 30143)), courseRefIds);
+    }
+
+    @Test
+    public void shouldParseFourFolderRefIdsFromNode() throws IOException, JDOMException, ParserConfigurationException {
+        // == prepare
+        final String testFile = TEST_RES_DIR + "treeNodesWithFoldersAndWebRefs.xml";
+        final String nodeXml = Files.lines(Paths.get(testFile)).collect(Collectors.joining());
+
+        // == go
+        List<Integer> folderRefIds = XMLUtils.parseRefIdsOfNodeType(IliasNode.Type.FOLDER, nodeXml);
+
+        // == verify
+        assertTrue(folderRefIds != null);
+        assertEquals(new ArrayList<>(Arrays.asList(44528, 44529, 44527, 44530)), folderRefIds);
+    }
+
+    @Test
+    public void shouldParse36GroupRefIdsFromNode() throws IOException, JDOMException, ParserConfigurationException {
+        // == prepare
+        final String testFile = TEST_RES_DIR + "treeNodesWithGroups.xml";
+        final String nodeXml = Files.lines(Paths.get(testFile)).collect(Collectors.joining());
+
+        // == go
+        List<Integer> groupRefIds = XMLUtils.parseRefIdsOfNodeType(IliasNode.Type.GROUP, nodeXml);
+
+        // == verify
+        assertTrue(groupRefIds != null);
+        assertEquals(36, groupRefIds.size());
+    }
+
+    @Test
+    public void shouldParse36GroupRefIdsFromNodeWithFoldersAndWebRefs() throws IOException, JDOMException, ParserConfigurationException {
+        // == prepare
+        final String testFile = TEST_RES_DIR + "treeNodesWithGroupsFoldersWebRefs.xml";
+        final String nodeXml = Files.lines(Paths.get(testFile)).collect(Collectors.joining());
+
+        // == go
+        List<Integer> groupRefIds = XMLUtils.parseRefIdsOfNodeType(IliasNode.Type.GROUP, nodeXml);
+
+        // == verify
+        assertTrue(groupRefIds != null);
+        assertEquals(36, groupRefIds.size());
+        assertTrue(groupRefIds.contains(166848));
+        assertTrue(groupRefIds.contains(146462));
+        assertFalse(groupRefIds.contains(44528));
     }
 }

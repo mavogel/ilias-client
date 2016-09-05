@@ -1,6 +1,5 @@
 package com.github.mavogel.ilias;
 
-import com.github.mavogel.client.ILIASSoapWebserviceLocator;
 import com.github.mavogel.client.ILIASSoapWebservicePortType;
 import com.github.mavogel.ilias.utils.ConfigurationsUtils;
 import com.github.mavogel.ilias.model.UserDataIds;
@@ -43,17 +42,8 @@ public class Starter {
             List<Integer> courseRefIds = XMLUtils.parseCourseRefIds(selectedCourses);
 
             // 3.1 each course
-            for (Integer courseRefId : courseRefIds) {
-                String treeChilds = endpoint.getTreeChilds(sid, courseRefId,
-                        IliasUtils.ObjectTypes.compose(IliasUtils.ObjectTypes.GROUP, IliasUtils.ObjectTypes.FOLDER), userId);
-                System.out.printf("TreeChilds: %s%n", treeChilds);
-            }
+            List<Integer> groupRefIds = IliasUtils.retrieveGroupRefIdsFromCourses(endpoint, sid, userId, courseRefIds, 5);
 
-//            // parse them for type 'grp' and type 'fold' and get their ref_ids
-//            final int folder_ref_id = 44528;
-//            String treeChildsFolder = endpoint.getTreeChilds(sid, folder_ref_id, new String[]{"grp", "fold"}, userId);
-//            System.out.printf("TreeChild for folder:%s%n", treeChildsFolder);
-//
 //            // 3.2 each folder
 //            ref_id first gr
 //            int ref_id_first_group = 146443;

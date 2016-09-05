@@ -1,0 +1,2962 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE Objects PUBLIC "-//ILIAS//DTD ILIAS Repositoryobjects//EN"
+        "https://ilias.hs-karlsruhe.de/xml/ilias_object_4_0.dtd"><!--Export of ILIAS objects-->
+<Objects>
+    <Object type="grp" obj_id="215098">
+        <Title>Group A01</Title>
+        <Description>Credentials: dbUser01</Description>
+        <Owner>183084</Owner>
+        <CreateDate>2015-03-17 11:58:40</CreateDate>
+        <LastUpdate>2016-03-21 14:10:01</LastUpdate>
+        <ImportId/>
+        <References ref_id="146443" parent_id="44528" accessInfo="granted">
+            <TimeTarget type="0">
+                <Timing starting_time="1426589924" ending_time="1426589924" visibility="0"/>
+                <Suggestion starting_time="1426589924" ending_time="1426589924" changeable="0"
+                            earliest_start="1426589924"
+                            latest_end="1426632900"/>
+            </TimeTarget>
+            <Operation>visible</Operation>
+            <Operation>join</Operation>
+            <Operation>leave</Operation>
+            <Operation>read</Operation>
+            <Operation>read_learning_progress</Operation>
+            <Operation>edit_learning_progress</Operation>
+            <Operation>edit_event</Operation>
+            <Operation>copy</Operation>
+            <Operation>write</Operation>
+            <Operation>delete</Operation>
+            <Operation>edit_permission</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_mep</Operation>
+            <Operation>create_feed</Operation>
+            <Operation>create_chtr</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_icrs</Operation>
+            <Operation>create_dbk</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_mep</Operation>
+            <Path>
+                <Element ref_id="1" type="root">Path1</Element>
+                <Element ref_id="294" type="cat">Path2</Element>
+                <Element ref_id="29271" type="cat">Path3</Element>
+                <Element ref_id="7266" type="cat">Path4</Element>
+                <Element ref_id="44525" type="crs">Path5</Element>
+                <Element ref_id="44528" type="fold">Groups</Element>
+            </Path>
+        </References>
+    </Object>
+    <Object type="grp" obj_id="215102">
+        <Title>Group A02</Title>
+        <Description>Credentials: dbUser02</Description>
+        <Owner>183084</Owner>
+        <CreateDate>2015-03-17 12:01:50</CreateDate>
+        <LastUpdate>2016-03-21 14:09:51</LastUpdate>
+        <ImportId/>
+        <References ref_id="146445" parent_id="44528" accessInfo="granted">
+            <TimeTarget type="0">
+                <Timing starting_time="1426590113" ending_time="1426590113" visibility="0"/>
+                <Suggestion starting_time="1426590113" ending_time="1426590113" changeable="0"
+                            earliest_start="1426590113"
+                            latest_end="1426632900"/>
+            </TimeTarget>
+            <Operation>visible</Operation>
+            <Operation>join</Operation>
+            <Operation>leave</Operation>
+            <Operation>read</Operation>
+            <Operation>read_learning_progress</Operation>
+            <Operation>edit_learning_progress</Operation>
+            <Operation>edit_event</Operation>
+            <Operation>copy</Operation>
+            <Operation>write</Operation>
+            <Operation>delete</Operation>
+            <Operation>edit_permission</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_mep</Operation>
+            <Operation>create_feed</Operation>
+            <Operation>create_chtr</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_icrs</Operation>
+            <Operation>create_dbk</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_mep</Operation>
+            <Path>
+                <Element ref_id="1" type="root">Path1</Element>
+                <Element ref_id="294" type="cat">Path2</Element>
+                <Element ref_id="29271" type="cat">Path3</Element>
+                <Element ref_id="7266" type="cat">Path4</Element>
+                <Element ref_id="44525" type="crs">Path5</Element>
+                <Element ref_id="44528" type="fold">Groups</Element>
+            </Path>
+        </References>
+    </Object>
+    <Object type="grp" obj_id="215111">
+        <Title>Group A03</Title>
+        <Description>Credentials: dbUser03</Description>
+        <Owner>183084</Owner>
+        <CreateDate>2015-03-17 12:02:43</CreateDate>
+        <LastUpdate>2016-03-21 14:14:09</LastUpdate>
+        <ImportId/>
+        <References ref_id="146449" parent_id="44528" accessInfo="granted">
+            <TimeTarget type="0">
+                <Timing starting_time="1426590165" ending_time="1426590165" visibility="0"/>
+                <Suggestion starting_time="1426590165" ending_time="1426590165" changeable="0"
+                            earliest_start="1426590165"
+                            latest_end="1426632900"/>
+            </TimeTarget>
+            <Operation>visible</Operation>
+            <Operation>join</Operation>
+            <Operation>leave</Operation>
+            <Operation>read</Operation>
+            <Operation>read_learning_progress</Operation>
+            <Operation>edit_learning_progress</Operation>
+            <Operation>edit_event</Operation>
+            <Operation>copy</Operation>
+            <Operation>write</Operation>
+            <Operation>delete</Operation>
+            <Operation>edit_permission</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_mep</Operation>
+            <Operation>create_feed</Operation>
+            <Operation>create_chtr</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_icrs</Operation>
+            <Operation>create_dbk</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_mep</Operation>
+            <Path>
+                <Element ref_id="1" type="root">Path1</Element>
+                <Element ref_id="294" type="cat">Path2</Element>
+                <Element ref_id="29271" type="cat">Path3</Element>
+                <Element ref_id="7266" type="cat">Path4</Element>
+                <Element ref_id="44525" type="crs">Path5</Element>
+                <Element ref_id="44528" type="fold">Groups</Element>
+            </Path>
+        </References>
+    </Object>
+    <Object type="grp" obj_id="215115">
+        <Title>Group A04</Title>
+        <Description>Credentials: dbUser04</Description>
+        <Owner>183084</Owner>
+        <CreateDate>2015-03-17 12:03:58</CreateDate>
+        <LastUpdate>2016-03-21 14:13:36</LastUpdate>
+        <ImportId/>
+        <References ref_id="146451" parent_id="44528" accessInfo="granted">
+            <TimeTarget type="0">
+                <Timing starting_time="1426590241" ending_time="1426590241" visibility="0"/>
+                <Suggestion starting_time="1426590241" ending_time="1426590241" changeable="0"
+                            earliest_start="1426590241"
+                            latest_end="1426632900"/>
+            </TimeTarget>
+            <Operation>visible</Operation>
+            <Operation>join</Operation>
+            <Operation>leave</Operation>
+            <Operation>read</Operation>
+            <Operation>read_learning_progress</Operation>
+            <Operation>edit_learning_progress</Operation>
+            <Operation>edit_event</Operation>
+            <Operation>copy</Operation>
+            <Operation>write</Operation>
+            <Operation>delete</Operation>
+            <Operation>edit_permission</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_mep</Operation>
+            <Operation>create_feed</Operation>
+            <Operation>create_chtr</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_icrs</Operation>
+            <Operation>create_dbk</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_mep</Operation>
+            <Path>
+                <Element ref_id="1" type="root">Path1</Element>
+                <Element ref_id="294" type="cat">Path2</Element>
+                <Element ref_id="29271" type="cat">Path3</Element>
+                <Element ref_id="7266" type="cat">Path4</Element>
+                <Element ref_id="44525" type="crs">Path5</Element>
+                <Element ref_id="44528" type="fold">Groups</Element>
+            </Path>
+        </References>
+    </Object>
+    <Object type="grp" obj_id="215120">
+        <Title>Group A05</Title>
+        <Description>Credentials: dbUser05</Description>
+        <Owner>183084</Owner>
+        <CreateDate>2015-03-17 12:04:34</CreateDate>
+        <LastUpdate>2016-03-21 14:12:57</LastUpdate>
+        <ImportId/>
+        <References ref_id="146454" parent_id="44528" accessInfo="granted">
+            <TimeTarget type="0">
+                <Timing starting_time="1426590276" ending_time="1426590276" visibility="0"/>
+                <Suggestion starting_time="1426590276" ending_time="1426590276" changeable="0"
+                            earliest_start="1426590276"
+                            latest_end="1426632900"/>
+            </TimeTarget>
+            <Operation>visible</Operation>
+            <Operation>join</Operation>
+            <Operation>leave</Operation>
+            <Operation>read</Operation>
+            <Operation>read_learning_progress</Operation>
+            <Operation>edit_learning_progress</Operation>
+            <Operation>edit_event</Operation>
+            <Operation>copy</Operation>
+            <Operation>write</Operation>
+            <Operation>delete</Operation>
+            <Operation>edit_permission</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_mep</Operation>
+            <Operation>create_feed</Operation>
+            <Operation>create_chtr</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_icrs</Operation>
+            <Operation>create_dbk</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_mep</Operation>
+            <Path>
+                <Element ref_id="1" type="root">Path1</Element>
+                <Element ref_id="294" type="cat">Path2</Element>
+                <Element ref_id="29271" type="cat">Path3</Element>
+                <Element ref_id="7266" type="cat">Path4</Element>
+                <Element ref_id="44525" type="crs">Path5</Element>
+                <Element ref_id="44528" type="fold">Groups</Element>
+            </Path>
+        </References>
+    </Object>
+    <Object type="grp" obj_id="215124">
+        <Title>Group A06</Title>
+        <Description>Credentials: dbUser06</Description>
+        <Owner>183084</Owner>
+        <CreateDate>2015-03-17 12:05:16</CreateDate>
+        <LastUpdate>2016-03-21 14:11:57</LastUpdate>
+        <ImportId/>
+        <References ref_id="146456" parent_id="44528" accessInfo="granted">
+            <TimeTarget type="0">
+                <Timing starting_time="1426590318" ending_time="1426590318" visibility="0"/>
+                <Suggestion starting_time="1426590318" ending_time="1426590318" changeable="0"
+                            earliest_start="1426590318"
+                            latest_end="1426632900"/>
+            </TimeTarget>
+            <Operation>visible</Operation>
+            <Operation>join</Operation>
+            <Operation>leave</Operation>
+            <Operation>read</Operation>
+            <Operation>read_learning_progress</Operation>
+            <Operation>edit_learning_progress</Operation>
+            <Operation>edit_event</Operation>
+            <Operation>copy</Operation>
+            <Operation>write</Operation>
+            <Operation>delete</Operation>
+            <Operation>edit_permission</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_mep</Operation>
+            <Operation>create_feed</Operation>
+            <Operation>create_chtr</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_icrs</Operation>
+            <Operation>create_dbk</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_mep</Operation>
+            <Path>
+                <Element ref_id="1" type="root">Path1</Element>
+                <Element ref_id="294" type="cat">Path2</Element>
+                <Element ref_id="29271" type="cat">Path3</Element>
+                <Element ref_id="7266" type="cat">Path4</Element>
+                <Element ref_id="44525" type="crs">Path5</Element>
+                <Element ref_id="44528" type="fold">Groups</Element>
+            </Path>
+        </References>
+    </Object>
+    <Object type="grp" obj_id="215128">
+        <Title>Group A07</Title>
+        <Description>Credentials: dbUser07</Description>
+        <Owner>183084</Owner>
+        <CreateDate>2015-03-17 12:06:16</CreateDate>
+        <LastUpdate>2016-03-21 14:11:10</LastUpdate>
+        <ImportId/>
+        <References ref_id="146458" parent_id="44528" accessInfo="granted">
+            <TimeTarget type="0">
+                <Timing starting_time="1426590379" ending_time="1426590379" visibility="0"/>
+                <Suggestion starting_time="1426590379" ending_time="1426590379" changeable="0"
+                            earliest_start="1426590379"
+                            latest_end="1426632900"/>
+            </TimeTarget>
+            <Operation>visible</Operation>
+            <Operation>join</Operation>
+            <Operation>leave</Operation>
+            <Operation>read</Operation>
+            <Operation>read_learning_progress</Operation>
+            <Operation>edit_learning_progress</Operation>
+            <Operation>edit_event</Operation>
+            <Operation>copy</Operation>
+            <Operation>write</Operation>
+            <Operation>delete</Operation>
+            <Operation>edit_permission</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_mep</Operation>
+            <Operation>create_feed</Operation>
+            <Operation>create_chtr</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_icrs</Operation>
+            <Operation>create_dbk</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_mep</Operation>
+            <Path>
+                <Element ref_id="1" type="root">Path1</Element>
+                <Element ref_id="294" type="cat">Path2</Element>
+                <Element ref_id="29271" type="cat">Path3</Element>
+                <Element ref_id="7266" type="cat">Path4</Element>
+                <Element ref_id="44525" type="crs">Path5</Element>
+                <Element ref_id="44528" type="fold">Groups</Element>
+            </Path>
+        </References>
+    </Object>
+    <Object type="grp" obj_id="215138">
+        <Title>Group A08</Title>
+        <Description>Credentials: dbUser08</Description>
+        <Owner>183084</Owner>
+        <CreateDate>2015-03-17 12:07:18</CreateDate>
+        <LastUpdate>2016-03-21 14:10:25</LastUpdate>
+        <ImportId/>
+        <References ref_id="146464" parent_id="44528" accessInfo="granted">
+            <TimeTarget type="0">
+                <Timing starting_time="1426590440" ending_time="1426590440" visibility="0"/>
+                <Suggestion starting_time="1426590440" ending_time="1426590440" changeable="0"
+                            earliest_start="1426590440"
+                            latest_end="1426632900"/>
+            </TimeTarget>
+            <Operation>visible</Operation>
+            <Operation>join</Operation>
+            <Operation>leave</Operation>
+            <Operation>read</Operation>
+            <Operation>read_learning_progress</Operation>
+            <Operation>edit_learning_progress</Operation>
+            <Operation>edit_event</Operation>
+            <Operation>copy</Operation>
+            <Operation>write</Operation>
+            <Operation>delete</Operation>
+            <Operation>edit_permission</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_mep</Operation>
+            <Operation>create_feed</Operation>
+            <Operation>create_chtr</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_icrs</Operation>
+            <Operation>create_dbk</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_mep</Operation>
+            <Path>
+                <Element ref_id="1" type="root">Path1</Element>
+                <Element ref_id="294" type="cat">Path2</Element>
+                <Element ref_id="29271" type="cat">Path3</Element>
+                <Element ref_id="7266" type="cat">Path4</Element>
+                <Element ref_id="44525" type="crs">Path5</Element>
+                <Element ref_id="44528" type="fold">Groups</Element>
+            </Path>
+        </References>
+    </Object>
+    <Object type="grp" obj_id="215134">
+        <Title>Group A09</Title>
+        <Description>Credentials: dbUser09</Description>
+        <Owner>183084</Owner>
+        <CreateDate>2015-03-17 12:06:49</CreateDate>
+        <LastUpdate>2016-03-21 14:09:45</LastUpdate>
+        <ImportId/>
+        <References ref_id="146462" parent_id="44528" accessInfo="granted">
+            <TimeTarget type="0">
+                <Timing starting_time="1426590411" ending_time="1426590411" visibility="0"/>
+                <Suggestion starting_time="1426590411" ending_time="1426590411" changeable="0"
+                            earliest_start="1426590411"
+                            latest_end="1426632900"/>
+            </TimeTarget>
+            <Operation>visible</Operation>
+            <Operation>join</Operation>
+            <Operation>leave</Operation>
+            <Operation>read</Operation>
+            <Operation>read_learning_progress</Operation>
+            <Operation>edit_learning_progress</Operation>
+            <Operation>edit_event</Operation>
+            <Operation>copy</Operation>
+            <Operation>write</Operation>
+            <Operation>delete</Operation>
+            <Operation>edit_permission</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_mep</Operation>
+            <Operation>create_feed</Operation>
+            <Operation>create_chtr</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_icrs</Operation>
+            <Operation>create_dbk</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_mep</Operation>
+            <Path>
+                <Element ref_id="1" type="root">Path1</Element>
+                <Element ref_id="294" type="cat">Path2</Element>
+                <Element ref_id="29271" type="cat">Path3</Element>
+                <Element ref_id="7266" type="cat">Path4</Element>
+                <Element ref_id="44525" type="crs">Path5</Element>
+                <Element ref_id="44528" type="fold">Groups</Element>
+            </Path>
+        </References>
+    </Object>
+    <Object type="grp" obj_id="215142">
+        <Title>Group B01</Title>
+        <Description>Credentials: dbUser11</Description>
+        <Owner>183084</Owner>
+        <CreateDate>2015-03-17 12:08:27</CreateDate>
+        <LastUpdate>2016-03-21 14:18:47</LastUpdate>
+        <ImportId/>
+        <References ref_id="146466" parent_id="44528" accessInfo="granted">
+            <TimeTarget type="0">
+                <Timing starting_time="1426590509" ending_time="1426590509" visibility="0"/>
+                <Suggestion starting_time="1426590509" ending_time="1426590509" changeable="0"
+                            earliest_start="1426590509"
+                            latest_end="1426632900"/>
+            </TimeTarget>
+            <Operation>visible</Operation>
+            <Operation>join</Operation>
+            <Operation>leave</Operation>
+            <Operation>read</Operation>
+            <Operation>read_learning_progress</Operation>
+            <Operation>edit_learning_progress</Operation>
+            <Operation>edit_event</Operation>
+            <Operation>copy</Operation>
+            <Operation>write</Operation>
+            <Operation>delete</Operation>
+            <Operation>edit_permission</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_mep</Operation>
+            <Operation>create_feed</Operation>
+            <Operation>create_chtr</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_icrs</Operation>
+            <Operation>create_dbk</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_mep</Operation>
+            <Path>
+                <Element ref_id="1" type="root">Path1</Element>
+                <Element ref_id="294" type="cat">Path2</Element>
+                <Element ref_id="29271" type="cat">Path3</Element>
+                <Element ref_id="7266" type="cat">Path4</Element>
+                <Element ref_id="44525" type="crs">Path5</Element>
+                <Element ref_id="44528" type="fold">Groups</Element>
+            </Path>
+        </References>
+    </Object>
+    <Object type="grp" obj_id="215146">
+        <Title>Group B02</Title>
+        <Description>Credentials: dbUser12</Description>
+        <Owner>183084</Owner>
+        <CreateDate>2015-03-17 12:09:35</CreateDate>
+        <LastUpdate>2016-03-21 14:18:18</LastUpdate>
+        <ImportId/>
+        <References ref_id="146468" parent_id="44528" accessInfo="granted">
+            <TimeTarget type="0">
+                <Timing starting_time="1426590578" ending_time="1426590578" visibility="0"/>
+                <Suggestion starting_time="1426590578" ending_time="1426590578" changeable="0"
+                            earliest_start="1426590578"
+                            latest_end="1426632900"/>
+            </TimeTarget>
+            <Operation>visible</Operation>
+            <Operation>join</Operation>
+            <Operation>leave</Operation>
+            <Operation>read</Operation>
+            <Operation>read_learning_progress</Operation>
+            <Operation>edit_learning_progress</Operation>
+            <Operation>edit_event</Operation>
+            <Operation>copy</Operation>
+            <Operation>write</Operation>
+            <Operation>delete</Operation>
+            <Operation>edit_permission</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_mep</Operation>
+            <Operation>create_feed</Operation>
+            <Operation>create_chtr</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_icrs</Operation>
+            <Operation>create_dbk</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_mep</Operation>
+            <Path>
+                <Element ref_id="1" type="root">Path1</Element>
+                <Element ref_id="294" type="cat">Path2</Element>
+                <Element ref_id="29271" type="cat">Path3</Element>
+                <Element ref_id="7266" type="cat">Path4</Element>
+                <Element ref_id="44525" type="crs">Path5</Element>
+                <Element ref_id="44528" type="fold">Groups</Element>
+            </Path>
+        </References>
+    </Object>
+    <Object type="grp" obj_id="215150">
+        <Title>Group B03</Title>
+        <Description>Credentials: dbUser13</Description>
+        <Owner>183084</Owner>
+        <CreateDate>2015-03-17 12:11:22</CreateDate>
+        <LastUpdate>2016-03-21 14:17:56</LastUpdate>
+        <ImportId/>
+        <References ref_id="146470" parent_id="44528" accessInfo="granted">
+            <TimeTarget type="0">
+                <Timing starting_time="1426590685" ending_time="1426590685" visibility="0"/>
+                <Suggestion starting_time="1426590685" ending_time="1426590685" changeable="0"
+                            earliest_start="1426590685"
+                            latest_end="1426632900"/>
+            </TimeTarget>
+            <Operation>visible</Operation>
+            <Operation>join</Operation>
+            <Operation>leave</Operation>
+            <Operation>read</Operation>
+            <Operation>read_learning_progress</Operation>
+            <Operation>edit_learning_progress</Operation>
+            <Operation>edit_event</Operation>
+            <Operation>copy</Operation>
+            <Operation>write</Operation>
+            <Operation>delete</Operation>
+            <Operation>edit_permission</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_mep</Operation>
+            <Operation>create_feed</Operation>
+            <Operation>create_chtr</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_icrs</Operation>
+            <Operation>create_dbk</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_mep</Operation>
+            <Path>
+                <Element ref_id="1" type="root">Path1</Element>
+                <Element ref_id="294" type="cat">Path2</Element>
+                <Element ref_id="29271" type="cat">Path3</Element>
+                <Element ref_id="7266" type="cat">Path4</Element>
+                <Element ref_id="44525" type="crs">Path5</Element>
+                <Element ref_id="44528" type="fold">Groups</Element>
+            </Path>
+        </References>
+    </Object>
+    <Object type="grp" obj_id="215159">
+        <Title>Group B04</Title>
+        <Description>Credentials: dbUser14</Description>
+        <Owner>183084</Owner>
+        <CreateDate>2015-03-17 12:12:58</CreateDate>
+        <LastUpdate>2016-03-21 14:17:31</LastUpdate>
+        <ImportId/>
+        <References ref_id="146475" parent_id="44528" accessInfo="granted">
+            <TimeTarget type="0">
+                <Timing starting_time="1426590781" ending_time="1426590781" visibility="0"/>
+                <Suggestion starting_time="1426590781" ending_time="1426590781" changeable="0"
+                            earliest_start="1426590781"
+                            latest_end="1426632900"/>
+            </TimeTarget>
+            <Operation>visible</Operation>
+            <Operation>join</Operation>
+            <Operation>leave</Operation>
+            <Operation>read</Operation>
+            <Operation>read_learning_progress</Operation>
+            <Operation>edit_learning_progress</Operation>
+            <Operation>edit_event</Operation>
+            <Operation>copy</Operation>
+            <Operation>write</Operation>
+            <Operation>delete</Operation>
+            <Operation>edit_permission</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_mep</Operation>
+            <Operation>create_feed</Operation>
+            <Operation>create_chtr</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_icrs</Operation>
+            <Operation>create_dbk</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_mep</Operation>
+            <Path>
+                <Element ref_id="1" type="root">Path1</Element>
+                <Element ref_id="294" type="cat">Path2</Element>
+                <Element ref_id="29271" type="cat">Path3</Element>
+                <Element ref_id="7266" type="cat">Path4</Element>
+                <Element ref_id="44525" type="crs">Path5</Element>
+                <Element ref_id="44528" type="fold">Groups</Element>
+            </Path>
+        </References>
+    </Object>
+    <Object type="grp" obj_id="215163">
+        <Title>Group B05</Title>
+        <Description>Credentials: dbUser15</Description>
+        <Owner>183084</Owner>
+        <CreateDate>2015-03-17 12:13:32</CreateDate>
+        <LastUpdate>2016-03-21 14:17:08</LastUpdate>
+        <ImportId/>
+        <References ref_id="146477" parent_id="44528" accessInfo="granted">
+            <TimeTarget type="0">
+                <Timing starting_time="1426590815" ending_time="1426590815" visibility="0"/>
+                <Suggestion starting_time="1426590815" ending_time="1426590815" changeable="0"
+                            earliest_start="1426590815"
+                            latest_end="1426632900"/>
+            </TimeTarget>
+            <Operation>visible</Operation>
+            <Operation>join</Operation>
+            <Operation>leave</Operation>
+            <Operation>read</Operation>
+            <Operation>read_learning_progress</Operation>
+            <Operation>edit_learning_progress</Operation>
+            <Operation>edit_event</Operation>
+            <Operation>copy</Operation>
+            <Operation>write</Operation>
+            <Operation>delete</Operation>
+            <Operation>edit_permission</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_mep</Operation>
+            <Operation>create_feed</Operation>
+            <Operation>create_chtr</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_icrs</Operation>
+            <Operation>create_dbk</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_mep</Operation>
+            <Path>
+                <Element ref_id="1" type="root">Path1</Element>
+                <Element ref_id="294" type="cat">Path2</Element>
+                <Element ref_id="29271" type="cat">Path3</Element>
+                <Element ref_id="7266" type="cat">Path4</Element>
+                <Element ref_id="44525" type="crs">Path5</Element>
+                <Element ref_id="44528" type="fold">Groups</Element>
+            </Path>
+        </References>
+    </Object>
+    <Object type="fold" obj_id="89039">
+        <Title>Folder1</Title>
+        <Description/>
+        <Owner>43870</Owner>
+        <CreateDate>2012-02-14 14:50:09</CreateDate>
+        <LastUpdate>2012-02-14 14:50:09</LastUpdate>
+        <ImportId/>
+        <References ref_id="44528" parent_id="44525" accessInfo="granted">
+            <TimeTarget type="0">
+                <Timing starting_time="1412846400" ending_time="1422798600" visibility="0"/>
+                <Suggestion starting_time="1329177600" ending_time="1329177600" changeable="0"
+                            earliest_start="1329177600"
+                            latest_end="1329177600"/>
+            </TimeTarget>
+            <Operation>visible</Operation>
+            <Operation>read</Operation>
+            <Operation>read_learning_progress</Operation>
+            <Operation>edit_learning_progress</Operation>
+            <Operation>copy</Operation>
+            <Operation>write</Operation>
+            <Operation>delete</Operation>
+            <Operation>edit_permission</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_mep</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_icrs</Operation>
+            <Operation>create_dbk</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_chtr</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_mep</Operation>
+            <Path>
+                <Element ref_id="1" type="root">Path1</Element>
+                <Element ref_id="294" type="cat">Path2</Element>
+                <Element ref_id="29271" type="cat">Path3</Element>
+                <Element ref_id="7266" type="cat">Path4</Element>
+                <Element ref_id="44525" type="crs">CS 133a</Element>
+            </Path>
+        </References>
+    </Object>
+    <Object type="fold" obj_id="89038">
+        <Title>Scripts</Title>
+        <Description/>
+        <Owner>43870</Owner>
+        <CreateDate>2012-02-14 14:49:59</CreateDate>
+        <LastUpdate>2012-02-14 14:49:59</LastUpdate>
+        <ImportId/>
+        <References ref_id="44527" parent_id="44525" accessInfo="granted">
+            <TimeTarget type="0">
+                <Timing starting_time="1378075800" ending_time="1392385800" visibility="0"/>
+                <Suggestion starting_time="1329177600" ending_time="1329177600" changeable="0"
+                            earliest_start="1329177600"
+                            latest_end="1329177600"/>
+            </TimeTarget>
+            <Operation>visible</Operation>
+            <Operation>read</Operation>
+            <Operation>read_learning_progress</Operation>
+            <Operation>edit_learning_progress</Operation>
+            <Operation>copy</Operation>
+            <Operation>write</Operation>
+            <Operation>delete</Operation>
+            <Operation>edit_permission</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_mep</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_icrs</Operation>
+            <Operation>create_dbk</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_chtr</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_mep</Operation>
+            <Path>
+                <Element ref_id="1" type="root">Path1</Element>
+                <Element ref_id="294" type="cat">Path2</Element>
+                <Element ref_id="29271" type="cat">Path3</Element>
+                <Element ref_id="7266" type="cat">Path4</Element>
+                <Element ref_id="44525" type="crs">CS 133a</Element>
+            </Path>
+        </References>
+    </Object>
+    <Object type="webr" obj_id="99389">
+        <Title>Schedule</Title>
+        <Description/>
+        <Owner>14272</Owner>
+        <CreateDate>2012-06-11 09:03:21</CreateDate>
+        <LastUpdate>2016-09-01 12:19:43</LastUpdate>
+        <ImportId/>
+        <References ref_id="52456" parent_id="44525" accessInfo="granted">
+            <TimeTarget type="0">
+                <Timing starting_time="1339398207" ending_time="1339398207" visibility="0"/>
+                <Suggestion starting_time="1339398207" ending_time="1339398207" changeable="0"
+                            earliest_start="1339398207"
+                            latest_end="1339451700"/>
+            </TimeTarget>
+            <Operation>visible</Operation>
+            <Operation>read</Operation>
+            <Operation>copy</Operation>
+            <Operation>write</Operation>
+            <Operation>delete</Operation>
+            <Operation>edit_permission</Operation>
+            <Path>
+                <Element ref_id="1" type="root">Path1</Element>
+                <Element ref_id="294" type="cat">Path2</Element>
+                <Element ref_id="29271" type="cat">Path3</Element>
+                <Element ref_id="7266" type="cat">Path4</Element>
+                <Element ref_id="44525" type="crs">CS 133a</Element>
+            </Path>
+        </References>
+    </Object>
+    <Object type="webr" obj_id="285273">
+        <Title>Termine Wintersemester 2016 für B2</Title>
+        <Description/>
+        <Owner>14272</Owner>
+        <CreateDate>2016-09-01 12:20:14</CreateDate>
+        <LastUpdate>2016-09-01 12:21:19</LastUpdate>
+        <ImportId/>
+        <References ref_id="204762" parent_id="44525" accessInfo="granted">
+            <TimeTarget type="0">
+                <Timing starting_time="1472725215" ending_time="1472725215" visibility="0"/>
+                <Suggestion starting_time="1472725215" ending_time="1472725215" changeable="0"
+                            earliest_start="1472725215"
+                            latest_end="1472766900"/>
+            </TimeTarget>
+            <Operation>visible</Operation>
+            <Operation>read</Operation>
+            <Operation>copy</Operation>
+            <Operation>write</Operation>
+            <Operation>delete</Operation>
+            <Operation>edit_permission</Operation>
+            <Path>
+                <Element ref_id="1" type="root">Path1</Element>
+                <Element ref_id="294" type="cat">Path2</Element>
+                <Element ref_id="29271" type="cat">Path3</Element>
+                <Element ref_id="7266" type="cat">Path4</Element>
+                <Element ref_id="44525" type="crs">CS 133a</Element>
+            </Path>
+        </References>
+    </Object>
+    <Object type="fold" obj_id="89041">
+        <Title>Lecture Materials</Title>
+        <Description/>
+        <Owner>43870</Owner>
+        <CreateDate>2012-02-14 14:52:36</CreateDate>
+        <LastUpdate>2012-02-14 14:52:36</LastUpdate>
+        <ImportId/>
+        <References ref_id="44530" parent_id="44525" accessInfo="granted">
+            <TimeTarget type="0">
+                <Timing starting_time="1329227557" ending_time="1329227557" visibility="0"/>
+                <Suggestion starting_time="1329227557" ending_time="1329227557" changeable="0"
+                            earliest_start="1329227557"
+                            latest_end="1329260100"/>
+            </TimeTarget>
+            <Operation>visible</Operation>
+            <Operation>read</Operation>
+            <Operation>read_learning_progress</Operation>
+            <Operation>edit_learning_progress</Operation>
+            <Operation>copy</Operation>
+            <Operation>write</Operation>
+            <Operation>delete</Operation>
+            <Operation>edit_permission</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_mep</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_icrs</Operation>
+            <Operation>create_dbk</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_chtr</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_mep</Operation>
+            <Path>
+                <Element ref_id="1" type="root">Path1</Element>
+                <Element ref_id="294" type="cat">Path2</Element>
+                <Element ref_id="29271" type="cat">Path3</Element>
+                <Element ref_id="7266" type="cat">Path4</Element>
+                <Element ref_id="44525" type="crs">CS 133a</Element>
+            </Path>
+        </References>
+    </Object>
+    <Object type="grp" obj_id="215155">
+        <Title>Group B06</Title>
+        <Description>Credentials: dbUser16</Description>
+        <Owner>183084</Owner>
+        <CreateDate>2015-03-17 12:12:46</CreateDate>
+        <LastUpdate>2016-03-21 14:16:33</LastUpdate>
+        <ImportId/>
+        <References ref_id="146473" parent_id="44528" accessInfo="granted">
+            <TimeTarget type="0">
+                <Timing starting_time="1426590769" ending_time="1426590769" visibility="0"/>
+                <Suggestion starting_time="1426590769" ending_time="1426590769" changeable="0"
+                            earliest_start="1426590769"
+                            latest_end="1426632900"/>
+            </TimeTarget>
+            <Operation>visible</Operation>
+            <Operation>join</Operation>
+            <Operation>leave</Operation>
+            <Operation>read</Operation>
+            <Operation>read_learning_progress</Operation>
+            <Operation>edit_learning_progress</Operation>
+            <Operation>edit_event</Operation>
+            <Operation>copy</Operation>
+            <Operation>write</Operation>
+            <Operation>delete</Operation>
+            <Operation>edit_permission</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_mep</Operation>
+            <Operation>create_feed</Operation>
+            <Operation>create_chtr</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_icrs</Operation>
+            <Operation>create_dbk</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_mep</Operation>
+            <Path>
+                <Element ref_id="1" type="root">Path1</Element>
+                <Element ref_id="294" type="cat">Path2</Element>
+                <Element ref_id="29271" type="cat">Path3</Element>
+                <Element ref_id="7266" type="cat">Path4</Element>
+                <Element ref_id="44525" type="crs">Path5</Element>
+                <Element ref_id="44528" type="fold">Groups</Element>
+            </Path>
+        </References>
+    </Object>
+    <Object type="grp" obj_id="215167">
+        <Title>Group B07</Title>
+        <Description>Credentials: dbUser17</Description>
+        <Owner>183084</Owner>
+        <CreateDate>2015-03-17 12:14:27</CreateDate>
+        <LastUpdate>2016-03-21 14:16:03</LastUpdate>
+        <ImportId/>
+        <References ref_id="146479" parent_id="44528" accessInfo="granted">
+            <TimeTarget type="0">
+                <Timing starting_time="1426590870" ending_time="1426590870" visibility="0"/>
+                <Suggestion starting_time="1426590870" ending_time="1426590870" changeable="0"
+                            earliest_start="1426590870"
+                            latest_end="1426632900"/>
+            </TimeTarget>
+            <Operation>visible</Operation>
+            <Operation>join</Operation>
+            <Operation>leave</Operation>
+            <Operation>read</Operation>
+            <Operation>read_learning_progress</Operation>
+            <Operation>edit_learning_progress</Operation>
+            <Operation>edit_event</Operation>
+            <Operation>copy</Operation>
+            <Operation>write</Operation>
+            <Operation>delete</Operation>
+            <Operation>edit_permission</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_mep</Operation>
+            <Operation>create_feed</Operation>
+            <Operation>create_chtr</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_icrs</Operation>
+            <Operation>create_dbk</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_mep</Operation>
+            <Path>
+                <Element ref_id="1" type="root">Path1</Element>
+                <Element ref_id="294" type="cat">Path2</Element>
+                <Element ref_id="29271" type="cat">Path3</Element>
+                <Element ref_id="7266" type="cat">Path4</Element>
+                <Element ref_id="44525" type="crs">Path5</Element>
+                <Element ref_id="44528" type="fold">Groups</Element>
+            </Path>
+        </References>
+    </Object>
+    <Object type="grp" obj_id="215171">
+        <Title>Group B08</Title>
+        <Description>Credentials: dbUser18</Description>
+        <Owner>183084</Owner>
+        <CreateDate>2015-03-17 12:15:14</CreateDate>
+        <LastUpdate>2016-03-21 14:15:41</LastUpdate>
+        <ImportId/>
+        <References ref_id="146481" parent_id="44528" accessInfo="granted">
+            <TimeTarget type="0">
+                <Timing starting_time="1426590916" ending_time="1426590916" visibility="0"/>
+                <Suggestion starting_time="1426590916" ending_time="1426590916" changeable="0"
+                            earliest_start="1426590916"
+                            latest_end="1426632900"/>
+            </TimeTarget>
+            <Operation>visible</Operation>
+            <Operation>join</Operation>
+            <Operation>leave</Operation>
+            <Operation>read</Operation>
+            <Operation>read_learning_progress</Operation>
+            <Operation>edit_learning_progress</Operation>
+            <Operation>edit_event</Operation>
+            <Operation>copy</Operation>
+            <Operation>write</Operation>
+            <Operation>delete</Operation>
+            <Operation>edit_permission</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_mep</Operation>
+            <Operation>create_feed</Operation>
+            <Operation>create_chtr</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_icrs</Operation>
+            <Operation>create_dbk</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_mep</Operation>
+            <Path>
+                <Element ref_id="1" type="root">Path1</Element>
+                <Element ref_id="294" type="cat">Path2</Element>
+                <Element ref_id="29271" type="cat">Path3</Element>
+                <Element ref_id="7266" type="cat">Path4</Element>
+                <Element ref_id="44525" type="crs">Path5</Element>
+                <Element ref_id="44528" type="fold">Groups</Element>
+            </Path>
+        </References>
+    </Object>
+    <Object type="grp" obj_id="215175">
+        <Title>Group B09</Title>
+        <Description>Credentials: dbUser19</Description>
+        <Owner>183084</Owner>
+        <CreateDate>2015-03-17 12:15:53</CreateDate>
+        <LastUpdate>2016-03-21 14:15:20</LastUpdate>
+        <ImportId/>
+        <References ref_id="146483" parent_id="44528" accessInfo="granted">
+            <TimeTarget type="0">
+                <Timing starting_time="1426590955" ending_time="1426590955" visibility="0"/>
+                <Suggestion starting_time="1426590955" ending_time="1426590955" changeable="0"
+                            earliest_start="1426590955"
+                            latest_end="1426632900"/>
+            </TimeTarget>
+            <Operation>visible</Operation>
+            <Operation>join</Operation>
+            <Operation>leave</Operation>
+            <Operation>read</Operation>
+            <Operation>read_learning_progress</Operation>
+            <Operation>edit_learning_progress</Operation>
+            <Operation>edit_event</Operation>
+            <Operation>copy</Operation>
+            <Operation>write</Operation>
+            <Operation>delete</Operation>
+            <Operation>edit_permission</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_mep</Operation>
+            <Operation>create_feed</Operation>
+            <Operation>create_chtr</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_icrs</Operation>
+            <Operation>create_dbk</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_mep</Operation>
+            <Path>
+                <Element ref_id="1" type="root">Path1</Element>
+                <Element ref_id="294" type="cat">Path2</Element>
+                <Element ref_id="29271" type="cat">Path3</Element>
+                <Element ref_id="7266" type="cat">Path4</Element>
+                <Element ref_id="44525" type="crs">Path5</Element>
+                <Element ref_id="44528" type="fold">Groups</Element>
+            </Path>
+        </References>
+    </Object>
+    <Object type="grp" obj_id="239758">
+        <Title>Group C01</Title>
+        <Description>Credentials: dbUser21</Description>
+        <Owner>183084</Owner>
+        <CreateDate>2015-10-02 14:25:13</CreateDate>
+        <LastUpdate>2016-03-21 14:20:33</LastUpdate>
+        <ImportId/>
+        <References ref_id="166821" parent_id="44528" accessInfo="granted">
+            <TimeTarget type="0">
+                <Timing starting_time="1443788714" ending_time="1443788714" visibility="0"/>
+                <Suggestion starting_time="1443788714" ending_time="1443788714" changeable="0"
+                            earliest_start="1443788714"
+                            latest_end="1443822900"/>
+            </TimeTarget>
+            <Operation>visible</Operation>
+            <Operation>join</Operation>
+            <Operation>leave</Operation>
+            <Operation>read</Operation>
+            <Operation>read_learning_progress</Operation>
+            <Operation>edit_learning_progress</Operation>
+            <Operation>edit_event</Operation>
+            <Operation>copy</Operation>
+            <Operation>write</Operation>
+            <Operation>delete</Operation>
+            <Operation>edit_permission</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_mep</Operation>
+            <Operation>create_feed</Operation>
+            <Operation>create_chtr</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_icrs</Operation>
+            <Operation>create_dbk</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_mep</Operation>
+            <Path>
+                <Element ref_id="1" type="root">Path1</Element>
+                <Element ref_id="294" type="cat">Path2</Element>
+                <Element ref_id="29271" type="cat">Path3</Element>
+                <Element ref_id="7266" type="cat">Path4</Element>
+                <Element ref_id="44525" type="crs">Path5</Element>
+                <Element ref_id="44528" type="fold">Groups</Element>
+            </Path>
+        </References>
+    </Object>
+    <Object type="grp" obj_id="239787">
+        <Title>Group C02</Title>
+        <Description>Credentials: dbUser22</Description>
+        <Owner>183084</Owner>
+        <CreateDate>2015-10-02 14:48:05</CreateDate>
+        <LastUpdate>2016-03-21 14:23:27</LastUpdate>
+        <ImportId/>
+        <References ref_id="166844" parent_id="44528" accessInfo="granted">
+            <TimeTarget type="0">
+                <Timing starting_time="1443790087" ending_time="1443790087" visibility="0"/>
+                <Suggestion starting_time="1443790087" ending_time="1443790087" changeable="0"
+                            earliest_start="1443790087"
+                            latest_end="1443822900"/>
+            </TimeTarget>
+            <Operation>visible</Operation>
+            <Operation>join</Operation>
+            <Operation>leave</Operation>
+            <Operation>read</Operation>
+            <Operation>read_learning_progress</Operation>
+            <Operation>edit_learning_progress</Operation>
+            <Operation>edit_event</Operation>
+            <Operation>copy</Operation>
+            <Operation>write</Operation>
+            <Operation>delete</Operation>
+            <Operation>edit_permission</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_mep</Operation>
+            <Operation>create_feed</Operation>
+            <Operation>create_chtr</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_icrs</Operation>
+            <Operation>create_dbk</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_mep</Operation>
+            <Path>
+                <Element ref_id="1" type="root">Path1</Element>
+                <Element ref_id="294" type="cat">Path2</Element>
+                <Element ref_id="29271" type="cat">Path3</Element>
+                <Element ref_id="7266" type="cat">Path4</Element>
+                <Element ref_id="44525" type="crs">Path5</Element>
+                <Element ref_id="44528" type="fold">Groups</Element>
+            </Path>
+        </References>
+    </Object>
+    <Object type="grp" obj_id="239791">
+        <Title>Group C03</Title>
+        <Description>Credentials: dbUser23</Description>
+        <Owner>183084</Owner>
+        <CreateDate>2015-10-02 14:48:31</CreateDate>
+        <LastUpdate>2016-03-21 14:23:09</LastUpdate>
+        <ImportId/>
+        <References ref_id="166846" parent_id="44528" accessInfo="granted">
+            <TimeTarget type="0">
+                <Timing starting_time="1443790113" ending_time="1443790113" visibility="0"/>
+                <Suggestion starting_time="1443790113" ending_time="1443790113" changeable="0"
+                            earliest_start="1443790113"
+                            latest_end="1443822900"/>
+            </TimeTarget>
+            <Operation>visible</Operation>
+            <Operation>join</Operation>
+            <Operation>leave</Operation>
+            <Operation>read</Operation>
+            <Operation>read_learning_progress</Operation>
+            <Operation>edit_learning_progress</Operation>
+            <Operation>edit_event</Operation>
+            <Operation>copy</Operation>
+            <Operation>write</Operation>
+            <Operation>delete</Operation>
+            <Operation>edit_permission</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_mep</Operation>
+            <Operation>create_feed</Operation>
+            <Operation>create_chtr</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_icrs</Operation>
+            <Operation>create_dbk</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_mep</Operation>
+            <Path>
+                <Element ref_id="1" type="root">Path1</Element>
+                <Element ref_id="294" type="cat">Path2</Element>
+                <Element ref_id="29271" type="cat">Path3</Element>
+                <Element ref_id="7266" type="cat">Path4</Element>
+                <Element ref_id="44525" type="crs">Path5</Element>
+                <Element ref_id="44528" type="fold">Groups</Element>
+            </Path>
+        </References>
+    </Object>
+    <Object type="fold" obj_id="89040">
+        <Title>Exams</Title>
+        <Description/>
+        <Owner>43870</Owner>
+        <CreateDate>2012-02-14 14:52:17</CreateDate>
+        <LastUpdate>2012-02-14 14:52:17</LastUpdate>
+        <ImportId/>
+        <References ref_id="44529" parent_id="44525" accessInfo="granted">
+            <TimeTarget type="0">
+                <Timing starting_time="1329227537" ending_time="1329227537" visibility="0"/>
+                <Suggestion starting_time="1329227537" ending_time="1329227537" changeable="0"
+                            earliest_start="1329227537"
+                            latest_end="1329260100"/>
+            </TimeTarget>
+            <Operation>visible</Operation>
+            <Operation>read</Operation>
+            <Operation>read_learning_progress</Operation>
+            <Operation>edit_learning_progress</Operation>
+            <Operation>copy</Operation>
+            <Operation>write</Operation>
+            <Operation>delete</Operation>
+            <Operation>edit_permission</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_mep</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_icrs</Operation>
+            <Operation>create_dbk</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_chtr</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_mep</Operation>
+            <Path>
+                <Element ref_id="1" type="root">Path1</Element>
+                <Element ref_id="294" type="cat">Path2</Element>
+                <Element ref_id="29271" type="cat">Path3</Element>
+                <Element ref_id="7266" type="cat">Path4</Element>
+                <Element ref_id="44525" type="crs">CS 133a</Element>
+            </Path>
+        </References>
+    </Object>
+    <Object type="grp" obj_id="239795">
+        <Title>Group C04</Title>
+        <Description>Credentials: dbUser24</Description>
+        <Owner>183084</Owner>
+        <CreateDate>2015-10-02 14:49:07</CreateDate>
+        <LastUpdate>2016-03-21 14:22:51</LastUpdate>
+        <ImportId/>
+        <References ref_id="166848" parent_id="44528" accessInfo="granted">
+            <TimeTarget type="0">
+                <Timing starting_time="1443790150" ending_time="1443790150" visibility="0"/>
+                <Suggestion starting_time="1443790150" ending_time="1443790150" changeable="0"
+                            earliest_start="1443790150"
+                            latest_end="1443822900"/>
+            </TimeTarget>
+            <Operation>visible</Operation>
+            <Operation>join</Operation>
+            <Operation>leave</Operation>
+            <Operation>read</Operation>
+            <Operation>read_learning_progress</Operation>
+            <Operation>edit_learning_progress</Operation>
+            <Operation>edit_event</Operation>
+            <Operation>copy</Operation>
+            <Operation>write</Operation>
+            <Operation>delete</Operation>
+            <Operation>edit_permission</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_mep</Operation>
+            <Operation>create_feed</Operation>
+            <Operation>create_chtr</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_icrs</Operation>
+            <Operation>create_dbk</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_mep</Operation>
+            <Path>
+                <Element ref_id="1" type="root">Path1</Element>
+                <Element ref_id="294" type="cat">Path2</Element>
+                <Element ref_id="29271" type="cat">Path3</Element>
+                <Element ref_id="7266" type="cat">Path4</Element>
+                <Element ref_id="44525" type="crs">Path5</Element>
+                <Element ref_id="44528" type="fold">Groups</Element>
+            </Path>
+        </References>
+    </Object>
+    <Object type="grp" obj_id="239799">
+        <Title>Group C05</Title>
+        <Description>Credentials: dbUser25</Description>
+        <Owner>183084</Owner>
+        <CreateDate>2015-10-02 14:49:31</CreateDate>
+        <LastUpdate>2016-03-21 14:22:35</LastUpdate>
+        <ImportId/>
+        <References ref_id="166850" parent_id="44528" accessInfo="granted">
+            <TimeTarget type="0">
+                <Timing starting_time="1443790173" ending_time="1443790173" visibility="0"/>
+                <Suggestion starting_time="1443790173" ending_time="1443790173" changeable="0"
+                            earliest_start="1443790173"
+                            latest_end="1443822900"/>
+            </TimeTarget>
+            <Operation>visible</Operation>
+            <Operation>join</Operation>
+            <Operation>leave</Operation>
+            <Operation>read</Operation>
+            <Operation>read_learning_progress</Operation>
+            <Operation>edit_learning_progress</Operation>
+            <Operation>edit_event</Operation>
+            <Operation>copy</Operation>
+            <Operation>write</Operation>
+            <Operation>delete</Operation>
+            <Operation>edit_permission</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_mep</Operation>
+            <Operation>create_feed</Operation>
+            <Operation>create_chtr</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_icrs</Operation>
+            <Operation>create_dbk</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_mep</Operation>
+            <Path>
+                <Element ref_id="1" type="root">Path1</Element>
+                <Element ref_id="294" type="cat">Path2</Element>
+                <Element ref_id="29271" type="cat">Path3</Element>
+                <Element ref_id="7266" type="cat">Path4</Element>
+                <Element ref_id="44525" type="crs">Path5</Element>
+                <Element ref_id="44528" type="fold">Groups</Element>
+            </Path>
+        </References>
+    </Object>
+    <Object type="grp" obj_id="239803">
+        <Title>Group C06</Title>
+        <Description>Credentials: dbUser26</Description>
+        <Owner>183084</Owner>
+        <CreateDate>2015-10-02 14:50:16</CreateDate>
+        <LastUpdate>2016-03-21 14:22:09</LastUpdate>
+        <ImportId/>
+        <References ref_id="166852" parent_id="44528" accessInfo="granted">
+            <TimeTarget type="0">
+                <Timing starting_time="1443790219" ending_time="1443790219" visibility="0"/>
+                <Suggestion starting_time="1443790219" ending_time="1443790219" changeable="0"
+                            earliest_start="1443790219"
+                            latest_end="1443822900"/>
+            </TimeTarget>
+            <Operation>visible</Operation>
+            <Operation>join</Operation>
+            <Operation>leave</Operation>
+            <Operation>read</Operation>
+            <Operation>read_learning_progress</Operation>
+            <Operation>edit_learning_progress</Operation>
+            <Operation>edit_event</Operation>
+            <Operation>copy</Operation>
+            <Operation>write</Operation>
+            <Operation>delete</Operation>
+            <Operation>edit_permission</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_mep</Operation>
+            <Operation>create_feed</Operation>
+            <Operation>create_chtr</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_icrs</Operation>
+            <Operation>create_dbk</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_mep</Operation>
+            <Path>
+                <Element ref_id="1" type="root">Path1</Element>
+                <Element ref_id="294" type="cat">Path2</Element>
+                <Element ref_id="29271" type="cat">Path3</Element>
+                <Element ref_id="7266" type="cat">Path4</Element>
+                <Element ref_id="44525" type="crs">Path5</Element>
+                <Element ref_id="44528" type="fold">Groups</Element>
+            </Path>
+        </References>
+    </Object>
+    <Object type="grp" obj_id="239807">
+        <Title>Group C07</Title>
+        <Description>Credentials: dbUser27</Description>
+        <Owner>183084</Owner>
+        <CreateDate>2015-10-02 14:50:44</CreateDate>
+        <LastUpdate>2016-03-21 14:21:47</LastUpdate>
+        <ImportId/>
+        <References ref_id="166854" parent_id="44528" accessInfo="granted">
+            <TimeTarget type="0">
+                <Timing starting_time="1443790246" ending_time="1443790246" visibility="0"/>
+                <Suggestion starting_time="1443790246" ending_time="1443790246" changeable="0"
+                            earliest_start="1443790246"
+                            latest_end="1443822900"/>
+            </TimeTarget>
+            <Operation>visible</Operation>
+            <Operation>join</Operation>
+            <Operation>leave</Operation>
+            <Operation>read</Operation>
+            <Operation>read_learning_progress</Operation>
+            <Operation>edit_learning_progress</Operation>
+            <Operation>edit_event</Operation>
+            <Operation>copy</Operation>
+            <Operation>write</Operation>
+            <Operation>delete</Operation>
+            <Operation>edit_permission</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_mep</Operation>
+            <Operation>create_feed</Operation>
+            <Operation>create_chtr</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_icrs</Operation>
+            <Operation>create_dbk</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_mep</Operation>
+            <Path>
+                <Element ref_id="1" type="root">Path1</Element>
+                <Element ref_id="294" type="cat">Path2</Element>
+                <Element ref_id="29271" type="cat">Path3</Element>
+                <Element ref_id="7266" type="cat">Path4</Element>
+                <Element ref_id="44525" type="crs">Path5</Element>
+                <Element ref_id="44528" type="fold">Groups</Element>
+            </Path>
+        </References>
+    </Object>
+    <Object type="grp" obj_id="239811">
+        <Title>Group C08</Title>
+        <Description>Credentials: dbUser28</Description>
+        <Owner>183084</Owner>
+        <CreateDate>2015-10-02 14:51:05</CreateDate>
+        <LastUpdate>2016-03-21 14:21:28</LastUpdate>
+        <ImportId/>
+        <References ref_id="166856" parent_id="44528" accessInfo="granted">
+            <TimeTarget type="0">
+                <Timing starting_time="1443790268" ending_time="1443790268" visibility="0"/>
+                <Suggestion starting_time="1443790268" ending_time="1443790268" changeable="0"
+                            earliest_start="1443790268"
+                            latest_end="1443822900"/>
+            </TimeTarget>
+            <Operation>visible</Operation>
+            <Operation>join</Operation>
+            <Operation>leave</Operation>
+            <Operation>read</Operation>
+            <Operation>read_learning_progress</Operation>
+            <Operation>edit_learning_progress</Operation>
+            <Operation>edit_event</Operation>
+            <Operation>copy</Operation>
+            <Operation>write</Operation>
+            <Operation>delete</Operation>
+            <Operation>edit_permission</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_mep</Operation>
+            <Operation>create_feed</Operation>
+            <Operation>create_chtr</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_icrs</Operation>
+            <Operation>create_dbk</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_mep</Operation>
+            <Path>
+                <Element ref_id="1" type="root">Path1</Element>
+                <Element ref_id="294" type="cat">Path2</Element>
+                <Element ref_id="29271" type="cat">Path3</Element>
+                <Element ref_id="7266" type="cat">Path4</Element>
+                <Element ref_id="44525" type="crs">Path5</Element>
+                <Element ref_id="44528" type="fold">Groups</Element>
+            </Path>
+        </References>
+    </Object>
+    <Object type="grp" obj_id="239783">
+        <Title>Group C09</Title>
+        <Description>Credentials: dbUser29</Description>
+        <Owner>183084</Owner>
+        <CreateDate>2015-10-02 14:47:05</CreateDate>
+        <LastUpdate>2016-03-21 14:21:04</LastUpdate>
+        <ImportId/>
+        <References ref_id="166842" parent_id="44528" accessInfo="granted">
+            <TimeTarget type="0">
+                <Timing starting_time="1443790027" ending_time="1443790027" visibility="0"/>
+                <Suggestion starting_time="1443790027" ending_time="1443790027" changeable="0"
+                            earliest_start="1443790027"
+                            latest_end="1443822900"/>
+            </TimeTarget>
+            <Operation>visible</Operation>
+            <Operation>join</Operation>
+            <Operation>leave</Operation>
+            <Operation>read</Operation>
+            <Operation>read_learning_progress</Operation>
+            <Operation>edit_learning_progress</Operation>
+            <Operation>edit_event</Operation>
+            <Operation>copy</Operation>
+            <Operation>write</Operation>
+            <Operation>delete</Operation>
+            <Operation>edit_permission</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_mep</Operation>
+            <Operation>create_feed</Operation>
+            <Operation>create_chtr</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_icrs</Operation>
+            <Operation>create_dbk</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_mep</Operation>
+            <Path>
+                <Element ref_id="1" type="root">Path1</Element>
+                <Element ref_id="294" type="cat">Path2</Element>
+                <Element ref_id="29271" type="cat">Path3</Element>
+                <Element ref_id="7266" type="cat">Path4</Element>
+                <Element ref_id="44525" type="crs">Path5</Element>
+                <Element ref_id="44528" type="fold">Groups</Element>
+            </Path>
+        </References>
+    </Object>
+    <Object type="grp" obj_id="239819">
+        <Title>Group D01</Title>
+        <Description>Credentials: dbUser31</Description>
+        <Owner>183084</Owner>
+        <CreateDate>2015-10-02 14:54:38</CreateDate>
+        <LastUpdate>2016-03-21 14:27:58</LastUpdate>
+        <ImportId/>
+        <References ref_id="166862" parent_id="44528" accessInfo="granted">
+            <TimeTarget type="0">
+                <Timing starting_time="1443790481" ending_time="1443790481" visibility="0"/>
+                <Suggestion starting_time="1443790481" ending_time="1443790481" changeable="0"
+                            earliest_start="1443790481"
+                            latest_end="1443822900"/>
+            </TimeTarget>
+            <Operation>visible</Operation>
+            <Operation>join</Operation>
+            <Operation>leave</Operation>
+            <Operation>read</Operation>
+            <Operation>read_learning_progress</Operation>
+            <Operation>edit_learning_progress</Operation>
+            <Operation>edit_event</Operation>
+            <Operation>copy</Operation>
+            <Operation>write</Operation>
+            <Operation>delete</Operation>
+            <Operation>edit_permission</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_mep</Operation>
+            <Operation>create_feed</Operation>
+            <Operation>create_chtr</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_icrs</Operation>
+            <Operation>create_dbk</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_mep</Operation>
+            <Path>
+                <Element ref_id="1" type="root">Path1</Element>
+                <Element ref_id="294" type="cat">Path2</Element>
+                <Element ref_id="29271" type="cat">Path3</Element>
+                <Element ref_id="7266" type="cat">Path4</Element>
+                <Element ref_id="44525" type="crs">Path5</Element>
+                <Element ref_id="44528" type="fold">Groups</Element>
+            </Path>
+        </References>
+    </Object>
+    <Object type="grp" obj_id="239828">
+        <Title>Group D02</Title>
+        <Description>Credentials: dbUser32</Description>
+        <Owner>183084</Owner>
+        <CreateDate>2015-10-02 14:55:53</CreateDate>
+        <LastUpdate>2016-03-21 14:27:38</LastUpdate>
+        <ImportId/>
+        <References ref_id="166867" parent_id="44528" accessInfo="granted">
+            <TimeTarget type="0">
+                <Timing starting_time="1443790556" ending_time="1443790556" visibility="0"/>
+                <Suggestion starting_time="1443790556" ending_time="1443790556" changeable="0"
+                            earliest_start="1443790556"
+                            latest_end="1443822900"/>
+            </TimeTarget>
+            <Operation>visible</Operation>
+            <Operation>join</Operation>
+            <Operation>leave</Operation>
+            <Operation>read</Operation>
+            <Operation>read_learning_progress</Operation>
+            <Operation>edit_learning_progress</Operation>
+            <Operation>edit_event</Operation>
+            <Operation>copy</Operation>
+            <Operation>write</Operation>
+            <Operation>delete</Operation>
+            <Operation>edit_permission</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_mep</Operation>
+            <Operation>create_feed</Operation>
+            <Operation>create_chtr</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_icrs</Operation>
+            <Operation>create_dbk</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_mep</Operation>
+            <Path>
+                <Element ref_id="1" type="root">Path1</Element>
+                <Element ref_id="294" type="cat">Path2</Element>
+                <Element ref_id="29271" type="cat">Path3</Element>
+                <Element ref_id="7266" type="cat">Path4</Element>
+                <Element ref_id="44525" type="crs">Path5</Element>
+                <Element ref_id="44528" type="fold">Groups</Element>
+            </Path>
+        </References>
+    </Object>
+    <Object type="grp" obj_id="239832">
+        <Title>Group D03</Title>
+        <Description>Credentials: dbUser33</Description>
+        <Owner>183084</Owner>
+        <CreateDate>2015-10-02 14:56:15</CreateDate>
+        <LastUpdate>2016-03-21 14:27:22</LastUpdate>
+        <ImportId/>
+        <References ref_id="166869" parent_id="44528" accessInfo="granted">
+            <TimeTarget type="0">
+                <Timing starting_time="1443790578" ending_time="1443790578" visibility="0"/>
+                <Suggestion starting_time="1443790578" ending_time="1443790578" changeable="0"
+                            earliest_start="1443790578"
+                            latest_end="1443822900"/>
+            </TimeTarget>
+            <Operation>visible</Operation>
+            <Operation>join</Operation>
+            <Operation>leave</Operation>
+            <Operation>read</Operation>
+            <Operation>read_learning_progress</Operation>
+            <Operation>edit_learning_progress</Operation>
+            <Operation>edit_event</Operation>
+            <Operation>copy</Operation>
+            <Operation>write</Operation>
+            <Operation>delete</Operation>
+            <Operation>edit_permission</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_mep</Operation>
+            <Operation>create_feed</Operation>
+            <Operation>create_chtr</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_icrs</Operation>
+            <Operation>create_dbk</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_mep</Operation>
+            <Path>
+                <Element ref_id="1" type="root">Path1</Element>
+                <Element ref_id="294" type="cat">Path2</Element>
+                <Element ref_id="29271" type="cat">Path3</Element>
+                <Element ref_id="7266" type="cat">Path4</Element>
+                <Element ref_id="44525" type="crs">Path5</Element>
+                <Element ref_id="44528" type="fold">Groups</Element>
+            </Path>
+        </References>
+    </Object>
+    <Object type="grp" obj_id="239837">
+        <Title>Group D04</Title>
+        <Description>Credentials: dbUser34</Description>
+        <Owner>183084</Owner>
+        <CreateDate>2015-10-02 14:56:37</CreateDate>
+        <LastUpdate>2016-03-21 14:27:05</LastUpdate>
+        <ImportId/>
+        <References ref_id="166872" parent_id="44528" accessInfo="granted">
+            <TimeTarget type="0">
+                <Timing starting_time="1443790600" ending_time="1443790600" visibility="0"/>
+                <Suggestion starting_time="1443790600" ending_time="1443790600" changeable="0"
+                            earliest_start="1443790600"
+                            latest_end="1443822900"/>
+            </TimeTarget>
+            <Operation>visible</Operation>
+            <Operation>join</Operation>
+            <Operation>leave</Operation>
+            <Operation>read</Operation>
+            <Operation>read_learning_progress</Operation>
+            <Operation>edit_learning_progress</Operation>
+            <Operation>edit_event</Operation>
+            <Operation>copy</Operation>
+            <Operation>write</Operation>
+            <Operation>delete</Operation>
+            <Operation>edit_permission</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_mep</Operation>
+            <Operation>create_feed</Operation>
+            <Operation>create_chtr</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_icrs</Operation>
+            <Operation>create_dbk</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_mep</Operation>
+            <Path>
+                <Element ref_id="1" type="root">Path1</Element>
+                <Element ref_id="294" type="cat">Path2</Element>
+                <Element ref_id="29271" type="cat">Path3</Element>
+                <Element ref_id="7266" type="cat">Path4</Element>
+                <Element ref_id="44525" type="crs">Path5</Element>
+                <Element ref_id="44528" type="fold">Groups</Element>
+            </Path>
+        </References>
+    </Object>
+    <Object type="grp" obj_id="239841">
+        <Title>Group D05</Title>
+        <Description>Credentials: dbUser35</Description>
+        <Owner>183084</Owner>
+        <CreateDate>2015-10-02 14:57:07</CreateDate>
+        <LastUpdate>2016-03-21 14:26:48</LastUpdate>
+        <ImportId/>
+        <References ref_id="166874" parent_id="44528" accessInfo="granted">
+            <TimeTarget type="0">
+                <Timing starting_time="1443790629" ending_time="1443790629" visibility="0"/>
+                <Suggestion starting_time="1443790629" ending_time="1443790629" changeable="0"
+                            earliest_start="1443790629"
+                            latest_end="1443822900"/>
+            </TimeTarget>
+            <Operation>visible</Operation>
+            <Operation>join</Operation>
+            <Operation>leave</Operation>
+            <Operation>read</Operation>
+            <Operation>read_learning_progress</Operation>
+            <Operation>edit_learning_progress</Operation>
+            <Operation>edit_event</Operation>
+            <Operation>copy</Operation>
+            <Operation>write</Operation>
+            <Operation>delete</Operation>
+            <Operation>edit_permission</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_mep</Operation>
+            <Operation>create_feed</Operation>
+            <Operation>create_chtr</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_icrs</Operation>
+            <Operation>create_dbk</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_mep</Operation>
+            <Path>
+                <Element ref_id="1" type="root">Path1</Element>
+                <Element ref_id="294" type="cat">Path2</Element>
+                <Element ref_id="29271" type="cat">Path3</Element>
+                <Element ref_id="7266" type="cat">Path4</Element>
+                <Element ref_id="44525" type="crs">Path5</Element>
+                <Element ref_id="44528" type="fold">Groups</Element>
+            </Path>
+        </References>
+    </Object>
+    <Object type="grp" obj_id="239845">
+        <Title>Group D06</Title>
+        <Description>Credentials: dbUser36</Description>
+        <Owner>183084</Owner>
+        <CreateDate>2015-10-02 14:57:29</CreateDate>
+        <LastUpdate>2016-03-21 14:26:32</LastUpdate>
+        <ImportId/>
+        <References ref_id="166876" parent_id="44528" accessInfo="granted">
+            <TimeTarget type="0">
+                <Timing starting_time="1443790651" ending_time="1443790651" visibility="0"/>
+                <Suggestion starting_time="1443790651" ending_time="1443790651" changeable="0"
+                            earliest_start="1443790651"
+                            latest_end="1443822900"/>
+            </TimeTarget>
+            <Operation>visible</Operation>
+            <Operation>join</Operation>
+            <Operation>leave</Operation>
+            <Operation>read</Operation>
+            <Operation>read_learning_progress</Operation>
+            <Operation>edit_learning_progress</Operation>
+            <Operation>edit_event</Operation>
+            <Operation>copy</Operation>
+            <Operation>write</Operation>
+            <Operation>delete</Operation>
+            <Operation>edit_permission</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_mep</Operation>
+            <Operation>create_feed</Operation>
+            <Operation>create_chtr</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_icrs</Operation>
+            <Operation>create_dbk</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_mep</Operation>
+            <Path>
+                <Element ref_id="1" type="root">Path1</Element>
+                <Element ref_id="294" type="cat">Path2</Element>
+                <Element ref_id="29271" type="cat">Path3</Element>
+                <Element ref_id="7266" type="cat">Path4</Element>
+                <Element ref_id="44525" type="crs">Path5</Element>
+                <Element ref_id="44528" type="fold">Groups</Element>
+            </Path>
+        </References>
+    </Object>
+    <Object type="grp" obj_id="239849">
+        <Title>Group D07</Title>
+        <Description>Credentials: dbUser37</Description>
+        <Owner>183084</Owner>
+        <CreateDate>2015-10-02 14:57:49</CreateDate>
+        <LastUpdate>2016-03-21 14:26:17</LastUpdate>
+        <ImportId/>
+        <References ref_id="166878" parent_id="44528" accessInfo="granted">
+            <TimeTarget type="0">
+                <Timing starting_time="1443790671" ending_time="1443790671" visibility="0"/>
+                <Suggestion starting_time="1443790671" ending_time="1443790671" changeable="0"
+                            earliest_start="1443790671"
+                            latest_end="1443822900"/>
+            </TimeTarget>
+            <Operation>visible</Operation>
+            <Operation>join</Operation>
+            <Operation>leave</Operation>
+            <Operation>read</Operation>
+            <Operation>read_learning_progress</Operation>
+            <Operation>edit_learning_progress</Operation>
+            <Operation>edit_event</Operation>
+            <Operation>copy</Operation>
+            <Operation>write</Operation>
+            <Operation>delete</Operation>
+            <Operation>edit_permission</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_mep</Operation>
+            <Operation>create_feed</Operation>
+            <Operation>create_chtr</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_icrs</Operation>
+            <Operation>create_dbk</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_mep</Operation>
+            <Path>
+                <Element ref_id="1" type="root">Path1</Element>
+                <Element ref_id="294" type="cat">Path2</Element>
+                <Element ref_id="29271" type="cat">Path3</Element>
+                <Element ref_id="7266" type="cat">Path4</Element>
+                <Element ref_id="44525" type="crs">Path5</Element>
+                <Element ref_id="44528" type="fold">Groups</Element>
+            </Path>
+        </References>
+    </Object>
+    <Object type="grp" obj_id="239853">
+        <Title>Group D08</Title>
+        <Description>Credentials: dbUser38</Description>
+        <Owner>183084</Owner>
+        <CreateDate>2015-10-02 14:58:11</CreateDate>
+        <LastUpdate>2016-03-21 14:25:23</LastUpdate>
+        <ImportId/>
+        <References ref_id="166880" parent_id="44528" accessInfo="granted">
+            <TimeTarget type="0">
+                <Timing starting_time="1443790693" ending_time="1443790693" visibility="0"/>
+                <Suggestion starting_time="1443790693" ending_time="1443790693" changeable="0"
+                            earliest_start="1443790693"
+                            latest_end="1443822900"/>
+            </TimeTarget>
+            <Operation>visible</Operation>
+            <Operation>join</Operation>
+            <Operation>leave</Operation>
+            <Operation>read</Operation>
+            <Operation>read_learning_progress</Operation>
+            <Operation>edit_learning_progress</Operation>
+            <Operation>edit_event</Operation>
+            <Operation>copy</Operation>
+            <Operation>write</Operation>
+            <Operation>delete</Operation>
+            <Operation>edit_permission</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_mep</Operation>
+            <Operation>create_feed</Operation>
+            <Operation>create_chtr</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_icrs</Operation>
+            <Operation>create_dbk</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_mep</Operation>
+            <Path>
+                <Element ref_id="1" type="root">Path1</Element>
+                <Element ref_id="294" type="cat">Path2</Element>
+                <Element ref_id="29271" type="cat">Path3</Element>
+                <Element ref_id="7266" type="cat">Path4</Element>
+                <Element ref_id="44525" type="crs">Path5</Element>
+                <Element ref_id="44528" type="fold">Groups</Element>
+            </Path>
+        </References>
+    </Object>
+    <Object type="grp" obj_id="239824">
+        <Title>Group D09</Title>
+        <Description>Credentials: dbUser39</Description>
+        <Owner>183084</Owner>
+        <CreateDate>2015-10-02 14:55:30</CreateDate>
+        <LastUpdate>2016-03-21 14:25:05</LastUpdate>
+        <ImportId/>
+        <References ref_id="166865" parent_id="44528" accessInfo="granted">
+            <TimeTarget type="0">
+                <Timing starting_time="1443790532" ending_time="1443790532" visibility="0"/>
+                <Suggestion starting_time="1443790532" ending_time="1443790532" changeable="0"
+                            earliest_start="1443790532"
+                            latest_end="1443822900"/>
+            </TimeTarget>
+            <Operation>visible</Operation>
+            <Operation>join</Operation>
+            <Operation>leave</Operation>
+            <Operation>read</Operation>
+            <Operation>read_learning_progress</Operation>
+            <Operation>edit_learning_progress</Operation>
+            <Operation>edit_event</Operation>
+            <Operation>copy</Operation>
+            <Operation>write</Operation>
+            <Operation>delete</Operation>
+            <Operation>edit_permission</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_mep</Operation>
+            <Operation>create_feed</Operation>
+            <Operation>create_chtr</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_icrs</Operation>
+            <Operation>create_dbk</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_fold</Operation>
+            <Operation>create_grp</Operation>
+            <Operation>create_file</Operation>
+            <Operation>create_webr</Operation>
+            <Operation>create_exc</Operation>
+            <Operation>create_tst</Operation>
+            <Operation>create_qpl</Operation>
+            <Operation>create_wiki</Operation>
+            <Operation>create_frm</Operation>
+            <Operation>create_lm</Operation>
+            <Operation>create_htlm</Operation>
+            <Operation>create_sahs</Operation>
+            <Operation>create_glo</Operation>
+            <Operation>create_svy</Operation>
+            <Operation>create_spl</Operation>
+            <Operation>create_mcst</Operation>
+            <Operation>create_mep</Operation>
+            <Path>
+                <Element ref_id="1" type="root">Path1</Element>
+                <Element ref_id="294" type="cat">Path2</Element>
+                <Element ref_id="29271" type="cat">Path3</Element>
+                <Element ref_id="7266" type="cat">Path4</Element>
+                <Element ref_id="44525" type="crs">Path5</Element>
+                <Element ref_id="44528" type="fold">Groups</Element>
+            </Path>
+        </References>
+    </Object>
+</Objects>

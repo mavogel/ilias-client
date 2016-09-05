@@ -1,21 +1,19 @@
 package com.github.mavogel.ilias.utils;
 
+import com.github.mavogel.ilias.model.IliasNode;
 import org.apache.commons.lang3.Validate;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * Created by mavogel on 9/5/16.
@@ -25,7 +23,7 @@ public class XMLUtils {
     /**
      * Creates the result xml string used for getting the courses of a user.
      *
-     * @param userId the id of the user
+     * @param userId       the id of the user
      * @param displayStati one or more stati of the courses which should be displayed
      * @return a result set in the following form. ref_id is the important column.
      * <pre>
@@ -58,7 +56,7 @@ public class XMLUtils {
     /**
      * Parses the xml of the courses and retrieves the refIds.
      * It is assumed that the first column node in the rows->row nodes contains the refId
-     *
+     * <p>
      * <pre>
      * &lt;result&gt;
      *     &lt;colspecs&gt;
@@ -108,4 +106,34 @@ public class XMLUtils {
         return builder.build(new ByteArrayInputStream(xmlString.getBytes()));
     }
 
+    /**
+     * Parses the refIds of all object of the given type in the xml representation of the node/object.
+     *
+     * @param nodeType the type of the node
+     * @param nodeXml the xml representation of the node
+     * @return the refIds of its objects of the given type
+     * @throws JDOMException
+     * @throws IOException
+     */
+    public static List<Integer> parseRefIdsOfNodeType(final IliasNode.Type nodeType, final String nodeXml) throws JDOMException, IOException {
+        Document doc = createSaxDocFromString(nodeXml);
+
+        Element rootElement = doc.getRootElement();
+        List<Element> objects = rootElement.getChildren("Object");
+        return objects.stream().filter(o -> isOfNodeType(nodeType, o))
+                .map(o -> Integer.valueOf(o.getChild("References").getAttribute("ref_id").getValue().trim()).intValue())
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Determines if an element is of a specific {@link com.github.mavogel.ilias.model.IliasNode.Type}
+     *
+     * @param nodeType the type of the node to compare to
+     * @param element  the element in the xml tree
+     * @return <code>true</code> if the element is a folder, <code>false</code> otherwise
+     */
+    private static boolean isOfNodeType(final IliasNode.Type nodeType, final Element element) {
+        return nodeType.getXmlShortName()
+                .equalsIgnoreCase(String.valueOf(element.getAttribute("type").getValue().trim()));
+    }
 }
