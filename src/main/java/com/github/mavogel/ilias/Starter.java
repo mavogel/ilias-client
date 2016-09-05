@@ -2,13 +2,18 @@ package com.github.mavogel.ilias;
 
 import com.github.mavogel.client.ILIASSoapWebserviceLocator;
 import com.github.mavogel.client.ILIASSoapWebservicePortType;
-import com.github.mavogel.client.IlUserData;
 import com.github.mavogel.ilias.utils.ConfigurationsUtils;
-import com.github.mavogel.ilias.utils.LoginConfiguration;
+import com.github.mavogel.ilias.model.UserDataIds;
+import com.github.mavogel.ilias.model.LoginConfiguration;
+import com.github.mavogel.ilias.utils.IliasUtils;
+import com.github.mavogel.ilias.utils.XMLUtils;
 import org.apache.commons.lang3.Validate;
+import org.jdom.JDOMException;
 
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
 import java.rmi.RemoteException;
-import java.time.*;
+import java.util.List;
 
 /**
  * Created by mavogel on 8/29/16.
@@ -26,34 +31,33 @@ public class Starter {
         ILIASSoapWebservicePortType endpoint = null;
         String sid = "";
         try {
-            ILIASSoapWebserviceLocator locator = new ILIASSoapWebserviceLocator();
-            locator.setILIASSoapWebservicePortEndpointAddress(loginConfiguration.getEndpoint());
+            endpoint = createWsEndpoint(loginConfiguration);
+            UserDataIds userData = getUserData(loginConfiguration, endpoint);
+            int userId = userData.getUserId();
+            sid = userData.getSid();
 
-            endpoint = locator.getILIASSoapWebservicePort();
-            sid = endpoint.loginLDAP(loginConfiguration.getClient(), loginConfiguration.getUsername(), loginConfiguration.getPassword());
-            System.out.printf("sid: %s%n", sid);
-            int userIdBySid = endpoint.getUserIdBySid(sid);
-            System.out.printf("user_id by sid: %d%n", userIdBySid);
-            String coursesForUser = endpoint.getCoursesForUser(sid, "<result><colspecs><colspec name=\"user_id\"/><colspec name=\"status\"/></colspecs><row><column>" + userIdBySid + "</column><column>4</column></row></result>");
-            System.out.printf("courses for user: %s%n", coursesForUser);
-            // TODO parse course xmls
-            int course_ref_id = 44525;
-            String courseXML = endpoint.getCourseXML(sid, course_ref_id); // from column 1
-            System.out.printf("courseXML: %s%n", courseXML);
-            // Group folder : https://mycompany.com/ilias.php?ref_id=44528
-            String treeChilds = endpoint.getTreeChilds(sid, course_ref_id, new String[]{"grp", "fold"}, userIdBySid);
-            System.out.printf("TreeChilds:%s%n", treeChilds);
-            // parse them for type 'grp' and type 'fold' and get their ref_ids
-            final int folder_ref_id = 44528;
-            String treeChildsFolder = endpoint.getTreeChilds(sid, folder_ref_id, new String[]{"grp", "fold"}, userIdBySid);
-            System.out.printf("TreeChild for folder:%s%n", treeChildsFolder);
-            // ref_id first gr
-            int ref_id_first_group = 146443;
-            String treeChildsOfGroup = endpoint.getTreeChilds(sid, ref_id_first_group, new String[]{"file"}, userIdBySid);
-            System.out.printf("treeChildsOfGroup: %s%n", treeChildsOfGroup); // gives me the files, type 'file'
-            String groupInfo = endpoint.getGroup(sid, ref_id_first_group);
-            System.out.printf("GroupInfo: %s%n", groupInfo);
-            System.out.println("Seconds: " + Instant.ofEpochSecond(1458568800));
+            // 3: workflow start
+            String selectedCourses = endpoint.getCoursesForUser(sid,
+                    XMLUtils.createCoursesResultXml(userId, IliasUtils.DisplayStatus.ADMIN));
+            System.out.printf("courses for user: %s%n", selectedCourses);
+            List<Integer> courseRefIds = XMLUtils.parseCourseRefIds(selectedCourses);
+
+            for (Integer courseRefId : courseRefIds) {
+                String treeChilds = endpoint.getTreeChilds(sid, courseRefId,
+                        IliasUtils.ObjectTypes.compose(IliasUtils.ObjectTypes.GROUP, IliasUtils.ObjectTypes.FOLDER), userId);
+                System.out.printf("TreeChilds: %s%n", treeChilds);
+            }
+//            // parse them for type 'grp' and type 'fold' and get their ref_ids
+//            final int folder_ref_id = 44528;
+//            String treeChildsFolder = endpoint.getTreeChilds(sid, folder_ref_id, new String[]{"grp", "fold"}, userId);
+//            System.out.printf("TreeChild for folder:%s%n", treeChildsFolder);
+//            // ref_id first gr
+//            int ref_id_first_group = 146443;
+//            String treeChildsOfGroup = endpoint.getTreeChilds(sid, ref_id_first_group, new String[]{"file"}, userId);
+//            System.out.printf("treeChildsOfGroup: %s%n", treeChildsOfGroup); // gives me the files, type 'file'
+//            String groupInfo = endpoint.getGroup(sid, ref_id_first_group);
+//            System.out.printf("GroupInfo: %s%n", groupInfo);
+//            System.out.println("Seconds: " + Instant.ofEpochSecond(1458568800));
 
             // Updates:
             // 1: remove users: √
@@ -74,9 +78,17 @@ public class Starter {
 
         } catch (javax.xml.rpc.ServiceException ex) {
             System.err.println(ex.getMessage());
+            ex.printStackTrace();
         } catch (RemoteException ex) {
             // auth failed comes here
             System.err.println(ex.getMessage());
+            ex.printStackTrace();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JDOMException e) {
+            e.printStackTrace();
         } finally {
             if (endpoint != null) {
                 try {
@@ -87,5 +99,48 @@ public class Starter {
                 }
             }
         }
+    }
+
+    /**
+     * Retrieves the information about the user.
+     *
+     * @param loginConfiguration the config for the logon
+     * @param endpoint           the ilias endpoint
+     * @return the user data as {@link UserDataIds}
+     * @throws RemoteException
+     */
+    private static UserDataIds getUserData(final LoginConfiguration loginConfiguration,
+                                           final ILIASSoapWebservicePortType endpoint) throws RemoteException {
+        String sid = "";
+        switch (loginConfiguration.getLoginMode()) {
+            case LDAP:
+                sid = endpoint.loginLDAP(loginConfiguration.getClient(),
+                        loginConfiguration.getUsername(), loginConfiguration.getPassword());
+                break;
+            case STD:
+                sid = endpoint.login(loginConfiguration.getClient(),
+                        loginConfiguration.getUsername(), loginConfiguration.getPassword());
+                break;
+            case CAS:
+                throw new UnsupportedOperationException("login with CAS is not yet supported");
+        }
+        System.out.printf("sid: %s%n", sid);
+        int userId = endpoint.getUserIdBySid(sid);
+        System.out.printf("user_id by sid: %d%n", userId);
+        return new UserDataIds(userId, sid);
+
+    }
+
+    /**
+     * Creates the endpoint of the ilias soap interface.
+     *
+     * @param loginConfiguration the config of the login
+     * @return the endpoint as {@link ILIASSoapWebservicePortType}
+     * @throws javax.xml.rpc.ServiceException
+     */
+    private static ILIASSoapWebservicePortType createWsEndpoint(final LoginConfiguration loginConfiguration) throws javax.xml.rpc.ServiceException {
+        ILIASSoapWebserviceLocator locator = new ILIASSoapWebserviceLocator();
+        locator.setILIASSoapWebservicePortEndpointAddress(loginConfiguration.getEndpoint());
+        return locator.getILIASSoapWebservicePort();
     }
 }

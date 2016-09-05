@@ -1,4 +1,4 @@
-package com.github.mavogel.ilias.utils;
+package com.github.mavogel.ilias.model;
 
 import org.apache.commons.lang3.Validate;
 

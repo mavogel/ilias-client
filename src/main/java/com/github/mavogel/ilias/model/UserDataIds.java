@@ -1,31 +1,29 @@
 package com.github.mavogel.ilias.model;
 
-import com.github.mavogel.client.IlUserData;
-
 /**
  * Created by mavogel on 9/5/16.
  */
-public class ExtendedIUserData {
+public class UserDataIds {
 
-    private IlUserData basicUserData;
+    private int userId;
     private String sid;
 
     /**
      * C'tor
      *
-     * @param basicUserData the user data from ilias
-     * @param sid the sid of the user
+     * @param userId the id of the
+     * @param sid    the sid of the user obtained after login
      */
-    public ExtendedIUserData(final IlUserData basicUserData, final String sid) {
-        this.basicUserData = basicUserData;
+    public UserDataIds(final int userId, final String sid) {
+        this.userId = userId;
         this.sid = sid;
     }
 
     /**
-     * @return the user data
+     * @return the user id
      */
-    public IlUserData getBasicUserData() {
-        return basicUserData;
+    public int getUserId() {
+        return userId;
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.github.mavogel.ilias.utils;
 
+import com.github.mavogel.ilias.model.LoginConfiguration;
 import org.easymock.EasyMock;
 import org.junit.Test;
 import org.junit.runner.RunWith;

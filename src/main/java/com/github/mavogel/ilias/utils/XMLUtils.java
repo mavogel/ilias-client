@@ -1,7 +1,111 @@
 package com.github.mavogel.ilias.utils;
 
+import org.apache.commons.lang3.Validate;
+import org.jdom.Document;
+import org.jdom.Element;
+import org.jdom.JDOMException;
+import org.jdom.input.SAXBuilder;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Function;
+
 /**
  * Created by mavogel on 9/5/16.
  */
 public class XMLUtils {
+
+    /**
+     * Creates the result xml string used for getting the courses of a user.
+     *
+     * @param userId the id of the user
+     * @param displayStati one or more stati of the courses which should be displayed
+     * @return a result set in the following form. ref_id is the important column.
+     * <pre>
+     * &lt;result&gt;
+     *     &lt;colspecs&gt;
+     *     &lt;colspec idx=&quot;0&quot; name=&quot;ref_id&quot;/&gt;
+     *     &lt;colspec idx=&quot;1&quot; name=&quot;xml&quot;/&gt;
+     *     &lt;colspec idx=&quot;2&quot; name=&quot;parent_ref_id&quot;/&gt;
+     *   &lt;/colspecs&gt;
+     *   &lt;rows&gt;
+     *     &lt;row&gt;
+     *       &lt;column&gt;44525&lt;/column&gt;
+     *       &lt;column&gt;&lt;!-- lots of encoded xml... --&gt;&lt;/column&gt;
+     *       &lt;column&gt;7266&lt;/column&gt;
+     *     &lt;/row&gt;
+     *   &lt;/rows&gt;
+     * &lt;/result&gt;
+     * </pre>
+     */
+    public static String createCoursesResultXml(final int userId, final IliasUtils.DisplayStatus... displayStati) {
+        Validate.notNull(displayStati, "The displaystati are null");
+        Validate.noNullElements(displayStati, "One or more displayStati are empty");
+        return new StringBuilder()
+                .append("<result><colspecs><colspec name=\"user_id\"/><colspec name=\"status\"/></colspecs><row><column>")
+                .append(userId).append("</column><column>")
+                .append(Arrays.stream(displayStati).mapToInt(s -> s.asNumber()).reduce((s1, s2) -> s1 | s2).getAsInt())
+                .append("</column></row></result>").toString();
+    }
+
+    /**
+     * Parses the xml of the courses and retrieves the refIds.
+     * It is assumed that the first column node in the rows->row nodes contains the refId
+     *
+     * <pre>
+     * &lt;result&gt;
+     *     &lt;colspecs&gt;
+     *     &lt;colspec idx=&quot;0&quot; name=&quot;ref_id&quot;/&gt;
+     *     &lt;colspec idx=&quot;1&quot; name=&quot;xml&quot;/&gt;
+     *     &lt;colspec idx=&quot;2&quot; name=&quot;parent_ref_id&quot;/&gt;
+     *   &lt;/colspecs&gt;
+     *   &lt;rows&gt;
+     *     &lt;row&gt;
+     *       &lt;column&gt;44525&lt;/column&gt;
+     *       &lt;column&gt;&lt;!-- lots of encoded xml... --&gt;&lt;/column&gt;
+     *       &lt;column&gt;7266&lt;/column&gt;
+     *     &lt;/row&gt;
+     *   &lt;/rows&gt;
+     * &lt;/result&gt;
+     * </pre>
+     *
+     * @param coursesXml the xml of the courses
+     * @return the refIds of the courses
+     */
+    public static List<Integer> parseCourseRefIds(final String coursesXml) throws ParserConfigurationException, JDOMException, IOException {
+        Document doc = createSaxDocFromString(coursesXml);
+        List<Integer> courseRefIds = new ArrayList<>();
+        final int indexOfRefIdColumn = 0;
+
+        Element rootElement = doc.getRootElement();
+        Element rowsRoot = rootElement.getChild("rows");
+        List<Element> rows = rowsRoot.getChildren("row");
+        for (int i = 0; i < rows.size(); i++) {
+            Element row = rows.get(i);
+            List<Element> column = row.getChildren("column");
+            courseRefIds.add(Integer.valueOf(column.get(indexOfRefIdColumn).getTextTrim()));
+        }
+        return courseRefIds;
+    }
+
+    /**
+     * Build an XML {@link Document} from string
+     *
+     * @param xmlString the xml string.
+     * @return the {@link Document}
+     * @throws JDOMException
+     * @throws IOException
+     */
+    private static Document createSaxDocFromString(final String xmlString) throws JDOMException, IOException {
+        SAXBuilder builder = new SAXBuilder();
+        return builder.build(new ByteArrayInputStream(xmlString.getBytes()));
+    }
+
 }
