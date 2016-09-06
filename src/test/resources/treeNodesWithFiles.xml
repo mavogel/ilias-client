@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE Objects PUBLIC "-//ILIAS//DTD ILIAS Repositoryobjects//EN"
+        "https://ilias.hs-karlsruhe.de/xml/ilias_object_4_0.dtd"><!--Export of ILIAS objects-->
+<Objects>
+    <Object type="file" obj_id="281077">
+        <Title>MyFile.sql</Title>
+        <Description/>
+        <Owner>206011</Owner>
+        <CreateDate>2016-06-27 14:46:12</CreateDate>
+        <LastUpdate>2016-06-27 14:46:12</LastUpdate>
+        <ImportId/>
+        <Properties>
+            <Property name="fileSize">1145</Property>
+            <Property name="fileExtension">sql</Property>
+            <Property name="fileVersion">1</Property>
+        </Properties>
+        <References ref_id="203095" parent_id="146443" accessInfo="granted">
+            <TimeTarget type="0">
+                <Timing starting_time="1467031572" ending_time="1467031572" visibility="0"/>
+                <Suggestion starting_time="1467031572" ending_time="1467031572" changeable="0"
+                            earliest_start="1467031572"
+                            latest_end="1467064500"/>
+            </TimeTarget>
+            <Operation>visible</Operation>
+            <Operation>read</Operation>
+            <Operation>copy</Operation>
+            <Operation>write</Operation>
+            <Operation>delete</Operation>
+            <Operation>edit_permission</Operation>
+            <Path>
+                <Element ref_id="1" type="root">Path1</Element>
+                <Element ref_id="294" type="cat">Path2</Element>
+                <Element ref_id="29271" type="cat">Path3</Element>
+                <Element ref_id="7266" type="cat">Path4</Element>
+                <Element ref_id="44525" type="crs">Path5</Element>
+                <Element ref_id="44528" type="fold">Path6</Element>
+                <Element ref_id="146443" type="grp">Path7</Element>
+            </Path>
+        </References>
+    </Object>
+</Objects>

@@ -16,6 +16,9 @@ public class IliasNode {
      */
     public enum Type {
 
+        ROOT("root"),
+        CATEGORY("cat"),
+        COURSE("crs"),
         GROUP("grp"),
         FOLDER("fold"),
         FILE("file");

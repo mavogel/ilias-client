@@ -116,6 +116,25 @@ public class IliasUtils {
     }
 
     /**
+     * Retrieves all fileRefIds from the given groups.
+     *
+     * @param endpoint    the {@link ILIASSoapWebservicePortType}
+     * @param sid         the sid of the user obtained at the login
+     * @param userId      the usedId
+     * @param groupRefIds the refIds of the groups
+     * @return the refIds of the files in the groups
+     */
+    public static List<Integer> retrieveFileRefIdsFromGroups(final ILIASSoapWebservicePortType endpoint,
+                                                             final String sid, final int userId,
+                                                             final List<Integer> groupRefIds) throws IOException, JDOMException {
+        List<Integer> fileRefIds = new ArrayList<>();
+        for (Integer groupRefId : groupRefIds) {
+            fileRefIds.addAll(getRefIdsOfChildrenFromCurrentNode(endpoint, sid, userId, groupRefId, IliasNode.Type.FILE));
+        }
+        return fileRefIds;
+    }
+
+    /**
      * Retrieves the refIds of all groups of the given refId of a node/object in the ilias tree.
      * A node can also contain folder trees. The maxDepth parameter limits the search depth.
      *
@@ -162,5 +181,21 @@ public class IliasUtils {
         String currentNodeXml = endpoint.getTreeChilds(sid, nodeRefId,
                 IliasNode.Type.compose(nodeType), userId);
         return XMLUtils.parseRefIdsOfNodeType(nodeType, currentNodeXml);
+    }
+
+    /**
+     * Deletes a node in the ilias tree.
+     *
+     * @param endpoint   the {@link ILIASSoapWebservicePortType}
+     * @param sid        the sid of the user obtained at the login
+     * @param nodeRefIds the refIds of the node to delete
+     * @throws RemoteException
+     */
+    public static void deleteObjects(final ILIASSoapWebservicePortType endpoint,
+                                     final String sid, final List<Integer> nodeRefIds) throws RemoteException {
+        for (Integer nodeRefId : nodeRefIds) {
+//            boolean objectDeleted = endpoint.deleteObject(sid, nodeRefId);
+//            System.out.printf("objectDeleted: %s%n", objectDeleted);
+        }
     }
 }

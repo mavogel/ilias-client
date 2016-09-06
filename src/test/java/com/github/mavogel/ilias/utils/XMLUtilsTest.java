@@ -145,4 +145,18 @@ public class XMLUtilsTest {
         assertTrue(groupRefIds.contains(146462));
         assertFalse(groupRefIds.contains(44528));
     }
+
+    @Test
+    public void shouldParseFileRefIdsFromNode() throws IOException, JDOMException, ParserConfigurationException {
+        // == prepare
+        final String testFile = TEST_RES_DIR + "treeNodesWithFiles.xml";
+        final String nodeXml = Files.lines(Paths.get(testFile)).collect(Collectors.joining());
+
+        // == go
+        List<Integer> folderRefIds = XMLUtils.parseRefIdsOfNodeType(IliasNode.Type.FILE, nodeXml);
+
+        // == verify
+        assertTrue(folderRefIds != null);
+        assertEquals(new ArrayList<>(Arrays.asList(203095)), folderRefIds);
+    }
 }

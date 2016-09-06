@@ -120,7 +120,8 @@ public class XMLUtils {
 
         Element rootElement = doc.getRootElement();
         List<Element> objects = rootElement.getChildren("Object");
-        return objects.stream().filter(o -> isOfNodeType(nodeType, o))
+        return objects.stream()
+                .filter(o -> isOfNodeType(nodeType, o))
                 .map(o -> Integer.valueOf(o.getChild("References").getAttribute("ref_id").getValue().trim()).intValue())
                 .collect(Collectors.toList());
     }
