@@ -159,4 +159,18 @@ public class XMLUtilsTest {
         assertTrue(folderRefIds != null);
         assertEquals(new ArrayList<>(Arrays.asList(203095)), folderRefIds);
     }
+
+    @Test
+    public void shouldParse3MemberIdsGroupInfo() throws IOException, JDOMException, ParserConfigurationException {
+        // == prepare
+        final String testFile = TEST_RES_DIR + "groupInfo.xml";
+        final String groupXml = Files.lines(Paths.get(testFile)).collect(Collectors.joining());
+
+        // == go
+        List<Integer> memberIds = XMLUtils.parseGroupMemberIds(groupXml);
+
+        // == verify
+        assertTrue(memberIds != null);
+        assertEquals(new ArrayList<>(Arrays.asList(184191, 206011, 206074)), memberIds);
+    }
 }

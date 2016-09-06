@@ -194,8 +194,48 @@ public class IliasUtils {
     public static void deleteObjects(final ILIASSoapWebservicePortType endpoint,
                                      final String sid, final List<Integer> nodeRefIds) throws RemoteException {
         for (Integer nodeRefId : nodeRefIds) {
+//            TODO
 //            boolean objectDeleted = endpoint.deleteObject(sid, nodeRefId);
 //            System.out.printf("objectDeleted: %s%n", objectDeleted);
         }
+    }
+
+    /**
+     * Removes all members from the given groups.
+     *
+     * @param endpoint    the {@link ILIASSoapWebservicePortType}
+     * @param sid         the sid of the user obtained at the login
+     * @param groupRefIds the refIds of the groups
+     * @throws IOException
+     * @throws JDOMException
+     */
+    public static void removeAllMembersFromGroups(final ILIASSoapWebservicePortType endpoint,
+                                                  final String sid, final List<Integer> groupRefIds) throws IOException, JDOMException {
+        for (Integer groupRefId : groupRefIds) {
+            String groupXml = endpoint.getGroup(sid, groupRefId);
+            List<Integer> groupMemberIds = XMLUtils.parseGroupMemberIds(groupXml);
+            for (Integer groupMemberId : groupMemberIds) {
+                removeMemberFromGroup(endpoint, sid, groupRefId, groupMemberId);
+            }
+        }
+    }
+
+    /**
+     * Removes the member with the given id from the group.
+     *
+     * @param endpoint      the {@link ILIASSoapWebservicePortType}
+     * @param sid           the sid of the user obtained at the login
+     * @param groupRefId    the refId of the group
+     * @param groupMemberId the id of the member to remove
+     * @return <code>true</code> if the member was removed, <code>false</code> otherwise
+     * @throws RemoteException
+     */
+    private static boolean removeMemberFromGroup(final ILIASSoapWebservicePortType endpoint, final String sid,
+                                                 final Integer groupRefId, final Integer groupMemberId) throws RemoteException {
+        boolean groupMemberExcluded = true;
+//        TODO
+//        groupMemberExcluded = endpoint.excludeGroupMember(sid, groupRefId, groupMemberId);
+        System.out.println("excluded Member with id:" + groupMemberId + " -> " + groupMemberExcluded);
+        return groupMemberExcluded;
     }
 }

@@ -110,7 +110,7 @@ public class XMLUtils {
      * Parses the refIds of all object of the given type in the xml representation of the node/object.
      *
      * @param nodeType the type of the node
-     * @param nodeXml the xml representation of the node
+     * @param nodeXml  the xml representation of the node
      * @return the refIds of its objects of the given type
      * @throws JDOMException
      * @throws IOException
@@ -136,5 +136,35 @@ public class XMLUtils {
     private static boolean isOfNodeType(final IliasNode.Type nodeType, final Element element) {
         return nodeType.getXmlShortName()
                 .equalsIgnoreCase(String.valueOf(element.getAttribute("type").getValue().trim()));
+    }
+
+    /**
+     * Parses the member ids from a group xml.
+     *
+     * @param groupXml the group xml
+     * @return the ids of the members of the group
+     * @throws JDOMException
+     * @throws IOException
+     */
+    public static List<Integer> parseGroupMemberIds(final String groupXml) throws JDOMException, IOException {
+        Document doc = createSaxDocFromString(groupXml);
+
+        Element rootElement = doc.getRootElement();
+        List<Element> members = rootElement.getChildren("member");
+        return members.stream()
+                .map(m -> m.getAttribute("id").getValue())
+                .map(XMLUtils::extractId)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Extracts the id from an idString<br>
+     * The idString is expected to have the format 'il_0_usr_<member_id>'. Example: 'il_0_usr_184191'
+     *
+     * @param idString the idString
+     * @return the id
+     */
+    private static int extractId(final String idString) {
+        return Integer.valueOf(idString.substring(idString.lastIndexOf('_') + 1)).intValue();
     }
 }

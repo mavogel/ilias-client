@@ -62,7 +62,7 @@ public class IliasNode {
      *
      * @param refId its refId
      * @param nodeType the {@link Type}
-     * @param title
+     * @param title the title of the node
      */
     public IliasNode(final int refId, final Type nodeType, final String title) {
         this.refId = refId;

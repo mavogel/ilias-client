@@ -46,21 +46,10 @@ public class Starter {
             List<Integer> groupRefIds = IliasUtils.retrieveGroupRefIdsFromCourses(endpoint, sid, userId,
                                                                                   courseRefIds, maxFolderDepth);
 
-//            // 3.2 each folder
-//            ref_id first gr
-//            int ref_id_first_group = 146443;
-//            String treeChildsOfGroup = endpoint.getTreeChilds(sid, ref_id_first_group, new String[]{"file"}, userId);
-//            System.out.printf("treeChildsOfGroup: %s%n", treeChildsOfGroup); // gives me the files, type 'file'
-
-//            String groupInfo = endpoint.getGroup(sid, ref_id_first_group);
-//            System.out.printf("GroupInfo: %s%n", groupInfo);
-//            System.out.println("Seconds: " + Instant.ofEpochSecond(1458568800));
-
             // Updates:
             // 1: remove users: √
-//            int user_id = 184191; <!--GroupInfo-->
-//            boolean groupMemberExcluded = endpoint.excludeGroupMember(sid, ref_id_first_group, user_id);
-//            System.out.println("excluded Member with id:" + user_id + " -> " + groupMemberExcluded);
+            IliasUtils.removeAllMembersFromGroups(endpoint, sid, groupRefIds);
+            
             // 2: set registration period √
 //            LocalDateTime newStartDate = LocalDateTime.of(2016, Month.AUGUST, 22, 14, 00);
 //            long newStart = newStartDate.toEpochSecond(ZoneOffset.UTC); // TODO
