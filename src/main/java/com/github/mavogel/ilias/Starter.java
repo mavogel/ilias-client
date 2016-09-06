@@ -54,8 +54,8 @@ public class Starter {
 
             // 2: set registration period √
 //            TODO
-            LocalDateTime registrationStart = LocalDateTime.parse("", DateTimeFormatter.ISO_DATE_TIME);
-            LocalDateTime registrationEnd = LocalDateTime.parse("", DateTimeFormatter.ISO_DATE_TIME);
+            LocalDateTime registrationStart = LocalDateTime.parse("", DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+            LocalDateTime registrationEnd = LocalDateTime.parse("", DateTimeFormatter.ISO_LOCAL_DATE_TIME);
             IliasUtils.setRegistrationDatesOnGroupes(endpoint, sid, groupRefIds, registrationStart, registrationEnd);
 
             // 3: remove uploaded materials √
