@@ -1,11 +1,13 @@
 package com.github.mavogel.ilias.utils;
 
 import com.github.mavogel.ilias.model.IliasNode;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.Validate;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
+import org.jdom.output.XMLOutputter;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.ByteArrayInputStream;
@@ -166,5 +168,16 @@ public class XMLUtils {
      */
     private static int extractId(final String idString) {
         return Integer.valueOf(idString.substring(idString.lastIndexOf('_') + 1)).intValue();
+    }
+
+    public static String setRegistrationDates(final String groupXml,
+                                              final long registrationStart, final long registrationEnd) throws JDOMException, IOException {
+        Document doc = createSaxDocFromString(groupXml);
+
+        Element rootElement = doc.getRootElement();
+        Element temporarilyAvailable = rootElement.getChild("registration").getChild("temporarilyAvailable");
+        temporarilyAvailable.getChild("start").setText(String.valueOf(registrationStart));
+        temporarilyAvailable.getChild("end").setText(String.valueOf(registrationEnd));
+        return new XMLOutputter().outputString(doc);
     }
 }

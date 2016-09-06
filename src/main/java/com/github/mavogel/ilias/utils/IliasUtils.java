@@ -9,6 +9,7 @@ import org.jdom.JDOMException;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.time.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -237,5 +238,33 @@ public class IliasUtils {
 //        groupMemberExcluded = endpoint.excludeGroupMember(sid, groupRefId, groupMemberId);
         System.out.println("excluded Member with id:" + groupMemberId + " -> " + groupMemberExcluded);
         return groupMemberExcluded;
+    }
+
+    public static void setRegistrationDatesOnGroupes(final ILIASSoapWebservicePortType endpoint, final String sid,
+                                                     final List<Integer> groupRefIds,
+                                                     final LocalDateTime registrationStart, final LocalDateTime registrationEnd) throws IOException, JDOMException {
+
+        final long newStart = toEpochSecond(registrationStart);
+        final long newEnd = toEpochSecond(registrationEnd);
+        System.out.println("new: " + newStart + " -> " + Instant.ofEpochSecond(newStart));
+        for (Integer groupRefId : groupRefIds) {
+//            TODO
+//            String groupXml = endpoint.getGroup(sid, groupRefId);
+//            String updatedGroupXml = XMLUtils.setRegistrationDates(groupXml, newStart, newEnd);
+//            boolean isGroupUpdated = endpoint.updateGroup(sid, groupRefId, updatedGroupXml);
+//            System.out.println("Group updated?: " + isGroupUpdated);
+        }
+    }
+
+    /**
+     * Converts a {@link LocalDate} into epoch seconds represented in the
+     * time zone of the machine this tool is running. It's expected the ilias
+     * server is running in the same time zone.
+     *
+     * @param localDateTime the local date time to convert
+     * @return the seconds passed from the epoch
+     */
+    private static long toEpochSecond(final LocalDateTime localDateTime) {
+        return ZonedDateTime.of(localDateTime, ZoneId.systemDefault()).toEpochSecond();
     }
 }

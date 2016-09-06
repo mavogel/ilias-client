@@ -12,6 +12,8 @@ import org.jdom.JDOMException;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
@@ -49,15 +51,12 @@ public class Starter {
             // Updates:
             // 1: remove users: √
             IliasUtils.removeAllMembersFromGroups(endpoint, sid, groupRefIds);
-            
+
             // 2: set registration period √
-//            LocalDateTime newStartDate = LocalDateTime.of(2016, Month.AUGUST, 22, 14, 00);
-//            long newStart = newStartDate.toEpochSecond(ZoneOffset.UTC); // TODO
-//            long newEnd = newStartDate.plusDays(2).toEpochSecond(ZoneOffset.UTC);
-//            System.out.println("new: " + newStart + " -> " + Instant.ofEpochSecond(newStart));
-//            String groupUpdate = "<group><title>Group A01</title><description>Usersetting: dbex01</description><owner id=\"il_0_usr_183084\"/><information/><registration type=\"direct\" waitingList=\"No\"><temporarilyAvailable><start>" + newStart +"</start><end>" + newEnd + "</end></temporarilyAvailable><maxMembers enabled=\"Yes\">3</maxMembers></registration><admin id=\"il_0_usr_183084\" notification=\"Yes\"/><member id=\"il_0_usr_184191\"/><member id=\"il_0_usr_206011\"/><member id=\"il_0_usr_206074\"/><Sort type=\"Inherit\"/><ContainerSettings><ContainerSetting id=\"cont_auto_rate_new_obj\">0</ContainerSetting><ContainerSetting id=\"cont_show_calendar\">1</ContainerSetting><ContainerSetting id=\"cont_show_news\">1</ContainerSetting><ContainerSetting id=\"cont_tag_cloud\">0</ContainerSetting></ContainerSettings></group>";
-//            boolean isGroupUpdated = endpoint.updateGroup(sid, ref_id_first_group, groupUpdate);
-//            System.out.println("Group updated?: " + isGroupUpdated);
+//            TODO
+            LocalDateTime registrationStart = LocalDateTime.parse("", DateTimeFormatter.ISO_DATE_TIME);
+            LocalDateTime registrationEnd = LocalDateTime.parse("", DateTimeFormatter.ISO_DATE_TIME);
+            IliasUtils.setRegistrationDatesOnGroupes(endpoint, sid, groupRefIds, registrationStart, registrationEnd);
 
             // 3: remove uploaded materials √
             List<Integer> fileRefIds = IliasUtils.retrieveFileRefIdsFromGroups(endpoint, sid, userId, groupRefIds);

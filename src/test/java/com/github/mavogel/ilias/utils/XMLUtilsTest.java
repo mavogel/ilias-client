@@ -1,13 +1,20 @@
 package com.github.mavogel.ilias.utils;
 
 import com.github.mavogel.ilias.model.IliasNode;
+import org.jdom.Document;
+import org.jdom.Element;
 import org.jdom.JDOMException;
+import org.jdom.input.SAXBuilder;
 import org.junit.Test;
 
 import javax.xml.parsers.ParserConfigurationException;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -172,5 +179,39 @@ public class XMLUtilsTest {
         // == verify
         assertTrue(memberIds != null);
         assertEquals(new ArrayList<>(Arrays.asList(184191, 206011, 206074)), memberIds);
+    }
+
+    @Test
+    public void shouldSetNewRegistrationDatesOnGroup() throws IOException, JDOMException, ParserConfigurationException {
+        // == prepare
+        final String testFile = TEST_RES_DIR + "groupInfo.xml";
+        final String groupXml = Files.lines(Paths.get(testFile)).collect(Collectors.joining());
+
+        final long registrationStart = LocalDateTime.of(2014, Month.APRIL, 21, 14, 00).toEpochSecond(ZoneOffset.UTC);
+        final long registrationEnd = LocalDateTime.of(2014, Month.APRIL, 23, 14, 00).toEpochSecond(ZoneOffset.UTC);
+
+        // == go
+        String updatedGroupXml = XMLUtils.setRegistrationDates(groupXml, registrationStart, registrationEnd);
+
+        // == verify
+        Document expectedDoc = createDocFromXml(updatedGroupXml);
+        Element rootElement = expectedDoc.getRootElement();
+        Element temporarilyAvailable = rootElement.getChild("registration").getChild("temporarilyAvailable");
+
+        assertEquals(registrationStart, Long.valueOf(temporarilyAvailable.getChild("start").getText()).longValue());
+        assertEquals(registrationEnd, Long.valueOf(temporarilyAvailable.getChild("end").getText()).longValue());
+    }
+
+    /**
+     * Creates a {@link Document} from an xmlString
+     *
+     * @param xmlString the xml string
+     * @return the document
+     * @throws JDOMException
+     * @throws IOException
+     */
+    private Document createDocFromXml(final String xmlString) throws JDOMException, IOException {
+        SAXBuilder builder = new SAXBuilder();
+        return builder.build(new ByteArrayInputStream(xmlString.getBytes()));
     }
 }
