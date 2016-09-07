@@ -14,25 +14,8 @@ import java.util.*;
  */
 public class ToolStateMachine {
 
+    protected final LoginConfiguration loginConfiguration;
     private boolean isInEndState;
-
-    /**
-     * Starts the state machine until the {@link QuitState} is left.
-     */
-    public void start() {
-        while (!isInEndState) {
-            this.enterState();
-            this.executeState();
-            this.leaveState();
-        }
-    }
-
-    /**
-     * Stops the state machine
-     */
-    public void stop() {
-        isInEndState = true;
-    }
 
     /**
      * The keys for the context shared between the states.
@@ -67,6 +50,7 @@ public class ToolStateMachine {
     private ToolState currentState;
 
     public ToolStateMachine(final LoginConfiguration loginConfiguration) {
+        this.loginConfiguration = loginConfiguration;
         this.isInEndState = false;
         this.context = new HashMap<>();
 
@@ -127,6 +111,27 @@ public class ToolStateMachine {
      */
     public void setState(ToolState state) {
         this.currentState = state;
+    }
+
+    /////////////////////////////////////
+    // Starter and stopper
+    /////////////////////////////////////
+    /**
+     * Starts the state machine until the {@link QuitState} is left.
+     */
+    public void start() {
+        while (!isInEndState) {
+            this.enterState();
+            this.executeState();
+            this.leaveState();
+        }
+    }
+
+    /**
+     * Stops the state machine
+     */
+    public void stop() {
+        isInEndState = true;
     }
 
     /////////////////////////////////////

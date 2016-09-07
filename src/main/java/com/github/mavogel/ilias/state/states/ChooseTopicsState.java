@@ -18,40 +18,4 @@ public class ChooseTopicsState extends ToolState {
     public void printInformation() {
         System.out.println("Choose a topic");
     }
-
-    @Override
-    protected void collectDataForExecution() {
-//        IliasUtils.
-    }
-
-    @Override
-    protected void printExecutionChoices() {
-
-    }
-
-    @Override
-    protected void printExecutionPreview() {
-
-    }
-
-    @Override
-    protected boolean confirm() {
-        return false;
-    }
-
-    @Override
-    protected void execute() {
-
-    }
-
-    @Override
-    protected void printExecutionSummary() {
-
-    }
-
-    @Override
-    protected void parseExecutionChoices() {
-
-    }
-
 }

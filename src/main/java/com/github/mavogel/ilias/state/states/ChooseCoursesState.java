@@ -34,9 +34,9 @@ public class ChooseCoursesState extends ToolState {
 
     @Override
     protected void collectDataForExecution() {
-        ILIASSoapWebservicePortType endpoint = stateMachine.getEndPoint();
-        String sid = stateMachine.getUserDataIds().getSid();
-        int userId = stateMachine.getUserDataIds().getUserId();
+        final ILIASSoapWebservicePortType endpoint = stateMachine.getEndPoint();
+        final String sid = stateMachine.getUserDataIds().getSid();
+        final int userId = stateMachine.getUserDataIds().getUserId();
 
         try {
             this.coursesForUser = IliasUtils.getCoursesForUser(endpoint, sid, userId, IliasUtils.DisplayStatus.ADMIN);
