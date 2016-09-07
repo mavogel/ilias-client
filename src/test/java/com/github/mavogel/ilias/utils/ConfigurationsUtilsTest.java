@@ -1,10 +1,10 @@
 package com.github.mavogel.ilias.utils;
 
 import com.github.mavogel.ilias.model.LoginConfiguration;
-import org.easymock.EasyMock;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.powermock.api.easymock.PowerMock;
+import org.mockito.Mockito;
+import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
@@ -46,17 +46,16 @@ public class ConfigurationsUtilsTest {
         String testFile = TEST_RES_DIR + "testConfigWoutPwd.properties";
 
         // == train
-        PowerMock.mockStatic(System.class);
-        final Console consoleMock = PowerMock.createMock(Console.class);
-        EasyMock.expect(System.console()).andReturn(consoleMock);
-        EasyMock.expect(consoleMock.readPassword("Enter your password: ")).andReturn("mypass123".toCharArray());
-        PowerMock.replayAll();
+        PowerMockito.mockStatic(System.class);
+        final Console consoleMock = PowerMockito.mock(Console.class);
+        Mockito.when(System.console()).thenReturn(consoleMock);
+        Mockito.when(consoleMock.readPassword("Enter your password: ")).thenReturn("mypass123".toCharArray());
+        
 
         // == go
         LoginConfiguration validLoginConfiguration = ConfigurationsUtils.createLoginConfiguration(testFile);
 
         // == verify
-        PowerMock.verifyAll();
         assertEquals(LoginConfiguration.LOGIN_MODE.LDAP, validLoginConfiguration.getLoginMode());
         assertEquals("https://mycompany.com/webservice/soap/server.php", validLoginConfiguration.getEndpoint());
         assertEquals("MY_CLIENT", validLoginConfiguration.getClient());
@@ -70,16 +69,14 @@ public class ConfigurationsUtilsTest {
         String testFile = TEST_RES_DIR + "testConfigWoutPwd.properties";
 
         // == train
-        PowerMock.mockStatic(System.class);
-        EasyMock.expect(System.console()).andReturn(null);
-        PowerMock.replayAll();
+        PowerMockito.mockStatic(System.class);
+        Mockito.when(System.console()).thenReturn(null);
 
         // == go
         try {
             ConfigurationsUtils.createLoginConfiguration(testFile);
         } catch (Exception e) {
             // == verify
-            PowerMock.verifyAll();
             throw e;
         }
     }
