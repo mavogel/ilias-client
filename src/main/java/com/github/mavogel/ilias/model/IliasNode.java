@@ -115,8 +115,10 @@ public class IliasNode {
      *
      * @return the displayable string
      */
-    public String asDisplayString() {
-        final StringBuffer sb = new StringBuffer(nodeType.name());
+    public String asDisplayString(final String prefix) {
+        final StringBuffer sb = new StringBuffer();
+        if(prefix != null && !prefix.isEmpty()) sb.append(prefix);
+        sb.append(nodeType.name());
         sb.append(": ").append(title);
         return sb.toString();
     }

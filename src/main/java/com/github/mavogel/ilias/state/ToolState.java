@@ -1,11 +1,10 @@
 package com.github.mavogel.ilias.state;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * Created by mavogel on 9/6/16.
@@ -14,8 +13,10 @@ public abstract class ToolState {
 
     protected ToolStateMachine stateMachine;
     protected List<ToolState> successors;
+    protected List<ExecutionState> executionStates;
 
     private int transitionChoice;
+    private List<Integer> executionChoices;
 
     protected ToolState(final ToolStateMachine stateMachine) {
         this.stateMachine = stateMachine;
@@ -28,7 +29,7 @@ public abstract class ToolState {
      * @param successors the successors
      */
     protected void setSuccessors(ToolState... successors) {
-        if (successors == null || successors.length == 1) {
+        if (successors == null || successors.length == 0) {
             this.successors = new ArrayList<>();
         } else {
             this.successors = Arrays.stream(successors)
@@ -55,9 +56,70 @@ public abstract class ToolState {
     /**
      * Parses the given choices for the transition
      */
-    protected void parseTransitionChoice() {
+    protected void parseTransitionChoice() { // TODO move to subclass and add parameter
         this.transitionChoice = parseUserChoice(successors);
     }
+
+    /**
+     * Parses the user input for the choice of the next action<br>
+     * We store actions in lists and print before the choice. So the index is used
+     * to determine the next action.
+     *
+     * @param choices the possible choices
+     * @return the choice of the user
+     */
+    protected List<Integer> parseUserChoices(final List<?> choices) { // TOOD test
+        boolean isCorrectInputDigits = false, isCorrectInputRanges = false;
+        String line = null;
+        List<Integer> userChoices = new ArrayList<>();
+        final Pattern range = Pattern.compile("^(\\\\d+)-(\\\\d+)$");
+        final Pattern digit = Pattern.compile("^\\\\d+$");
+        IntStream digitsStream = null;
+        Stream<String[]> rangesStream = null;
+
+        while (!(isCorrectInputDigits && isCorrectInputRanges)) {
+            try (Scanner scanner = new Scanner(System.in)) {
+                line = scanner.nextLine();
+                String[] split = line.split(",");
+                digitsStream = Arrays.stream(split).filter(digit.asPredicate()).mapToInt(Integer::valueOf);
+                isCorrectInputDigits = digitsStream.allMatch(idx -> isInRange(choices, idx));
+
+                rangesStream = Arrays.stream(split).filter(range.asPredicate()).map(r -> r.split("-"));
+                isCorrectInputRanges = rangesStream.allMatch(r -> isInMeanifulRange(r, Integer.valueOf(r[0]), Integer.valueOf(r[1])));
+            } catch (NumberFormatException nfe) {
+                if (!isCorrectInputDigits) {
+                    System.err.println("'" + line + " contains incorrect indexes! Try again");
+                }
+                if (!isCorrectInputRanges) {
+                    System.err.println("'" + line + " contains incorrect ranges! Try again");
+                }
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+            }
+        }
+
+        return IntStream.concat(digitsStream, expandRanges(rangesStream).orElse(IntStream.empty()))
+                .distinct()
+                .mapToObj(Integer::valueOf)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Expands the ranges.<br>
+     * Example:
+     * <ul>
+     *   <li>1-4 -> 1,2,3,4</li>
+     *   <li>1-4,6-8 -> 1,2,3,4,6,7,8</li>
+     * </ul>
+     *
+     * @param ranges the ranges to expand
+     * @return the expanded ranges.
+     */
+    private Optional<IntStream> expandRanges(Stream<String[]> ranges) { // TODO may as Integer[]
+        return ranges.map(s -> IntStream.rangeClosed(Integer.valueOf(s[0]), Integer.valueOf(s[1])))
+                     .reduce(IntStream::concat);
+    }
+
 
     /**
      * Parses the user input for the choice of the next action<br>
@@ -75,7 +137,7 @@ public abstract class ToolState {
         while (!isCorrectInput) {
             try (Scanner scanner = new Scanner(System.in)) {
                 line = scanner.nextLine();
-                userChoice = Integer.valueOf(line).intValue();
+                userChoice = Integer.valueOf(line);
                 isCorrectInput = isInRange(choices, userChoice);
             } catch (NumberFormatException nfe) {
                 System.err.println("'" + line + " is not a number! Try again");
@@ -104,11 +166,27 @@ public abstract class ToolState {
     }
 
     /**
+     * Checks if the given range of the array is in meaningful sense. <br>
+     * <ul>
+     *     <li>lower is less or equals than upppe</li>
+     *     <li>both bounds are in the range of the array</li>
+     * </ul>
+     *
+     * @param array the array
+     * @param lower the lower bound
+     * @param upper the upper bound
+     * @return <code>true</code> if the bounds are meanigful, <code>false</code> otherwise.
+     */
+    private boolean isInMeanifulRange(final String[] array, final int lower, final int upper) {
+        return lower <= upper && isInRange(Arrays.asList(array), lower) && isInRange(Arrays.asList(array), upper);
+    }
+
+    /**
      * Performs the transition to the next state
      */
     protected void transition() {
         stateMachine.setState(successors.get(this.transitionChoice - 1));
-    }
+    } // TODO do not work with indices here please
 
     /**
      * Returns a string for displaying the information of the state
@@ -139,6 +217,13 @@ public abstract class ToolState {
     }
 
     /**
+     * Parses the given choices for execution.
+     */
+    protected void parseExecutionChoices() {
+//        this.executionChoices = parseUserChoices(this.executionStates); TODO
+    }
+
+    /**
      * Prints a small summary of the amount of affected nodes/objects of the execution
      */
     protected void printExecutionPreview() {
@@ -161,11 +246,5 @@ public abstract class ToolState {
      * Prints the summary of the preceding execution.
      */
     protected void printExecutionSummary() {
-    }
-
-    /**
-     * Parses the given choices for execution.
-     */
-    protected void parseExecutionChoices() {
     }
 }

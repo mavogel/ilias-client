@@ -58,7 +58,7 @@ public class ToolStateMachine {
     private ToolState loginState;
     private ToolState chooseTopicsState;
     private ToolState chooseCoursesState;
-    private ToolState chooseTasksState;
+    private ToolState actionsOnGroupsState;
     private ToolState removeUsersState;
     private ToolState setRegistrationState;
     private ToolState removeMaterialsState;
@@ -70,15 +70,19 @@ public class ToolStateMachine {
         this.isInEndState = false;
         this.context = new HashMap<>();
 
+        // encoding of the state machine
         this.quitState = new QuitState(this);
         this.removeUsersState = new RemoveUsersState(this);
-        this.chooseTasksState = new ActionsOnGroupsState(this, removeUsersState);
-        this.chooseTopicsState = new ChooseTopicsState(this, chooseTasksState, quitState);
-        this.chooseCoursesState = new ChooseCoursesState(this, chooseTopicsState, quitState);
-        this.loginState = new LoginState(this, loginConfiguration, chooseCoursesState, quitState);
-        this.startState = new StartState(this, loginState, quitState);
+        this.actionsOnGroupsState = new ActionsOnGroupsState(this, this.removeUsersState,
+                                                                   this.setRegistrationState,
+                                                                   this.removeUsersState,
+                                                                   this.chooseTopicsState, this.quitState);
+        this.chooseTopicsState = new ChooseTopicsState(this, this.actionsOnGroupsState, this.chooseCoursesState, this.quitState);
+        this.chooseCoursesState = new ChooseCoursesState(this, this.chooseTopicsState, this.quitState);
+        this.loginState = new LoginState(this, loginConfiguration, this.chooseCoursesState, this.quitState);
+        this.startState = new StartState(this, this.loginState, this.quitState);
 
-        setState(startState);
+        setState(this.startState);
     }
 
     /**
@@ -137,6 +141,7 @@ public class ToolStateMachine {
      */
     public void executeState() {
         this.currentState.collectDataForExecution();
+        this.currentState.printExecutionChoices();
         this.currentState.parseExecutionChoices();
         this.currentState.printExecutionPreview();
         boolean isConfirmed = this.currentState.confirm();
@@ -174,8 +179,8 @@ public class ToolStateMachine {
         return chooseCoursesState;
     }
 
-    public ToolState getChooseTasksState() {
-        return chooseTasksState;
+    public ToolState getActionsOnGroupsState() {
+        return actionsOnGroupsState;
     }
 
     public ToolState getRemoveUsersState() {

@@ -1,12 +1,13 @@
 package com.github.mavogel.ilias.state.states.action;
 
+import com.github.mavogel.ilias.state.ExecutionState;
 import com.github.mavogel.ilias.state.ToolState;
 import com.github.mavogel.ilias.state.ToolStateMachine;
 
 /**
  * Created by mavogel on 9/7/16.
  */
-public class RemoveUsersState extends ToolState {
+public class RemoveUsersState extends ToolState implements ExecutionState {
 
     public RemoveUsersState(final ToolStateMachine stateMachine, final ToolState... successors) {
         super(stateMachine);

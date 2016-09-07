@@ -92,8 +92,8 @@ public class IliasUtils {
         System.out.printf("sid: %s%n", sid);
         int userId = endpoint.getUserIdBySid(sid);
         System.out.printf("user_id by sid: %d%n", userId);
-        return new UserDataIds(userId, sid);
 
+        return new UserDataIds(userId, sid);
     }
 
     /**
@@ -117,7 +117,6 @@ public class IliasUtils {
         for (Integer courseRefId : courseRefIds) { // checked exceptions and lambdas...
             courses.add(XMLUtils.createsFromCourseNodeInfo(courseRefId, endpoint.getCourseXML(sid, courseRefId)));
         }
-
         return courses;
     }
 

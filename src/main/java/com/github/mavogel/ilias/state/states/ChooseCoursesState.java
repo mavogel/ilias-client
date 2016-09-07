@@ -11,11 +11,15 @@ import org.jdom.JDOMException;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * Created by mavogel on 9/7/16.
  */
 public class ChooseCoursesState extends ToolState {
+
+    private List<IliasNode> coursesForUser;
 
     public ChooseCoursesState(final ToolStateMachine stateMachine, final ToolState... successors) {
         super(stateMachine);
@@ -34,9 +38,9 @@ public class ChooseCoursesState extends ToolState {
         int userId = stateMachine.getUserDataIds().getUserId();
 
         try {
-            List<IliasNode> coursesForUser = IliasUtils.getCoursesForUser(endpoint, sid, userId, IliasUtils.DisplayStatus.ADMIN);
+            this.coursesForUser = IliasUtils.getCoursesForUser(endpoint, sid, userId, IliasUtils.DisplayStatus.ADMIN);
             stateMachine.getContext().put(ToolStateMachine.ContextKey.COURSES,
-                                          coursesForUser);
+                                          coursesForUser); // TODO handle absents maybe...
         } catch (RemoteException e) {
             System.err.println("Could not retrieve courses for user : " + e.getMessage());
             this.stateMachine.setState(stateMachine.getQuitState());
@@ -46,5 +50,18 @@ public class ChooseCoursesState extends ToolState {
         }
     }
 
-    // GO on
+    @Override
+    protected void printExecutionChoices() {
+        String executionChoices = IntStream.range(0, this.coursesForUser.size())
+                .mapToObj(i -> this.coursesForUser.get(i).asDisplayString(i + 1 + ") "))
+                .collect(Collectors.joining("\n"));
+        System.out.println(executionChoices);
+    }
+
+    @Override
+    protected void parseExecutionChoices() {
+        int i = super.parseUserChoice(this.coursesForUser);
+    }
+
+
 }
