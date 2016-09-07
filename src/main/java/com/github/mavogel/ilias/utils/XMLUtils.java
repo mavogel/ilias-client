@@ -78,8 +78,10 @@ public class XMLUtils {
      *
      * @param coursesXml the xml of the courses
      * @return the refIds of the courses
+     * @throws JDOMException if no document for the xml parser could be created
+     * @throws IOException if no InputStream could be created from the xmlString
      */
-    public static List<Integer> parseCourseRefIds(final String coursesXml) throws ParserConfigurationException, JDOMException, IOException {
+    public static List<Integer> parseCourseRefIds(final String coursesXml) throws JDOMException, IOException {
         Document doc = createSaxDocFromString(coursesXml);
         List<Integer> courseRefIds = new ArrayList<>();
         final int indexOfRefIdColumn = 0;
@@ -100,8 +102,8 @@ public class XMLUtils {
      *
      * @param xmlString the xml string.
      * @return the {@link Document}
-     * @throws JDOMException
-     * @throws IOException
+     * @throws JDOMException if no document for the xml parser could be created
+     * @throws IOException if no InputStream could be created from the xmlString
      */
     private static Document createSaxDocFromString(final String xmlString) throws JDOMException, IOException {
         SAXBuilder builder = new SAXBuilder();

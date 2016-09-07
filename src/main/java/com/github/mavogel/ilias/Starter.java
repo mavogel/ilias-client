@@ -3,6 +3,7 @@ package com.github.mavogel.ilias;
 import com.github.mavogel.client.ILIASSoapWebservicePortType;
 import com.github.mavogel.ilias.model.LoginConfiguration;
 import com.github.mavogel.ilias.model.UserDataIds;
+import com.github.mavogel.ilias.state.ToolStateMachine;
 import com.github.mavogel.ilias.utils.ConfigurationsUtils;
 import com.github.mavogel.ilias.utils.IliasUtils;
 import com.github.mavogel.ilias.utils.XMLUtils;
@@ -32,17 +33,17 @@ public class Starter {
         ILIASSoapWebservicePortType endpoint = null;
         String sid = "";
         try {
+            // LoginState √
             endpoint = IliasUtils.createWsEndpoint(loginConfiguration);
             UserDataIds userData = IliasUtils.getUserData(loginConfiguration, endpoint);
             int userId = userData.getUserId();
             sid = userData.getSid();
 
             // 3: workflow start
-//            ToolStateMachine stateMachine = new ToolStateMachine();
-//            stateMachine.enterState();
-//            stateMachine.executeState();
-//            stateMachine.leaveState();
+            ToolStateMachine stateMachine = new ToolStateMachine(loginConfiguration);
+            stateMachine.start();
 
+            // ChooseCoursesState √
             String selectedCourses = endpoint.getCoursesForUser(sid,
                     XMLUtils.createCoursesResultXml(userId, IliasUtils.DisplayStatus.ADMIN));
             System.out.printf("courses for user: %s%n", selectedCourses);
@@ -74,8 +75,6 @@ public class Starter {
             // auth failed comes here
             System.err.println(ex.getMessage());
             ex.printStackTrace();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JDOMException e) {

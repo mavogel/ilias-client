@@ -1,27 +1,21 @@
-package com.github.mavogel.ilias.state.states;
+package com.github.mavogel.ilias.state.states.action;
 
 import com.github.mavogel.ilias.state.ToolState;
 import com.github.mavogel.ilias.state.ToolStateMachine;
-import com.github.mavogel.ilias.utils.IliasUtils;
 
 /**
- * Created by mavogel on 9/6/16.
+ * Created by mavogel on 9/7/16.
  */
-public class ChooseTopicsState extends ToolState {
+public class RemoveUsersState extends ToolState {
 
-    public ChooseTopicsState(final ToolStateMachine stateMachine, final ToolState... successors) {
+    public RemoveUsersState(final ToolStateMachine stateMachine, final ToolState... successors) {
         super(stateMachine);
         setSuccessors(successors);
     }
 
     @Override
-    public void printInformation() {
-        System.out.println("Choose a topic");
-    }
-
-    @Override
-    protected void collectDataForExecution() {
-//        IliasUtils.
+    protected void printInformation() {
+        System.out.println("Removing users");
     }
 
     @Override
@@ -53,5 +47,4 @@ public class ChooseTopicsState extends ToolState {
     protected void parseExecutionChoices() {
 
     }
-
 }

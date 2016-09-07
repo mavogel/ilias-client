@@ -3,15 +3,19 @@ package com.github.mavogel.ilias.state.states;
 import com.github.mavogel.ilias.state.ToolState;
 import com.github.mavogel.ilias.state.ToolStateMachine;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 /**
  * Created by mavogel on 9/6/16.
  */
-public class StartState implements ToolState {
+public class StartState extends ToolState {
 
-    private ToolStateMachine stateMachine;
-
-    public StartState(final ToolStateMachine stateMachine) {
-        this.stateMachine = stateMachine;
+    public StartState(final ToolStateMachine stateMachine, ToolState... successors) {
+        super(stateMachine);
+        setSuccessors(successors);
     }
 
     @Override
@@ -40,49 +44,5 @@ public class StartState implements ToolState {
           .append("`-------'                          ");
         System.out.println(sb.toString());
 
-    }
-
-    @Override
-    public void printExecutionChoices() {
-    }
-
-    @Override
-    public void printExecutionPreview() {
-    }
-
-    @Override
-    public void parseExecutionChoices() {
-    }
-
-    @Override
-    public boolean confirm() {
-        return true;
-    }
-
-    @Override
-    public void execute() {
-    }
-
-    @Override
-    public void printExectionSummary() {
-    }
-
-
-    @Override
-    public void printTransitionChoices() {
-    }
-
-    @Override
-    public void parseTransitionChoice() {
-    }
-
-    @Override
-    public void transition() {
-        stateMachine.setState(stateMachine.getChooseCoursesState());
-    }
-
-    @Override
-    public String asDisplayString(final String prefix) {
-        return "";
     }
 }
