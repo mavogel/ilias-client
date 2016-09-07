@@ -79,12 +79,12 @@ public class XMLUtils {
      * @param coursesXml the xml of the courses
      * @return the refIds of the courses
      * @throws JDOMException if no document for the xml parser could be created
-     * @throws IOException if no InputStream could be created from the xmlString
+     * @throws IOException   if no InputStream could be created from the xmlString
      */
     public static List<Integer> parseCourseRefIds(final String coursesXml) throws JDOMException, IOException {
         Document doc = createSaxDocFromString(coursesXml);
         List<Integer> courseRefIds = new ArrayList<>();
-        final int indexOfRefIdColumn = 0;
+        final int indexOfRefIdColumn = 0; // TODO hardwired: make it more dynamically if the column switches
 
         Element rootElement = doc.getRootElement();
         Element rowsRoot = rootElement.getChild("rows");
@@ -98,12 +98,29 @@ public class XMLUtils {
     }
 
     /**
+     * Creates an {@link IliasNode} from the course info xml.
+     *
+     * @param courseRefId the course ref which is not contained in the course info xml
+     * @param courseInfoXml the course info xml to parse
+     * @return the {@link IliasNode}
+     * @throws JDOMException if no document for the xml parser could be created
+     * @throws IOException   if no InputStream could be created from the xmlString
+     */
+    public static IliasNode createsFromCourseNodeInfo(final int courseRefId, final String courseInfoXml) throws JDOMException, IOException {
+        Document doc = createSaxDocFromString(courseInfoXml);
+
+        Element rootElement = doc.getRootElement();
+        String title = rootElement.getChild("MetaData").getChild("General").getChild("Title").getTextTrim();
+        return new IliasNode(courseRefId, IliasNode.Type.COURSE, title);
+    }
+
+    /**
      * Build an XML {@link Document} from string
      *
      * @param xmlString the xml string.
      * @return the {@link Document}
      * @throws JDOMException if no document for the xml parser could be created
-     * @throws IOException if no InputStream could be created from the xmlString
+     * @throws IOException   if no InputStream could be created from the xmlString
      */
     private static Document createSaxDocFromString(final String xmlString) throws JDOMException, IOException {
         SAXBuilder builder = new SAXBuilder();
@@ -147,8 +164,8 @@ public class XMLUtils {
      *
      * @param groupXml the group xml
      * @return the ids of the members of the group
-     * @throws JDOMException
-     * @throws IOException
+     * @throws JDOMException if no document for the xml parser could be created
+     * @throws IOException   if no InputStream could be created from the xmlString
      */
     public static List<Integer> parseGroupMemberIds(final String groupXml) throws JDOMException, IOException {
         Document doc = createSaxDocFromString(groupXml);
@@ -172,6 +189,16 @@ public class XMLUtils {
         return Integer.valueOf(idString.substring(idString.lastIndexOf('_') + 1)).intValue();
     }
 
+    /**
+     * Sets the new registration start and end dates in the group xml and returns the update xml.
+     *
+     * @param groupXml          the groupXml
+     * @param registrationStart the new registration start
+     * @param registrationEnd   the new registration end
+     * @return the updated groupXml
+     * @throws JDOMException if no document for the xml parser could be created
+     * @throws IOException   if no InputStream could be created from the xmlString
+     */
     public static String setRegistrationDates(final String groupXml,
                                               final long registrationStart, final long registrationEnd) throws JDOMException, IOException {
         Document doc = createSaxDocFromString(groupXml);

@@ -1,7 +1,5 @@
 package com.github.mavogel.ilias.model;
 
-import com.github.mavogel.ilias.utils.IliasUtils;
-
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
@@ -46,7 +44,10 @@ public class IliasNode {
             if (types == null) {
                 return new String[]{};
             }
-            return Arrays.stream(types).map(type -> type.getXmlShortName()).collect(Collectors.toList()).toArray(new String[]{});
+            return Arrays.stream(types).filter(type -> type != null)
+                    .map(type -> type.getXmlShortName())
+                    .collect(Collectors.toList())
+                    .toArray(new String[]{});
         }
     }
 
@@ -57,12 +58,23 @@ public class IliasNode {
     private Type nodeType;
     private String title;
 
+
     /**
      * An node of the tree in ilias.
      *
-     * @param refId its refId
+     * @param refId    its refId
      * @param nodeType the {@link Type}
-     * @param title the title of the node
+     */
+    public IliasNode(final int refId, final Type nodeType) {
+        this(refId, nodeType, "No Title");
+    }
+
+    /**
+     * An node of the tree in ilias.
+     *
+     * @param refId    its refId
+     * @param nodeType the {@link Type}
+     * @param title    the title of the node
      */
     public IliasNode(final int refId, final Type nodeType, final String title) {
         this.refId = refId;
@@ -89,5 +101,33 @@ public class IliasNode {
      */
     public String getTitle() {
         return title;
+    }
+
+    /**
+     * @param title the titel
+     */
+    public void setTitle(final String title) {
+        this.title = title;
+    }
+
+    /**
+     * The node as displayable string for the output
+     *
+     * @return the displayable string
+     */
+    public String asDisplayString() {
+        final StringBuffer sb = new StringBuffer(nodeType.name());
+        sb.append(": ").append(title);
+        return sb.toString();
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("IliasNode{");
+        sb.append("refId=").append(refId);
+        sb.append(", nodeType=").append(nodeType);
+        sb.append(", title='").append(title).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }

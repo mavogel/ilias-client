@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE Course PUBLIC "-//ILIAS//DTD Course//EN"
+        "https://ilias.hs-karlsruhe.de/xml/ilias_crs_5_0.dtd"><!--Export of ILIAS course 89033 of installation 0.-->
+<Course exportVersion="2" id="il_0_crs_89033" showMembers="Yes">
+    <MetaData>
+        <General Structure="Hierarchical">
+            <Identifier Catalog="ILIAS" Entry="il__crs_89033"/>
+            <Title Language="de">CS 134 Databases 1</Title>
+            <Language Language="de"/>
+            <Description Language="de"/>
+            <Keyword Language="en"/>
+        </General>
+    </MetaData>
+    <AdvancedMetaData></AdvancedMetaData>
+    <Admin id="il_0_usr_14272" notification="No" passed="No"></Admin>
+    <Member id="il_0_usr_103593" blocked="No" passed="No"></Member>
+    <Member id="il_0_usr_103615" blocked="No" passed="No"></Member>
+    <Member id="il_0_usr_117994" blocked="No" passed="No"></Member>
+    <Member id="il_0_usr_120143" blocked="No" passed="No"></Member>
+    <Member id="il_0_usr_141235" blocked="No" passed="No"></Member>
+    <Member id="il_0_usr_142024" blocked="No" passed="No"></Member>
+    <Member id="il_0_usr_142267" blocked="No" passed="No"></Member>
+    <Member id="il_0_usr_205963" blocked="No" passed="No"></Member>
+    <Member id="il_0_usr_233924" blocked="No" passed="No"></Member>
+    <Member id="il_0_usr_234594" blocked="No" passed="No"></Member>
+    <Member id="il_0_usr_234638" blocked="No" passed="No"></Member>
+    <Member id="il_0_usr_234658" blocked="No" passed="No"></Member>
+    <Member id="il_0_usr_234673" blocked="No" passed="No"></Member>
+    <Member id="il_0_usr_234691" blocked="No" passed="No"></Member>
+    <Member id="il_0_usr_260005" blocked="No" passed="No"></Member>
+    <Settings>
+        <Availability>
+            <TemporarilyAvailable>
+                <Start>1426464000</Start>
+                <End>1577836800</End>
+            </TemporarilyAvailable>
+        </Availability>
+        <Syllabus/>
+        <ImportantInformation/>
+        <Contact>
+            <Name/>
+            <Responsibility/>
+            <Phone/>
+            <Email/>
+            <Consultation/>
+        </Contact>
+        <Registration registrationType="Direct" maxMembers="0" notification="Yes" waitingList="Yes">
+            <Unlimited/>
+        </Registration>
+        <Archive Access="Disabled">
+            <Start>1412030437</Start>
+            <End>1481497200</End>
+        </Archive>
+    </Settings>
+    <Sort direction="ASC" position="Bottom" order="Title" type="Manual"/>
+    <ContainerSettings>
+        <ContainerSetting id="cont_show_calendar">1</ContainerSetting>
+        <ContainerSetting id="cont_show_news">1</ContainerSetting>
+    </ContainerSettings>
+</Course>

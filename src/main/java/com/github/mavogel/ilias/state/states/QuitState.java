@@ -15,6 +15,7 @@ public class QuitState extends ToolState {
     @Override
     public void printInformation() {
         System.out.println("Quitting... bye bye!");
+        // TODO logout
         this.stateMachine.stop();
     }
 }

@@ -1,6 +1,7 @@
 package com.github.mavogel.ilias.state;
 
 import com.github.mavogel.client.ILIASSoapWebservicePortType;
+import com.github.mavogel.ilias.model.IliasNode;
 import com.github.mavogel.ilias.model.LoginConfiguration;
 import com.github.mavogel.ilias.model.UserDataIds;
 import com.github.mavogel.ilias.state.states.*;
@@ -16,7 +17,7 @@ public class ToolStateMachine {
     private boolean isInEndState;
 
     /**
-     * Starts the statemachin until the {@link QuitState} is left.
+     * Starts the statemachine until the {@link QuitState} is left.
      */
     public void start() {
         while (!isInEndState) {
@@ -51,7 +52,7 @@ public class ToolStateMachine {
     private UserDataIds userDataId;
     private ILIASSoapWebservicePortType endPoint;
 
-    private Map<ContextKey, List<Integer>> context;
+    private Map<ContextKey, List<IliasNode>> context;
 
     private ToolState startState;
     private ToolState loginState;
@@ -111,7 +112,7 @@ public class ToolStateMachine {
     /**
      * @return the current context
      */
-    public Map<ContextKey, List<Integer>> getContext() {
+    public Map<ContextKey, List<IliasNode>> getContext() {
         return context;
     }
 

@@ -12,6 +12,7 @@ import java.rmi.RemoteException;
 import java.time.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by mavogel on 9/5/16.
@@ -53,6 +54,19 @@ public class IliasUtils {
     }
 
     /**
+     * Creates the endpoint of the ilias soap interface.
+     *
+     * @param loginConfiguration the config of the login
+     * @return the endpoint as {@link ILIASSoapWebservicePortType}
+     * @throws javax.xml.rpc.ServiceException
+     */
+    public static ILIASSoapWebservicePortType createWsEndpoint(final LoginConfiguration loginConfiguration) throws javax.xml.rpc.ServiceException {
+        ILIASSoapWebserviceLocator locator = new ILIASSoapWebserviceLocator();
+        locator.setILIASSoapWebservicePortEndpointAddress(loginConfiguration.getEndpoint());
+        return locator.getILIASSoapWebservicePort();
+    }
+
+    /**
      * Retrieves the information about the user.
      *
      * @param loginConfiguration the config for the logon
@@ -83,16 +97,28 @@ public class IliasUtils {
     }
 
     /**
-     * Creates the endpoint of the ilias soap interface.
+     * Retrieves the course of a user in which he has the given {@link DisplayStatus}.
      *
-     * @param loginConfiguration the config of the login
-     * @return the endpoint as {@link ILIASSoapWebservicePortType}
-     * @throws javax.xml.rpc.ServiceException
+     * @param endpoint the {@link ILIASSoapWebservicePortType}
+     * @param sid      the sid of the user obtained at the login
+     * @param userId   the usedId
+     * @param stati    the stati of the user ({@link DisplayStatus})
+     * @return the courses of the user with the given stati
+     * @throws JDOMException if no document for the xml parser could be created
+     * @throws IOException   if no InputStream could be created from the xmlString
      */
-    public static ILIASSoapWebservicePortType createWsEndpoint(final LoginConfiguration loginConfiguration) throws javax.xml.rpc.ServiceException {
-        ILIASSoapWebserviceLocator locator = new ILIASSoapWebserviceLocator();
-        locator.setILIASSoapWebservicePortEndpointAddress(loginConfiguration.getEndpoint());
-        return locator.getILIASSoapWebservicePort();
+    public static List<IliasNode> getCoursesForUser(final ILIASSoapWebservicePortType endpoint,
+                                                    final String sid, final int userId,
+                                                    final IliasUtils.DisplayStatus... stati) throws IOException, JDOMException {
+        List<IliasNode> courses = new ArrayList<>();
+
+        String foundCourses = endpoint.getCoursesForUser(sid, XMLUtils.createCoursesResultXml(userId, stati));
+        List<Integer> courseRefIds = XMLUtils.parseCourseRefIds(foundCourses);
+        for (Integer courseRefId : courseRefIds) { // checked exceptions and lambdas...
+            courses.add(XMLUtils.createsFromCourseNodeInfo(courseRefId, endpoint.getCourseXML(sid, courseRefId)));
+        }
+
+        return courses;
     }
 
     /**
@@ -114,25 +140,6 @@ public class IliasUtils {
             IliasUtils.retrieveGroupRefIdsFromNode(groupRefIds, endpoint, sid, userId, courseRefId, 0, maxFolderDepth);
         }
         return groupRefIds;
-    }
-
-    /**
-     * Retrieves all fileRefIds from the given groups.
-     *
-     * @param endpoint    the {@link ILIASSoapWebservicePortType}
-     * @param sid         the sid of the user obtained at the login
-     * @param userId      the usedId
-     * @param groupRefIds the refIds of the groups
-     * @return the refIds of the files in the groups
-     */
-    public static List<Integer> retrieveFileRefIdsFromGroups(final ILIASSoapWebservicePortType endpoint,
-                                                             final String sid, final int userId,
-                                                             final List<Integer> groupRefIds) throws IOException, JDOMException {
-        List<Integer> fileRefIds = new ArrayList<>();
-        for (Integer groupRefId : groupRefIds) {
-            fileRefIds.addAll(getRefIdsOfChildrenFromCurrentNode(endpoint, sid, userId, groupRefId, IliasNode.Type.FILE));
-        }
-        return fileRefIds;
     }
 
     /**
@@ -173,8 +180,8 @@ public class IliasUtils {
      * @param nodeRefId the refId of the node
      * @param nodeType  the desired type of children nodes
      * @return the refIds of the children
-     * @throws IOException
-     * @throws JDOMException
+     * @throws JDOMException if no document for the xml parser could be created
+     * @throws IOException   if no InputStream could be created from the xmlString
      */
     private static List<Integer> getRefIdsOfChildrenFromCurrentNode(final ILIASSoapWebservicePortType endpoint,
                                                                     final String sid, final int userId,
@@ -182,6 +189,25 @@ public class IliasUtils {
         String currentNodeXml = endpoint.getTreeChilds(sid, nodeRefId,
                 IliasNode.Type.compose(nodeType), userId);
         return XMLUtils.parseRefIdsOfNodeType(nodeType, currentNodeXml);
+    }
+
+    /**
+     * Retrieves all fileRefIds from the given groups.
+     *
+     * @param endpoint    the {@link ILIASSoapWebservicePortType}
+     * @param sid         the sid of the user obtained at the login
+     * @param userId      the usedId
+     * @param groupRefIds the refIds of the groups
+     * @return the refIds of the files in the groups
+     */
+    public static List<Integer> retrieveFileRefIdsFromGroups(final ILIASSoapWebservicePortType endpoint,
+                                                             final String sid, final int userId,
+                                                             final List<Integer> groupRefIds) throws IOException, JDOMException {
+        List<Integer> fileRefIds = new ArrayList<>();
+        for (Integer groupRefId : groupRefIds) {
+            fileRefIds.addAll(getRefIdsOfChildrenFromCurrentNode(endpoint, sid, userId, groupRefId, IliasNode.Type.FILE));
+        }
+        return fileRefIds;
     }
 
     /**
@@ -240,6 +266,17 @@ public class IliasUtils {
         return groupMemberExcluded;
     }
 
+    /**
+     * Sets the new registration start and end dates on all groups.
+     *
+     * @param endpoint          the {@link ILIASSoapWebservicePortType}
+     * @param sid               the sid of the user obtained at the login
+     * @param groupRefIds       the refIds of the groups to set the new dates
+     * @param registrationStart the start of the registration
+     * @param registrationEnd   the end of the registration
+     * @throws IOException
+     * @throws JDOMException
+     */
     public static void setRegistrationDatesOnGroupes(final ILIASSoapWebservicePortType endpoint, final String sid,
                                                      final List<Integer> groupRefIds,
                                                      final LocalDateTime registrationStart, final LocalDateTime registrationEnd) throws IOException, JDOMException {

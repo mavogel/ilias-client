@@ -67,7 +67,7 @@ public class XMLUtilsTest {
     }
 
     @Test
-    public void shouldParseOneCourseRefId() throws IOException, JDOMException, ParserConfigurationException {
+    public void shouldParseOneCourseRefId() throws IOException, JDOMException {
         // == prepare
         final String testFile = TEST_RES_DIR + "selectedCourses.xml";
         final String courseXml = Files.lines(Paths.get(testFile)).collect(Collectors.joining());
@@ -81,7 +81,7 @@ public class XMLUtilsTest {
     }
 
     @Test
-    public void shouldParseNoCourseRefId() throws IOException, JDOMException, ParserConfigurationException {
+    public void shouldParseNoCourseRefId() throws IOException, JDOMException {
         // == prepare
         final String testFile = TEST_RES_DIR + "selectedCoursesEmpty.xml";
         final String courseXml = Files.lines(Paths.get(testFile)).collect(Collectors.joining());
@@ -95,7 +95,7 @@ public class XMLUtilsTest {
     }
 
     @Test
-    public void shouldParseMultipleCourseRefIds() throws IOException, JDOMException, ParserConfigurationException {
+    public void shouldParseMultipleCourseRefIds() throws IOException, JDOMException {
         // == prepare
         final String testFile = TEST_RES_DIR + "selectedMultipleCourses.xml";
         final String courseXml = Files.lines(Paths.get(testFile)).collect(Collectors.joining());
@@ -109,7 +109,23 @@ public class XMLUtilsTest {
     }
 
     @Test
-    public void shouldParseFourFolderRefIdsFromNode() throws IOException, JDOMException, ParserConfigurationException {
+    public void shouldCreateAnIliasNoteFromCourseInfoXml() throws IOException, JDOMException {
+        // == prepare
+        final String testFile = TEST_RES_DIR + "courseInfo.xml";
+        final String courseXml = Files.lines(Paths.get(testFile)).collect(Collectors.joining());
+        final int courseRefId= 13345;
+
+        // == go
+        IliasNode iliasNode = XMLUtils.createsFromCourseNodeInfo(courseRefId, courseXml);
+
+        // == verify
+        assertEquals(13345, iliasNode.getRefId());
+        assertEquals(IliasNode.Type.COURSE, iliasNode.getNodeType());
+        assertEquals("CS 134 Databases 1", iliasNode.getTitle());
+    }
+
+    @Test
+    public void shouldParseFourFolderRefIdsFromNode() throws IOException, JDOMException {
         // == prepare
         final String testFile = TEST_RES_DIR + "treeNodesWithFoldersAndWebRefs.xml";
         final String nodeXml = Files.lines(Paths.get(testFile)).collect(Collectors.joining());
@@ -123,7 +139,7 @@ public class XMLUtilsTest {
     }
 
     @Test
-    public void shouldParse36GroupRefIdsFromNode() throws IOException, JDOMException, ParserConfigurationException {
+    public void shouldParse36GroupRefIdsFromNode() throws IOException, JDOMException {
         // == prepare
         final String testFile = TEST_RES_DIR + "treeNodesWithGroups.xml";
         final String nodeXml = Files.lines(Paths.get(testFile)).collect(Collectors.joining());
@@ -137,7 +153,7 @@ public class XMLUtilsTest {
     }
 
     @Test
-    public void shouldParse36GroupRefIdsFromNodeWithFoldersAndWebRefs() throws IOException, JDOMException, ParserConfigurationException {
+    public void shouldParse36GroupRefIdsFromNodeWithFoldersAndWebRefs() throws IOException, JDOMException {
         // == prepare
         final String testFile = TEST_RES_DIR + "treeNodesWithGroupsFoldersWebRefs.xml";
         final String nodeXml = Files.lines(Paths.get(testFile)).collect(Collectors.joining());
@@ -154,7 +170,7 @@ public class XMLUtilsTest {
     }
 
     @Test
-    public void shouldParseFileRefIdsFromNode() throws IOException, JDOMException, ParserConfigurationException {
+    public void shouldParseFileRefIdsFromNode() throws IOException, JDOMException {
         // == prepare
         final String testFile = TEST_RES_DIR + "treeNodesWithFiles.xml";
         final String nodeXml = Files.lines(Paths.get(testFile)).collect(Collectors.joining());
@@ -168,7 +184,7 @@ public class XMLUtilsTest {
     }
 
     @Test
-    public void shouldParse3MemberIdsGroupInfo() throws IOException, JDOMException, ParserConfigurationException {
+    public void shouldParse3MemberIdsGroupInfo() throws IOException, JDOMException {
         // == prepare
         final String testFile = TEST_RES_DIR + "groupInfo.xml";
         final String groupXml = Files.lines(Paths.get(testFile)).collect(Collectors.joining());
@@ -182,7 +198,7 @@ public class XMLUtilsTest {
     }
 
     @Test
-    public void shouldSetNewRegistrationDatesOnGroup() throws IOException, JDOMException, ParserConfigurationException {
+    public void shouldSetNewRegistrationDatesOnGroup() throws IOException, JDOMException {
         // == prepare
         final String testFile = TEST_RES_DIR + "groupInfo.xml";
         final String groupXml = Files.lines(Paths.get(testFile)).collect(Collectors.joining());

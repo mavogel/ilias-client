@@ -1,13 +1,13 @@
 package com.github.mavogel.ilias.state.states;
 
 import com.github.mavogel.client.ILIASSoapWebservicePortType;
+import com.github.mavogel.ilias.model.IliasNode;
 import com.github.mavogel.ilias.state.ToolState;
 import com.github.mavogel.ilias.state.ToolStateMachine;
 import com.github.mavogel.ilias.utils.IliasUtils;
 import com.github.mavogel.ilias.utils.XMLUtils;
 import org.jdom.JDOMException;
 
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.List;
@@ -34,10 +34,9 @@ public class ChooseCoursesState extends ToolState {
         int userId = stateMachine.getUserDataIds().getUserId();
 
         try {
-            String selectedCourses = endpoint.getCoursesForUser(sid,
-                    XMLUtils.createCoursesResultXml(userId, IliasUtils.DisplayStatus.ADMIN));
+            List<IliasNode> coursesForUser = IliasUtils.getCoursesForUser(endpoint, sid, userId, IliasUtils.DisplayStatus.ADMIN);
             stateMachine.getContext().put(ToolStateMachine.ContextKey.COURSES,
-                                          XMLUtils.parseCourseRefIds(selectedCourses)); // TODO make node info model
+                                          coursesForUser);
         } catch (RemoteException e) {
             System.err.println("Could not retrieve courses for user : " + e.getMessage());
             this.stateMachine.setState(stateMachine.getQuitState());

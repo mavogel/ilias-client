@@ -39,34 +39,40 @@ public class Starter {
             int userId = userData.getUserId();
             sid = userData.getSid();
 
-            // 3: workflow start
-            ToolStateMachine stateMachine = new ToolStateMachine(loginConfiguration);
-            stateMachine.start();
+            String courseXML = endpoint.getCourseXML(sid, 44525);
+            System.out.println("Course xml: " + courseXML);
 
-            // ChooseCoursesState √
-            String selectedCourses = endpoint.getCoursesForUser(sid,
-                    XMLUtils.createCoursesResultXml(userId, IliasUtils.DisplayStatus.ADMIN));
-            System.out.printf("courses for user: %s%n", selectedCourses);
-            List<Integer> courseRefIds = XMLUtils.parseCourseRefIds(selectedCourses);
 
-            // 3.1 each course
-            int maxFolderDepth = 5; // into config file
-            List<Integer> groupRefIds = IliasUtils.retrieveGroupRefIdsFromCourses(endpoint, sid, userId,
-                                                                                  courseRefIds, maxFolderDepth);
+            if (false) {
+                // 3: workflow start
+                ToolStateMachine stateMachine = new ToolStateMachine(loginConfiguration);
+                stateMachine.start();
 
-            // Updates:
-            // 1: remove users: √
-            IliasUtils.removeAllMembersFromGroups(endpoint, sid, groupRefIds);
+                // ChooseCoursesState √
+                String selectedCourses = endpoint.getCoursesForUser(sid,
+                        XMLUtils.createCoursesResultXml(userId, IliasUtils.DisplayStatus.ADMIN));
+                System.out.printf("courses for user: %s%n", selectedCourses);
+                List<Integer> courseRefIds = XMLUtils.parseCourseRefIds(selectedCourses);
 
-            // 2: set registration period √
+                // 3.1 each course
+                int maxFolderDepth = 5; // into config file
+                List<Integer> groupRefIds = IliasUtils.retrieveGroupRefIdsFromCourses(endpoint, sid, userId,
+                                                                                      courseRefIds, maxFolderDepth);
+
+                // Updates:
+                // 1: remove users: √
+                IliasUtils.removeAllMembersFromGroups(endpoint, sid, groupRefIds);
+
+                // 2: set registration period √
 //            TODO
-            LocalDateTime registrationStart = LocalDateTime.parse("", DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-            LocalDateTime registrationEnd = LocalDateTime.parse("", DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-            IliasUtils.setRegistrationDatesOnGroupes(endpoint, sid, groupRefIds, registrationStart, registrationEnd);
+                LocalDateTime registrationStart = LocalDateTime.parse("", DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+                LocalDateTime registrationEnd = LocalDateTime.parse("", DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+                IliasUtils.setRegistrationDatesOnGroupes(endpoint, sid, groupRefIds, registrationStart, registrationEnd);
 
-            // 3: remove uploaded materials √
-            List<Integer> fileRefIds = IliasUtils.retrieveFileRefIdsFromGroups(endpoint, sid, userId, groupRefIds);
-            IliasUtils.deleteObjects(endpoint, sid, fileRefIds);
+                // 3: remove uploaded materials √
+                List<Integer> fileRefIds = IliasUtils.retrieveFileRefIdsFromGroups(endpoint, sid, userId, groupRefIds);
+                IliasUtils.deleteObjects(endpoint, sid, fileRefIds);
+            }
 
         } catch (javax.xml.rpc.ServiceException ex) {
             System.err.println(ex.getMessage());
