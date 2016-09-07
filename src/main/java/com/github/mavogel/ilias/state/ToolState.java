@@ -5,7 +5,6 @@ import com.github.mavogel.ilias.utils.IOUtils;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 /**
  * Created by mavogel on 9/6/16.
@@ -70,7 +69,7 @@ public abstract class ToolState {
      * @return the choice of the user
      */
     protected List<Integer> parseUserChoices(final List<?> choices) {
-        return IOUtils.getAndParseChoicesFromUser(choices);
+        return IOUtils.readAndParseChoicesFromUser(choices);
     }
 
 
@@ -83,7 +82,7 @@ public abstract class ToolState {
      * @return the choice of the user
      */
     protected int parseUserChoice(final List<?> choices) {
-        return IOUtils.getAndParseSingleChoiceFromUser(choices);
+        return IOUtils.readAndParseSingleChoiceFromUser(choices);
     }
 
     /**

@@ -21,7 +21,7 @@ import static org.junit.Assert.assertEquals;
 public class IOUtilsTest {
 
     @Test
-    public void shouldParseAValidChoiceFromUser() throws Exception {
+    public void shouldParseAValidChoice() throws Exception {
         // == prepare
         final List<String> choices = new ArrayList<>(Arrays.asList("A", "B", "C"));
 
@@ -31,7 +31,7 @@ public class IOUtilsTest {
         PowerMockito.when(scanner.nextLine()).thenReturn("1");
 
         // == go
-        int parseChoicesFromUser = IOUtils.getAndParseSingleChoiceFromUser(choices);
+        int parseChoicesFromUser = IOUtils.readAndParseSingleChoiceFromUser(choices);
 
         // == verify
         assertEquals(1, parseChoicesFromUser);
@@ -48,28 +48,69 @@ public class IOUtilsTest {
         PowerMockito.when(scanner.nextLine()).thenReturn("5").thenReturn("a").thenReturn("2");
 
         // == go
-        int parseChoicesFromUser = IOUtils.getAndParseSingleChoiceFromUser(choices);
+        int parseChoicesFromUser = IOUtils.readAndParseSingleChoiceFromUser(choices);
 
         // == verify
         assertEquals(2, parseChoicesFromUser);
     }
 
-//    @Test
-//    @Ignore(value = "Easymock in inifinite loop")
-//    public void shouldErrorWrongInputAndThenAcceptCorrect() throws Exception {
-//        // == prepare
-//        final List<String> choices = new ArrayList<>(Arrays.asList("A", "B", "C"));
-//
-//        // == train
-//        Scanner scanner = PowerMock.createNiceMockAndExpectNew(Scanner.class, System.in);
-//        EasyMock.expect(scanner.nextLine()).andReturn("5").andReturn("2");
-//        PowerMock.replayAll();
-//
-//        // == go
-//        int parseChoicesFromUser = IOUtils.getAndParseSingleChoiceFromUser(choices);
-//
-//        // == verify
-//        PowerMock.verifyAll();
-//        assertEquals(2, parseChoicesFromUser);
-//    }
+    @Test
+    public void shouldParseASingleDigitAndRange() throws Exception {
+        // == prepare
+        final List<String> choices = new ArrayList<>(Arrays.asList("A", "B", "C", "D", "E", "F", "G"));
+
+        // == train
+        Scanner scanner = PowerMockito.mock(Scanner.class);
+        PowerMockito.whenNew(Scanner.class).withArguments(System.in).thenReturn(scanner);
+        PowerMockito.when(scanner.nextLine()).thenReturn("1, 4-6");
+
+        // == go
+        List<Integer> madeChoices = IOUtils.readAndParseChoicesFromUser(choices);
+
+        // == verify
+        assertEquals(Arrays.asList(1, 4, 5, 6), madeChoices);
+    }
+
+    @Test
+    public void shouldParseSingleDigitsAndRanges() throws Exception {
+        // == prepare
+        final List<String> choices = new ArrayList<>(Arrays.asList(
+                "A", "B", "C", "D",
+                "E", "F", "G", "H",
+                "U", "J", "K", "L"));
+
+        // == train
+        Scanner scanner = PowerMockito.mock(Scanner.class);
+        PowerMockito.whenNew(Scanner.class).withArguments(System.in).thenReturn(scanner);
+        PowerMockito.when(scanner.nextLine()).thenReturn("1,  8- 11  , 4-6, 2");
+
+        // == go
+        List<Integer> madeChoices = IOUtils.readAndParseChoicesFromUser(choices);
+
+        // == verify
+        assertEquals(Arrays.asList(1, 2, 4, 5, 6, 8, 9, 10, 11), madeChoices);
+    }
+
+    @Test
+    public void shouldAcceptSecondInputDueToBogusRange() throws Exception {
+        // == prepare
+        final List<String> choices = new ArrayList<>(Arrays.asList(
+                "A", "B", "C", "D",
+                "E", "F", "G", "H",
+                "U", "J", "K", "L"));
+
+        // == train
+        Scanner scanner = PowerMockito.mock(Scanner.class);
+        PowerMockito.whenNew(Scanner.class).withArguments(System.in).thenReturn(scanner);
+        PowerMockito.when(scanner.nextLine()).thenReturn("1,  8- 115  , 4-6, 2, 5- 3")
+                                             .thenReturn("10, 5 -4, 3")
+                                             .thenReturn("4-8");
+
+        // == go
+        List<Integer> madeChoices = IOUtils.readAndParseChoicesFromUser(choices);
+
+        // == verify
+        assertEquals(Arrays.asList(4, 5, 6, 7, 8), madeChoices);
+    }
+
 }
