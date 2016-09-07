@@ -12,12 +12,18 @@ import java.util.stream.IntStream;
 public abstract class ToolState {
 
     protected ToolStateMachine stateMachine;
-    protected List<ToolState> successors;
-    protected List<ExecutionState> executionStates;
 
+    protected List<ToolState> successors;
     private int transitionChoice;
+
+    protected List<ExecutionState> executionStates;
     private List<Integer> executionChoices;
 
+    /**
+     * C'tor for a {@link ToolState}
+     *
+     * @param stateMachine the {@link ToolStateMachine}
+     */
     protected ToolState(final ToolStateMachine stateMachine) {
         this.stateMachine = stateMachine;
     }
@@ -50,7 +56,7 @@ public abstract class ToolState {
         String transitionChoices = IntStream.range(0, successors.size())
                 .mapToObj(i -> successors.get(i).asDisplayString(i + ") "))
                 .collect(Collectors.joining("\n"));
-        System.out.println(transitionChoices);
+        System.out.println("Next step:\n" + transitionChoices);
     }
 
     /**
@@ -90,7 +96,7 @@ public abstract class ToolState {
      */
     protected void transition() {
         stateMachine.setState(successors.get(this.transitionChoice));
-    } // TODO do not work with indices here please
+    }
 
     /**
      * Returns a string for displaying the information of the state
@@ -106,8 +112,9 @@ public abstract class ToolState {
         return sb.toString();
     }
 
+    //////////////////////////////////
     /////////// EXECUTIONS ///////////
-
+    //////////////////////////////////
     /**
      * Collects data for the execution. Usually these are refId of object to perform actions on later.
      */
@@ -124,7 +131,6 @@ public abstract class ToolState {
      * Parses the given choices for execution.
      */
     protected void parseExecutionChoices() {
-//        this.executionChoices = parseUserChoices(this.executionStates); TODO
     }
 
     /**

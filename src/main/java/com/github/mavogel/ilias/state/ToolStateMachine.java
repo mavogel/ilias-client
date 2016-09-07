@@ -17,7 +17,7 @@ public class ToolStateMachine {
     private boolean isInEndState;
 
     /**
-     * Starts the statemachine until the {@link QuitState} is left.
+     * Starts the state machine until the {@link QuitState} is left.
      */
     public void start() {
         while (!isInEndState) {
@@ -129,6 +129,9 @@ public class ToolStateMachine {
         this.currentState = state;
     }
 
+    /////////////////////////////////////
+    // Main actions with states
+    /////////////////////////////////////
     /**
      * Performs the actions on entering the state.
      */
@@ -160,8 +163,9 @@ public class ToolStateMachine {
         this.currentState.transition();
     }
 
-
+    ///////////////////////////////
     /////////// States ////////////
+    ///////////////////////////////
 
     public ToolState getStartState() {
         return startState;
