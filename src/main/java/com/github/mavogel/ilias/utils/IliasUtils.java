@@ -200,8 +200,8 @@ public class IliasUtils {
      * @return the refIds of the files in the groups
      */
     public static List<IliasNode> retrieveFileRefIdsFromGroups(final ILIASSoapWebservicePortType endpoint,
-                                                             final String sid, final int userId,
-                                                             final List<Integer> groupRefIds) throws IOException, JDOMException {
+                                                               final String sid, final int userId,
+                                                               final List<Integer> groupRefIds) throws IOException, JDOMException {
         List<IliasNode> fileRefIds = new ArrayList<>();
         for (Integer groupRefId : groupRefIds) {
             fileRefIds.addAll(getRefIdsOfChildrenFromCurrentNode(endpoint, sid, userId, groupRefId, IliasNode.Type.FILE));
@@ -220,7 +220,7 @@ public class IliasUtils {
     public static void deleteObjects(final ILIASSoapWebservicePortType endpoint,
                                      final String sid, final List<Integer> nodeRefIds) throws RemoteException {
         for (Integer nodeRefId : nodeRefIds) {
-//            TODO
+//            TODO activate
 //            boolean objectDeleted = endpoint.deleteObject(sid, nodeRefId);
 //            System.out.printf("objectDeleted: %s%n", objectDeleted);
         }
@@ -229,40 +229,45 @@ public class IliasUtils {
     /**
      * Removes all members from the given groups.
      *
-     * @param endpoint    the {@link ILIASSoapWebservicePortType}
-     * @param sid         the sid of the user obtained at the login
-     * @param groupRefIds the refIds of the groups
+     * @param endpoint   the {@link ILIASSoapWebservicePortType}
+     * @param sid        the sid of the user obtained at the login
+     * @param groupNodes the group nodes
      * @throws IOException
      * @throws JDOMException
      */
     public static void removeAllMembersFromGroups(final ILIASSoapWebservicePortType endpoint,
-                                                  final String sid, final List<Integer> groupRefIds) throws IOException, JDOMException {
-        for (Integer groupRefId : groupRefIds) {
-            String groupXml = endpoint.getGroup(sid, groupRefId);
+                                                  final String sid, final List<IliasNode> groupNodes) throws IOException, JDOMException {
+        for (IliasNode groupNode : groupNodes) {
+            String groupXml = endpoint.getGroup(sid, groupNode.getRefId());
             List<Integer> groupMemberIds = XMLUtils.parseGroupMemberIds(groupXml);
-            for (Integer groupMemberId : groupMemberIds) {
-                removeMemberFromGroup(endpoint, sid, groupRefId, groupMemberId);
-            }
+            removeMembersFromGroup(endpoint, sid, groupNode, groupMemberIds);
         }
     }
 
     /**
-     * Removes the member with the given id from the group.
+     * Removes the members with the given ids from the group.
      *
-     * @param endpoint      the {@link ILIASSoapWebservicePortType}
-     * @param sid           the sid of the user obtained at the login
-     * @param groupRefId    the refId of the group
-     * @param groupMemberId the id of the member to remove
-     * @return <code>true</code> if the member was removed, <code>false</code> otherwise
-     * @throws RemoteException
+     * @param endpoint       the {@link ILIASSoapWebservicePortType}
+     * @param sid            the sid of the user obtained at the login
+     * @param groupNode      the group node
+     * @param groupMemberIds the ids of the members of the group
      */
-    private static boolean removeMemberFromGroup(final ILIASSoapWebservicePortType endpoint, final String sid,
-                                                 final Integer groupRefId, final Integer groupMemberId) throws RemoteException {
-        boolean groupMemberExcluded = true;
-//        TODO
-//        groupMemberExcluded = endpoint.excludeGroupMember(sid, groupRefId, groupMemberId);
-        System.out.println("excluded Member with id:" + groupMemberId + " -> " + groupMemberExcluded);
-        return groupMemberExcluded;
+    private static void removeMembersFromGroup(final ILIASSoapWebservicePortType endpoint, final String sid,
+                                               final IliasNode groupNode, final List<Integer> groupMemberIds) {
+        for (Integer groupMemberId : groupMemberIds) {
+            try {
+                // TODO activate
+                boolean groupMemberExcluded = false; //endpoint.excludeGroupMember(sid, groupNode.getRefId(), groupMemberId);
+                System.out.println("excluded Member with id:" + groupMemberId + " -> " + groupMemberExcluded);
+                if (!groupMemberExcluded) {
+                    System.err.println("Could not remove " + groupMemberId + " from Group '" + groupNode.getTitle() + "'");
+                }
+                ;
+            } catch (Exception e) {
+                System.err.println("Could not remove " + groupMemberId + " from Group '" + groupNode.getTitle() + "'");
+            }
+
+        }
     }
 
     /**
@@ -284,7 +289,7 @@ public class IliasUtils {
         final long newEnd = toEpochSecond(registrationEnd);
         System.out.println("new: " + newStart + " -> " + Instant.ofEpochSecond(newStart));
         for (Integer groupRefId : groupRefIds) {
-//            TODO
+//            TODO activate
 //            String groupXml = endpoint.getGroup(sid, groupRefId);
 //            String updatedGroupXml = XMLUtils.setRegistrationDates(groupXml, newStart, newEnd);
 //            boolean isGroupUpdated = endpoint.updateGroup(sid, groupRefId, updatedGroupXml);

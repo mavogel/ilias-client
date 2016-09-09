@@ -29,7 +29,8 @@ public class ChooseCoursesState extends ToolState {
 
     @Override
     public void printInformation() {
-        System.out.println("Choose a topic");
+        System.out.println("Choose a Course");
+        this.stateMachine.getContext().remove(ToolStateMachine.ContextKey.GROUPS);
     }
 
     @Override
