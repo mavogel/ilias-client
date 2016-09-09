@@ -229,21 +229,25 @@ public class IliasUtils {
     }
 
     /**
-     * Removes all members from the given groups.
+     * Removes all members from the given groups. Prints the users which could not be removed.
      *
      * @param endpoint   the {@link ILIASSoapWebservicePortType}
      * @param sid        the sid of the user obtained at the login
      * @param groupNodes the group nodes
-     * @throws IOException
-     * @throws JDOMException
+     * @throws JDOMException if no document for the xml parser could be created
+     * @throws IOException   if no InputStream could be created from the xmlString
      */
     public static void removeAllMembersFromGroups(final ILIASSoapWebservicePortType endpoint,
                                                   final String sid, final List<IliasNode> groupNodes) throws IOException, JDOMException {
         List<GroupUserModel> unremovedUsers = new ArrayList<>();
+        int i = 0;
         for (IliasNode groupNode : groupNodes) {
             String groupXml = endpoint.getGroup(sid, groupNode.getRefId());
             List<Integer> groupMemberIds = XMLUtils.parseGroupMemberIds(groupXml);
             unremovedUsers.add(removeMembersFromGroup(endpoint, sid, groupNode, groupMemberIds));
+            // TODO optional clear line after each
+            System.out.println("Processing group " + i + " of " + groupNodes.size());
+            i++;
         }
 
         if (!unremovedUsers.isEmpty() && unremovedUsers.stream().anyMatch(u -> u.hasMembers())) {
@@ -259,7 +263,8 @@ public class IliasUtils {
      * @param sid            the sid of the user obtained at the login
      * @param groupNode      the group node
      * @param groupMemberIds the ids of the members of the group
-     * @return a {@link GroupUserModel} containing the member which could not be removed from the group
+     * @return a {@link GroupUserModel} containing the member which could not be removed from the group.
+     * {@link GroupUserModel#hasMembers()} return <code>false</code> if all user could be removed.
      */
     private static GroupUserModel removeMembersFromGroup(final ILIASSoapWebservicePortType endpoint, final String sid,
                                                          final IliasNode groupNode, final List<Integer> groupMemberIds) {
@@ -268,6 +273,7 @@ public class IliasUtils {
             try {
                 // TODO activate
                 boolean groupMemberExcluded = false; //endpoint.excludeGroupMember(sid, groupNode.getRefId(), groupMemberId);
+                // TODO logging
                 System.out.println("excluded Member with id:" + groupMemberId + " -> " + groupMemberExcluded);
                 if (!groupMemberExcluded) {
                     unremovedUsers.addGroupMemberId(groupMemberId);
@@ -288,8 +294,8 @@ public class IliasUtils {
      * @param groupRefIds       the refIds of the groups to set the new dates
      * @param registrationStart the start of the registration
      * @param registrationEnd   the end of the registration
-     * @throws IOException
-     * @throws JDOMException
+     * @throws JDOMException if no document for the xml parser could be created
+     * @throws IOException   if no InputStream could be created from the xmlString
      */
     public static void setRegistrationDatesOnGroupes(final ILIASSoapWebservicePortType endpoint, final String sid,
                                                      final List<Integer> groupRefIds,

@@ -11,6 +11,7 @@ import org.jdom.JDOMException;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * Created by mavogel on 9/7/16.
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 public class RemoveUsersState extends ToolState implements ExecutionState {
 
     private List<IliasNode> selectedGroups;
+    private List<Integer> indexesOfChosenGroups;
 
     public RemoveUsersState(final ToolStateMachine stateMachine, final ToolState... successors) {
         super(stateMachine);
@@ -36,12 +38,20 @@ public class RemoveUsersState extends ToolState implements ExecutionState {
 
     @Override
     protected void printExecutionChoices() {
+        String executionChoices = IntStream.range(0, this.selectedGroups.size())
+                .mapToObj(i -> this.selectedGroups.get(i).asDisplayString(i + ") "))
+                .collect(Collectors.joining("\n"));
+        System.out.println(executionChoices);
+    }
 
+    @Override
+    protected void parseExecutionChoices() {
+        this.indexesOfChosenGroups = super.parseUserChoices(this.selectedGroups);
     }
 
     @Override
     protected void printExecutionPreview() {
-         // TODO accumulate users per group
+        System.out.println("Will remove users of " + indexesOfChosenGroups.size() + " groups!");
     }
 
     @Override
@@ -52,6 +62,10 @@ public class RemoveUsersState extends ToolState implements ExecutionState {
 
     @Override
     protected void execute() {
+        this.selectedGroups = this.indexesOfChosenGroups.stream()
+                .map(idx -> this.selectedGroups.get(idx))
+                .collect(Collectors.toList());
+
         ILIASSoapWebservicePortType endpoint = stateMachine.getEndPoint();
         final String sid = stateMachine.getUserDataIds().getSid();
         try {
@@ -64,11 +78,6 @@ public class RemoveUsersState extends ToolState implements ExecutionState {
 
     @Override
     protected void printExecutionSummary() {
-
-    }
-
-    @Override
-    protected void parseExecutionChoices() {
-
+        // done internally in IliasUtils.removeAllMembersFromGroups
     }
 }
