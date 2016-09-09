@@ -132,18 +132,20 @@ public class XMLUtils {
      *
      * @param nodeType the type of the node
      * @param nodeXml  the xml representation of the node
-     * @return the refIds of its objects of the given type
+     * @return the information of its objects of the given type as {@link IliasNode}
      * @throws JDOMException
      * @throws IOException
      */
-    public static List<Integer> parseRefIdsOfNodeType(final IliasNode.Type nodeType, final String nodeXml) throws JDOMException, IOException {
+    public static List<IliasNode> parseRefIdsOfNodeType(final IliasNode.Type nodeType, final String nodeXml) throws JDOMException, IOException {
         Document doc = createSaxDocFromString(nodeXml);
 
         Element rootElement = doc.getRootElement();
         List<Element> objects = rootElement.getChildren("Object");
         return objects.stream()
                 .filter(o -> isOfNodeType(nodeType, o))
-                .map(o -> Integer.valueOf(o.getChild("References").getAttribute("ref_id").getValue().trim()).intValue())
+                .map(o -> new IliasNode(Integer.valueOf(o.getChild("References").getAttribute("ref_id").getValue().trim()).intValue(),
+                                        nodeType,
+                                        o.getChild("Title").getValue().trim()))
                 .collect(Collectors.toList());
     }
 

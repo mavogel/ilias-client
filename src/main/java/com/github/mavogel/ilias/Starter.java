@@ -1,6 +1,7 @@
 package com.github.mavogel.ilias;
 
 import com.github.mavogel.client.ILIASSoapWebservicePortType;
+import com.github.mavogel.ilias.model.IliasNode;
 import com.github.mavogel.ilias.model.LoginConfiguration;
 import com.github.mavogel.ilias.model.UserDataIds;
 import com.github.mavogel.ilias.state.ToolStateMachine;
@@ -56,22 +57,22 @@ public class Starter {
 
                 // 3.1 each course
                 int maxFolderDepth = 5; // into config file
-                List<Integer> groupRefIds = IliasUtils.retrieveGroupRefIdsFromCourses(endpoint, sid, userId,
+                List<IliasNode> groupNodes = IliasUtils.retrieveGroupRefIdsFromCourses(endpoint, sid, userId,
                                                                                       courseRefIds, maxFolderDepth);
 
                 // Updates:
                 // 1: remove users: √
-                IliasUtils.removeAllMembersFromGroups(endpoint, sid, groupRefIds);
+//                IliasUtils.removeAllMembersFromGroups(endpoint, sid, groupNodes);
 
                 // 2: set registration period √
 //            TODO
                 LocalDateTime registrationStart = LocalDateTime.parse("", DateTimeFormatter.ISO_LOCAL_DATE_TIME);
                 LocalDateTime registrationEnd = LocalDateTime.parse("", DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-                IliasUtils.setRegistrationDatesOnGroupes(endpoint, sid, groupRefIds, registrationStart, registrationEnd);
+//                IliasUtils.setRegistrationDatesOnGroupes(endpoint, sid, groupNodes, registrationStart, registrationEnd);
 
                 // 3: remove uploaded materials √
-                List<Integer> fileRefIds = IliasUtils.retrieveFileRefIdsFromGroups(endpoint, sid, userId, groupRefIds);
-                IliasUtils.deleteObjects(endpoint, sid, fileRefIds);
+//                List<Integer> fileRefIds = IliasUtils.retrieveFileRefIdsFromGroups(endpoint, sid, userId, groupNodes);
+//                IliasUtils.deleteObjects(endpoint, sid, fileRefIds);
             }
 
         } catch (javax.xml.rpc.ServiceException ex) {

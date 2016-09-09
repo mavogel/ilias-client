@@ -60,7 +60,7 @@ public class XMLUtilsTest {
 
         // == go
         String adminCoursesResultXml = XMLUtils.createCoursesResultXml(122, IliasUtils.DisplayStatus.ADMIN,
-                                                                                 IliasUtils.DisplayStatus.OWNER);
+                IliasUtils.DisplayStatus.OWNER);
 
         // == verify
         assertEquals(expected, adminCoursesResultXml);
@@ -113,7 +113,7 @@ public class XMLUtilsTest {
         // == prepare
         final String testFile = TEST_RES_DIR + "courseInfo.xml";
         final String courseXml = Files.lines(Paths.get(testFile)).collect(Collectors.joining());
-        final int courseRefId= 13345;
+        final int courseRefId = 13345;
 
         // == go
         IliasNode iliasNode = XMLUtils.createsFromCourseNodeInfo(courseRefId, courseXml);
@@ -131,11 +131,16 @@ public class XMLUtilsTest {
         final String nodeXml = Files.lines(Paths.get(testFile)).collect(Collectors.joining());
 
         // == go
-        List<Integer> folderRefIds = XMLUtils.parseRefIdsOfNodeType(IliasNode.Type.FOLDER, nodeXml);
+        List<IliasNode> folderNodes = XMLUtils.parseRefIdsOfNodeType(IliasNode.Type.FOLDER, nodeXml);
 
         // == verify
-        assertTrue(folderRefIds != null);
-        assertEquals(new ArrayList<>(Arrays.asList(44528, 44529, 44527, 44530)), folderRefIds);
+        assertTrue(folderNodes != null);
+        List<IliasNode> expectedNode = new ArrayList<>();
+        expectedNode.add(new IliasNode(44528, IliasNode.Type.FOLDER, "Folder1"));
+        expectedNode.add(new IliasNode(44529, IliasNode.Type.FOLDER, "Exams"));
+        expectedNode.add(new IliasNode(44527, IliasNode.Type.FOLDER, "Scripts"));
+        expectedNode.add(new IliasNode(44530, IliasNode.Type.FOLDER, "Lecture Materials"));
+        assertEquals(expectedNode.toString(), folderNodes.toString());
     }
 
     @Test
@@ -145,11 +150,11 @@ public class XMLUtilsTest {
         final String nodeXml = Files.lines(Paths.get(testFile)).collect(Collectors.joining());
 
         // == go
-        List<Integer> groupRefIds = XMLUtils.parseRefIdsOfNodeType(IliasNode.Type.GROUP, nodeXml);
+        List<IliasNode> groupNodes = XMLUtils.parseRefIdsOfNodeType(IliasNode.Type.GROUP, nodeXml);
 
         // == verify
-        assertTrue(groupRefIds != null);
-        assertEquals(36, groupRefIds.size());
+        assertTrue(groupNodes != null);
+        assertEquals(36, groupNodes.size());
     }
 
     @Test
@@ -159,14 +164,11 @@ public class XMLUtilsTest {
         final String nodeXml = Files.lines(Paths.get(testFile)).collect(Collectors.joining());
 
         // == go
-        List<Integer> groupRefIds = XMLUtils.parseRefIdsOfNodeType(IliasNode.Type.GROUP, nodeXml);
+        List<IliasNode> groupNodes = XMLUtils.parseRefIdsOfNodeType(IliasNode.Type.GROUP, nodeXml);
 
         // == verify
-        assertTrue(groupRefIds != null);
-        assertEquals(36, groupRefIds.size());
-        assertTrue(groupRefIds.contains(166848));
-        assertTrue(groupRefIds.contains(146462));
-        assertFalse(groupRefIds.contains(44528));
+        assertTrue(groupNodes != null);
+        assertEquals(36, groupNodes.size());
     }
 
     @Test
@@ -176,11 +178,13 @@ public class XMLUtilsTest {
         final String nodeXml = Files.lines(Paths.get(testFile)).collect(Collectors.joining());
 
         // == go
-        List<Integer> folderRefIds = XMLUtils.parseRefIdsOfNodeType(IliasNode.Type.FILE, nodeXml);
+        List<IliasNode> folderNodes = XMLUtils.parseRefIdsOfNodeType(IliasNode.Type.FILE, nodeXml);
 
         // == verify
-        assertTrue(folderRefIds != null);
-        assertEquals(new ArrayList<>(Arrays.asList(203095)), folderRefIds);
+        assertTrue(folderNodes != null);
+        List<IliasNode> expectedNodes = new ArrayList<>();
+        expectedNodes.add(new IliasNode(203095, IliasNode.Type.FILE, "MyFile.sql"));
+        assertEquals(expectedNodes.toString(), folderNodes.toString());
     }
 
     @Test

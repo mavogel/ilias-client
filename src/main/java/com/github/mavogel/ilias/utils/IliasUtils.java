@@ -129,23 +129,23 @@ public class IliasUtils {
      * @param userId         the usedId
      * @param courseRefIds   the refIds of the courses
      * @param maxFolderDepth the maximum folder depth to search
-     * @return all refIds of groups found in the course
+     * @return all groups found in the course
      */
-    public static List<Integer> retrieveGroupRefIdsFromCourses(final ILIASSoapWebservicePortType endpoint,
-                                                               final String sid, final int userId,
-                                                               final List<Integer> courseRefIds, final int maxFolderDepth) throws IOException, JDOMException {
-        List<Integer> groupRefIds = new ArrayList<>();
+    public static List<IliasNode> retrieveGroupRefIdsFromCourses(final ILIASSoapWebservicePortType endpoint,
+                                                                 final String sid, final int userId,
+                                                                 final List<Integer> courseRefIds, final int maxFolderDepth) throws IOException, JDOMException {
+        List<IliasNode> groupNodes = new ArrayList<>();
         for (Integer courseRefId : courseRefIds) {
-            IliasUtils.retrieveGroupRefIdsFromNode(groupRefIds, endpoint, sid, userId, courseRefId, 0, maxFolderDepth);
+            IliasUtils.retrieveGroupRefIdsFromNode(groupNodes, endpoint, sid, userId, courseRefId, 0, maxFolderDepth);
         }
-        return groupRefIds;
+        return groupNodes;
     }
 
     /**
      * Retrieves the refIds of all groups of the given refId of a node/object in the ilias tree.
      * A node can also contain folder trees. The maxDepth parameter limits the search depth.
      *
-     * @param groupRefIds  the accumulated group ref ids
+     * @param groupNodes   the accumulated group ref ids
      * @param endpoint     the {@link ILIASSoapWebservicePortType}
      * @param sid          the sid of the user obtained at the login
      * @param userId       the usedId
@@ -153,19 +153,19 @@ public class IliasUtils {
      * @param currentDepth the current depth of the search
      * @param maxDepth     the maximum folder depth to search
      */
-    private static void retrieveGroupRefIdsFromNode(final List<Integer> groupRefIds, final ILIASSoapWebservicePortType endpoint,
+    private static void retrieveGroupRefIdsFromNode(final List<IliasNode> groupNodes, final ILIASSoapWebservicePortType endpoint,
                                                     final String sid, final int userId,
                                                     final int nodeRefId,
                                                     final int currentDepth, final int maxDepth) throws IOException, JDOMException {
         if (currentDepth <= maxDepth) {
-            List<Integer> folderChildrenRefIds = getRefIdsOfChildrenFromCurrentNode(endpoint, sid, userId, nodeRefId, IliasNode.Type.FOLDER);
-            for (Integer folderChildRefId : folderChildrenRefIds) {
+            List<IliasNode> folderChildrenNodes = getRefIdsOfChildrenFromCurrentNode(endpoint, sid, userId, nodeRefId, IliasNode.Type.FOLDER);
+            for (IliasNode folderChildNode : folderChildrenNodes) {
                 // climb down the tree :)
-                retrieveGroupRefIdsFromNode(groupRefIds, endpoint, sid, userId, folderChildRefId, currentDepth + 1, maxDepth);
+                retrieveGroupRefIdsFromNode(groupNodes, endpoint, sid, userId, folderChildNode.getRefId(), currentDepth + 1, maxDepth);
             }
 
             // accumulate refIds from groups
-            groupRefIds.addAll(getRefIdsOfChildrenFromCurrentNode(endpoint, sid, userId, nodeRefId, IliasNode.Type.GROUP));
+            groupNodes.addAll(getRefIdsOfChildrenFromCurrentNode(endpoint, sid, userId, nodeRefId, IliasNode.Type.GROUP));
         }
     }
 
@@ -178,13 +178,13 @@ public class IliasUtils {
      * @param userId    the usedId
      * @param nodeRefId the refId of the node
      * @param nodeType  the desired type of children nodes
-     * @return the refIds of the children
+     * @return the information of the children as {@link IliasNode}
      * @throws JDOMException if no document for the xml parser could be created
      * @throws IOException   if no InputStream could be created from the xmlString
      */
-    private static List<Integer> getRefIdsOfChildrenFromCurrentNode(final ILIASSoapWebservicePortType endpoint,
-                                                                    final String sid, final int userId,
-                                                                    final int nodeRefId, final IliasNode.Type nodeType) throws IOException, JDOMException {
+    private static List<IliasNode> getRefIdsOfChildrenFromCurrentNode(final ILIASSoapWebservicePortType endpoint,
+                                                                      final String sid, final int userId,
+                                                                      final int nodeRefId, final IliasNode.Type nodeType) throws IOException, JDOMException {
         String currentNodeXml = endpoint.getTreeChilds(sid, nodeRefId,
                 IliasNode.Type.compose(nodeType), userId);
         return XMLUtils.parseRefIdsOfNodeType(nodeType, currentNodeXml);
@@ -199,10 +199,10 @@ public class IliasUtils {
      * @param groupRefIds the refIds of the groups
      * @return the refIds of the files in the groups
      */
-    public static List<Integer> retrieveFileRefIdsFromGroups(final ILIASSoapWebservicePortType endpoint,
+    public static List<IliasNode> retrieveFileRefIdsFromGroups(final ILIASSoapWebservicePortType endpoint,
                                                              final String sid, final int userId,
                                                              final List<Integer> groupRefIds) throws IOException, JDOMException {
-        List<Integer> fileRefIds = new ArrayList<>();
+        List<IliasNode> fileRefIds = new ArrayList<>();
         for (Integer groupRefId : groupRefIds) {
             fileRefIds.addAll(getRefIdsOfChildrenFromCurrentNode(endpoint, sid, userId, groupRefId, IliasNode.Type.FILE));
         }

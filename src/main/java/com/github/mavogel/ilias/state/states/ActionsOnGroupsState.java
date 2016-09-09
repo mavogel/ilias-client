@@ -36,8 +36,7 @@ public class ActionsOnGroupsState extends ToolState {
 
         final List<IliasNode> courseRefIds = stateMachine.getContext().get(ToolStateMachine.ContextKey.COURSES);
         try {
-            // TODO get ilias nodes as well here
-            List<Integer> groupRefIdsFromCourses = IliasUtils.retrieveGroupRefIdsFromCourses(endpoint, sid, userId,
+            List<IliasNode> groupNodesFromCourses = IliasUtils.retrieveGroupRefIdsFromCourses(endpoint, sid, userId,
                     courseRefIds.stream().map(c -> c.getRefId()).collect(Collectors.toList()),
                     maxFolderDepth);// TODO get from logconf
         } catch (JDOMException | IOException e) {
