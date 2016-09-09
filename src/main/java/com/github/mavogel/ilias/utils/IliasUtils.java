@@ -2,6 +2,7 @@ package com.github.mavogel.ilias.utils;
 
 import com.github.mavogel.client.ILIASSoapWebserviceLocator;
 import com.github.mavogel.client.ILIASSoapWebservicePortType;
+import com.github.mavogel.ilias.model.GroupUserModel;
 import com.github.mavogel.ilias.model.IliasNode;
 import com.github.mavogel.ilias.model.LoginConfiguration;
 import com.github.mavogel.ilias.model.UserDataIds;
@@ -12,6 +13,7 @@ import java.rmi.RemoteException;
 import java.time.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -237,10 +239,16 @@ public class IliasUtils {
      */
     public static void removeAllMembersFromGroups(final ILIASSoapWebservicePortType endpoint,
                                                   final String sid, final List<IliasNode> groupNodes) throws IOException, JDOMException {
+        List<GroupUserModel> unremovedUsers = new ArrayList<>();
         for (IliasNode groupNode : groupNodes) {
             String groupXml = endpoint.getGroup(sid, groupNode.getRefId());
             List<Integer> groupMemberIds = XMLUtils.parseGroupMemberIds(groupXml);
-            removeMembersFromGroup(endpoint, sid, groupNode, groupMemberIds);
+            unremovedUsers.add(removeMembersFromGroup(endpoint, sid, groupNode, groupMemberIds));
+        }
+
+        if (!unremovedUsers.isEmpty() && unremovedUsers.stream().anyMatch(u -> u.hasMembers())) {
+            System.out.println("Could not remove users from group(s): ");
+            unremovedUsers.stream().filter(u -> u.hasMembers()).forEach(System.out::println);
         }
     }
 
@@ -251,22 +259,25 @@ public class IliasUtils {
      * @param sid            the sid of the user obtained at the login
      * @param groupNode      the group node
      * @param groupMemberIds the ids of the members of the group
+     * @return a {@link GroupUserModel} containing the member which could not be removed from the group
      */
-    private static void removeMembersFromGroup(final ILIASSoapWebservicePortType endpoint, final String sid,
-                                               final IliasNode groupNode, final List<Integer> groupMemberIds) {
+    private static GroupUserModel removeMembersFromGroup(final ILIASSoapWebservicePortType endpoint, final String sid,
+                                                         final IliasNode groupNode, final List<Integer> groupMemberIds) {
+        GroupUserModel unremovedUsers = new GroupUserModel(groupNode);
         for (Integer groupMemberId : groupMemberIds) {
             try {
                 // TODO activate
                 boolean groupMemberExcluded = false; //endpoint.excludeGroupMember(sid, groupNode.getRefId(), groupMemberId);
                 System.out.println("excluded Member with id:" + groupMemberId + " -> " + groupMemberExcluded);
                 if (!groupMemberExcluded) {
-                    System.err.println("Could not remove " + groupMemberId + " from Group '" + groupNode.getTitle() + "'");
+                    unremovedUsers.addGroupMemberId(groupMemberId);
                 }
             } catch (Exception e) {
-                System.err.println("Could not remove " + groupMemberId + " from Group '" + groupNode.getTitle() + "'");
+                unremovedUsers.addGroupMemberId(groupMemberId);
             }
-
         }
+
+        return unremovedUsers;
     }
 
     /**
