@@ -303,12 +303,17 @@ public class IliasUtils {
 
         final long newStart = toEpochSecond(registrationStart);
         final long newEnd = toEpochSecond(registrationEnd);
+        int i = 0;
         for (IliasNode groupNode : groupNodes) {
 //            TODO activate
 //            String groupXml = endpoint.getGroup(sid, groupNode.getRefId());
 //            String updatedGroupXml = XMLUtils.setRegistrationDates(groupXml, newStart, newEnd);
-//            boolean isGroupUpdated = endpoint.updateGroup(sid, groupRefId, updatedGroupXml);
-//            System.out.println("Group updated?: " + isGroupUpdated);
+//            boolean isGroupUpdated = endpoint.updateGroup(sid, groupNode.getRefId(), updatedGroupXml);
+//            if (isGroupUpdated) {
+//                System.out.println("Updated group [" + i + "] - " + groupNode.getTitle() + " of " + groupNodes.size());
+//            } else {
+//                System.err.println("Failed to set registration date on group [" + i + "] - " + groupNode.getTitle());
+//            }
         }
     }
 
