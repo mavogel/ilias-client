@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.Scanner;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by mavogel on 9/7/16.
@@ -152,6 +154,51 @@ public class IOUtilsTest {
         // == verify
         assertEquals(LocalDateTime.of(2014, Month.JANUARY, 11, 14, 00), registrationPeriod.getRegistrationStart());
         assertEquals(LocalDateTime.of(2014, Month.JANUARY, 22, 16, 00), registrationPeriod.getRegistrationEnd());
+    }
+
+    @Test
+    public void shouldParseValidUserConfirmation() throws Exception {
+        // == train
+        Scanner scanner = PowerMockito.mock(Scanner.class);
+        PowerMockito.whenNew(Scanner.class).withArguments(System.in).thenReturn(scanner);
+        PowerMockito.when(scanner.nextLine()).thenReturn(" Y   " );
+
+        // == go
+        boolean confirmation = IOUtils.readAndParseUserConfirmation();
+
+        // == verify
+        assertTrue(confirmation);
+    }
+
+    @Test
+    public void shouldParseValidNegativeUserConfirmation() throws Exception {
+        // == train
+        Scanner scanner = PowerMockito.mock(Scanner.class);
+        PowerMockito.whenNew(Scanner.class).withArguments(System.in).thenReturn(scanner);
+        PowerMockito.when(scanner.nextLine()).thenReturn(" N   " );
+
+        // == go
+        boolean confirmation = IOUtils.readAndParseUserConfirmation();
+
+        // == verify
+        assertFalse(confirmation);
+    }
+
+    @Test
+    public void shouldRequestUserConfirmationMultipleTimes() throws Exception {
+        // == train
+        Scanner scanner = PowerMockito.mock(Scanner.class);
+        PowerMockito.whenNew(Scanner.class).withArguments(System.in).thenReturn(scanner);
+        PowerMockito.when(scanner.nextLine())
+                .thenReturn(" blalaa   " )
+                .thenReturn("NO")
+                .thenReturn("  Y");
+
+        // == go
+        boolean confirmation = IOUtils.readAndParseUserConfirmation();
+
+        // == verify
+        assertTrue(confirmation);
     }
 
 }

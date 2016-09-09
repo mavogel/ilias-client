@@ -5,6 +5,7 @@ import com.github.mavogel.ilias.model.IliasNode;
 import com.github.mavogel.ilias.state.ExecutionState;
 import com.github.mavogel.ilias.state.ToolState;
 import com.github.mavogel.ilias.state.ToolStateMachine;
+import com.github.mavogel.ilias.utils.IOUtils;
 import com.github.mavogel.ilias.utils.IliasUtils;
 import org.jdom.JDOMException;
 
@@ -42,8 +43,7 @@ public class RemoveUsersState extends ToolState implements ExecutionState {
 
     @Override
     protected boolean confirm() {
-        // TODO user choices
-        return false;
+        return IOUtils.readAndParseUserConfirmation();
     }
 
     @Override

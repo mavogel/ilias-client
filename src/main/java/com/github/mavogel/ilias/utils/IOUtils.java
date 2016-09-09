@@ -199,4 +199,32 @@ public class IOUtils {
 
         return new RegistrationPeriod(registrationStart, registrationEnd);
     }
+
+    /**
+     * Reads and parses the confirmation of the user for an action.
+     *
+     * @return <code>true</code> if the user confirmed with Y for YES, <code>false</code> otherwise.
+     */
+    public static boolean readAndParseUserConfirmation() {
+        System.out.println("Confirm please: [Y] or [N]");
+        boolean validChoice = false;
+        boolean choice = false;
+
+        try (Scanner scanner = new Scanner(System.in)) {
+            while (!validChoice) {
+                String line = scanner.nextLine();
+                if (StringUtils.deleteWhitespace(line).equalsIgnoreCase("Y")) {
+                    choice = true;
+                    validChoice = true;
+                } else if (StringUtils.deleteWhitespace(line).equalsIgnoreCase("N")){
+                    choice = false;
+                    validChoice = true;
+                } else {
+                    System.err.println("Invalid choice. Try again!");
+                }
+            }
+        }
+
+        return choice;
+    }
 }

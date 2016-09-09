@@ -155,8 +155,8 @@ public class ToolStateMachine {
         boolean isConfirmed = this.currentState.confirm();
         if (isConfirmed) {
             this.currentState.execute();
+            this.currentState.printExecutionSummary();
         }
-        this.currentState.printExecutionSummary();
     }
 
     /**

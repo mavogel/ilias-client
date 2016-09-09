@@ -52,8 +52,7 @@ public class SetRegistrationPeriodState extends ToolState implements ExecutionSt
 
     @Override
     protected boolean confirm() {
-        // TODO user choices
-        return false;
+        return IOUtils.readAndParseUserConfirmation();
     }
 
     @Override
