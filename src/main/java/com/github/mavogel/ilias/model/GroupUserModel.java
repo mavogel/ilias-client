@@ -17,12 +17,6 @@ public class GroupUserModel {
         this.groupMemberIds = new ArrayList<>();
     }
 
-    public GroupUserModel(final IliasNode groupNode, final Integer groupMemberId) {
-        this.groupNode = groupNode;
-        this.groupMemberIds = new ArrayList<>();
-        this.groupMemberIds.add(groupMemberId);
-    }
-
     /**
      * Adds another memberId
      *
