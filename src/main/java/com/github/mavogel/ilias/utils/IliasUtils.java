@@ -262,7 +262,6 @@ public class IliasUtils {
                 if (!groupMemberExcluded) {
                     System.err.println("Could not remove " + groupMemberId + " from Group '" + groupNode.getTitle() + "'");
                 }
-                ;
             } catch (Exception e) {
                 System.err.println("Could not remove " + groupMemberId + " from Group '" + groupNode.getTitle() + "'");
             }

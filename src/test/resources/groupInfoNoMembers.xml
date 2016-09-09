@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<group exportVersion="3" id="il_0_grp_215098" type="open">
+    <title>Group A01</title>
+    <description>Credentials: dblab01</description>
+    <owner id="il_0_usr_183084"/>
+    <information/>
+    <registration type="direct" waitingList="No">
+        <temporarilyAvailable>
+            <start>1458568800</start>
+            <end>1458766800</end>
+        </temporarilyAvailable>
+        <maxMembers enabled="Yes">3</maxMembers>
+    </registration>
+    <admin id="il_0_usr_183084" notification="Yes"/>
+    <Sort type="Inherit"/>
+    <ContainerSettings>
+        <ContainerSetting id="cont_auto_rate_new_obj">0</ContainerSetting>
+        <ContainerSetting id="cont_show_calendar">1</ContainerSetting>
+        <ContainerSetting id="cont_show_news">1</ContainerSetting>
+        <ContainerSetting id="cont_tag_cloud">0</ContainerSetting>
+    </ContainerSettings>
+</group>

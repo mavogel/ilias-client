@@ -202,6 +202,20 @@ public class XMLUtilsTest {
     }
 
     @Test
+    public void shouldEmptyListBecauseGroupHasNoMembers() throws IOException, JDOMException {
+        // == prepare
+        final String testFile = TEST_RES_DIR + "groupInfoNoMembers.xml";
+        final String groupXml = Files.lines(Paths.get(testFile)).collect(Collectors.joining());
+
+        // == go
+        List<Integer> memberIds = XMLUtils.parseGroupMemberIds(groupXml);
+
+        // == verify
+        assertTrue(memberIds != null);
+        assertTrue(memberIds.isEmpty());
+    }
+
+    @Test
     public void shouldSetNewRegistrationDatesOnGroup() throws IOException, JDOMException {
         // == prepare
         final String testFile = TEST_RES_DIR + "groupInfo.xml";
