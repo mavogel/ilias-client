@@ -1,11 +1,14 @@
 package com.github.mavogel.ilias.utils;
 
+import com.github.mavogel.ilias.model.RegistrationPeriod;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -103,14 +106,52 @@ public class IOUtilsTest {
         Scanner scanner = PowerMockito.mock(Scanner.class);
         PowerMockito.whenNew(Scanner.class).withArguments(System.in).thenReturn(scanner);
         PowerMockito.when(scanner.nextLine()).thenReturn("1,  8- 115  , 4-6, 2, 5- 3")
-                                             .thenReturn("10, 5 -4, 3")
-                                             .thenReturn("4-8");
+                .thenReturn("10, 5 -4, 3")
+                .thenReturn("4-8");
 
         // == go
         List<Integer> madeChoices = IOUtils.readAndParseChoicesFromUser(choices);
 
         // == verify
         assertEquals(Arrays.asList(4, 5, 6, 7, 8), madeChoices);
+    }
+
+    @Test
+    public void shouldParseValidRegistrationPeriod() throws Exception {
+        // == train
+        Scanner scanner = PowerMockito.mock(Scanner.class);
+        PowerMockito.whenNew(Scanner.class).withArguments(System.in).thenReturn(scanner);
+        PowerMockito.when(scanner.nextLine())
+                .thenReturn("2014-01-11T14:00:00") // start
+                .thenReturn("2014-01-22T16:00:00"); // end
+
+        // == go
+        RegistrationPeriod registrationPeriod = IOUtils.readAndParseRegistrationDates();
+
+        // == verify
+        assertEquals(LocalDateTime.of(2014, Month.JANUARY, 11, 14, 00), registrationPeriod.getRegistrationStart());
+        assertEquals(LocalDateTime.of(2014, Month.JANUARY, 22, 16, 00), registrationPeriod.getRegistrationEnd());
+    }
+
+    @Test
+    public void shouldReadRegistrationStartSeveralTimes() throws Exception {
+        // == train
+        Scanner scanner = PowerMockito.mock(Scanner.class);
+        PowerMockito.whenNew(Scanner.class).withArguments(System.in).thenReturn(scanner);
+        PowerMockito.when(scanner.nextLine())
+                .thenReturn("2014-01-31T54:00:00")
+                .thenReturn("20140:00")
+                .thenReturn("2014-01-3114:00:00")
+                .thenReturn("2014-01-11T14:00:00") // start
+                .thenReturn("2013-12-23T16:00:00")
+                .thenReturn("2014-01-22T16:00:00"); // end
+
+        // == go
+        RegistrationPeriod registrationPeriod = IOUtils.readAndParseRegistrationDates();
+
+        // == verify
+        assertEquals(LocalDateTime.of(2014, Month.JANUARY, 11, 14, 00), registrationPeriod.getRegistrationStart());
+        assertEquals(LocalDateTime.of(2014, Month.JANUARY, 22, 16, 00), registrationPeriod.getRegistrationEnd());
     }
 
 }

@@ -65,10 +65,9 @@ public class Starter {
 //                IliasUtils.removeAllMembersFromGroups(endpoint, sid, groupNodes);
 
                 // 2: set registration period √
-//            TODO
-                LocalDateTime registrationStart = LocalDateTime.parse("", DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-                LocalDateTime registrationEnd = LocalDateTime.parse("", DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-//                IliasUtils.setRegistrationDatesOnGroupes(endpoint, sid, groupNodes, registrationStart, registrationEnd);
+//                LocalDateTime registrationStart = LocalDateTime.parse("", DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+//                LocalDateTime registrationEnd = LocalDateTime.parse("", DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+//                IliasUtils.setRegistrationDatesOnGroups(endpoint, sid, groupNodes, registrationStart, registrationEnd);
 
                 // 3: remove uploaded materials √
 //                List<Integer> fileRefIds = IliasUtils.retrieveFileRefIdsFromGroups(endpoint, sid, userId, groupNodes);

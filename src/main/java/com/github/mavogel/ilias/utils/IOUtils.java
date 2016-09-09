@@ -1,7 +1,11 @@
 package com.github.mavogel.ilias.utils;
 
+import com.github.mavogel.ilias.model.RegistrationPeriod;
 import org.apache.commons.lang3.StringUtils;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +19,8 @@ import java.util.stream.Stream;
  * Created by mavogel on 9/7/16.
  */
 public class IOUtils {
+
+    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
     /**
      * Reads and parses a multiple choices from the user.<br>
@@ -146,5 +152,45 @@ public class IOUtils {
                 .map(eachRange -> IntStream.rangeClosed(Integer.valueOf(eachRange[0]), Integer.valueOf(eachRange[1])))
                 .map(eachExpandedRange -> eachExpandedRange.mapToObj(Integer::valueOf))
                 .reduce(Stream::concat);
+    }
+
+    /**
+     * Reads and parses the registration period.<br>
+     * Validates the format and that the start is after the end.
+     *
+     * @return the {@link RegistrationPeriod}
+     */
+    public static RegistrationPeriod readAndParseRegistrationDates() {
+        LocalDateTime registrationStart = null, registrationEnd = null;
+        boolean validStart = false, validEnd = false;
+
+        while (!validStart) {
+            try (Scanner scanner = new Scanner(System.in)){
+                String line = scanner.nextLine();
+                try {
+                    registrationStart = LocalDateTime.parse(line, DATE_FORMAT);
+                    validStart = true;
+                } catch (DateTimeParseException dtpe) {
+                    System.err.println("'" + line + "' is not a valid date");
+                }
+            }
+        }
+
+        while (!validEnd) {
+            try (Scanner scanner = new Scanner(System.in)){
+                String line = scanner.nextLine();
+                try {
+                    registrationEnd = LocalDateTime.parse(line, DATE_FORMAT);
+                    validEnd = registrationStart.isBefore(registrationEnd);
+                    if (!validEnd) {
+                        System.err.println("End of registration has to be after the start'"  + registrationStart + "'");
+                    }
+                } catch (DateTimeParseException dtpe) {
+                    System.err.println("'" + line + "# is not a valid date");
+                }
+            }
+        }
+
+        return new RegistrationPeriod(registrationStart, registrationEnd);
     }
 }

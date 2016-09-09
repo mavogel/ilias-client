@@ -297,13 +297,12 @@ public class IliasUtils {
      * @throws JDOMException if no document for the xml parser could be created
      * @throws IOException   if no InputStream could be created from the xmlString
      */
-    public static void setRegistrationDatesOnGroupes(final ILIASSoapWebservicePortType endpoint, final String sid,
-                                                     final List<IliasNode> groupNodes,
-                                                     final LocalDateTime registrationStart, final LocalDateTime registrationEnd) throws IOException, JDOMException {
+    public static void setRegistrationDatesOnGroups(final ILIASSoapWebservicePortType endpoint, final String sid,
+                                                    final List<IliasNode> groupNodes,
+                                                    final LocalDateTime registrationStart, final LocalDateTime registrationEnd) throws IOException, JDOMException {
 
         final long newStart = toEpochSecond(registrationStart);
         final long newEnd = toEpochSecond(registrationEnd);
-        System.out.println("new: " + Instant.ofEpochSecond(newStart) + " -> " + Instant.ofEpochSecond(newEnd));
         for (IliasNode groupNode : groupNodes) {
 //            TODO activate
 //            String groupXml = endpoint.getGroup(sid, groupNode.getRefId());
