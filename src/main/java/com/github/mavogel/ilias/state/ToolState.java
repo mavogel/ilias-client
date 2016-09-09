@@ -140,7 +140,8 @@ public abstract class ToolState {
     }
 
     /**
-     * Prints and requests a confirmation from the user for the upcoming action.
+     * Prints and requests a confirmation from the user for the upcoming action.<br>
+     * Does <b>NOT</b> change the context.
      */
     protected boolean confirm() {
         return true;

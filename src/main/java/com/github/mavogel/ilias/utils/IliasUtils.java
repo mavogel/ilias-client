@@ -291,22 +291,22 @@ public class IliasUtils {
      *
      * @param endpoint          the {@link ILIASSoapWebservicePortType}
      * @param sid               the sid of the user obtained at the login
-     * @param groupRefIds       the refIds of the groups to set the new dates
+     * @param groupNodes        the groups to set the new dates
      * @param registrationStart the start of the registration
      * @param registrationEnd   the end of the registration
      * @throws JDOMException if no document for the xml parser could be created
      * @throws IOException   if no InputStream could be created from the xmlString
      */
     public static void setRegistrationDatesOnGroupes(final ILIASSoapWebservicePortType endpoint, final String sid,
-                                                     final List<Integer> groupRefIds,
+                                                     final List<IliasNode> groupNodes,
                                                      final LocalDateTime registrationStart, final LocalDateTime registrationEnd) throws IOException, JDOMException {
 
         final long newStart = toEpochSecond(registrationStart);
         final long newEnd = toEpochSecond(registrationEnd);
-        System.out.println("new: " + newStart + " -> " + Instant.ofEpochSecond(newStart));
-        for (Integer groupRefId : groupRefIds) {
+        System.out.println("new: " + Instant.ofEpochSecond(newStart) + " -> " + Instant.ofEpochSecond(newEnd));
+        for (IliasNode groupNode : groupNodes) {
 //            TODO activate
-//            String groupXml = endpoint.getGroup(sid, groupRefId);
+//            String groupXml = endpoint.getGroup(sid, groupNode.getRefId());
 //            String updatedGroupXml = XMLUtils.setRegistrationDates(groupXml, newStart, newEnd);
 //            boolean isGroupUpdated = endpoint.updateGroup(sid, groupRefId, updatedGroupXml);
 //            System.out.println("Group updated?: " + isGroupUpdated);

@@ -9,30 +9,38 @@ import com.github.mavogel.ilias.utils.IliasUtils;
 import org.jdom.JDOMException;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
- * Created by mavogel on 9/7/16.
+ * Created by mavogel on 9/9/16.
  */
-public class RemoveUsersState extends ToolState implements ExecutionState {
+public class SetRegistrationPeriodState extends ToolState implements ExecutionState {
 
     private List<IliasNode> selectedGroups;
+    private LocalDateTime registrationStart, registrationEnd;
 
-    public RemoveUsersState(final ToolStateMachine stateMachine, final ToolState... successors) {
+    /**
+     * C'tor for a {@link ToolState}
+     *
+     * @param stateMachine the {@link ToolStateMachine}
+     */
+    protected SetRegistrationPeriodState(final ToolStateMachine stateMachine, final ToolState... successors) {
         super(stateMachine);
         setSuccessors(successors);
     }
 
     @Override
     protected void printInformation() {
-        System.out.println("Removing users from Groups");
+        System.out.println("Setting registration period");
     }
 
     @Override
     protected void collectDataForExecution() {
         this.selectedGroups = stateMachine.getContext().get(ToolStateMachine.ContextKey.GROUPS);
+//        IliasUtils. TODO read date
     }
 
     @Override
@@ -51,7 +59,7 @@ public class RemoveUsersState extends ToolState implements ExecutionState {
         ILIASSoapWebservicePortType endpoint = stateMachine.getEndPoint();
         final String sid = stateMachine.getUserDataIds().getSid();
         try {
-            IliasUtils.removeAllMembersFromGroups(endpoint, sid, selectedGroups);
+            IliasUtils.setRegistrationDatesOnGroupes(endpoint, sid, this.selectedGroups, this.registrationStart, this.registrationEnd);
         } catch (IOException | JDOMException e) {
             System.err.println("Error creating xml parser: " + e.getMessage());
             this.stateMachine.setState(stateMachine.getQuitState());
@@ -62,4 +70,5 @@ public class RemoveUsersState extends ToolState implements ExecutionState {
     protected void printExecutionSummary() {
         // done internally in IliasUtils.removeAllMembersFromGroups
     }
+
 }
