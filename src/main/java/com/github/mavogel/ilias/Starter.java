@@ -31,69 +31,49 @@ public class Starter {
     }
 
     private static void run(LoginConfiguration loginConfiguration) {
-        ILIASSoapWebservicePortType endpoint = null;
-        String sid = "";
+//        ILIASSoapWebservicePortType endpoint = null;
+//        String sid = "";
         try {
             // LoginState √
-            endpoint = IliasUtils.createWsEndpoint(loginConfiguration);
-            UserDataIds userData = IliasUtils.getUserData(loginConfiguration, endpoint);
-            int userId = userData.getUserId();
-            sid = userData.getSid();
+            //            UserDataIds userData = IliasUtils.getUserData(loginConfiguration, endpoint);
+//            int userId = userData.getUserId();
+//            sid = userData.getSid();
 
-            String courseXML = endpoint.getCourseXML(sid, 44525);
-            System.out.println("Course xml: " + courseXML);
+//            String courseXML = endpoint.getCourseXML(sid, 44525);
+//            System.out.println("Course xml: " + courseXML);
 
 
-            if (false) {
-                // 3: workflow start
-                ToolStateMachine stateMachine = new ToolStateMachine(loginConfiguration);
-                stateMachine.start();
+            // 3: workflow start
+            ILIASSoapWebservicePortType endpoint = IliasUtils.createWsEndpoint(loginConfiguration);
+            ToolStateMachine stateMachine = new ToolStateMachine(loginConfiguration);
+            stateMachine.start();
 
-                // ChooseCoursesState √
-                String selectedCourses = endpoint.getCoursesForUser(sid,
-                        XMLUtils.createCoursesResultXml(userId, IliasUtils.DisplayStatus.ADMIN));
-                System.out.printf("courses for user: %s%n", selectedCourses);
-                List<Integer> courseRefIds = XMLUtils.parseCourseRefIds(selectedCourses);
+            // ChooseCoursesState √
+//                String selectedCourses = endpoint.getCoursesForUser(sid,
+//                        XMLUtils.createCoursesResultXml(userId, IliasUtils.DisplayStatus.ADMIN));
+//                System.out.printf("courses for user: %s%n", selectedCourses);
+//                List<Integer> courseRefIds = XMLUtils.parseCourseRefIds(selectedCourses);
+//
+//                // 3.1 each course
+//                int maxFolderDepth = 5; // into config file
+//                List<IliasNode> groupNodes = IliasUtils.retrieveGroupRefIdsFromCourses(endpoint, sid, userId,
+//                                                                                      courseRefIds, maxFolderDepth);
 
-                // 3.1 each course
-                int maxFolderDepth = 5; // into config file
-                List<IliasNode> groupNodes = IliasUtils.retrieveGroupRefIdsFromCourses(endpoint, sid, userId,
-                                                                                      courseRefIds, maxFolderDepth);
-
-                // Updates:
-                // 1: remove users: √
+            // Updates:
+            // 1: remove users: √
 //                IliasUtils.removeAllMembersFromGroups(endpoint, sid, groupNodes);
 
-                // 2: set registration period √
+            // 2: set registration period √
 //                LocalDateTime registrationStart = LocalDateTime.parse("", DateTimeFormatter.ISO_LOCAL_DATE_TIME);
 //                LocalDateTime registrationEnd = LocalDateTime.parse("", DateTimeFormatter.ISO_LOCAL_DATE_TIME);
 //                IliasUtils.setRegistrationDatesOnGroups(endpoint, sid, groupNodes, registrationStart, registrationEnd);
 
-                // 3: remove uploaded materials √
+            // 3: remove uploaded materials √
 //                List<Integer> fileRefIds = IliasUtils.retrieveFileRefIdsFromGroups(endpoint, sid, userId, groupNodes);
 //                IliasUtils.deleteObjects(endpoint, sid, fileRefIds);
-            }
 
         } catch (javax.xml.rpc.ServiceException ex) {
-            System.err.println(ex.getMessage());
-            ex.printStackTrace();
-        } catch (RemoteException ex) {
-            // auth failed comes here
-            System.err.println(ex.getMessage());
-            ex.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JDOMException e) {
-            e.printStackTrace();
-        } finally {
-            if (endpoint != null) {
-                try {
-                    endpoint.logout(sid);
-                    System.out.println("--> Logout");
-                } catch (RemoteException e) {
-                    // just do it
-                }
-            }
+            System.err.println("Could not create ws endpoint at '" + loginConfiguration.getEndpoint() + "'. Check you internet connection");
         }
     }
 }

@@ -2,7 +2,6 @@ package com.github.mavogel.ilias.state.states.action;
 
 import com.github.mavogel.client.ILIASSoapWebservicePortType;
 import com.github.mavogel.ilias.model.IliasNode;
-import com.github.mavogel.ilias.model.RegistrationPeriod;
 import com.github.mavogel.ilias.state.ExecutionState;
 import com.github.mavogel.ilias.state.ToolState;
 import com.github.mavogel.ilias.state.ToolStateMachine;
@@ -16,39 +15,35 @@ import java.util.List;
 /**
  * Created by mavogel on 9/9/16.
  */
-public class SetRegistrationPeriodState extends ToolState implements ExecutionState {
+public class RemoveUploadedMaterialsState extends ToolState implements ExecutionState {
+
 
     private List<IliasNode> selectedGroups;
-    private RegistrationPeriod registrationPeriod;
 
     /**
      * C'tor for a {@link ToolState}
      *
      * @param stateMachine the {@link ToolStateMachine}
-     * @param successors the successor states
+     * @param successors   the successor states
      */
-    protected SetRegistrationPeriodState(final ToolStateMachine stateMachine, final ToolState... successors) {
+    protected RemoveUploadedMaterialsState(final ToolStateMachine stateMachine, final ToolState... successors) {
         super(stateMachine);
         setSuccessors(successors);
     }
 
     @Override
     protected void printInformation() {
-        System.out.println("Setting registration period");
+        System.out.println("Removing uploaded materials from groups");
     }
 
     @Override
     protected void collectDataForExecution() {
         this.selectedGroups = stateMachine.getContext().get(ToolStateMachine.ContextKey.GROUPS);
-        this.registrationPeriod = IOUtils.readAndParseRegistrationDates();
     }
 
     @Override
     protected void printExecutionPreview() {
-        System.out.printf("Will set the registration period [%s, %s] on %d groups!%n",
-                registrationPeriod.getRegistrationStart(),
-                registrationPeriod.getRegistrationEnd(),
-                selectedGroups.size());
+        System.out.println("Will remove users of " + selectedGroups.size() + " groups!");
     }
 
     @Override
@@ -60,9 +55,10 @@ public class SetRegistrationPeriodState extends ToolState implements ExecutionSt
     protected void execute() {
         ILIASSoapWebservicePortType endpoint = stateMachine.getEndPoint();
         final String sid = stateMachine.getUserDataIds().getSid();
+        final int userId = stateMachine.getUserDataIds().getUserId();
         try {
-            IliasUtils.setRegistrationDatesOnGroups(endpoint, sid, this.selectedGroups,
-                    this.registrationPeriod.getRegistrationStart(), this.registrationPeriod.getRegistrationEnd());
+            List<IliasNode> fileNodes = IliasUtils.retrieveFileRefIdsFromGroups(endpoint, sid, userId, selectedGroups);
+            IliasUtils.deleteObjects(endpoint, sid, fileNodes);
         } catch (IOException | JDOMException e) {
             System.err.println("Error creating xml parser: " + e.getMessage());
             this.stateMachine.setState(stateMachine.getQuitState());
@@ -71,7 +67,6 @@ public class SetRegistrationPeriodState extends ToolState implements ExecutionSt
 
     @Override
     protected void printExecutionSummary() {
-        // done internally in IliasUtils.setRegistrationDatesOnGroups
+        // done internally in IliasUtils.removeAllMembersFromGroups
     }
-
 }

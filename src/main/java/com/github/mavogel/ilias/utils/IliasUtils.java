@@ -195,18 +195,18 @@ public class IliasUtils {
     /**
      * Retrieves all fileRefIds from the given groups.
      *
-     * @param endpoint    the {@link ILIASSoapWebservicePortType}
-     * @param sid         the sid of the user obtained at the login
-     * @param userId      the usedId
-     * @param groupRefIds the refIds of the groups
+     * @param endpoint   the {@link ILIASSoapWebservicePortType}
+     * @param sid        the sid of the user obtained at the login
+     * @param userId     the usedId
+     * @param groupNodes the group nodes
      * @return the refIds of the files in the groups
      */
     public static List<IliasNode> retrieveFileRefIdsFromGroups(final ILIASSoapWebservicePortType endpoint,
                                                                final String sid, final int userId,
-                                                               final List<Integer> groupRefIds) throws IOException, JDOMException {
+                                                               final List<IliasNode> groupNodes) throws IOException, JDOMException {
         List<IliasNode> fileRefIds = new ArrayList<>();
-        for (Integer groupRefId : groupRefIds) {
-            fileRefIds.addAll(getRefIdsOfChildrenFromCurrentNode(endpoint, sid, userId, groupRefId, IliasNode.Type.FILE));
+        for (IliasNode groupNode : groupNodes) {
+            fileRefIds.addAll(getRefIdsOfChildrenFromCurrentNode(endpoint, sid, userId, groupNode.getRefId(), IliasNode.Type.FILE));
         }
         return fileRefIds;
     }
@@ -214,17 +214,24 @@ public class IliasUtils {
     /**
      * Deletes a node in the ilias tree.
      *
-     * @param endpoint   the {@link ILIASSoapWebservicePortType}
-     * @param sid        the sid of the user obtained at the login
-     * @param nodeRefIds the refIds of the node to delete
+     * @param endpoint the {@link ILIASSoapWebservicePortType}
+     * @param sid      the sid of the user obtained at the login
+     * @param nodes    the nodes to delete
      * @throws RemoteException
      */
     public static void deleteObjects(final ILIASSoapWebservicePortType endpoint,
-                                     final String sid, final List<Integer> nodeRefIds) throws RemoteException {
-        for (Integer nodeRefId : nodeRefIds) {
+                                     final String sid, final List<IliasNode> nodes) throws RemoteException {
+        int i = 0;
+        for (IliasNode node : nodes) {
 //            TODO activate
-//            boolean objectDeleted = endpoint.deleteObject(sid, nodeRefId);
-//            System.out.printf("objectDeleted: %s%n", objectDeleted);
+//            boolean objectDeleted = endpoint.deleteObject(sid, node.getRefId());
+//            if (objectDeleted) {
+//                // TODO optional clear line after each
+//                System.out.println("Processing node [" + i + "] of " + nodes.size());
+//            } else {
+//                System.err.println("Could not delete ilias node: " + node);
+//            }
+            i++;
         }
     }
 
@@ -246,7 +253,7 @@ public class IliasUtils {
             List<Integer> groupMemberIds = XMLUtils.parseGroupMemberIds(groupXml);
             unremovedUsers.add(removeMembersFromGroup(endpoint, sid, groupNode, groupMemberIds));
             // TODO optional clear line after each
-            System.out.println("Processing group " + i + " of " + groupNodes.size());
+            System.out.println("Processing group [" + i + "] of " + groupNodes.size());
             i++;
         }
 

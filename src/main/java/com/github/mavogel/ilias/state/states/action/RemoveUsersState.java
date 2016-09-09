@@ -21,6 +21,12 @@ public class RemoveUsersState extends ToolState implements ExecutionState {
 
     private List<IliasNode> selectedGroups;
 
+    /**
+     * C'tor for a {@link ToolState}
+     *
+     * @param stateMachine the {@link ToolStateMachine}
+     * @param successors the successor states
+     */
     public RemoveUsersState(final ToolStateMachine stateMachine, final ToolState... successors) {
         super(stateMachine);
         setSuccessors(successors);
@@ -28,7 +34,7 @@ public class RemoveUsersState extends ToolState implements ExecutionState {
 
     @Override
     protected void printInformation() {
-        System.out.println("Removing users from Groups");
+        System.out.println("Removing users from groups");
     }
 
     @Override
