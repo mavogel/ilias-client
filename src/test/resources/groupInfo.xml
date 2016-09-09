@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE group PUBLIC "-//ILIAS//DTD Group//EN"
-        "https://ilias.hs-karlsruhe.de/xml/ilias_group_3_10.dtd"><!--Export of ILIAS group 215098 of installation 0.-->
 <group exportVersion="3" id="il_0_grp_215098" type="open">
     <title>Group A01</title>
     <description>Credentials: dblab01</description>
