@@ -1,22 +1,11 @@
 package com.github.mavogel.ilias;
 
 import com.github.mavogel.client.ILIASSoapWebservicePortType;
-import com.github.mavogel.ilias.model.IliasNode;
 import com.github.mavogel.ilias.model.LoginConfiguration;
-import com.github.mavogel.ilias.model.UserDataIds;
 import com.github.mavogel.ilias.state.ToolStateMachine;
 import com.github.mavogel.ilias.utils.ConfigurationsUtils;
 import com.github.mavogel.ilias.utils.IliasUtils;
-import com.github.mavogel.ilias.utils.XMLUtils;
 import org.apache.commons.lang3.Validate;
-import org.jdom.JDOMException;
-
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
-import java.rmi.RemoteException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 /**
  * Created by mavogel on 8/29/16.
@@ -27,51 +16,19 @@ public class Starter {
         Validate.notNull(args, "No arguments given");
         Validate.isTrue(args.length == 1, "Only one argument is allowed. The 'config.properties'");
         Validate.isTrue(!args[0].isEmpty(), "The argument is empty");
-        run(ConfigurationsUtils.createLoginConfiguration(args[0]));
+        createEndpointAndRun(ConfigurationsUtils.createLoginConfiguration(args[0]));
     }
 
-    private static void run(LoginConfiguration loginConfiguration) {
-//        ILIASSoapWebservicePortType endpoint = null;
-//        String sid = "";
+    /**
+     * Create the endpoint and starts the State machine with the given login configuration.
+     *
+     * @param loginConfiguration the login configuration
+     */
+    private static void createEndpointAndRun(LoginConfiguration loginConfiguration) {
         try {
-            // LoginState √
-            //            UserDataIds userData = IliasUtils.getUserData(loginConfiguration, endpoint);
-//            int userId = userData.getUserId();
-//            sid = userData.getSid();
-
-//            String courseXML = endpoint.getCourseXML(sid, 44525);
-//            System.out.println("Course xml: " + courseXML);
-
-
-            // 3: workflow start
             ILIASSoapWebservicePortType endpoint = IliasUtils.createWsEndpoint(loginConfiguration);
             ToolStateMachine stateMachine = new ToolStateMachine(loginConfiguration);
             stateMachine.start();
-
-            // ChooseCoursesState √
-//                String selectedCourses = endpoint.getCoursesForUser(sid,
-//                        XMLUtils.createCoursesResultXml(userId, IliasUtils.DisplayStatus.ADMIN));
-//                System.out.printf("courses for user: %s%n", selectedCourses);
-//                List<Integer> courseRefIds = XMLUtils.parseCourseRefIds(selectedCourses);
-//
-//                // 3.1 each course
-//                int maxFolderDepth = 5; // into config file
-//                List<IliasNode> groupNodes = IliasUtils.retrieveGroupRefIdsFromCourses(endpoint, sid, userId,
-//                                                                                      courseRefIds, maxFolderDepth);
-
-            // Updates:
-            // 1: remove users: √
-//                IliasUtils.removeAllMembersFromGroups(endpoint, sid, groupNodes);
-
-            // 2: set registration period √
-//                LocalDateTime registrationStart = LocalDateTime.parse("", DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-//                LocalDateTime registrationEnd = LocalDateTime.parse("", DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-//                IliasUtils.setRegistrationDatesOnGroups(endpoint, sid, groupNodes, registrationStart, registrationEnd);
-
-            // 3: remove uploaded materials √
-//                List<Integer> fileRefIds = IliasUtils.retrieveFileRefIdsFromGroups(endpoint, sid, userId, groupNodes);
-//                IliasUtils.deleteObjects(endpoint, sid, fileRefIds);
-
         } catch (javax.xml.rpc.ServiceException ex) {
             System.err.println("Could not create ws endpoint at '" + loginConfiguration.getEndpoint() + "'. Check you internet connection");
         }
