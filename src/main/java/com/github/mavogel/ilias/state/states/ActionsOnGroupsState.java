@@ -33,7 +33,7 @@ public class ActionsOnGroupsState extends ToolState {
 
     @Override
     protected void collectDataForExecution() {
-        if (stateMachine.getContext().containsKey(ToolStateMachine.ContextKey.GROUPS)) {
+        if (stateMachine.getContext().containsKey(ToolStateMachine.ContextKey.GROUPS)) { // TODO where do we come from?
             this.groupNodesFromCourses = stateMachine.getContext().get(ToolStateMachine.ContextKey.GROUPS);
         } else {
             ILIASSoapWebservicePortType endpoint = stateMachine.getEndPoint();
