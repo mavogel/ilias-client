@@ -1,10 +1,8 @@
 package com.github.mavogel.ilias;
 
-import com.github.mavogel.client.ILIASSoapWebservicePortType;
 import com.github.mavogel.ilias.model.LoginConfiguration;
 import com.github.mavogel.ilias.state.ToolStateMachine;
 import com.github.mavogel.ilias.utils.ConfigurationsUtils;
-import com.github.mavogel.ilias.utils.IliasUtils;
 import org.apache.commons.lang3.Validate;
 
 /**
@@ -20,17 +18,11 @@ public class Starter {
     }
 
     /**
-     * Create the endpoint and starts the State machine with the given login configuration.
+     * Starts the State machine with the given login configuration.
      *
      * @param loginConfiguration the login configuration
      */
     private static void createEndpointAndRun(LoginConfiguration loginConfiguration) {
-        try {
-            ILIASSoapWebservicePortType endpoint = IliasUtils.createWsEndpoint(loginConfiguration);
-            ToolStateMachine stateMachine = new ToolStateMachine(loginConfiguration);
-            stateMachine.start();
-        } catch (javax.xml.rpc.ServiceException ex) {
-            System.err.println("Could not create ws endpoint at '" + loginConfiguration.getEndpoint() + "'. Check you internet connection");
-        }
+        new ToolStateMachine(loginConfiguration).start();
     }
 }
