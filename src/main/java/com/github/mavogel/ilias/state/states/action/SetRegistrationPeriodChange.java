@@ -40,12 +40,4 @@ public class SetRegistrationPeriodChange implements ChangeAction {
     public boolean confirm() {
         return IOUtils.readAndParseUserConfirmation();
     }
-
-    @Override
-    public String actionName(final String prefix) {
-        StringBuilder sb = new StringBuilder();
-        if (prefix != null && !prefix.isEmpty()) sb.append(prefix);
-        sb.append(this.getClass().getSimpleName().replace("Change", ""));
-        return sb.toString();
-    }
 }

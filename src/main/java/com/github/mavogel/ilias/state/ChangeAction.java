@@ -38,5 +38,10 @@ public interface ChangeAction {
      * @param prefix an optional prefix
      * @return its name
      */
-    String actionName(final String prefix);
+    default String actionName(final String prefix) {
+        StringBuilder sb = new StringBuilder();
+        if (prefix != null && !prefix.isEmpty()) sb.append(prefix);
+        sb.append(this.getClass().getSimpleName().replace("Change", ""));
+        return sb.toString();
+    }
 }

@@ -8,6 +8,8 @@ import com.github.mavogel.ilias.state.ChangeAction;
 import com.github.mavogel.ilias.state.ToolState;
 import com.github.mavogel.ilias.state.ToolStateMachine;
 import com.github.mavogel.ilias.state.states.action.RemoveUploadedMaterialsChange;
+import com.github.mavogel.ilias.state.states.action.RemoveUsersChange;
+import com.github.mavogel.ilias.state.states.action.SetRegistrationPeriodChange;
 import com.github.mavogel.ilias.utils.IOUtils;
 import com.github.mavogel.ilias.utils.IliasUtils;
 import org.jdom.JDOMException;
@@ -69,7 +71,8 @@ public class ActionsOnGroupsState extends ToolState {
                 .collect(Collectors.toList());
 
         // Set actions
-        List<ChangeAction> actionChoices = Arrays.asList(new RemoveUploadedMaterialsChange());
+        List<ChangeAction> actionChoices = Arrays.asList(new RemoveUploadedMaterialsChange(),
+                new RemoveUsersChange(), new SetRegistrationPeriodChange());
 
         IntStream.range(0, actionChoices.size())
                 .mapToObj(i -> actionChoices.get(i).actionName(i + ") "))
