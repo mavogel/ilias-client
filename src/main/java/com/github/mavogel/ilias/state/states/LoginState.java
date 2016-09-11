@@ -1,6 +1,8 @@
 package com.github.mavogel.ilias.state.states;
 
 import com.github.mavogel.client.ILIASSoapWebservicePortType;
+import com.github.mavogel.ilias.model.IliasAction;
+import com.github.mavogel.ilias.model.IliasNode;
 import com.github.mavogel.ilias.model.LoginConfiguration;
 import com.github.mavogel.ilias.state.ToolState;
 import com.github.mavogel.ilias.state.ToolStateMachine;
@@ -8,6 +10,8 @@ import com.github.mavogel.ilias.utils.IliasUtils;
 
 import javax.xml.rpc.ServiceException;
 import java.rmi.RemoteException;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by mavogel on 9/7/16.
@@ -30,7 +34,22 @@ public class LoginState extends ToolState {
     }
 
     @Override
-    protected void execute() {
+    protected int printAndParseTransitionChoices() {
+        return 0;
+    }
+
+    @Override
+    protected List<IliasNode> collectDataForExecution() {
+        return Collections.emptyList();
+    }
+
+    @Override
+    protected IliasAction printAndParseExecutionChoices(final List<IliasNode> nodeChoices) {
+        return new IliasAction();
+    }
+
+    @Override
+    protected String doExecute(final IliasAction nodesAndActions) {
         try {
             ILIASSoapWebservicePortType endpoint = IliasUtils.createWsEndpoint(loginConfiguration);
             stateMachine.setEndPoint(endpoint);
@@ -42,10 +61,6 @@ public class LoginState extends ToolState {
             System.err.println("Error retrieving the user data: " + e.getMessage());
             stateMachine.setState(stateMachine.getQuitState());
         }
-    }
-
-    @Override
-    protected void parseTransitionChoice() {
-        this.transitionChoice = 0; // go straight to next state
+        return String.format("Logged in sucessfully as '%s'", loginConfiguration.getUsername());
     }
 }

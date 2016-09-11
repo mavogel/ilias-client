@@ -1,15 +1,22 @@
 package com.github.mavogel.ilias.state.states;
 
 import com.github.mavogel.client.ILIASSoapWebservicePortType;
+import com.github.mavogel.ilias.model.IliasAction;
 import com.github.mavogel.ilias.model.IliasNode;
+import com.github.mavogel.ilias.model.UserDataIds;
+import com.github.mavogel.ilias.state.ChangeAction;
 import com.github.mavogel.ilias.state.ToolState;
 import com.github.mavogel.ilias.state.ToolStateMachine;
+import com.github.mavogel.ilias.state.states.action.RemoveUploadedMaterialsChange;
+import com.github.mavogel.ilias.utils.IOUtils;
 import com.github.mavogel.ilias.utils.IliasUtils;
 import com.github.mavogel.ilias.utils.XMLUtils;
 import org.jdom.JDOMException;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -18,9 +25,6 @@ import java.util.stream.IntStream;
  * Created by mavogel on 9/7/16.
  */
 public class ChooseCoursesState extends ToolState {
-
-    private List<IliasNode> coursesForUser;
-    private List<Integer> indexesOfChosenCourses;
 
     public ChooseCoursesState(final ToolStateMachine stateMachine, final ToolState... successors) {
         super(stateMachine);
@@ -34,13 +38,13 @@ public class ChooseCoursesState extends ToolState {
     }
 
     @Override
-    protected void collectDataForExecution() {
+    protected List<IliasNode> collectDataForExecution() {
         final ILIASSoapWebservicePortType endpoint = stateMachine.getEndPoint();
         final String sid = stateMachine.getUserDataIds().getSid();
         final int userId = stateMachine.getUserDataIds().getUserId();
 
         try {
-            this.coursesForUser = IliasUtils.getCoursesForUser(endpoint, sid, userId, IliasUtils.DisplayStatus.ADMIN);
+            return IliasUtils.getCoursesForUser(endpoint, sid, userId, IliasUtils.DisplayStatus.ADMIN);
         } catch (RemoteException e) {
             System.err.println("Could not retrieve courses for user : " + e.getMessage());
             this.stateMachine.setState(stateMachine.getQuitState());
@@ -48,26 +52,26 @@ public class ChooseCoursesState extends ToolState {
             System.err.println("Error creating xml parser: " + e.getMessage());
             this.stateMachine.setState(stateMachine.getQuitState());
         }
+        return Collections.emptyList();
     }
 
     @Override
-    protected void printExecutionChoices() {
-        String executionChoices = IntStream.range(0, this.coursesForUser.size())
-                .mapToObj(i -> this.coursesForUser.get(i).asDisplayString(i + ") "))
-                .collect(Collectors.joining("\n"));
-        System.out.println(executionChoices);
+    protected IliasAction printAndParseExecutionChoices(final List<IliasNode> nodeChoices) {
+        IntStream.range(0, nodeChoices.size())
+                .mapToObj(i -> nodeChoices.get(i).asDisplayString(i + ") "))
+                .forEach(System.out::println);
+
+        List<Integer> indexesOfChosenNodes = IOUtils.readAndParseChoicesFromUser(nodeChoices);
+        List<IliasNode> choseIliasNodes = indexesOfChosenNodes.stream()
+                .map(idx -> nodeChoices.get(idx))
+                .collect(Collectors.toList());
+
+        return new IliasAction(choseIliasNodes, null);
     }
 
     @Override
-    protected void parseExecutionChoices() {
-        this.indexesOfChosenCourses = super.parseUserChoices(this.coursesForUser);
-    }
-
-    @Override
-    protected void execute() {
-        stateMachine.getContext().put(ToolStateMachine.ContextKey.COURSES,
-                this.indexesOfChosenCourses.stream()
-                        .map(idx -> this.coursesForUser.get(idx))
-                        .collect(Collectors.toList()));
+    protected String doExecute(final IliasAction nodesAndActions) {
+        stateMachine.getContext().put(ToolStateMachine.ContextKey.COURSES, nodesAndActions.getNodes());
+        return "";
     }
 }

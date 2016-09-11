@@ -5,9 +5,9 @@ import com.github.mavogel.ilias.model.IliasNode;
 import com.github.mavogel.ilias.model.LoginConfiguration;
 import com.github.mavogel.ilias.model.UserDataIds;
 import com.github.mavogel.ilias.state.states.*;
-import com.github.mavogel.ilias.state.states.action.RemoveUploadedMaterialsState;
-import com.github.mavogel.ilias.state.states.action.RemoveUsersState;
-import com.github.mavogel.ilias.state.states.action.SetRegistrationPeriodState;
+import com.github.mavogel.ilias.state.states.action.RemoveUploadedMaterialsChange;
+import com.github.mavogel.ilias.state.states.action.RemoveUsersChange;
+import com.github.mavogel.ilias.state.states.action.SetRegistrationPeriodChange;
 
 import java.util.*;
 
@@ -43,9 +43,6 @@ public class ToolStateMachine {
     private ToolState loginState;
     private ToolState chooseCoursesState;
     private ToolState actionsOnGroupsState;
-    private ToolState removeUsersState;
-    private ToolState setRegistrationState;
-    private ToolState removeMaterialsState;
     private ToolState quitState;
 
     private ToolState currentState;
@@ -60,9 +57,6 @@ public class ToolStateMachine {
         this.loginState = new LoginState(this, loginConfiguration, this.chooseCoursesState);
         this.chooseCoursesState = new ChooseCoursesState(this, this.actionsOnGroupsState, this.quitState);
         this.actionsOnGroupsState = new ActionsOnGroupsState(this, this.chooseCoursesState, this.quitState);
-        this.removeUsersState = new RemoveUsersState(this, this.actionsOnGroupsState);
-        this.setRegistrationState = new SetRegistrationPeriodState(this, this.actionsOnGroupsState);
-        this.removeMaterialsState = new RemoveUploadedMaterialsState(this, this.actionsOnGroupsState);
         this.quitState = new QuitState(this);
 
         setState(this.startState);
@@ -120,9 +114,9 @@ public class ToolStateMachine {
      */
     public void start() {
         while (!isInEndState) {
-            this.enterState();
-            this.executeState();
-            this.leaveState();
+            this.currentState.printInformation();
+            this.currentState.execute();
+            this.currentState.transition();
         }
     }
 
@@ -131,40 +125,6 @@ public class ToolStateMachine {
      */
     public void stop() {
         isInEndState = true;
-    }
-
-    /////////////////////////////////////
-    // Main actions with states
-    /////////////////////////////////////
-    /**
-     * Performs the actions on entering the state.
-     */
-    public void enterState() {
-        this.currentState.printInformation();
-    }
-
-    /**
-     * Performs the actions on state execution.
-     */
-    public void executeState() {
-        this.currentState.collectDataForExecution();
-        this.currentState.printExecutionChoices();
-        this.currentState.parseExecutionChoices();
-        this.currentState.printExecutionPreview();
-        boolean isConfirmed = this.currentState.confirm();
-        if (isConfirmed) {
-            this.currentState.execute();
-            this.currentState.printExecutionSummary();
-        }
-    }
-
-    /**
-     * Perform actions before leaving the state and the does the transition.
-     */
-    public void leaveState() {
-        this.currentState.printTransitionChoices();
-        this.currentState.parseTransitionChoice();
-        this.currentState.transition();
     }
 
     ///////////////////////////////
@@ -185,18 +145,6 @@ public class ToolStateMachine {
 
     public ToolState getActionsOnGroupsState() {
         return actionsOnGroupsState;
-    }
-
-    public ToolState getRemoveUsersState() {
-        return removeUsersState;
-    }
-
-    public ToolState getSetRegistrationState() {
-        return setRegistrationState;
-    }
-
-    public ToolState getRemoveMaterialsState() {
-        return removeMaterialsState;
     }
 
     public ToolState getQuitState() {

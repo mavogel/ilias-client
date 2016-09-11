@@ -1,6 +1,7 @@
 package com.github.mavogel.ilias.utils;
 
 import com.github.mavogel.ilias.model.RegistrationPeriod;
+import com.github.mavogel.ilias.state.ChangeAction;
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDateTime;

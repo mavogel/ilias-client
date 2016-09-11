@@ -1,5 +1,7 @@
 package com.github.mavogel.ilias.state;
 
+import com.github.mavogel.ilias.model.IliasAction;
+import com.github.mavogel.ilias.model.IliasNode;
 import com.github.mavogel.ilias.utils.IOUtils;
 
 import java.util.*;
@@ -14,9 +16,8 @@ public abstract class ToolState {
     protected ToolStateMachine stateMachine;
 
     protected List<ToolState> successors;
-    protected int transitionChoice;
 
-    protected List<ExecutionState> executionStates;
+    protected List<ChangeAction> actionStates;
     private List<Integer> executionChoices;
 
     /**
@@ -50,52 +51,22 @@ public abstract class ToolState {
     protected abstract void printInformation();
 
     /**
-     * Prints the possible choices for transitions
+     * Prints and parses the possible choices for transitions
      */
-    protected void printTransitionChoices() {
-        String transitionChoices = IntStream.range(0, successors.size())
+    protected int printAndParseTransitionChoices() {
+        System.out.println("Next step:");
+        IntStream.range(0, successors.size())
                 .mapToObj(i -> successors.get(i).asDisplayString(i + ") "))
-                .collect(Collectors.joining("\n"));
-        System.out.println("Next step:\n" + transitionChoices);
-    }
-
-    /**
-     * Parses the given choices for the transition
-     */
-    protected void parseTransitionChoice() { // TODO move to subclass and add parameter
-        this.transitionChoice = parseUserChoice(successors);
-    }
-
-    /**
-     * Parses the user input for the choice of the next action<br>
-     * We store actions in lists and print before the choice. So the index is used
-     * to determine the next action.
-     *
-     * @param choices the possible choices
-     * @return the choice of the user
-     */
-    protected List<Integer> parseUserChoices(final List<?> choices) {
-        return IOUtils.readAndParseChoicesFromUser(choices);
-    }
-
-
-    /**
-     * Parses the user input for the choice of the next action<br>
-     * We store actions in lists and print before the choice. So the index is used
-     * to determine the next action.
-     *
-     * @param choices the possible choices
-     * @return the choice of the user
-     */
-    protected int parseUserChoice(final List<?> choices) {
-        return IOUtils.readAndParseSingleChoiceFromUser(choices);
+                .forEach(System.out::println);
+        return IOUtils.readAndParseSingleChoiceFromUser(successors);
     }
 
     /**
      * Performs the transition to the next state
      */
     protected void transition() {
-        stateMachine.setState(successors.get(this.transitionChoice));
+        final int transitionChoice = printAndParseTransitionChoices();
+        stateMachine.setState(successors.get(transitionChoice));
     }
 
     /**
@@ -115,47 +86,46 @@ public abstract class ToolState {
     //////////////////////////////////
     /////////// EXECUTIONS ///////////
     //////////////////////////////////
-    /**
-     * Collects data for the execution. Usually these are refId of object to perform actions on later.
-     */
-    protected void collectDataForExecution() {
-    }
 
     /**
-     * Prints the possible execution choices for the state.
+     * Collects data for the execution. Usually these are refId of object to perform actions on later.
+     *
+     * @return the nodes for the execution
      */
-    protected void printExecutionChoices() {
-    }
+    protected abstract List<IliasNode> collectDataForExecution();
 
     /**
      * Parses the given choices for execution.
+     *
+     * @param nodeChoices the node the user can choose from
+     * @return the chosen nodes with the desired actions to perform
      */
-    protected void parseExecutionChoices() {
-    }
-
-    /**
-     * Prints a small summary of the amount of affected nodes/objects of the execution
-     */
-    protected void printExecutionPreview() {
-    }
-
-    /**
-     * Prints and requests a confirmation from the user for the upcoming action.<br>
-     * Does <b>NOT</b> change the context.
-     */
-    protected boolean confirm() {
-        return true;
-    }
+    protected abstract IliasAction printAndParseExecutionChoices(List<IliasNode> nodeChoices);
 
     /**
      * Executes the command of the state.
      */
-    protected void execute() {
+    public void execute() {
+        List<IliasNode> nodeChoices = this.collectDataForExecution();
+        IliasAction chosenNodesAndActions = this.printAndParseExecutionChoices(nodeChoices);
+        String summary = this.doExecute(chosenNodesAndActions);
+        printExecutionSummary(summary);
     }
+
+    /**
+     * Internal execute
+     *
+     * @param nodesAndActions the nodes and actions
+     * @return the summary of the actions
+     */
+    protected abstract String doExecute(final IliasAction nodesAndActions);
 
     /**
      * Prints the summary of the preceding execution.
      */
-    protected void printExecutionSummary() {
+    protected void printExecutionSummary(final String summary) {
+        if (summary != null && !summary.isEmpty()) System.out.println(summary);
+        System.out.println("--------------------------------");
+        System.out.println();
     }
 }

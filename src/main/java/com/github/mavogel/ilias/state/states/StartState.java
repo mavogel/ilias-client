@@ -1,9 +1,12 @@
 package com.github.mavogel.ilias.state.states;
 
+import com.github.mavogel.ilias.model.IliasAction;
+import com.github.mavogel.ilias.model.IliasNode;
 import com.github.mavogel.ilias.state.ToolState;
 import com.github.mavogel.ilias.state.ToolStateMachine;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -47,7 +50,22 @@ public class StartState extends ToolState {
     }
 
     @Override
-    protected void parseTransitionChoice() {
-        this.transitionChoice = 0;
+    protected int printAndParseTransitionChoices() {
+        return 0;
+    }
+
+    @Override
+    protected List<IliasNode> collectDataForExecution() {
+        return Collections.emptyList();
+    }
+
+    @Override
+    protected IliasAction printAndParseExecutionChoices(final List<IliasNode> nodeChoices) {
+        return new IliasAction();
+    }
+
+    @Override
+    protected String doExecute(final IliasAction nodesAndActions) {
+        return "";
     }
 }
