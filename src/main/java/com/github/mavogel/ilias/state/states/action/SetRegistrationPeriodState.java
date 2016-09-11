@@ -27,7 +27,7 @@ public class SetRegistrationPeriodState extends ToolState implements ExecutionSt
      * @param stateMachine the {@link ToolStateMachine}
      * @param successors the successor states
      */
-    protected SetRegistrationPeriodState(final ToolStateMachine stateMachine, final ToolState... successors) {
+    public SetRegistrationPeriodState(final ToolStateMachine stateMachine, final ToolState... successors) {
         super(stateMachine);
         setSuccessors(successors);
     }

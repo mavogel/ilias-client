@@ -45,4 +45,9 @@ public class StartState extends ToolState {
         System.out.println(sb.toString());
 
     }
+
+    @Override
+    protected void parseTransitionChoice() {
+        this.transitionChoice = 0;
+    }
 }

@@ -14,7 +14,7 @@ public abstract class ToolState {
     protected ToolStateMachine stateMachine;
 
     protected List<ToolState> successors;
-    private int transitionChoice;
+    protected int transitionChoice;
 
     protected List<ExecutionState> executionStates;
     private List<Integer> executionChoices;

@@ -5,7 +5,9 @@ import com.github.mavogel.ilias.model.IliasNode;
 import com.github.mavogel.ilias.model.LoginConfiguration;
 import com.github.mavogel.ilias.model.UserDataIds;
 import com.github.mavogel.ilias.state.states.*;
+import com.github.mavogel.ilias.state.states.action.RemoveUploadedMaterialsState;
 import com.github.mavogel.ilias.state.states.action.RemoveUsersState;
+import com.github.mavogel.ilias.state.states.action.SetRegistrationPeriodState;
 
 import java.util.*;
 
@@ -39,7 +41,6 @@ public class ToolStateMachine {
 
     private ToolState startState;
     private ToolState loginState;
-    private ToolState chooseTopicsState;
     private ToolState chooseCoursesState;
     private ToolState actionsOnGroupsState;
     private ToolState removeUsersState;
@@ -55,16 +56,14 @@ public class ToolStateMachine {
         this.context = new HashMap<>();
 
         // encoding of the state machine
+        this.startState = new StartState(this, this.loginState);
+        this.loginState = new LoginState(this, loginConfiguration, this.chooseCoursesState);
+        this.chooseCoursesState = new ChooseCoursesState(this, this.actionsOnGroupsState, this.quitState);
+        this.actionsOnGroupsState = new ActionsOnGroupsState(this, this.chooseCoursesState, this.quitState);
+        this.removeUsersState = new RemoveUsersState(this, this.actionsOnGroupsState);
+        this.setRegistrationState = new SetRegistrationPeriodState(this, this.actionsOnGroupsState);
+        this.removeMaterialsState = new RemoveUploadedMaterialsState(this, this.actionsOnGroupsState);
         this.quitState = new QuitState(this);
-        this.removeUsersState = new RemoveUsersState(this);
-        this.actionsOnGroupsState = new ActionsOnGroupsState(this, this.removeUsersState,
-                                                                   this.setRegistrationState,
-                                                                   this.removeUsersState,
-                                                                   this.chooseTopicsState, this.quitState);
-        this.chooseTopicsState = new ChooseTopicsState(this, this.actionsOnGroupsState, this.chooseCoursesState, this.quitState);
-        this.chooseCoursesState = new ChooseCoursesState(this, this.chooseTopicsState, this.quitState);
-        this.loginState = new LoginState(this, loginConfiguration, this.chooseCoursesState, this.quitState);
-        this.startState = new StartState(this, this.loginState, this.quitState);
 
         setState(this.startState);
     }
@@ -174,10 +173,6 @@ public class ToolStateMachine {
 
     public ToolState getStartState() {
         return startState;
-    }
-
-    public ToolState getChooseTopicsState() {
-        return chooseTopicsState;
     }
 
     public ToolState getLoginState() {

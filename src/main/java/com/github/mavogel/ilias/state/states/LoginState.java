@@ -43,4 +43,9 @@ public class LoginState extends ToolState {
             stateMachine.setState(stateMachine.getQuitState());
         }
     }
+
+    @Override
+    protected void parseTransitionChoice() {
+        this.transitionChoice = 0; // go straight to next state
+    }
 }

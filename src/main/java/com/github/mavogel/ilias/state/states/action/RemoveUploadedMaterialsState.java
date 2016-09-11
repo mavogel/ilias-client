@@ -26,7 +26,7 @@ public class RemoveUploadedMaterialsState extends ToolState implements Execution
      * @param stateMachine the {@link ToolStateMachine}
      * @param successors   the successor states
      */
-    protected RemoveUploadedMaterialsState(final ToolStateMachine stateMachine, final ToolState... successors) {
+    public RemoveUploadedMaterialsState(final ToolStateMachine stateMachine, final ToolState... successors) {
         super(stateMachine);
         setSuccessors(successors);
     }
