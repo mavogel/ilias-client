@@ -119,7 +119,7 @@ public class IOUtilsTest {
     }
 
     @Test
-    public void shouldAcceptSecondInputDueToLetterInput() throws Exception {
+    public void shouldAcceptSecondInputDueToLetterAndEmptyInput() throws Exception {
         // == prepare
         final List<String> choices = new ArrayList<>(Arrays.asList(
                 "A", "B", "C", "D",
@@ -129,7 +129,7 @@ public class IOUtilsTest {
         // == train
         Scanner scanner = PowerMockito.mock(Scanner.class);
         PowerMockito.whenNew(Scanner.class).withArguments(System.in).thenReturn(scanner);
-        PowerMockito.when(scanner.nextLine()).thenReturn("g").thenReturn("1");
+        PowerMockito.when(scanner.nextLine()).thenReturn("g").thenReturn("").thenReturn("1");
 
         // == go
         List<Integer> madeChoices = IOUtils.readAndParseChoicesFromUser(choices);
