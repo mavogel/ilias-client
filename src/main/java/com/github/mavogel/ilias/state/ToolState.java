@@ -27,7 +27,7 @@ public abstract class ToolState {
 
     /**
      * Sets the successors from a var args. Ensures correct initialization of the
-     * memeber variable.
+     * member variable.
      *
      * @param successors the successors
      */
@@ -36,6 +36,7 @@ public abstract class ToolState {
             this.successors = new ArrayList<>();
         } else {
             this.successors = Arrays.stream(successors)
+                    .filter(s -> s != null)
                     .collect(Collectors.toList());
         }
     }

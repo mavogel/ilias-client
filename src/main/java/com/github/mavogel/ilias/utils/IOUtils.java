@@ -42,7 +42,8 @@ public class IOUtils {
         Scanner scanner = new Scanner(System.in);
         while (!(isCorrectInputDigits && isCorrectInputRanges)) {
             try {
-                System.out.println(">> ");
+                System.out.println(">> your choice (e.g.: 1, 2, 4-6, 8, 10-15 -> or a combination)");
+                System.out.print(">> ");
                 line = scanner.nextLine();
                 List<String> trimmedSplit = Arrays.stream(line.split(","))
                         .map(StringUtils::deleteWhitespace)
@@ -53,6 +54,7 @@ public class IOUtils {
                         .filter(s -> digit.matcher(s).matches())
                         .map(Integer::valueOf)
                         .collect(Collectors.toList());
+                // TODO handle empty or digit input
                 isCorrectInputDigits = digitsInput.stream().allMatch(idx -> isInRange(choices, idx));
 
                 // ranges
@@ -95,7 +97,8 @@ public class IOUtils {
         Scanner scanner = new Scanner(System.in);
         while (!isCorrectInput) {
             try {
-                System.out.println("> ");
+                System.out.println("> a single choice only!");
+                System.out.print("> ");
                 line = scanner.nextLine();
                 userChoice = Integer.valueOf(line);
                 isCorrectInput = isInRange(choices, userChoice);

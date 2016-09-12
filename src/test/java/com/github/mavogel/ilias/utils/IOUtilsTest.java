@@ -119,6 +119,46 @@ public class IOUtilsTest {
     }
 
     @Test
+    public void shouldAcceptSecondInputDueToLetterInput() throws Exception {
+        // == prepare
+        final List<String> choices = new ArrayList<>(Arrays.asList(
+                "A", "B", "C", "D",
+                "E", "F", "G", "H",
+                "U", "J", "K", "L"));
+
+        // == train
+        Scanner scanner = PowerMockito.mock(Scanner.class);
+        PowerMockito.whenNew(Scanner.class).withArguments(System.in).thenReturn(scanner);
+        PowerMockito.when(scanner.nextLine()).thenReturn("g").thenReturn("1");
+
+        // == go
+        List<Integer> madeChoices = IOUtils.readAndParseChoicesFromUser(choices);
+
+        // == verify
+        assertEquals(Arrays.asList(1), madeChoices);
+    }
+
+    @Test
+    public void shouldAcceptSecondInputDueIncompleteRange() throws Exception {
+        // == prepare
+        final List<String> choices = new ArrayList<>(Arrays.asList(
+                "A", "B", "C", "D",
+                "E", "F", "G", "H",
+                "U", "J", "K", "L"));
+
+        // == train
+        Scanner scanner = PowerMockito.mock(Scanner.class);
+        PowerMockito.whenNew(Scanner.class).withArguments(System.in).thenReturn(scanner);
+        PowerMockito.when(scanner.nextLine()).thenReturn("5-").thenReturn("1");
+
+        // == go
+        List<Integer> madeChoices = IOUtils.readAndParseChoicesFromUser(choices);
+
+        // == verify
+        assertEquals(Arrays.asList(1), madeChoices);
+    }
+
+    @Test
     public void shouldParseValidRegistrationPeriod() throws Exception {
         // == train
         Scanner scanner = PowerMockito.mock(Scanner.class);

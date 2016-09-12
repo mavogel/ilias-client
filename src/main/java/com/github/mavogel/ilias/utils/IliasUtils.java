@@ -155,6 +155,7 @@ public class IliasUtils {
                                                     final String sid, final int userId,
                                                     final int nodeRefId,
                                                     final int currentDepth, final int maxDepth) throws IOException, JDOMException {
+        System.out.println("-- Depth " + currentDepth + " of node: " + nodeRefId);
         if (currentDepth <= maxDepth) {
             List<IliasNode> folderChildrenNodes = getRefIdsOfChildrenFromCurrentNode(endpoint, sid, userId, nodeRefId, IliasNode.Type.FOLDER);
             for (IliasNode folderChildNode : folderChildrenNodes) {

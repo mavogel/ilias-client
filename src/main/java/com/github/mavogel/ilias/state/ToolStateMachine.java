@@ -53,8 +53,11 @@ public class ToolStateMachine {
 
         // encoding of the state machine
         this.quitState = new QuitState(this);
-        this.actionsOnGroupsState = new ActionsOnGroupsState(this, this.chooseCoursesState, this.quitState);
+
+        this.actionsOnGroupsState = new ActionsOnGroupsState(this);
         this.chooseCoursesState = new ChooseCoursesState(this, this.actionsOnGroupsState, this.quitState);
+        this.actionsOnGroupsState.setSuccessors(this.chooseCoursesState, this.quitState); // because of null ref
+
         this.loginState = new LoginState(this, loginConfiguration, this.chooseCoursesState);
         this.startState = new StartState(this, this.loginState);
 
