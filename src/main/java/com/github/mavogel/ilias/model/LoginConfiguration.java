@@ -4,7 +4,7 @@ import org.apache.commons.lang3.Validate;
 
 /**
  * Created by mavogel on 8/30/16.
- *
+ * <p>
  * The configuration for the login.
  */
 public class LoginConfiguration {
@@ -24,57 +24,61 @@ public class LoginConfiguration {
          * LDAP as login mode: {@link com.github.mavogel.client.ILIASSoapWebservicePortType#loginLDAP(String, String, String)}
          */
         LDAP
-    };
+    }
+
+    ;
 
     private final LOGIN_MODE loginMode;
     private final String endpoint, client, username, password;
+    private final int maxFolderDepth;
 
-    private LoginConfiguration(final LOGIN_MODE loginMode,
-                               final String endpoint,
-                               final String client,
-                               final String username,
-                               final String password) {
+    private LoginConfiguration(final LOGIN_MODE loginMode, final String endpoint, final String client,
+                               final String username, final String password, final int maxFolderDepth) {
         Validate.notEmpty(endpoint, "endpoint is empty");
         Validate.notEmpty(client, "client is empty");
-        Validate.notEmpty(username,"username is empty");
+        Validate.notEmpty(username, "username is empty");
         Validate.notEmpty(password, "password is empty");
         this.loginMode = loginMode;
         this.endpoint = endpoint;
         this.client = client;
         this.username = username;
         this.password = password;
+        this.maxFolderDepth = maxFolderDepth;
     }
 
     /**
      * Creates a login configuration with standard login
      *
-     * @param endpoint the endpoint of the ilias server
-     * @param client the client id
-     * @param username the username
-     * @param password the password
+     * @param endpoint       the endpoint of the ilias server
+     * @param client         the client id
+     * @param username       the username
+     * @param password       the password
+     * @param maxFolderDepth the maximum folder depth
      * @return the configuration
      */
     public static LoginConfiguration asStandardLogin(final String endpoint, final String client,
-                                                     final String username, final String password) {
-        return new LoginConfiguration(LOGIN_MODE.STD, endpoint, client, username, password);
+                                                     final String username, final String password, final int maxFolderDepth) {
+        return new LoginConfiguration(LOGIN_MODE.STD, endpoint, client, username, password, maxFolderDepth);
     }
 
     /**
      * Creates a login configuration with LDAP login
      *
      * @param endpoint the endpoint of the ilias server
-     * @param client the client id
+     * @param client   the client id
      * @param username the username
      * @param password the password
+     * @param maxFolderDepth the maximum folder depth
      * @return the configuration
      */
-    public static LoginConfiguration asLDAPLogin(final String endpoint,final String client,
-                                                 final String username, final String password) {
-        return new LoginConfiguration(LOGIN_MODE.LDAP, endpoint, client, username, password);
+    public static LoginConfiguration asLDAPLogin(final String endpoint, final String client,
+                                                 final String username, final String password, final int maxFolderDepth) {
+        return new LoginConfiguration(LOGIN_MODE.LDAP, endpoint, client, username, password, maxFolderDepth);
     }
 
     /**
      * Not yet supported
+     *
      * @throws UnsupportedOperationException
      */
     public static LoginConfiguration asCASLogin() {
@@ -85,7 +89,9 @@ public class LoginConfiguration {
         return loginMode;
     }
 
-    public String getEndpoint() { return endpoint; }
+    public String getEndpoint() {
+        return endpoint;
+    }
 
     public String getClient() {
         return client;
@@ -97,5 +103,9 @@ public class LoginConfiguration {
 
     public String getPassword() {
         return password;
+    }
+
+    public int getMaxFolderDepth() {
+        return maxFolderDepth;
     }
 }

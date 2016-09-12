@@ -38,23 +38,19 @@ public class ActionsOnGroupsState extends ToolState {
 
     @Override
     protected List<IliasNode> collectDataForExecution() {
-        if (stateMachine.getContext().containsKey(ToolStateMachine.ContextKey.GROUPS)) { // TODO where do we come from?
-            return stateMachine.getContext().get(ToolStateMachine.ContextKey.GROUPS);
-        } else {
-            ILIASSoapWebservicePortType endpoint = stateMachine.getEndPoint();
-            final String sid = stateMachine.getUserDataIds().getSid();
-            final int userId = stateMachine.getUserDataIds().getUserId();
-            final int maxFolderDepth = 3;
+        ILIASSoapWebservicePortType endpoint = stateMachine.getEndPoint();
+        final String sid = stateMachine.getUserDataIds().getSid();
+        final int userId = stateMachine.getUserDataIds().getUserId();
+        final int maxFolderDepth = stateMachine.getMaxFolderDepth();
 
-            final List<IliasNode> courseRefIds = stateMachine.getContext().get(ToolStateMachine.ContextKey.COURSES);
-            try {
-                return IliasUtils.retrieveGroupRefIdsFromCourses(endpoint, sid, userId,
-                        courseRefIds.stream().map(c -> c.getRefId()).collect(Collectors.toList()),
-                        maxFolderDepth);// TODO get from logconf
-            } catch (JDOMException | IOException e) {
-                System.err.println("Error creating xml parser: " + e.getMessage());
-                this.stateMachine.setState(stateMachine.getChooseCoursesState());
-            }
+        final List<IliasNode> courseRefIds = stateMachine.getContext().get(ToolStateMachine.ContextKey.COURSES);
+        try {
+            return IliasUtils.retrieveGroupRefIdsFromCourses(endpoint, sid, userId,
+                    courseRefIds.stream().map(c -> c.getRefId()).collect(Collectors.toList()),
+                    maxFolderDepth);
+        } catch (JDOMException | IOException e) {
+            System.err.println("Error creating xml parser: " + e.getMessage());
+            this.stateMachine.setState(stateMachine.getChooseCoursesState());
         }
         return Collections.emptyList();
     }

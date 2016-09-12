@@ -6,8 +6,11 @@ import org.apache.commons.configuration2.FileBasedConfiguration;
 import org.apache.commons.configuration2.PropertiesConfiguration;
 import org.apache.commons.configuration2.builder.FileBasedConfigurationBuilder;
 import org.apache.commons.configuration2.builder.fluent.Parameters;
+import org.apache.commons.configuration2.ex.ConversionException;
 
 import java.io.Console;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 /**
  * Created by mavogel on 8/30/16.
@@ -29,6 +32,7 @@ public class ConfigurationsUtils {
                         .configure(params.properties().setFileName(propertyFilename));
         LoginConfiguration.LOGIN_MODE loginMode = null;
         String endpoint, client, username, password, loginModeRaw = "";
+        int maxFolderDepth;
 
         try {
             Configuration config = builder.getConfiguration();
@@ -38,6 +42,7 @@ public class ConfigurationsUtils {
             client = config.getString("login.client");
             username = config.getString("login.username");
             password = config.getString("login.password");
+            maxFolderDepth = config.getInt("maxFolderDepth", Defaults.MAX_FOLDER_DEPTH);
             if (password == null || password.isEmpty()) {
                 Console console = System.console();
                 if (console != null) {
@@ -47,16 +52,20 @@ public class ConfigurationsUtils {
                 }
             }
         } catch (IllegalArgumentException iae) {
-            throw new RuntimeException("Login mode '" + loginModeRaw + "' is unknown");
+            throw new RuntimeException(String.format("Login mode '%s' is unknown. Use one of %s",
+                    loginModeRaw, Arrays.stream(LoginConfiguration.LOGIN_MODE.values())
+                                        .map(lm -> lm.name()).collect(Collectors.joining(", "))));
+        } catch (ConversionException ce) {
+            throw new RuntimeException("maxFolderDepth property is not an integer");
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
 
         switch (loginMode) {
             case STD:
-                return LoginConfiguration.asStandardLogin(endpoint, client, username, password);
+                return LoginConfiguration.asStandardLogin(endpoint, client, username, password, maxFolderDepth);
             case LDAP:
-                return LoginConfiguration.asLDAPLogin(endpoint, client, username, password);
+                return LoginConfiguration.asLDAPLogin(endpoint, client, username, password, maxFolderDepth);
             case CAS:
                 return LoginConfiguration.asCASLogin();
             default:

@@ -1,6 +1,26 @@
-.idea/
+# Maven
 target/
-dependency-reduced-pom.xml
+*.ser
+*.ec
 *.iml
+dependency-reduced-pom.xml
+
+# IntelliJ Idea
+.idea/
+out/
+*.ipr
+*.iws
+*.iml
+
+# Eclipse
+.classpath
+.project
+.settings/
+.metadata/
+
+# OS X
+.DS_Store
+
+# Misc
 *.properties
 out.xml

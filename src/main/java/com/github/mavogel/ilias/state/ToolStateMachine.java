@@ -16,7 +16,6 @@ import java.util.*;
  */
 public class ToolStateMachine {
 
-    protected final LoginConfiguration loginConfiguration;
     private boolean isInEndState;
 
     /**
@@ -36,6 +35,7 @@ public class ToolStateMachine {
 
     private UserDataIds userDataId;
     private ILIASSoapWebservicePortType endPoint;
+    private int maxFolderDepth;
 
     private Map<ContextKey, List<IliasNode>> context;
 
@@ -48,7 +48,7 @@ public class ToolStateMachine {
     private ToolState currentState;
 
     public ToolStateMachine(final LoginConfiguration loginConfiguration) {
-        this.loginConfiguration = loginConfiguration;
+        this.maxFolderDepth = loginConfiguration.getMaxFolderDepth();
         this.isInEndState = false;
         this.context = new HashMap<>();
 
@@ -88,6 +88,13 @@ public class ToolStateMachine {
      */
     public void setEndPoint(final ILIASSoapWebservicePortType endPoint) {
         this.endPoint = endPoint;
+    }
+
+    /**
+     * @return the maximum folder depth
+     */
+    public int getMaxFolderDepth() {
+        return maxFolderDepth;
     }
 
     /**

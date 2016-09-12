@@ -1,0 +1,21 @@
+# The endpoint of the Ilias Webservice Port
+# Usually: https://ilias.mycompany.com/webservice/soap/server.php
+endpoint=
+#
+# STD (for standard login), LDAP, CAS (currently unsupported)
+login.mode=
+#
+# Client id for login. As your administrator for the client_id
+login.client=
+#
+# Name of the user you want to login
+login.username=
+#
+# If not given or empty it will be promted on cmd line
+login.password=
+#
+# The maximum depth to search in the tree starting from the root node
+# E.g. for listing all groups in courses. Groups can be in folders.
+# If not given or empty, a default value of 5 is used
+maxFolderDepth=
+

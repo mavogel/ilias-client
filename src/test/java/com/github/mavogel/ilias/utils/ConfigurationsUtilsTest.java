@@ -38,6 +38,7 @@ public class ConfigurationsUtilsTest {
         assertEquals("MY_CLIENT", validLoginConfiguration.getClient());
         assertEquals("user", validLoginConfiguration.getUsername());
         assertEquals("pass", validLoginConfiguration.getPassword());
+        assertEquals(3, validLoginConfiguration.getMaxFolderDepth());
     }
 
     @Test
@@ -50,7 +51,7 @@ public class ConfigurationsUtilsTest {
         final Console consoleMock = PowerMockito.mock(Console.class);
         Mockito.when(System.console()).thenReturn(consoleMock);
         Mockito.when(consoleMock.readPassword("Enter your password: ")).thenReturn("mypass123".toCharArray());
-        
+
 
         // == go
         LoginConfiguration validLoginConfiguration = ConfigurationsUtils.createLoginConfiguration(testFile);
@@ -61,6 +62,7 @@ public class ConfigurationsUtilsTest {
         assertEquals("MY_CLIENT", validLoginConfiguration.getClient());
         assertEquals("user", validLoginConfiguration.getUsername());
         assertEquals("mypass123", validLoginConfiguration.getPassword());
+        assertEquals(3, validLoginConfiguration.getMaxFolderDepth());
     }
 
     @Test(expected = RuntimeException.class)
@@ -82,7 +84,7 @@ public class ConfigurationsUtilsTest {
     }
 
     @Test
-    public void shouldReadStdConfiguration() throws Exception {
+    public void shouldReadStdWithoutFolderDepthConfiguration() throws Exception {
         // == prepare
         String testFile = TEST_RES_DIR + "testConfigStdLogin.properties";
 
@@ -95,6 +97,7 @@ public class ConfigurationsUtilsTest {
         assertEquals("MY_CLIENT", validLoginConfiguration.getClient());
         assertEquals("user", validLoginConfiguration.getUsername());
         assertEquals("pass", validLoginConfiguration.getPassword());
+        assertEquals(5, validLoginConfiguration.getMaxFolderDepth());
     }
 
     @Test(expected = RuntimeException.class)
