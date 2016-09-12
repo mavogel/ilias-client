@@ -61,6 +61,6 @@ public class LoginState extends ToolState {
             System.err.println("Error retrieving the user data: " + e.getMessage());
             stateMachine.setState(stateMachine.getQuitState());
         }
-        return String.format("Logged in sucessfully as '%s'", loginConfiguration.getUsername());
+        return String.format("Logged in successfully as '%s'", loginConfiguration.getUsername());
     }
 }

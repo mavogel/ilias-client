@@ -5,11 +5,10 @@ import com.github.mavogel.ilias.model.IliasNode;
 import com.github.mavogel.ilias.model.LoginConfiguration;
 import com.github.mavogel.ilias.model.UserDataIds;
 import com.github.mavogel.ilias.state.states.*;
-import com.github.mavogel.ilias.state.states.action.RemoveUploadedMaterialsChange;
-import com.github.mavogel.ilias.state.states.action.RemoveUsersChange;
-import com.github.mavogel.ilias.state.states.action.SetRegistrationPeriodChange;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by mavogel on 9/6/16.
@@ -53,11 +52,11 @@ public class ToolStateMachine {
         this.context = new HashMap<>();
 
         // encoding of the state machine
-        this.startState = new StartState(this, this.loginState);
-        this.loginState = new LoginState(this, loginConfiguration, this.chooseCoursesState);
-        this.chooseCoursesState = new ChooseCoursesState(this, this.actionsOnGroupsState, this.quitState);
-        this.actionsOnGroupsState = new ActionsOnGroupsState(this, this.chooseCoursesState, this.quitState);
         this.quitState = new QuitState(this);
+        this.actionsOnGroupsState = new ActionsOnGroupsState(this, this.chooseCoursesState, this.quitState);
+        this.chooseCoursesState = new ChooseCoursesState(this, this.actionsOnGroupsState, this.quitState);
+        this.loginState = new LoginState(this, loginConfiguration, this.chooseCoursesState);
+        this.startState = new StartState(this, this.loginState);
 
         setState(this.startState);
     }

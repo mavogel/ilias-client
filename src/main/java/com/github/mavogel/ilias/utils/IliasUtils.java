@@ -91,11 +91,7 @@ public class IliasUtils {
             case CAS:
                 throw new UnsupportedOperationException("login with CAS is not yet supported");
         }
-        System.out.printf("sid: %s%n", sid);
-        int userId = endpoint.getUserIdBySid(sid);
-        System.out.printf("user_id by sid: %d%n", userId);
-
-        return new UserDataIds(userId, sid);
+        return new UserDataIds(endpoint.getUserIdBySid(sid), sid);
     }
 
     /**

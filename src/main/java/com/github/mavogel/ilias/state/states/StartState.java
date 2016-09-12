@@ -24,27 +24,27 @@ public class StartState extends ToolState {
     @Override
     public void printInformation() {
         StringBuilder sb = new StringBuilder();
-        sb.append(" _______ __                        ")
-          .append("|       |  |--.-----.              ")
-          .append("|.|   | |     |  -__|              ")
-          .append("`-|.  |-|__|__|_____|              ")
-          .append("  |:  |                            ")
-          .append("  |::.|                            ")
-          .append("  `---'                            ")
-          .append(" ___ ___     ___ _______ _______   ")
-          .append("|   |   |   |   |   _   |   _   |  ")
-          .append("|.  |.  |   |.  |.  1   |   1___|  ")
-          .append("|.  |.  |___|.  |.  _   |____   |  ")
-          .append("|:  |:  1   |:  |:  |   |:  1   |  ")
-          .append("|::.|::.. . |::.|::.|:. |::.. . |  ")
-          .append("`---`-------`---`--- ---`-------'  ")
-          .append(" _______ __ __             __      ")
-          .append("|   _   |  |__.-----.-----|  |_    ")
-          .append("|.  1___|  |  |  -__|     |   _|   ")
-          .append("|.  |___|__|__|_____|__|__|____|   ")
-          .append("|:  1   |                          ")
-          .append("|::.. . |                          ")
-          .append("`-------'                          ");
+        sb.append(" _______ __                        ").append("\n")
+          .append("|       |  |--.-----.              ").append("\n")
+          .append("|.|   | |     |  -__|              ").append("\n")
+          .append("`-|.  |-|__|__|_____|              ").append("\n")
+          .append("  |:  |                            ").append("\n")
+          .append("  |::.|                            ").append("\n")
+          .append("  `---'                            ").append("\n")
+          .append(" ___ ___     ___ _______ _______   ").append("\n")
+          .append("|   |   |   |   |   _   |   _   |  ").append("\n")
+          .append("|.  |.  |   |.  |.  1   |   1___|  ").append("\n")
+          .append("|.  |.  |___|.  |.  _   |____   |  ").append("\n")
+          .append("|:  |:  1   |:  |:  |   |:  1   |  ").append("\n")
+          .append("|::.|::.. . |::.|::.|:. |::.. . |  ").append("\n")
+          .append("`---`-------`---`--- ---`-------'  ").append("\n")
+          .append(" _______ __ __             __      ").append("\n")
+          .append("|   _   |  |__.-----.-----|  |_    ").append("\n")
+          .append("|.  1___|  |  |  -__|     |   _|   ").append("\n")
+          .append("|.  |___|__|__|_____|__|__|____|   ").append("\n")
+          .append("|:  1   |                          ").append("\n")
+          .append("|::.. . |                          ").append("\n")
+          .append("`-------'                          ").append("\n");
         System.out.println(sb.toString());
 
     }

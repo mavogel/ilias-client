@@ -17,6 +17,7 @@ public class QuitState extends ToolState {
 
     public QuitState(final ToolStateMachine stateMachine) {
         super(stateMachine);
+        this.setSuccessors();
     }
 
     @Override

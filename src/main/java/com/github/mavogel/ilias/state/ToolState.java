@@ -14,11 +14,7 @@ import java.util.stream.IntStream;
 public abstract class ToolState {
 
     protected ToolStateMachine stateMachine;
-
     protected List<ToolState> successors;
-
-    protected List<ChangeAction> actionStates;
-    private List<Integer> executionChoices;
 
     /**
      * C'tor for a {@link ToolState}
@@ -40,7 +36,6 @@ public abstract class ToolState {
             this.successors = new ArrayList<>();
         } else {
             this.successors = Arrays.stream(successors)
-                    .filter(s -> s != null)
                     .collect(Collectors.toList());
         }
     }
@@ -54,19 +49,25 @@ public abstract class ToolState {
      * Prints and parses the possible choices for transitions
      */
     protected int printAndParseTransitionChoices() {
-        System.out.println("Next step:");
-        IntStream.range(0, successors.size())
-                .mapToObj(i -> successors.get(i).asDisplayString(i + ") "))
-                .forEach(System.out::println);
-        return IOUtils.readAndParseSingleChoiceFromUser(successors);
+        if (!successors.isEmpty()) {
+            System.out.println("Next step:");
+            IntStream.range(0, successors.size())
+                    .mapToObj(i -> successors.get(i).asDisplayString(i + ") "))
+                    .forEach(System.out::println);
+            return IOUtils.readAndParseSingleChoiceFromUser(successors);
+        } else {
+            return -1;
+        }
     }
 
     /**
      * Performs the transition to the next state
      */
     protected void transition() {
-        final int transitionChoice = printAndParseTransitionChoices();
-        stateMachine.setState(successors.get(transitionChoice));
+        if(!successors.isEmpty()) {
+            final int transitionChoice = printAndParseTransitionChoices();
+            stateMachine.setState(successors.get(transitionChoice));
+        }
     }
 
     /**
