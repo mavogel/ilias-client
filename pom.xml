@@ -8,6 +8,14 @@
     <artifactId>iliasClient</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <developers>
+        <developer>
+            <id>mavogel</id>
+            <name>Manuel Vogel</name>
+            <email>mavogel@posteo.de</email>
+        </developer>
+    </developers>
+
     <properties>
         <powermock.version>1.6.5</powermock.version>
     </properties>
@@ -102,6 +110,7 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
             <version>1.10.19</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
