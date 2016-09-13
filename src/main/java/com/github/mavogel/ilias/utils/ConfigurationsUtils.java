@@ -48,7 +48,7 @@ public class ConfigurationsUtils {
                 if (console != null) {
                     password = String.valueOf(console.readPassword("Enter your password: "));
                 } else {
-                    throw new RuntimeException("Console is not available!");
+                    throw new Exception("Console is not available!");
                 }
             }
         } catch (IllegalArgumentException iae) {

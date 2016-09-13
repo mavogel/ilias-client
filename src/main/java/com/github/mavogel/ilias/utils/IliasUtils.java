@@ -64,7 +64,7 @@ public class IliasUtils {
      *
      * @param loginConfiguration the config of the login
      * @return the endpoint as {@link ILIASSoapWebservicePortType}
-     * @throws javax.xml.rpc.ServiceException
+     * @throws javax.xml.rpc.ServiceException if the endpoint could not be established
      */
     public static ILIASSoapWebservicePortType createWsEndpoint(final LoginConfiguration loginConfiguration) throws javax.xml.rpc.ServiceException {
         ILIASSoapWebserviceLocator locator = new ILIASSoapWebserviceLocator();
@@ -78,7 +78,7 @@ public class IliasUtils {
      * @param loginConfiguration the config for the logon
      * @param endpoint           the ilias endpoint
      * @return the user data as {@link UserDataIds}
-     * @throws RemoteException
+     * @throws RemoteException if the login to retrieve the user data could not be performed successfully
      */
     public static UserDataIds getUserData(final LoginConfiguration loginConfiguration,
                                           final ILIASSoapWebservicePortType endpoint) throws RemoteException {
@@ -93,7 +93,7 @@ public class IliasUtils {
                         loginConfiguration.getUsername(), loginConfiguration.getPassword());
                 break;
             case CAS:
-                throw new UnsupportedOperationException("login with CAS is not yet supported");
+                throw new UnsupportedOperationException("Login with CAS is not yet supported");
         }
         return new UserDataIds(endpoint.getUserIdBySid(sid), sid);
     }

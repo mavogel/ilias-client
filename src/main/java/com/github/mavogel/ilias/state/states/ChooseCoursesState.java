@@ -36,7 +36,7 @@ public class ChooseCoursesState extends ToolState {
 
     @Override
     public void printInformation() {
-        LOG.info("Choose a Course");
+        LOG.info("Choose a Course:");
         this.stateMachine.getContext().remove(ToolStateMachine.ContextKey.GROUPS);
     }
 

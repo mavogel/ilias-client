@@ -45,7 +45,12 @@ public class QuitState extends ToolState {
         UserDataIds userDataIds = this.stateMachine.getUserDataIds();
         if (userDataIds != null && endPoint != null) {
             try {
-                endPoint.logout(userDataIds.getSid());
+                boolean isLoggedOut = endPoint.logout(userDataIds.getSid());
+                if (isLoggedOut) {
+                    LOG.info("Successfully logged out for sid: '" + userDataIds.getSid() + "'");
+                } else {
+                    LOG.error("Could not log out!");
+                }
             } catch (RemoteException e) {
                 LOG.error("Could not log out: " + e.getMessage());
             }

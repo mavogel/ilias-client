@@ -29,7 +29,7 @@ public class ToolStateMachine {
         /**
          * The refIds of the chosen groups
          */
-        GROUPS;
+        GROUPS
     }
 
     private UserDataIds userDataId;

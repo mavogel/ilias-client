@@ -51,7 +51,9 @@ public abstract class ToolState {
     protected abstract void printInformation();
 
     /**
-     * Prints and parses the possible choices for transitions
+     * Prints and parses the possible choices for transitions.
+     *
+     * @return the index of the successors which was chosen, or <b>-1</b> for a state which has no successors.
      */
     protected int printAndParseTransitionChoices() {
         if (!successors.isEmpty()) {
@@ -66,7 +68,7 @@ public abstract class ToolState {
     }
 
     /**
-     * Performs the transition to the next state
+     * Performs the transition to the next state.
      */
     protected void transition() {
         if(!successors.isEmpty()) {
@@ -77,7 +79,7 @@ public abstract class ToolState {
 
     /**
      * Returns a string for displaying the information of the state
-     * on the command line
+     * on the command line.
      *
      * @param prefix an optional prefix
      * @return the string

@@ -36,7 +36,7 @@ public class ActionsOnGroupsState extends ToolState {
 
     @Override
     public void printInformation() {
-        LOG.info("Actions on Groups:");
+        LOG.info("Choose one or more actions on groups:");
     }
 
     @Override
@@ -62,7 +62,7 @@ public class ActionsOnGroupsState extends ToolState {
     protected IliasAction printAndParseExecutionChoices(final List<IliasNode> nodeChoices) {
         IntStream.range(0, nodeChoices.size())
                 .mapToObj(i -> nodeChoices.get(i).asDisplayString(i + ") "))
-                .forEach(System.out::println);
+                .forEach(LOG::info);
 
         List<Integer> indexesOfChosenNodes = IOUtils.readAndParseChoicesFromUser(nodeChoices);
         List<IliasNode> choseIliasNodes = indexesOfChosenNodes.stream()
@@ -75,7 +75,7 @@ public class ActionsOnGroupsState extends ToolState {
 
         IntStream.range(0, actionChoices.size())
                 .mapToObj(i -> actionChoices.get(i).actionName(i + ") "))
-                .forEach(System.out::println);
+                .forEach(LOG::info);
         List<Integer> indexesOfChosenActions = IOUtils.readAndParseChoicesFromUser(actionChoices);
         List<ChangeAction> choseActions = indexesOfChosenActions.stream()
                 .map(idx -> actionChoices.get(idx))
