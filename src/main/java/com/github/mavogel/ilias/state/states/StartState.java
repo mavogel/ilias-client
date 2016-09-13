@@ -4,6 +4,8 @@ import com.github.mavogel.ilias.model.IliasAction;
 import com.github.mavogel.ilias.model.IliasNode;
 import com.github.mavogel.ilias.state.ToolState;
 import com.github.mavogel.ilias.state.ToolStateMachine;
+import org.apache.log4j.Logger;
+import org.apache.log4j.spi.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -16,6 +18,8 @@ import java.util.stream.IntStream;
  */
 public class StartState extends ToolState {
 
+    private static Logger LOG = Logger.getLogger(ToolState.class);
+
     public StartState(final ToolStateMachine stateMachine, ToolState... successors) {
         super(stateMachine);
         setSuccessors(successors);
@@ -23,30 +27,27 @@ public class StartState extends ToolState {
 
     @Override
     public void printInformation() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(" _______ __                        ").append("\n")
-          .append("|       |  |--.-----.              ").append("\n")
-          .append("|.|   | |     |  -__|              ").append("\n")
-          .append("`-|.  |-|__|__|_____|              ").append("\n")
-          .append("  |:  |                            ").append("\n")
-          .append("  |::.|                            ").append("\n")
-          .append("  `---'                            ").append("\n")
-          .append(" ___ ___     ___ _______ _______   ").append("\n")
-          .append("|   |   |   |   |   _   |   _   |  ").append("\n")
-          .append("|.  |.  |   |.  |.  1   |   1___|  ").append("\n")
-          .append("|.  |.  |___|.  |.  _   |____   |  ").append("\n")
-          .append("|:  |:  1   |:  |:  |   |:  1   |  ").append("\n")
-          .append("|::.|::.. . |::.|::.|:. |::.. . |  ").append("\n")
-          .append("`---`-------`---`--- ---`-------'  ").append("\n")
-          .append(" _______ __ __             __      ").append("\n")
-          .append("|   _   |  |__.-----.-----|  |_    ").append("\n")
-          .append("|.  1___|  |  |  -__|     |   _|   ").append("\n")
-          .append("|.  |___|__|__|_____|__|__|____|   ").append("\n")
-          .append("|:  1   |                          ").append("\n")
-          .append("|::.. . |                          ").append("\n")
-          .append("`-------'                          ").append("\n");
-        System.out.println(sb.toString());
-
+          LOG.info(" _______ __                        \n");
+          LOG.info("|       |  |--.-----.              \n");
+          LOG.info("|.|   | |     |  -__|              \n");
+          LOG.info("`-|.  |-|__|__|_____|              \n");
+          LOG.info("  |:  |                            \n");
+          LOG.info("  |::.|                            \n");
+          LOG.info("  `---'                            \n");
+          LOG.info(" ___ ___     ___ _______ _______   \n");
+          LOG.info("|   |   |   |   |   _   |   _   |  \n");
+          LOG.info("|.  |.  |   |.  |.  1   |   1___|  \n");
+          LOG.info("|.  |.  |___|.  |.  _   |____   |  \n");
+          LOG.info("|:  |:  1   |:  |:  |   |:  1   |  \n");
+          LOG.info("|::.|::.. . |::.|::.|:. |::.. . |  \n");
+          LOG.info("`---`-------`---`--- ---`-------'  \n");
+          LOG.info(" _______ __ __             __      \n");
+          LOG.info("|   _   |  |__.-----.-----|  |_    \n");
+          LOG.info("|.  1___|  |  |  -__|     |   _|   \n");
+          LOG.info("|.  |___|__|__|_____|__|__|____|   \n");
+          LOG.info("|:  1   |                          \n");
+          LOG.info("|::.. . |                          \n");
+          LOG.info("`-------'                          \n");
     }
 
     @Override
