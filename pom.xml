@@ -5,20 +5,28 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.mavogel</groupId>
-    <artifactId>iliasClient</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>ilias-client</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <name>The Ilias cmd Client</name>
+    <url>https://github.com/mavogel/ilias-client</url>
 
     <developers>
         <developer>
             <id>mavogel</id>
             <name>Manuel Vogel</name>
             <email>mavogel@posteo.de</email>
+            <roles>
+                <role>owner</role>
+                <role>developer</role>
+            </roles>
+            <timezone>UTC+1</timezone>
         </developer>
     </developers>
 
-    <properties>
-        <powermock.version>1.6.5</powermock.version>
-    </properties>
+    <ciManagement>
+        <system>Travis CI</system>
+        <url>https://travis-ci.org/mavogel/ilias-client</url>
+    </ciManagement>
 
     <dependencies>
         <!-- Axis WS -->
@@ -97,13 +105,13 @@
         <dependency>
             <groupId>org.powermock</groupId>
             <artifactId>powermock-module-junit4</artifactId>
-            <version>${powermock.version}</version>
+            <version>1.6.5</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.powermock</groupId>
             <artifactId>powermock-api-mockito</artifactId>
-            <version>${powermock.version}</version>
+            <version>1.6.5</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -139,17 +147,13 @@
             <plugin>
                 <configuration>
                     <sourceDirectory>src/main/resources</sourceDirectory>
-                    <wsdlDirectory>src/main/resources</wsdlDirectory>
                     <wsdlFiles>
                         <wsdlFile>ilias.wsdl</wsdlFile>
                     </wsdlFiles>
                     <packageSpace>com.github.mavogel.client</packageSpace>
-                    <keep>true</keep>
                     <allElements>true</allElements>
-                    <!--<outputDirectory>src/main/java</outputDirectory>-->
                     <subPackageByFileName>true</subPackageByFileName>
                     <useEmitter>true</useEmitter>
-                    <wsdlVersion>2</wsdlVersion>
                 </configuration>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>axistools-maven-plugin</artifactId>
