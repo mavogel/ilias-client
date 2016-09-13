@@ -6,20 +6,24 @@ import com.github.mavogel.ilias.model.GroupUserModel;
 import com.github.mavogel.ilias.model.IliasNode;
 import com.github.mavogel.ilias.model.LoginConfiguration;
 import com.github.mavogel.ilias.model.UserDataIds;
+import org.apache.log4j.Logger;
 import org.jdom.JDOMException;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
-import java.time.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * Created by mavogel on 9/5/16.
  */
 public class IliasUtils {
+
+    private static Logger LOG = Logger.getLogger(IliasUtils.class);
 
     /**
      * The DisplayStatus has four values:
@@ -155,7 +159,7 @@ public class IliasUtils {
                                                     final String sid, final int userId,
                                                     final int nodeRefId,
                                                     final int currentDepth, final int maxDepth) throws IOException, JDOMException {
-        System.out.println("-- Depth " + currentDepth + " of node: " + nodeRefId);
+        LOG.debug("Depth " + currentDepth + " of node: " + nodeRefId);
         if (currentDepth <= maxDepth) {
             List<IliasNode> folderChildrenNodes = getRefIdsOfChildrenFromCurrentNode(endpoint, sid, userId, nodeRefId, IliasNode.Type.FOLDER);
             for (IliasNode folderChildNode : folderChildrenNodes) {
@@ -224,9 +228,9 @@ public class IliasUtils {
 //            boolean objectDeleted = endpoint.deleteObject(sid, node.getRefId());
 //            if (objectDeleted) {
 //                // TODO optional clear line after each
-//                System.out.println("Processing node [" + i + "] of " + nodes.size());
+//                LOG.debug("Processing node [" + i + "] of " + nodes.size());
 //            } else {
-//                System.err.println("Could not delete ilias node: " + node);
+//                LOG.error("Could not delete ilias node: " + node);
 //            }
             i++;
         }
@@ -250,12 +254,12 @@ public class IliasUtils {
             List<Integer> groupMemberIds = XMLUtils.parseGroupMemberIds(groupXml);
             unremovedUsers.add(removeMembersFromGroup(endpoint, sid, groupNode, groupMemberIds));
             // TODO optional clear line after each
-            System.out.println("Processing group [" + i + "] of " + groupNodes.size());
+            LOG.debug("Processing group [" + i + "] of " + groupNodes.size());
             i++;
         }
 
         if (!unremovedUsers.isEmpty() && unremovedUsers.stream().anyMatch(u -> u.hasMembers())) {
-            System.out.println("Could not remove users from group(s): ");
+            LOG.error("Could not remove users from group(s): ");
             unremovedUsers.stream().filter(u -> u.hasMembers()).forEach(System.out::println);
         }
     }
@@ -278,7 +282,7 @@ public class IliasUtils {
                 // TODO activate
                 boolean groupMemberExcluded = false; //endpoint.excludeGroupMember(sid, groupNode.getRefId(), groupMemberId);
                 // TODO logging
-                System.out.println("excluded Member with id:" + groupMemberId + " -> " + groupMemberExcluded);
+                LOG.debug("excluded Member with id:" + groupMemberId + " -> " + groupMemberExcluded);
                 if (!groupMemberExcluded) {
                     unremovedUsers.addGroupMemberId(groupMemberId);
                 }
@@ -314,9 +318,9 @@ public class IliasUtils {
 //            String updatedGroupXml = XMLUtils.setRegistrationDates(groupXml, newStart, newEnd);
 //            boolean isGroupUpdated = endpoint.updateGroup(sid, groupNode.getRefId(), updatedGroupXml);
 //            if (isGroupUpdated) {
-//                System.out.println("Updated group [" + i + "] - " + groupNode.getTitle() + " of " + groupNodes.size());
+//                LOG.debug("Updated group [" + i + "] - " + groupNode.getTitle() + " of " + groupNodes.size());
 //            } else {
-//                System.err.println("Failed to set registration date on group [" + i + "] - " + groupNode.getTitle());
+//                LOG.error("Failed to set registration date on group [" + i + "] - " + groupNode.getTitle());
 //            }
         }
     }

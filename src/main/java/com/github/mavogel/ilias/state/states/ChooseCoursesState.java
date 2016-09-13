@@ -11,6 +11,7 @@ import com.github.mavogel.ilias.state.states.action.RemoveUploadedMaterialsChang
 import com.github.mavogel.ilias.utils.IOUtils;
 import com.github.mavogel.ilias.utils.IliasUtils;
 import com.github.mavogel.ilias.utils.XMLUtils;
+import org.apache.log4j.Logger;
 import org.jdom.JDOMException;
 
 import java.io.IOException;
@@ -26,6 +27,8 @@ import java.util.stream.IntStream;
  */
 public class ChooseCoursesState extends ToolState {
 
+    private static Logger LOG = Logger.getLogger(ChooseCoursesState.class);
+
     public ChooseCoursesState(final ToolStateMachine stateMachine, final ToolState... successors) {
         super(stateMachine);
         setSuccessors(successors);
@@ -33,7 +36,7 @@ public class ChooseCoursesState extends ToolState {
 
     @Override
     public void printInformation() {
-        System.out.println("Choose a Course");
+        LOG.info("Choose a Course");
         this.stateMachine.getContext().remove(ToolStateMachine.ContextKey.GROUPS);
     }
 
@@ -46,10 +49,10 @@ public class ChooseCoursesState extends ToolState {
         try {
             return IliasUtils.getCoursesForUser(endpoint, sid, userId, IliasUtils.DisplayStatus.ADMIN);
         } catch (RemoteException e) {
-            System.err.println("Could not retrieve courses for user : " + e.getMessage());
+            LOG.error("Could not retrieve courses for user : " + e.getMessage());
             this.stateMachine.setState(stateMachine.getQuitState());
         } catch (JDOMException | IOException e) {
-            System.err.println("Error creating xml parser: " + e.getMessage());
+            LOG.error("Error creating xml parser: " + e.getMessage());
             this.stateMachine.setState(stateMachine.getQuitState());
         }
         return Collections.emptyList();

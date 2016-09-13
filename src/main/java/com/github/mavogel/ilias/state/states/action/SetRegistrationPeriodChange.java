@@ -5,10 +5,9 @@ import com.github.mavogel.ilias.model.IliasNode;
 import com.github.mavogel.ilias.model.RegistrationPeriod;
 import com.github.mavogel.ilias.model.UserDataIds;
 import com.github.mavogel.ilias.state.ChangeAction;
-import com.github.mavogel.ilias.state.ToolState;
-import com.github.mavogel.ilias.state.ToolStateMachine;
 import com.github.mavogel.ilias.utils.IOUtils;
 import com.github.mavogel.ilias.utils.IliasUtils;
+import org.apache.log4j.Logger;
 import org.jdom.JDOMException;
 
 import java.io.IOException;
@@ -19,10 +18,12 @@ import java.util.List;
  */
 public class SetRegistrationPeriodChange implements ChangeAction {
 
+    private static Logger LOG = Logger.getLogger(SetRegistrationPeriodChange.class);
+
     @Override
     public String performAction(final ILIASSoapWebservicePortType endpoint, final UserDataIds userDataIds,
                                 final List<IliasNode> nodes) {
-        System.out.println("Setting registration date");
+        LOG.info("Setting registration date");
         RegistrationPeriod registrationPeriod = IOUtils.readAndParseRegistrationDates();
         confirm();
 
@@ -31,7 +32,7 @@ public class SetRegistrationPeriodChange implements ChangeAction {
             IliasUtils.setRegistrationDatesOnGroups(endpoint, sid, nodes,
                     registrationPeriod.getRegistrationStart(), registrationPeriod.getRegistrationEnd());
         } catch (IOException | JDOMException e) {
-            System.err.println("Error creating xml parser: " + e.getMessage());
+            LOG.error("Error creating xml parser: " + e.getMessage());
         }
         return "";
     }

@@ -3,6 +3,7 @@ package com.github.mavogel.ilias.utils;
 import com.github.mavogel.ilias.model.RegistrationPeriod;
 import com.github.mavogel.ilias.state.ChangeAction;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -20,6 +21,8 @@ import java.util.stream.Stream;
  * Created by mavogel on 9/7/16.
  */
 public class IOUtils {
+
+    private static Logger LOG = Logger.getLogger(IOUtils.class);
 
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
@@ -42,7 +45,7 @@ public class IOUtils {
         Scanner scanner = new Scanner(System.in);
         while (!(isCorrectInputDigits && isCorrectInputRanges)) {
             try {
-                System.out.println(">> your choice (e.g.: 1, 2, 4-6, 8, 10-15 -> or a combination)");
+                LOG.info(">> your choice (e.g.: 1, 2, 4-6, 8, 10-15 -> or a combination)");
                 System.out.print(">> ");
                 line = scanner.nextLine();
                 List<String> trimmedSplit = Arrays.stream(line.split(","))
@@ -70,13 +73,13 @@ public class IOUtils {
                 isCorrectInputRanges = rangesInput.stream().allMatch(r -> isInMeaningfulRange(choices, Integer.valueOf(r[0]), Integer.valueOf(r[1])));
             } catch (NumberFormatException nfe) {
                 if (!isCorrectInputDigits) {
-                    System.err.println("'" + line + " contains incorrect indexes! Try again");
+                    LOG.error("'" + line + " contains incorrect indexes! Try again");
                 }
                 if (!isCorrectInputRanges) {
-                    System.err.println("'" + line + " contains incorrect ranges! Try again");
+                    LOG.error("'" + line + " contains incorrect ranges! Try again");
                 }
             } catch (Exception e) {
-                System.err.println(e.getMessage());
+                LOG.error(e.getMessage());
             }
         }
 
@@ -102,15 +105,15 @@ public class IOUtils {
         Scanner scanner = new Scanner(System.in);
         while (!isCorrectInput) {
             try {
-                System.out.println("> a single choice only!");
+                LOG.info("> a single choice only!");
                 System.out.print("> ");
                 line = scanner.nextLine();
                 userChoice = Integer.valueOf(line);
                 isCorrectInput = isInRange(choices, userChoice);
             } catch (NumberFormatException nfe) {
-                System.err.println("'" + line + " is not a number! Try again");
+                LOG.error("'" + line + " is not a number! Try again");
             } catch (IllegalArgumentException iae) {
-                System.err.println(iae.getMessage());
+                LOG.error(iae.getMessage());
             }
         }
 
@@ -175,7 +178,7 @@ public class IOUtils {
      * @return the {@link RegistrationPeriod}
      */
     public static RegistrationPeriod readAndParseRegistrationDates() {
-        System.out.println("Date need to be of the format '" + DATE_FORMAT + "'"); // TODO
+        LOG.info("Date need to be of the format '" + DATE_FORMAT + "'"); // TODO
         LocalDateTime registrationStart = null, registrationEnd = null;
         boolean validStart = false, validEnd = false;
 
@@ -187,7 +190,7 @@ public class IOUtils {
                 registrationStart = LocalDateTime.parse(line, DATE_FORMAT);
                 validStart = true;
             } catch (DateTimeParseException dtpe) {
-                System.err.println("'" + line + "' is not a valid date");
+                LOG.error("'" + line + "' is not a valid date");
             }
         }
 
@@ -198,10 +201,10 @@ public class IOUtils {
                 registrationEnd = LocalDateTime.parse(line, DATE_FORMAT);
                 validEnd = registrationStart.isBefore(registrationEnd);
                 if (!validEnd) {
-                    System.err.println("End of registration has to be after the start'" + registrationStart + "'");
+                    LOG.error("End of registration has to be after the start'" + registrationStart + "'");
                 }
             } catch (DateTimeParseException dtpe) {
-                System.err.println("'" + line + "# is not a valid date");
+                LOG.error("'" + line + "# is not a valid date");
             }
         }
 
@@ -214,7 +217,7 @@ public class IOUtils {
      * @return <code>true</code> if the user confirmed with Y for YES, <code>false</code> otherwise.
      */
     public static boolean readAndParseUserConfirmation() {
-        System.out.println("Confirm please: [Y] or [N]");
+        LOG.info("Confirm please: [Y] or [N]");
         boolean validChoice = false;
         boolean choice = false;
 
@@ -228,7 +231,7 @@ public class IOUtils {
                 choice = false;
                 validChoice = true;
             } else {
-                System.err.println("Invalid choice. Try again!");
+                LOG.error("Invalid choice. Try again!");
             }
         }
 

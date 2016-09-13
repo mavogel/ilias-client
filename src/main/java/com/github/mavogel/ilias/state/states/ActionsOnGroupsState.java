@@ -12,6 +12,7 @@ import com.github.mavogel.ilias.state.states.action.RemoveUsersChange;
 import com.github.mavogel.ilias.state.states.action.SetRegistrationPeriodChange;
 import com.github.mavogel.ilias.utils.IOUtils;
 import com.github.mavogel.ilias.utils.IliasUtils;
+import org.apache.log4j.Logger;
 import org.jdom.JDOMException;
 
 import java.io.IOException;
@@ -26,6 +27,8 @@ import java.util.stream.IntStream;
  */
 public class ActionsOnGroupsState extends ToolState {
 
+    private static Logger LOG = Logger.getLogger(ActionsOnGroupsState.class);
+
     public ActionsOnGroupsState(final ToolStateMachine stateMachine, final ToolState... successors) {
         super(stateMachine);
         setSuccessors(successors);
@@ -33,7 +36,7 @@ public class ActionsOnGroupsState extends ToolState {
 
     @Override
     public void printInformation() {
-        System.out.println("Actions on Groups:");
+        LOG.info("Actions on Groups:");
     }
 
     @Override
@@ -49,7 +52,7 @@ public class ActionsOnGroupsState extends ToolState {
                     courseRefIds.stream().map(c -> c.getRefId()).collect(Collectors.toList()),
                     maxFolderDepth);
         } catch (JDOMException | IOException e) {
-            System.err.println("Error creating xml parser: " + e.getMessage());
+            LOG.error("Error creating xml parser: " + e.getMessage());
             this.stateMachine.setState(stateMachine.getChooseCoursesState());
         }
         return Collections.emptyList();

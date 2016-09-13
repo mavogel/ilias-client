@@ -4,8 +4,10 @@ import com.github.mavogel.client.ILIASSoapWebservicePortType;
 import com.github.mavogel.ilias.model.IliasNode;
 import com.github.mavogel.ilias.model.UserDataIds;
 import com.github.mavogel.ilias.state.ChangeAction;
+import com.github.mavogel.ilias.state.states.LoginState;
 import com.github.mavogel.ilias.utils.IOUtils;
 import com.github.mavogel.ilias.utils.IliasUtils;
+import org.apache.log4j.Logger;
 import org.jdom.JDOMException;
 
 import java.io.IOException;
@@ -16,10 +18,12 @@ import java.util.List;
  */
 public class RemoveUploadedMaterialsChange implements ChangeAction {
 
+    private static Logger LOG = Logger.getLogger(RemoveUploadedMaterialsChange.class);
+
     @Override
     public String performAction(final ILIASSoapWebservicePortType endpoint, final UserDataIds userDataIds,
                                 final List<IliasNode> nodes) {
-        System.out.println("Removing uploaded materials from groups");
+        LOG.info("Removing uploaded materials from groups");
         confirm();
 
         final String sid = userDataIds.getSid();
@@ -29,7 +33,7 @@ public class RemoveUploadedMaterialsChange implements ChangeAction {
             fileNodes = IliasUtils.retrieveFileRefIdsFromGroups(endpoint, sid, userId, nodes);
             IliasUtils.deleteObjects(endpoint, sid, fileNodes); // TODO return summary
         } catch (IOException | JDOMException e) {
-            System.err.println("Error creating xml parser: " + e.getMessage());
+            LOG.error("Error creating xml parser: " + e.getMessage());
         }
         return "";
     }
