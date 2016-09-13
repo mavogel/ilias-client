@@ -271,7 +271,6 @@ public class IliasUtils {
     public static void deleteObjects(final ILIASSoapWebservicePortType endpoint,
                                      final String sid, final List<IliasNode> nodes) {
         for (IliasNode node : nodes) {
-//            TODO activate
             try {
                 boolean objectDeleted = endpoint.deleteObject(sid, node.getRefId());
                 if (objectDeleted) {
@@ -328,7 +327,6 @@ public class IliasUtils {
         GroupUserModel unremovedUsers = new GroupUserModel(groupNode);
         for (Integer groupMemberId : groupMemberIds) {
             try {
-                // TODO activate
                 boolean groupMemberExcluded = endpoint.excludeGroupMember(sid, groupNode.getRefId(), groupMemberId);
                 if (groupMemberExcluded) {
                     LOG.info("Excluded member with id:" + groupMemberId + " from group '" + groupNode.getRefId() + " - " + groupNode.getTitle() + "'");
@@ -363,12 +361,11 @@ public class IliasUtils {
         final long newStart = toEpochSecond(registrationStart);
         final long newEnd = toEpochSecond(registrationEnd);
         for (IliasNode groupNode : groupNodes) {
-//            TODO activate
             String groupXml = endpoint.getGroup(sid, groupNode.getRefId());
             String updatedGroupXml = XMLUtils.setRegistrationDates(groupXml, newStart, newEnd);
             boolean isGroupUpdated = endpoint.updateGroup(sid, groupNode.getRefId(), updatedGroupXml);
             if (isGroupUpdated) {
-                LOG.info("Updated group '" + groupNode.getRefId() + " - " + groupNode.getTitle() + "' with new registration from " + registrationStart + " to " + registrationEnd);
+                LOG.info("Updated group '" + groupNode.getRefId() + " - " + groupNode.getTitle() + "' with new registration period starting at " + registrationStart + " and ending at " + registrationEnd);
             } else {
                 LOG.error("Failed to set registration date on group '" + groupNode.getRefId() + " - " + groupNode.getTitle() + "'");
             }
