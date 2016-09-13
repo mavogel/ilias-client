@@ -3,6 +3,7 @@ package com.github.mavogel.ilias.state.states;
 import com.github.mavogel.client.ILIASSoapWebservicePortType;
 import com.github.mavogel.ilias.model.IliasAction;
 import com.github.mavogel.ilias.model.IliasNode;
+import com.github.mavogel.ilias.model.UserDataIds;
 import com.github.mavogel.ilias.state.ToolState;
 import com.github.mavogel.ilias.state.ToolStateMachine;
 
@@ -38,14 +39,15 @@ public class QuitState extends ToolState {
     @Override
     protected String doExecute(final IliasAction nodesAndActions) {
         ILIASSoapWebservicePortType endPoint = this.stateMachine.getEndPoint();
-        String sid = this.stateMachine.getUserDataIds().getSid();
-        try {
-            endPoint.logout(sid);
-        } catch (RemoteException e) {
-            System.err.println("Could not log out: " + e.getMessage());
-        } finally {
-            this.stateMachine.stop();
+        UserDataIds userDataIds = this.stateMachine.getUserDataIds();
+        if (userDataIds != null && endPoint != null) {
+            try {
+                endPoint.logout(userDataIds.getSid());
+            } catch (RemoteException e) {
+                System.err.println("Could not log out: " + e.getMessage());
+            }
         }
+        this.stateMachine.stop();
         return "";
     }
 }

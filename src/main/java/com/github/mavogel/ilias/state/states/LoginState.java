@@ -7,9 +7,11 @@ import com.github.mavogel.ilias.model.LoginConfiguration;
 import com.github.mavogel.ilias.state.ToolState;
 import com.github.mavogel.ilias.state.ToolStateMachine;
 import com.github.mavogel.ilias.utils.IliasUtils;
+import org.apache.log4j.Logger;
 
 import javax.xml.rpc.ServiceException;
 import java.rmi.RemoteException;
+import java.net.UnknownHostException;
 import java.util.Collections;
 import java.util.List;
 
@@ -17,6 +19,8 @@ import java.util.List;
  * Created by mavogel on 9/7/16.
  */
 public class LoginState extends ToolState {
+
+    private static Logger LOG = Logger.getLogger(LoginState.class);
 
     private LoginConfiguration loginConfiguration;
 
@@ -30,7 +34,7 @@ public class LoginState extends ToolState {
 
     @Override
     protected void printInformation() {
-        System.out.println("Logging in and getting user data...");
+        LOG.info("Logging in and getting user data...");
     }
 
     @Override
@@ -54,13 +58,20 @@ public class LoginState extends ToolState {
             ILIASSoapWebservicePortType endpoint = IliasUtils.createWsEndpoint(loginConfiguration);
             stateMachine.setEndPoint(endpoint);
             stateMachine.setUserDataId(IliasUtils.getUserData(loginConfiguration, endpoint));
+            return String.format("Logged in successfully as '%s'", loginConfiguration.getUsername());
         } catch (ServiceException e) {
-            System.err.println("Error creating the endpoint: " + e.getMessage());
+            LOG.error("Could not establish webservice at '" + loginConfiguration.getEndpoint() + "'");
             stateMachine.setState(stateMachine.getQuitState());
+            return "";
         } catch (RemoteException e) {
-            System.err.println("Error retrieving the user data: " + e.getMessage());
+            Throwable cause = e.getCause();
+            if (cause instanceof UnknownHostException) {
+                LOG.error("Could not establish connection to endpoint '" + loginConfiguration.getEndpoint()+ "'");
+            } else {
+                LOG.error("Error retrieving the user data: " + e.getMessage());
+            }
             stateMachine.setState(stateMachine.getQuitState());
+            return "";
         }
-        return String.format("Logged in successfully as '%s'", loginConfiguration.getUsername());
     }
 }

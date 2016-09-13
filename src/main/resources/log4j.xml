@@ -1,35 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
-<log4j:configuration debug="true"
+<log4j:configuration debug="false"
                      xmlns:log4j='http://jakarta.apache.org/log4j/'>
 
     <appender name="consoleAppender" class="org.apache.log4j.ConsoleAppender">
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern"
-                   value="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n" />
+                   value="%d{yyyy-MM-dd HH:mm:ss} %-5p: %m%n"/>
+                   <!--value="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n"/>-->
         </layout>
     </appender>
 
     <!--<appender name="fileAppender" class="org.apache.log4j.FileAppender">-->
-        <!--<layout class="org.apache.log4j.PatternLayout">-->
-            <!--<param name="ConversionPattern"-->
-                   <!--value="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n" />-->
-        <!--</layout>-->
+    <!--<layout class="org.apache.log4j.PatternLayout">-->
+    <!--<param name="ConversionPattern"-->
+    <!--value="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n" />-->
+    <!--</layout>-->
     <!--</appender>-->
 
-    <!--<root>-->
-        <!--<level value="INFO" />-->
-        <!--<appender-ref ref="console" />-->
-    <!--</root>-->
-
-    <logger name="console">
+    <root>
         <level value="INFO"/>
         <appender-ref ref="consoleAppender"/>
-    </logger>
+    </root>
+
+    <!--<logger name="console">-->
+    <!--<level value="INFO"/>-->
+    <!--<appender-ref ref="consoleAppender"/>-->
+    <!--</logger>-->
 
     <!--<logger name="file">-->
-        <!--<level value="INFO"/>-->
-        <!--<appender-ref ref="fileAppender" />-->
+    <!--<level value="INFO"/>-->
+    <!--<appender-ref ref="fileAppender" />-->
     <!--</logger>-->
 
 </log4j:configuration>

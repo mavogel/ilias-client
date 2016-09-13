@@ -18,7 +18,7 @@ import java.util.stream.IntStream;
  */
 public class StartState extends ToolState {
 
-    private static Logger LOG = Logger.getLogger(ToolState.class);
+    private static Logger LOG = Logger.getLogger(StartState.class);
 
     public StartState(final ToolStateMachine stateMachine, ToolState... successors) {
         super(stateMachine);
@@ -27,27 +27,27 @@ public class StartState extends ToolState {
 
     @Override
     public void printInformation() {
-          LOG.info(" _______ __                        \n");
-          LOG.info("|       |  |--.-----.              \n");
-          LOG.info("|.|   | |     |  -__|              \n");
-          LOG.info("`-|.  |-|__|__|_____|              \n");
-          LOG.info("  |:  |                            \n");
-          LOG.info("  |::.|                            \n");
-          LOG.info("  `---'                            \n");
-          LOG.info(" ___ ___     ___ _______ _______   \n");
-          LOG.info("|   |   |   |   |   _   |   _   |  \n");
-          LOG.info("|.  |.  |   |.  |.  1   |   1___|  \n");
-          LOG.info("|.  |.  |___|.  |.  _   |____   |  \n");
-          LOG.info("|:  |:  1   |:  |:  |   |:  1   |  \n");
-          LOG.info("|::.|::.. . |::.|::.|:. |::.. . |  \n");
-          LOG.info("`---`-------`---`--- ---`-------'  \n");
-          LOG.info(" _______ __ __             __      \n");
-          LOG.info("|   _   |  |__.-----.-----|  |_    \n");
-          LOG.info("|.  1___|  |  |  -__|     |   _|   \n");
-          LOG.info("|.  |___|__|__|_____|__|__|____|   \n");
-          LOG.info("|:  1   |                          \n");
-          LOG.info("|::.. . |                          \n");
-          LOG.info("`-------'                          \n");
+          LOG.info(" _______ __                       ");
+          LOG.info("|       |  |--.-----.             ");
+          LOG.info("|.|   | |     |  -__|             ");
+          LOG.info("`-|.  |-|__|__|_____|             ");
+          LOG.info("  |:  |                           ");
+          LOG.info("  |::.|                           ");
+          LOG.info("  `---'                           ");
+          LOG.info(" ___ ___     ___ _______ _______  ");
+          LOG.info("|   |   |   |   |   _   |   _   | ");
+          LOG.info("|.  |.  |   |.  |.  1   |   1___| ");
+          LOG.info("|.  |.  |___|.  |.  _   |____   | ");
+          LOG.info("|:  |:  1   |:  |:  |   |:  1   | ");
+          LOG.info("|::.|::.. . |::.|::.|:. |::.. . | ");
+          LOG.info("`---`-------`---`--- ---`-------' ");
+          LOG.info(" _______ __ __             __     ");
+          LOG.info("|   _   |  |__.-----.-----|  |_   ");
+          LOG.info("|.  1___|  |  |  -__|     |   _|  ");
+          LOG.info("|.  |___|__|__|_____|__|__|____|  ");
+          LOG.info("|:  1   |                         ");
+          LOG.info("|::.. . |                         ");
+          LOG.info("`-------'                         ");
     }
 
     @Override
