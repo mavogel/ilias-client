@@ -18,4 +18,8 @@ login.password=
 # E.g. for listing all groups in courses. Groups can be in folders.
 # If not given or empty, a default value of 5 is used
 maxFolderDepth=
+#
+# The logging level of the application. Default is INFO if not given or empty
+# Choose between: OFF, FATAL, ERROR, WARN, INFO, DEBUG, ALL
+log.level=
 

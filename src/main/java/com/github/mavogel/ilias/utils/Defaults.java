@@ -25,6 +25,8 @@
  */
 package com.github.mavogel.ilias.utils;
 
+import org.apache.log4j.Level;
+
 /**
  * Created by mavogel on 9/12/16.
  */
@@ -35,4 +37,9 @@ public final class Defaults {
      * look for specific type of nodes, e.g. groups
      */
     public static final int MAX_FOLDER_DEPTH = 5;
+
+    /**
+     * The default log level for the application.
+     */
+    public static final Level LOG_LEVEL = Level.INFO;
 }

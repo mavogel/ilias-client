@@ -32,6 +32,8 @@ import org.apache.commons.configuration2.PropertiesConfiguration;
 import org.apache.commons.configuration2.builder.FileBasedConfigurationBuilder;
 import org.apache.commons.configuration2.builder.fluent.Parameters;
 import org.apache.commons.configuration2.ex.ConversionException;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import java.io.Console;
 import java.util.Arrays;
@@ -58,6 +60,7 @@ public class ConfigurationsUtils {
         LoginConfiguration.LOGIN_MODE loginMode = null;
         String endpoint, client, username, password, loginModeRaw = "";
         int maxFolderDepth;
+        Level logLevel;
 
         try {
             Configuration config = builder.getConfiguration();
@@ -68,6 +71,7 @@ public class ConfigurationsUtils {
             username = config.getString("login.username");
             password = config.getString("login.password");
             maxFolderDepth = config.getInt("maxFolderDepth", Defaults.MAX_FOLDER_DEPTH);
+            logLevel= Level.toLevel(config.getString("log.level", Defaults.LOG_LEVEL.toString()), Defaults.LOG_LEVEL);
             if (password == null || password.isEmpty()) {
                 Console console = System.console();
                 if (console != null) {
@@ -86,6 +90,10 @@ public class ConfigurationsUtils {
             throw new RuntimeException(ex);
         }
 
+        // == 1: set log level
+        Logger.getRootLogger().setLevel(logLevel);
+
+        // == 2: create login configuration
         switch (loginMode) {
             case STD:
                 return LoginConfiguration.asStandardLogin(endpoint, client, username, password, maxFolderDepth);
