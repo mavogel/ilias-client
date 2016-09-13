@@ -45,8 +45,7 @@ public class IOUtils {
         Scanner scanner = new Scanner(System.in);
         while (!(isCorrectInputDigits && isCorrectInputRanges)) {
             try {
-                LOG.info(">> your choice (e.g.: 1, 2, 4-6, 8, 10-15 -> or a combination)");
-                System.out.print(">> ");
+                LOG.info("Your choice (e.g.: 1, 2, 4-6, 8, 10-15 -> or a combination)");
                 line = scanner.nextLine();
                 List<String> trimmedSplit = Arrays.stream(line.split(","))
                         .map(StringUtils::deleteWhitespace)
@@ -73,10 +72,10 @@ public class IOUtils {
                 isCorrectInputRanges = rangesInput.stream().allMatch(r -> isInMeaningfulRange(choices, Integer.valueOf(r[0]), Integer.valueOf(r[1])));
             } catch (NumberFormatException nfe) {
                 if (!isCorrectInputDigits) {
-                    LOG.error("'" + line + " contains incorrect indexes! Try again");
+                    LOG.error("'" + line + "' contains incorrect indexes! Try again");
                 }
                 if (!isCorrectInputRanges) {
-                    LOG.error("'" + line + " contains incorrect ranges! Try again");
+                    LOG.error("'" + line + "' contains incorrect ranges! Try again");
                 }
             } catch (Exception e) {
                 LOG.error(e.getMessage());
@@ -105,13 +104,12 @@ public class IOUtils {
         Scanner scanner = new Scanner(System.in);
         while (!isCorrectInput) {
             try {
-                LOG.info("> a single choice only!");
-                System.out.print("> ");
+                LOG.info("A single choice only!");
                 line = scanner.nextLine();
                 userChoice = Integer.valueOf(line);
                 isCorrectInput = isInRange(choices, userChoice);
             } catch (NumberFormatException nfe) {
-                LOG.error("'" + line + " is not a number! Try again");
+                LOG.error("'" + line + "' is not  a number! Try again");
             } catch (IllegalArgumentException iae) {
                 LOG.error(iae.getMessage());
             }
@@ -178,13 +176,13 @@ public class IOUtils {
      * @return the {@link RegistrationPeriod}
      */
     public static RegistrationPeriod readAndParseRegistrationDates() {
-        LOG.info("Date need to be of the format '" + DATE_FORMAT + "'"); // TODO
+        LOG.info("Date need to be of the format 'yyyy-MM-ddTHH:mm'. E.g.: 2016-04-15T13:00"); // TODO get from the formatter
         LocalDateTime registrationStart = null, registrationEnd = null;
         boolean validStart = false, validEnd = false;
 
         Scanner scanner = new Scanner(System.in);
         while (!validStart) {
-            System.out.print("Registration start: ");
+            LOG.info("Registration start: ");
             String line = scanner.nextLine();
             try {
                 registrationStart = LocalDateTime.parse(line, DATE_FORMAT);
@@ -195,7 +193,7 @@ public class IOUtils {
         }
 
         while (!validEnd) {
-            System.out.print("Registration end:  ");
+            LOG.info("Registration end:  ");
             String line = scanner.nextLine();
             try {
                 registrationEnd = LocalDateTime.parse(line, DATE_FORMAT);
@@ -204,7 +202,7 @@ public class IOUtils {
                     LOG.error("End of registration has to be after the start'" + registrationStart + "'");
                 }
             } catch (DateTimeParseException dtpe) {
-                LOG.error("'" + line + "# is not a valid date");
+                LOG.error("'" + line + "' is not a valid date");
             }
         }
 
