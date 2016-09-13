@@ -48,13 +48,18 @@ public class IOUtils {
                 List<String> trimmedSplit = Arrays.stream(line.split(","))
                         .map(StringUtils::deleteWhitespace)
                         .collect(Collectors.toList());
+                
+                // checks for invalids
+                Optional<String> invalidChoice = trimmedSplit.stream()
+                        .filter(s -> !digit.matcher(s).matches() && !range.matcher(s).matches())
+                        .findAny();
+                if (invalidChoice.isPresent()) throw new IllegalArgumentException("Contains invalid indexes and/or ranges!");
 
                 // digits
                 digitsInput = trimmedSplit.stream()
                         .filter(s -> digit.matcher(s).matches())
                         .map(Integer::valueOf)
                         .collect(Collectors.toList());
-                // TODO handle empty or digit input
                 isCorrectInputDigits = digitsInput.stream().allMatch(idx -> isInRange(choices, idx));
 
                 // ranges
