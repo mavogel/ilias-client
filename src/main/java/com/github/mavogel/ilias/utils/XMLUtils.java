@@ -3,6 +3,7 @@ package com.github.mavogel.ilias.utils;
 import com.github.mavogel.ilias.model.IliasNode;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.Validate;
+import org.apache.log4j.Logger;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -21,6 +22,8 @@ import java.util.stream.Collectors;
  * Created by mavogel on 9/5/16.
  */
 public class XMLUtils {
+
+    private static Logger LOG = Logger.getLogger(XMLUtils.class);
 
     /**
      * Creates the result xml string used for getting the courses of a user.
@@ -124,7 +127,17 @@ public class XMLUtils {
      */
     private static Document createSaxDocFromString(final String xmlString) throws JDOMException, IOException {
         SAXBuilder builder = new SAXBuilder();
-        return builder.build(new ByteArrayInputStream(xmlString.getBytes()));
+        Document doc;
+        try {
+            doc = builder.build(new ByteArrayInputStream(xmlString.getBytes()));
+        } catch (JDOMException e) {
+            if(LOG.isDebugEnabled()) LOG.debug("Could not parse XML: " + xmlString);
+            throw e;
+        } catch (IOException e) {
+            if(LOG.isDebugEnabled()) LOG.debug("Could not create Inputstream for XML: " + xmlString);
+            throw e;
+        }
+        return doc;
     }
 
     /**
@@ -133,8 +146,8 @@ public class XMLUtils {
      * @param nodeType the type of the node
      * @param nodeXml  the xml representation of the node
      * @return the information of its objects of the given type as {@link IliasNode}
-     * @throws JDOMException
-     * @throws IOException
+     * @throws JDOMException if no document for the xml parser could be created
+     * @throws IOException   if no InputStream could be created from the xmlString
      */
     public static List<IliasNode> parseRefIdsOfNodeType(final IliasNode.Type nodeType, final String nodeXml) throws JDOMException, IOException {
         Document doc = createSaxDocFromString(nodeXml);
