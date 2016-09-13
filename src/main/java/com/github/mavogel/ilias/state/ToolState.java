@@ -58,7 +58,7 @@ public abstract class ToolState {
             LOG.info("Next step:");
             IntStream.range(0, successors.size())
                     .mapToObj(i -> successors.get(i).asDisplayString(i + ") "))
-                    .forEach(System.out::println);
+                    .forEach(LOG::info);
             return IOUtils.readAndParseSingleChoiceFromUser(successors);
         } else {
             return -1;

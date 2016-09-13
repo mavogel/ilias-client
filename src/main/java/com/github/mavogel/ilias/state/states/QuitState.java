@@ -6,6 +6,7 @@ import com.github.mavogel.ilias.model.IliasNode;
 import com.github.mavogel.ilias.model.UserDataIds;
 import com.github.mavogel.ilias.state.ToolState;
 import com.github.mavogel.ilias.state.ToolStateMachine;
+import org.apache.log4j.Logger;
 
 import java.rmi.RemoteException;
 import java.util.Collections;
@@ -16,6 +17,8 @@ import java.util.List;
  */
 public class QuitState extends ToolState {
 
+    private static Logger LOG = Logger.getLogger(QuitState.class);
+
     public QuitState(final ToolStateMachine stateMachine) {
         super(stateMachine);
         this.setSuccessors();
@@ -23,7 +26,7 @@ public class QuitState extends ToolState {
 
     @Override
     public void printInformation() {
-        System.out.println("Quitting... bye bye!");
+        LOG.info("Quitting... bye bye!");
     }
 
     @Override
@@ -44,7 +47,7 @@ public class QuitState extends ToolState {
             try {
                 endPoint.logout(userDataIds.getSid());
             } catch (RemoteException e) {
-                System.err.println("Could not log out: " + e.getMessage());
+                LOG.error("Could not log out: " + e.getMessage());
             }
         }
         this.stateMachine.stop();
