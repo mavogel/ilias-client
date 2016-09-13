@@ -25,15 +25,22 @@
  */
 package com.github.mavogel.ilias;
 
+import com.github.mavogel.client.ILIASSoapWebservicePortType;
 import com.github.mavogel.ilias.model.LoginConfiguration;
+import com.github.mavogel.ilias.model.UserDataIds;
 import com.github.mavogel.ilias.state.ToolStateMachine;
 import com.github.mavogel.ilias.utils.ConfigurationsUtils;
 import org.apache.commons.lang3.Validate;
+import org.apache.log4j.Logger;
+
+import java.rmi.RemoteException;
 
 /**
  * Created by mavogel on 8/29/16.
  */
 public class Starter {
+
+    private static Logger LOG = Logger.getLogger(Starter.class);
 
     public static void main(String[] args) {
         Validate.notNull(args, "No arguments given");
@@ -48,6 +55,40 @@ public class Starter {
      * @param loginConfiguration the login configuration
      */
     private static void createEndpointAndRun(LoginConfiguration loginConfiguration) {
-        new ToolStateMachine(loginConfiguration).start();
+        final ToolStateMachine stateMachine = new ToolStateMachine(loginConfiguration);
+        addShutdownHook(stateMachine);
+        stateMachine.start();
+    }
+
+    /**
+     * Adding a shutdown hook to perform a logout if the user quits the program incorrectly or
+     * it is shut down by another process of the system.
+     *
+     * @param stateMachine the statemachine
+     */
+    private static void addShutdownHook(final ToolStateMachine stateMachine) {
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            @Override
+            public void run() {
+                if (stateMachine != null) {
+                    UserDataIds userDataIds = stateMachine.getUserDataIds();
+                    ILIASSoapWebservicePortType endPoint = stateMachine.getEndPoint();
+                    if (userDataIds != null && endPoint != null) {
+                        try {
+                            boolean isLoggedOut = endPoint.logout(userDataIds.getSid());
+                            if (isLoggedOut) {
+                                LOG.info("Successfully logged out for sid: '" + userDataIds.getSid() + "' before shutting down!");
+                            } else {
+                                LOG.error("Could not log out on shutdown!");
+                            }
+                        } catch (RemoteException e) {
+                            LOG.error("Could not log out on shutdown: " + e.getMessage());
+                        }
+                    }
+                } else {
+                    LOG.info("No connection had to be closed on shutdown hook!");
+                }
+            }
+        });
     }
 }
