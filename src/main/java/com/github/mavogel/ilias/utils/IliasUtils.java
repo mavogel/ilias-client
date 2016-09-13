@@ -159,7 +159,7 @@ public class IliasUtils {
      * @param endpoint       the {@link ILIASSoapWebservicePortType}
      * @param sid            the sid of the user obtained at the login
      * @param userId         the usedId
-     * @param courseRefIds   the refIds of the courses
+     * @param coursesNodes   the courses
      * @param maxFolderDepth the maximum folder depth to search
      * @return all groups found in the course
      * @throws JDOMException if no document for the xml parser could be created
@@ -167,10 +167,11 @@ public class IliasUtils {
      */
     public static List<IliasNode> retrieveGroupRefIdsFromCourses(final ILIASSoapWebservicePortType endpoint,
                                                                  final String sid, final int userId,
-                                                                 final List<Integer> courseRefIds, final int maxFolderDepth) throws IOException, JDOMException {
+                                                                 final List<IliasNode> coursesNodes, final int maxFolderDepth) throws IOException, JDOMException {
         List<IliasNode> groupNodes = new ArrayList<>();
-        for (Integer courseRefId : courseRefIds) {
-            IliasUtils.retrieveGroupRefIdsFromNode(groupNodes, endpoint, sid, userId, courseRefId, 0, maxFolderDepth);
+        for (IliasNode courseNode : coursesNodes) {
+            LOG.info("-- Collecting groups from '" + courseNode.getTitle() + "'");
+            IliasUtils.retrieveGroupRefIdsFromNode(groupNodes, endpoint, sid, userId, courseNode.getRefId(), 0, maxFolderDepth);
         }
         return groupNodes;
     }
@@ -249,8 +250,11 @@ public class IliasUtils {
         List<IliasNode> fileRefIds = new ArrayList<>();
         for (IliasNode groupNode : groupNodes) {
             List<IliasNode> fileNodes = getRefIdsOfChildrenFromCurrentNode(endpoint, sid, userId, groupNode.getRefId(), IliasNode.Type.FILE);
+            if(fileNodes.isEmpty()) {
+                LOG.info("No files to remove for group '" + groupNode.getTitle() + "'");
+            }
             if (LOG.isDebugEnabled()) {
-                LOG.debug("Retrieved file idRefs from group '" + groupNode.getRefId() + " - " + groupNode.getTitle() + "': " + fileNodes);
+                LOG.debug("Adding file idRefs from group '" + groupNode.getRefId() + " - " + groupNode.getTitle() + "': " + fileNodes);
             }
             fileRefIds.addAll(fileNodes);
         }
@@ -295,8 +299,11 @@ public class IliasUtils {
         List<GroupUserModel> unremovedUsers = new ArrayList<>();
         for (IliasNode groupNode : groupNodes) {
             if (LOG.isDebugEnabled()) LOG.debug("Removing member from group: " + groupNode.getTitle());
+
             String groupXml = endpoint.getGroup(sid, groupNode.getRefId());
             List<Integer> groupMemberIds = XMLUtils.parseGroupMemberIds(groupXml);
+            if(groupMemberIds.isEmpty()) LOG.info("No members to remove from Group '" + groupNode.getTitle() + "'");
+
             unremovedUsers.add(removeMembersFromGroup(endpoint, sid, groupNode, groupMemberIds));
         }
 
@@ -361,7 +368,7 @@ public class IliasUtils {
             String updatedGroupXml = XMLUtils.setRegistrationDates(groupXml, newStart, newEnd);
             boolean isGroupUpdated = endpoint.updateGroup(sid, groupNode.getRefId(), updatedGroupXml);
             if (isGroupUpdated) {
-                LOG.info("Updated group '" + groupNode.getRefId() + " - " + groupNode.getTitle() + "' with new registration from " + newEnd + " to " + newEnd);
+                LOG.info("Updated group '" + groupNode.getRefId() + " - " + groupNode.getTitle() + "' with new registration from " + registrationStart + " to " + registrationEnd);
             } else {
                 LOG.error("Failed to set registration date on group '" + groupNode.getRefId() + " - " + groupNode.getTitle() + "'");
             }

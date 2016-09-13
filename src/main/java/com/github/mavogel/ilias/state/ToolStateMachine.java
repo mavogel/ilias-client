@@ -184,4 +184,8 @@ public class ToolStateMachine {
     public ToolState getQuitState() {
         return quitState;
     }
+
+    public boolean isInEndState() {
+        return isInEndState;
+    }
 }

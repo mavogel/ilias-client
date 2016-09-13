@@ -128,7 +128,7 @@ public class IOUtils {
         Scanner scanner = new Scanner(System.in);
         while (!isCorrectInput) {
             try {
-                LOG.info("A single choice only!");
+                LOG.info("A single choice only! (E.g.: 1)");
                 line = scanner.nextLine();
                 userChoice = Integer.valueOf(line);
                 isCorrectInput = isInRange(choices, userChoice);

@@ -52,10 +52,8 @@ public class RemoveUploadedMaterialsChange implements ChangeAction {
 
         final String sid = userDataIds.getSid();
         final int userId = userDataIds.getUserId();
-        List<IliasNode> fileNodes = null;
         try {
-            fileNodes = IliasUtils.retrieveFileRefIdsFromGroups(endpoint, sid, userId, nodes);
-            IliasUtils.deleteObjects(endpoint, sid, fileNodes); // TODO return summary
+            IliasUtils.deleteObjects(endpoint, sid, IliasUtils.retrieveFileRefIdsFromGroups(endpoint, sid, userId, nodes));
         } catch (IOException | JDOMException e) {
             LOG.error("Error creating xml parser: " + e.getMessage());
         }

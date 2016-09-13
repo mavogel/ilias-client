@@ -73,7 +73,7 @@ public class Starter {
                 if (stateMachine != null) {
                     UserDataIds userDataIds = stateMachine.getUserDataIds();
                     ILIASSoapWebservicePortType endPoint = stateMachine.getEndPoint();
-                    if (userDataIds != null && endPoint != null) {
+                    if (userDataIds != null && endPoint != null && !stateMachine.isInEndState()) {
                         try {
                             boolean isLoggedOut = endPoint.logout(userDataIds.getSid());
                             if (isLoggedOut) {

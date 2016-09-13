@@ -61,7 +61,7 @@ public class ActionsOnGroupsState extends ToolState {
 
     @Override
     public void printInformation() {
-        LOG.info("Choose one or more actions on groups:");
+        LOG.info("Choose one or more actions on groups when collection is finished!");
     }
 
     @Override
@@ -71,11 +71,9 @@ public class ActionsOnGroupsState extends ToolState {
         final int userId = stateMachine.getUserDataIds().getUserId();
         final int maxFolderDepth = stateMachine.getMaxFolderDepth();
 
-        final List<IliasNode> courseRefIds = stateMachine.getContext().get(ToolStateMachine.ContextKey.COURSES);
+        final List<IliasNode> courses = stateMachine.getContext().get(ToolStateMachine.ContextKey.COURSES);
         try {
-            return IliasUtils.retrieveGroupRefIdsFromCourses(endpoint, sid, userId,
-                    courseRefIds.stream().map(c -> c.getRefId()).collect(Collectors.toList()),
-                    maxFolderDepth);
+            return IliasUtils.retrieveGroupRefIdsFromCourses(endpoint, sid, userId, courses,maxFolderDepth);
         } catch (JDOMException | IOException e) {
             LOG.error("Error creating xml parser: " + e.getMessage());
             this.stateMachine.setState(stateMachine.getChooseCoursesState());
