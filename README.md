@@ -40,9 +40,9 @@ $ java -jar ilias-client-1.0.0.jar config.properties
 
 Important notes
 ===============
-The WDSL of the SOAP interface, which is used to generate the Java classes, is part of the jar bundle. Hence even if you change the endpoint property on the provided file for execution, the WDSL behind this url will never be used in the tool. Hopefully all new versions of the Ilias are downgradable.
-
-The WDSL used in this client is of the **Ilias version 5.0.0** 
+- The WDSL of the SOAP interface, which is used to generate the Java classes, is part of the jar bundle. Hence even if you change the endpoint property on the provided file for execution, the WDSL behind this url will never be used in the tool. Hopefully all new versions of the Ilias are downgradable.
+- The WDSL used in this client is of the **Ilias version 5.0.0**
+- For setting a new registration date it is assumed that the Ilias server runs in the same timezone like the machine this client is running. 
 
 
 Latest Release Notes
