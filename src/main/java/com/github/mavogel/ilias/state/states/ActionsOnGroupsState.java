@@ -84,7 +84,7 @@ public class ActionsOnGroupsState extends ToolState {
     @Override
     protected IliasAction printAndParseExecutionChoices(final List<IliasNode> nodeChoices) {
         IntStream.range(0, nodeChoices.size())
-                .mapToObj(i -> nodeChoices.get(i).asDisplayString(i + ") "))
+                .mapToObj(i -> nodeChoices.get(i).asDisplayString(" --> [" + i + "] "))
                 .forEach(LOG::info);
 
         List<Integer> indexesOfChosenNodes = IOUtils.readAndParseChoicesFromUser(nodeChoices);
@@ -97,7 +97,7 @@ public class ActionsOnGroupsState extends ToolState {
                 new RemoveUsersChange(), new SetRegistrationPeriodChange());
 
         IntStream.range(0, actionChoices.size())
-                .mapToObj(i -> actionChoices.get(i).actionName(i + ") "))
+                .mapToObj(i -> actionChoices.get(i).actionName(" --> [" + i + "] "))
                 .forEach(LOG::info);
         List<Integer> indexesOfChosenActions = IOUtils.readAndParseChoicesFromUser(actionChoices);
         List<ChangeAction> choseActions = indexesOfChosenActions.stream()

@@ -81,7 +81,7 @@ public class ChooseCoursesState extends ToolState {
     @Override
     protected IliasAction printAndParseExecutionChoices(final List<IliasNode> nodeChoices) {
         IntStream.range(0, nodeChoices.size())
-                .mapToObj(i -> nodeChoices.get(i).asDisplayString(i + ") "))
+                .mapToObj(i -> nodeChoices.get(i).asDisplayString(" --> [" + i + "] "))
                 .forEach(System.out::println);
 
         List<Integer> indexesOfChosenNodes = IOUtils.readAndParseChoicesFromUser(nodeChoices);
