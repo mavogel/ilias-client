@@ -28,6 +28,19 @@
         <url>https://travis-ci.org/mavogel/ilias-client</url>
     </ciManagement>
 
+    <issueManagement>
+        <system>GitHub Issues</system>
+        <url>https://github.com/mavogel/ilias-client/issues</url>
+    </issueManagement>
+
+    <licenses>
+        <license>
+            <name>The MIT License (MIT)</name>
+            <url>https://opensource.org/licenses/MIT</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
     <scm>
         <connection>git@github.com:mavogel/ilias-client.git</connection>
         <url>git@github.com:mavogel/ilias-client.git</url>
@@ -142,6 +155,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.6</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
