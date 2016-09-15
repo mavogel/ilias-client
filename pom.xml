@@ -28,6 +28,12 @@
         <url>https://travis-ci.org/mavogel/ilias-client</url>
     </ciManagement>
 
+    <scm>
+        <connection>git@github.com:mavogel/ilias-client.git</connection>
+        <url>git@github.com:mavogel/ilias-client.git</url>
+        <developerConnection>git@github.com:mavogel/ilias-client.git</developerConnection>
+    </scm>
+
     <dependencies>
         <!-- Axis WS -->
         <dependency>
@@ -122,6 +128,35 @@
         </dependency>
     </dependencies>
 
+    <profiles>
+        <profile>
+            <id>release-sign-artifacts</id>
+            <activation>
+                <property>
+                    <name>performRelease</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
     <build>
         <plugins>
             <plugin>
@@ -136,7 +171,8 @@
                         </goals>
                         <configuration>
                             <transformers>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <mainClass>com.github.mavogel.ilias.Starter</mainClass>
                                 </transformer>
                             </transformers>
@@ -177,6 +213,11 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.3</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
