@@ -7,7 +7,7 @@ Ilias-client: A cmd client for the [ilias](http://ilias.de/) e-Learning platform
 
 A command line interface client for accessing (a small part of at the moment of) the [SOAP](https://en.wikipedia.org/wiki/SOAP) interface of the Ilias e-Learning platform.
 
-Requires JDK 1.8 or higher.
+Requires JDK 1.8 or higher and Maven.
 
 Purpose
 =======
@@ -31,6 +31,8 @@ This is achieved by the following steps:
 Usage
 =====
 ```bash
+$ git clone https://github.com/mavogel/ilias-client.git
+$ mvn clean package
 $ cp config.properties.template config.properties
 $ # adapt your settings 
 $ vi config.properties
