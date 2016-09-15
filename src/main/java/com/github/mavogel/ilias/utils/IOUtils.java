@@ -48,8 +48,6 @@ public class IOUtils {
 
     private static Logger LOG = Logger.getLogger(IOUtils.class);
 
-    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-
     /**
      * Reads and parses a multiple choices from the user.<br>
      * Handles wrong inputs and ensures the choices are meaningful (lo <= up) and in
@@ -215,7 +213,7 @@ public class IOUtils {
             LOG.info("Registration start: ");
             String line = scanner.nextLine();
             try {
-                registrationStart = LocalDateTime.parse(line, DATE_FORMAT);
+                registrationStart = LocalDateTime.parse(line, Defaults.DATE_FORMAT);
                 validStart = true;
             } catch (DateTimeParseException dtpe) {
                 LOG.error("'" + line + "' is not a valid date");
@@ -226,7 +224,7 @@ public class IOUtils {
             LOG.info("Registration end:  ");
             String line = scanner.nextLine();
             try {
-                registrationEnd = LocalDateTime.parse(line, DATE_FORMAT);
+                registrationEnd = LocalDateTime.parse(line, Defaults.DATE_FORMAT);
                 validEnd = registrationStart.isBefore(registrationEnd);
                 if (!validEnd) {
                     LOG.error("End of registration has to be after the start'" + registrationStart + "'");

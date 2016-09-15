@@ -27,6 +27,8 @@ package com.github.mavogel.ilias.utils;
 
 import org.apache.log4j.Level;
 
+import java.time.format.DateTimeFormatter;
+
 /**
  * Created by mavogel on 9/12/16.
  */
@@ -47,4 +49,9 @@ public final class Defaults {
      * The wild card for the user input for making a choice.
      */
     public static final String CHOICE_WILDCARD = "A";
+
+    /**
+     * The format of the date in a user input
+     */
+    public static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 }
