@@ -42,4 +42,9 @@ public final class Defaults {
      * The default log level for the application.
      */
     public static final Level LOG_LEVEL = Level.INFO;
+
+    /**
+     * The wild card for the user input for making a choice.
+     */
+    public static final String CHOICE_WILDCARD = "A";
 }

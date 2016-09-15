@@ -69,26 +69,32 @@ public class IOUtils {
         Scanner scanner = new Scanner(System.in);
         while (!(isCorrectInputDigits && isCorrectInputRanges)) {
             try {
-                LOG.info("Your choice (e.g.: 1, 2, 4-6, 8, 10-15 -> or a combination)");
+                LOG.info("Your choice: \n - Comma separated choices and/or ranges (e.g.: 1, 2, 4-6, 8, 10-15 -> or a combination) \n - The Wildcard 'A' for selecting all choices");
                 line = scanner.nextLine();
+
+                // == step 1: check for wild card first
+                if (StringUtils.deleteWhitespace(line).equalsIgnoreCase(Defaults.CHOICE_WILDCARD.toLowerCase())) {
+                    return IntStream.range(0, choices.size()).mapToObj(Integer::valueOf).collect(Collectors.toList());
+                }
+
                 List<String> trimmedSplit = Arrays.stream(line.split(","))
                         .map(StringUtils::deleteWhitespace)
                         .collect(Collectors.toList());
                 
-                // checks for invalids
+                // == step 2: checks for invalids
                 Optional<String> invalidChoice = trimmedSplit.stream()
                         .filter(s -> !digit.matcher(s).matches() && !range.matcher(s).matches())
                         .findAny();
-                if (invalidChoice.isPresent()) throw new IllegalArgumentException("Contains invalid indexes and/or ranges!");
+                if (invalidChoice.isPresent()) throw new IllegalArgumentException("Contains invalid indexes and/or ranges or an invalid wildcard!");
 
-                // digits
+                // == step 3: parse digits
                 digitsInput = trimmedSplit.stream()
                         .filter(s -> digit.matcher(s).matches())
                         .map(Integer::valueOf)
                         .collect(Collectors.toList());
                 isCorrectInputDigits = digitsInput.stream().allMatch(idx -> isInRange(choices, idx));
 
-                // ranges
+                // == step 4: parse ranges
                 rangesInput = trimmedSplit.stream()
                         .filter(s -> range.matcher(s).matches())
                         .map(r -> r.split("-"))

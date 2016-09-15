@@ -85,6 +85,40 @@ public class IOUtilsTest {
     }
 
     @Test
+    public void shouldParseATheWildcard() throws Exception {
+        // == prepare
+        final List<String> choices = new ArrayList<>(Arrays.asList("A", "B", "C", "D", "E", "F", "G"));
+
+        // == train
+        Scanner scanner = PowerMockito.mock(Scanner.class);
+        PowerMockito.whenNew(Scanner.class).withArguments(System.in).thenReturn(scanner);
+        PowerMockito.when(scanner.nextLine()).thenReturn("A");
+
+        // == go
+        List<Integer> madeChoices = IOUtils.readAndParseChoicesFromUser(choices);
+
+        // == verify
+        assertEquals(Arrays.asList(0, 1, 2, 3, 4, 5, 6), madeChoices);
+    }
+
+    @Test
+    public void shouldRejectInvalidWildcard() throws Exception {
+        // == prepare
+        final List<String> choices = new ArrayList<>(Arrays.asList("A", "B", "C", "D", "E", "F", "G"));
+
+        // == train
+        Scanner scanner = PowerMockito.mock(Scanner.class);
+        PowerMockito.whenNew(Scanner.class).withArguments(System.in).thenReturn(scanner);
+        PowerMockito.when(scanner.nextLine()).thenReturn("Zz").thenReturn("3-6");
+
+        // == go
+        List<Integer> madeChoices = IOUtils.readAndParseChoicesFromUser(choices);
+
+        // == verify
+        assertEquals(Arrays.asList(3, 4, 5, 6), madeChoices);
+    }
+
+    @Test
     public void shouldParseASingleDigitAndRange() throws Exception {
         // == prepare
         final List<String> choices = new ArrayList<>(Arrays.asList("A", "B", "C", "D", "E", "F", "G"));
@@ -226,7 +260,7 @@ public class IOUtilsTest {
         // == train
         Scanner scanner = PowerMockito.mock(Scanner.class);
         PowerMockito.whenNew(Scanner.class).withArguments(System.in).thenReturn(scanner);
-        PowerMockito.when(scanner.nextLine()).thenReturn(" Y   " );
+        PowerMockito.when(scanner.nextLine()).thenReturn(" Y   ");
 
         // == go
         boolean confirmation = IOUtils.readAndParseUserConfirmation();
@@ -240,7 +274,7 @@ public class IOUtilsTest {
         // == train
         Scanner scanner = PowerMockito.mock(Scanner.class);
         PowerMockito.whenNew(Scanner.class).withArguments(System.in).thenReturn(scanner);
-        PowerMockito.when(scanner.nextLine()).thenReturn(" N   " );
+        PowerMockito.when(scanner.nextLine()).thenReturn(" N   ");
 
         // == go
         boolean confirmation = IOUtils.readAndParseUserConfirmation();
@@ -255,7 +289,7 @@ public class IOUtilsTest {
         Scanner scanner = PowerMockito.mock(Scanner.class);
         PowerMockito.whenNew(Scanner.class).withArguments(System.in).thenReturn(scanner);
         PowerMockito.when(scanner.nextLine())
-                .thenReturn(" blalaa   " )
+                .thenReturn(" blalaa   ")
                 .thenReturn("NO")
                 .thenReturn("  Y");
 
