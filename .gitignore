@@ -24,3 +24,4 @@ out/
 # Misc
 *.properties
 out.xml
+pom.xml.releaseBackup
