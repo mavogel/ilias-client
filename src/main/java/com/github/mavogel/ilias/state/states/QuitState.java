@@ -38,12 +38,19 @@ import java.util.Collections;
 import java.util.List;
 
 /**
+ * The state performing the quit of the application and the logout at the endpoint.
+ *
  * Created by mavogel on 9/7/16.
  */
 public class QuitState extends ToolState {
 
     private static Logger LOG = Logger.getLogger(QuitState.class);
 
+    /**
+     * Creates the state for quitting.
+     *
+     * @param stateMachine the state machine
+     */
     public QuitState(final ToolStateMachine stateMachine) {
         super(stateMachine);
         this.setSuccessors();

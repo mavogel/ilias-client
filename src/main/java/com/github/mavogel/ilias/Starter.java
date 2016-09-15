@@ -36,6 +36,9 @@ import org.apache.log4j.Logger;
 import java.rmi.RemoteException;
 
 /**
+ * The starting point of the command line application by plumbing all together, registering the shutdown hook
+ * and starting the state machine.
+ *
  * Created by mavogel on 8/29/16.
  */
 public class Starter {

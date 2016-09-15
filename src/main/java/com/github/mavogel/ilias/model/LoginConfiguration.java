@@ -25,9 +25,9 @@ package com.github.mavogel.ilias.model;
 import org.apache.commons.lang3.Validate;
 
 /**
- * Created by mavogel on 8/30/16.
- * <p>
  * The configuration for the login.
+ *
+ * Created by mavogel on 8/30/16.
  */
 public class LoginConfiguration {
 
@@ -47,8 +47,6 @@ public class LoginConfiguration {
          */
         LDAP
     }
-
-    ;
 
     private final LOGIN_MODE loginMode;
     private final String endpoint, client, username, password;

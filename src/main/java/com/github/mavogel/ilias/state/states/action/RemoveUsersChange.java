@@ -38,6 +38,8 @@ import java.io.IOException;
 import java.util.List;
 
 /**
+ * Represents the action for removing/excluding the users of a group.
+ *
  * Created by mavogel on 9/7/16.
  */
 public class RemoveUsersChange implements ChangeAction {

@@ -43,12 +43,20 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
+ * The state for choosing courses.
+ *
  * Created by mavogel on 9/7/16.
  */
 public class ChooseCoursesState extends ToolState {
 
     private static Logger LOG = Logger.getLogger(ChooseCoursesState.class);
 
+    /**
+     * Creates the choose courses state.
+     *
+     * @param stateMachine the state machine
+     * @param successors its successors
+     */
     public ChooseCoursesState(final ToolStateMachine stateMachine, final ToolState... successors) {
         super(stateMachine);
         setSuccessors(successors);

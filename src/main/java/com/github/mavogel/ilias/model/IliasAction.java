@@ -28,6 +28,8 @@ import java.util.Collections;
 import java.util.List;
 
 /**
+ *
+ *
  * Created by mavogel on 9/11/16.
  */
 public class IliasAction {
@@ -35,6 +37,13 @@ public class IliasAction {
     private List<IliasNode> nodes;
     private List<ChangeAction> actions;
 
+    /**
+     * Attaches one or more actions on one or more nodes.<br>
+     * If the parameters are <code>null</code> they are initialized empty.
+     *
+     * @param nodes the nodes
+     * @param actions the actions
+     */
     public IliasAction(final List<IliasNode> nodes, final List<ChangeAction> actions) {
         if (nodes == null) {
              this.nodes = Collections.emptyList();
@@ -48,6 +57,9 @@ public class IliasAction {
         }
     }
 
+    /**
+     * Creates an empty ilias action model
+     */
     public IliasAction() {
         this(null, null);
     }

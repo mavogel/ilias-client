@@ -26,6 +26,8 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 /**
+ * Represents a node in the ilias system.
+ *
  * Created by mavogel on 9/5/16.
  */
 public class IliasNode {

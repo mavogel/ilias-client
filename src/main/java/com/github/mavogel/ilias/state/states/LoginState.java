@@ -41,6 +41,8 @@ import java.util.Collections;
 import java.util.List;
 
 /**
+ * The state performing the login.
+ *
  * Created by mavogel on 9/7/16.
  */
 public class LoginState extends ToolState {
@@ -49,6 +51,14 @@ public class LoginState extends ToolState {
 
     private LoginConfiguration loginConfiguration;
 
+    /**
+     * /**
+     * Creates the action on groups state.
+     *
+     * @param stateMachine the state machine
+     * @param loginConfiguration the configuration of the login
+     * @param successors its successors
+     */
     public LoginState(final ToolStateMachine stateMachine,
                       final LoginConfiguration loginConfiguration,
                       final ToolState... successors) {

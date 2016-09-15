@@ -22,11 +22,15 @@
  */
 package com.github.mavogel.ilias.model;
 
+import org.apache.commons.lang3.Validate;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 /**
+ * A model for a group and its users.
+ *
  * Created by mavogel on 9/9/16.
  */
 public class GroupUserModel {
@@ -35,6 +39,7 @@ public class GroupUserModel {
     private List<Integer> groupMemberIds;
 
     public GroupUserModel(final IliasNode groupNode) {
+        Validate.notNull(groupNode, "Cannot create a group user model with a group");
         this.groupNode = groupNode;
         this.groupMemberIds = new ArrayList<>();
     }
@@ -58,8 +63,10 @@ public class GroupUserModel {
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("Group '");
-        sb.append(groupNode.getTitle()).append("' -> ");
-        sb.append(groupMemberIds.stream().map(String::valueOf).collect(Collectors.joining(", ")));
+        sb.append(groupNode.getTitle());
+        if (!groupMemberIds.isEmpty()) {
+            sb.append("' -> ").append(groupMemberIds.stream().map(String::valueOf).collect(Collectors.joining(", ")));
+        }
         return sb.toString();
     }
 }

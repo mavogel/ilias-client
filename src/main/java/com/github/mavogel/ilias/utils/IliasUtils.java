@@ -44,6 +44,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Util class for operations against the endpoint.
+ *
  * Created by mavogel on 9/5/16.
  */
 public class IliasUtils {

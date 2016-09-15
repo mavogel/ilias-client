@@ -35,12 +35,20 @@ import java.util.Collections;
 import java.util.List;
 
 /**
+ * The state for the start of the application.
+ *
  * Created by mavogel on 9/6/16.
  */
 public class StartState extends ToolState {
 
     private static Logger LOG = Logger.getLogger(StartState.class);
 
+    /**
+     * Creates the start state.
+     *
+     * @param stateMachine the state machine
+     * @param successors its successors
+     */
     public StartState(final ToolStateMachine stateMachine, ToolState... successors) {
         super(stateMachine);
         setSuccessors(successors);

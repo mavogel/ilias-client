@@ -40,8 +40,6 @@ import java.util.Map;
  */
 public class ToolStateMachine {
 
-    private boolean isInEndState;
-
     /**
      * The keys for the context shared between the states.
      */
@@ -63,6 +61,7 @@ public class ToolStateMachine {
 
     private Map<ContextKey, List<IliasNode>> context;
 
+    private boolean isInEndState;
     private ToolState startState;
     private ToolState loginState;
     private ToolState chooseCoursesState;
@@ -71,6 +70,11 @@ public class ToolStateMachine {
 
     private ToolState currentState;
 
+    /**
+     * Creates the state machine of the tool.
+     *
+     * @param loginConfiguration the configuration of the login
+     */
     public ToolStateMachine(final LoginConfiguration loginConfiguration) {
         this.maxFolderDepth = loginConfiguration.getMaxFolderDepth();
         this.isInEndState = false;
@@ -165,20 +169,8 @@ public class ToolStateMachine {
     /////////// States ////////////
     ///////////////////////////////
 
-    public ToolState getStartState() {
-        return startState;
-    }
-
-    public ToolState getLoginState() {
-        return loginState;
-    }
-
     public ToolState getChooseCoursesState() {
         return chooseCoursesState;
-    }
-
-    public ToolState getActionsOnGroupsState() {
-        return actionsOnGroupsState;
     }
 
     public ToolState getQuitState() {

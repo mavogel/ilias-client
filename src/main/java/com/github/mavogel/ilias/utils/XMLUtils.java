@@ -44,6 +44,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
+ * Util class for creating xml data and parsing xml result of the ilias system.
+ *
  * Created by mavogel on 9/5/16.
  */
 public class XMLUtils {

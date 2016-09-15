@@ -40,14 +40,14 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 /**
+ * Utils for parsing the config file and creating the login configuration.
+ *
  * Created by mavogel on 8/30/16.
- * <p>
- * Utils for the configuration.
  */
 public class ConfigurationsUtils {
 
     /**
-     * Creates the login confuiguration
+     * Creates the login configuration and uses defaults if necessary.
      *
      * @param propertyFilename the name of the property file
      * @return the {@link LoginConfiguration}

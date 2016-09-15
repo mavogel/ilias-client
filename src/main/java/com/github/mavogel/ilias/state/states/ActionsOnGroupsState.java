@@ -48,12 +48,29 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
+ * The state for actions on groups.
+ *
  * Created by mavogel on 9/7/16.
  */
 public class ActionsOnGroupsState extends ToolState {
 
     private static Logger LOG = Logger.getLogger(ActionsOnGroupsState.class);
 
+    /**
+     * The choices on groups.
+     */
+    private static final List<ChangeAction> ACTION_CHOICES = Arrays.asList(
+            new RemoveUploadedMaterialsChange(),
+            new RemoveUsersChange(),
+            new SetRegistrationPeriodChange()
+    );
+
+    /**
+     * Creates the action on groups state.
+     *
+     * @param stateMachine the state machine
+     * @param successors its successors
+     */
     public ActionsOnGroupsState(final ToolStateMachine stateMachine, final ToolState... successors) {
         super(stateMachine);
         setSuccessors(successors);
@@ -92,16 +109,12 @@ public class ActionsOnGroupsState extends ToolState {
                 .map(idx -> nodeChoices.get(idx))
                 .collect(Collectors.toList());
 
-        // Set actions
-        List<ChangeAction> actionChoices = Arrays.asList(new RemoveUploadedMaterialsChange(),
-                new RemoveUsersChange(), new SetRegistrationPeriodChange());
-
-        IntStream.range(0, actionChoices.size())
-                .mapToObj(i -> actionChoices.get(i).actionName(" --> [" + i + "] "))
+        IntStream.range(0, ACTION_CHOICES.size())
+                .mapToObj(i -> ACTION_CHOICES.get(i).actionName(" --> [" + i + "] "))
                 .forEach(LOG::info);
-        List<Integer> indexesOfChosenActions = IOUtils.readAndParseChoicesFromUser(actionChoices);
+        List<Integer> indexesOfChosenActions = IOUtils.readAndParseChoicesFromUser(ACTION_CHOICES);
         List<ChangeAction> choseActions = indexesOfChosenActions.stream()
-                .map(idx -> actionChoices.get(idx))
+                .map(idx -> ACTION_CHOICES.get(idx))
                 .collect(Collectors.toList());
         return new IliasAction(choseIliasNodes, choseActions);
     }

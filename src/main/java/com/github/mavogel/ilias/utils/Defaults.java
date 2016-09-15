@@ -30,6 +30,8 @@ import org.apache.log4j.Level;
 import java.time.format.DateTimeFormatter;
 
 /**
+ * Default constants.
+ *
  * Created by mavogel on 9/12/16.
  */
 public final class Defaults {

@@ -18,9 +18,9 @@ These automated task are described in the use cases section.
 
 Implemented use cases
 =====================
-* Remove all user from all or only some groups in one or more courses 
-* Remove all uploaded material from all or only some groups in one or more courses
-* Set a new registration period in all or only some groups in one or more courses
+* Remove all user from all or only some groups in one or more courses.
+* Remove all uploaded material from all or only some groups in one or more courses.
+* Set a new registration period in all or only some groups in one or more courses.
 
 This is achieved by the following steps:
 - Creating the Webservice endpoint
@@ -42,7 +42,7 @@ Important notes
 ===============
 - The WDSL of the SOAP interface, which is used to generate the Java classes, is part of the jar bundle. Hence even if you change the endpoint property on the provided file for execution, the WDSL behind this url will never be used in the tool. Hopefully all new versions of the Ilias are downgradable.
 - The WDSL used in this client is of the **Ilias version 5.0.0**
-- For setting a new registration date it is assumed that the Ilias server runs in the same timezone like the machine this client is running. 
+- For setting a new registration date it is assumed that the Ilias server runs in the same timezone like the machine this client is running **and** it is assumed that the registration period was already set before. So it won't set a new one, only change an existing one.  
 
 
 Latest Release Notes

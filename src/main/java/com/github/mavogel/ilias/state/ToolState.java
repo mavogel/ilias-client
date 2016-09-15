@@ -36,6 +36,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
+ * Base class for all state of the tool state machine. Use by it as well.
+ *
  * Created by mavogel on 9/6/16.
  */
 public abstract class ToolState {

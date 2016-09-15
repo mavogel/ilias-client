@@ -22,9 +22,13 @@
  */
 package com.github.mavogel.ilias.model;
 
+import org.apache.commons.lang3.Validate;
+
 import java.time.LocalDateTime;
 
 /**
+ * Model for the registration period.
+ *
  * Created by mavogel on 9/9/16.
  */
 public class RegistrationPeriod {
@@ -33,6 +37,8 @@ public class RegistrationPeriod {
     private LocalDateTime registrationEnd;
 
     public RegistrationPeriod(final LocalDateTime registrationStart, final LocalDateTime registrationEnd) {
+        Validate.notNull(registrationStart, "empty registration start is not allowed");
+        Validate.notNull(registrationEnd, "empty registration end is not allowed");
         this.registrationStart = registrationStart;
         this.registrationEnd = registrationEnd;
     }

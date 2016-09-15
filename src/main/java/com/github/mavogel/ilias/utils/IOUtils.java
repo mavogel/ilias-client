@@ -42,6 +42,8 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 /**
+ * Util class for operations of reading, parsing and validating user input.
+ *
  * Created by mavogel on 9/7/16.
  */
 public class IOUtils {

@@ -38,6 +38,8 @@ import java.io.IOException;
 import java.util.List;
 
 /**
+ * Represents the action for removing the uploaded materials.
+ *
  * Created by mavogel on 9/9/16.
  */
 public class RemoveUploadedMaterialsChange implements ChangeAction {

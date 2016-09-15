@@ -32,6 +32,8 @@ import com.github.mavogel.ilias.model.UserDataIds;
 import java.util.List;
 
 /**
+ * Interface to actions on nodes.
+ *
  * Created by mavogel on 9/7/16.
  */
 public interface ChangeAction {

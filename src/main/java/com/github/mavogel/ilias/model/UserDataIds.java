@@ -22,7 +22,11 @@
  */
 package com.github.mavogel.ilias.model;
 
+import org.apache.commons.lang3.Validate;
+
 /**
+ * Model for the user data ids: 'userId' and 'sid'.
+ *
  * Created by mavogel on 9/5/16.
  */
 public class UserDataIds {
@@ -37,6 +41,7 @@ public class UserDataIds {
      * @param sid    the sid of the user obtained after login
      */
     public UserDataIds(final int userId, final String sid) {
+        Validate.isTrue(sid != null && !sid.isEmpty(), "'sid' cannot be null or empty");
         this.userId = userId;
         this.sid = sid;
     }
