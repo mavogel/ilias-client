@@ -95,7 +95,5 @@ public class StartState extends ToolState {
     }
 
     @Override
-    protected String doExecute(final IliasAction nodesAndActions) {
-        return "";
-    }
+    protected void doExecute(final IliasAction nodesAndActions) { }
 }

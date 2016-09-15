@@ -101,8 +101,7 @@ public class ChooseCoursesState extends ToolState {
     }
 
     @Override
-    protected String doExecute(final IliasAction nodesAndActions) {
+    protected void doExecute(final IliasAction nodesAndActions) {
         stateMachine.getContext().put(ToolStateMachine.ContextKey.COURSES, nodesAndActions.getNodes());
-        return "";
     }
 }

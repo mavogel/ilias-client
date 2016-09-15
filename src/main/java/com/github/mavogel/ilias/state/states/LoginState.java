@@ -88,16 +88,15 @@ public class LoginState extends ToolState {
     }
 
     @Override
-    protected String doExecute(final IliasAction nodesAndActions) {
+    protected void doExecute(final IliasAction nodesAndActions) {
         try {
             ILIASSoapWebservicePortType endpoint = IliasUtils.createWsEndpoint(loginConfiguration);
             stateMachine.setEndPoint(endpoint);
             stateMachine.setUserDataId(IliasUtils.getUserData(loginConfiguration, endpoint));
-            return String.format("Logged in successfully as '%s'", loginConfiguration.getUsername());
+            LOG.info(String.format("Logged in successfully as '%s'", loginConfiguration.getUsername()));
         } catch (ServiceException e) {
             LOG.error("Could not establish webservice at '" + loginConfiguration.getEndpoint() + "'");
             stateMachine.setState(stateMachine.getQuitState());
-            return "";
         } catch (RemoteException e) {
             Throwable cause = e.getCause();
             if (cause instanceof UnknownHostException) {
@@ -106,7 +105,6 @@ public class LoginState extends ToolState {
                 LOG.error("Error retrieving the user data: " + e.getMessage());
             }
             stateMachine.setState(stateMachine.getQuitState());
-            return "";
         }
     }
 }

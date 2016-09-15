@@ -72,7 +72,7 @@ public class QuitState extends ToolState {
     }
 
     @Override
-    protected String doExecute(final IliasAction nodesAndActions) {
+    protected void doExecute(final IliasAction nodesAndActions) {
         ILIASSoapWebservicePortType endPoint = this.stateMachine.getEndPoint();
         UserDataIds userDataIds = this.stateMachine.getUserDataIds();
         if (userDataIds != null && endPoint != null) {
@@ -88,6 +88,5 @@ public class QuitState extends ToolState {
             }
         }
         this.stateMachine.stop();
-        return "";
     }
 }

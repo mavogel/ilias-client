@@ -143,23 +143,14 @@ public abstract class ToolState {
     public void execute() {
         List<IliasNode> nodeChoices = this.collectDataForExecution();
         IliasAction chosenNodesAndActions = this.printAndParseExecutionChoices(nodeChoices);
-        String summary = this.doExecute(chosenNodesAndActions);
-        printExecutionSummary(summary);
+        this.doExecute(chosenNodesAndActions);
+        LOG.info("----------------------------------------");
     }
 
     /**
      * Internal execute
      *
      * @param nodesAndActions the nodes and actions
-     * @return the summary of the actions
      */
-    protected abstract String doExecute(final IliasAction nodesAndActions);
-
-    /**
-     * Prints the summary of the preceding execution.
-     */
-    protected void printExecutionSummary(final String summary) {
-        if (summary != null && !summary.isEmpty()) LOG.info(summary);
-        LOG.info("--------------------------------");
-    }
+    protected abstract void doExecute(final IliasAction nodesAndActions);
 }

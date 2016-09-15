@@ -120,12 +120,11 @@ public class ActionsOnGroupsState extends ToolState {
     }
 
     @Override
-    protected String doExecute(final IliasAction nodesAndActions) {
+    protected void doExecute(final IliasAction nodesAndActions) {
         final ILIASSoapWebservicePortType endpoint = stateMachine.getEndPoint();
         UserDataIds userDataIds = stateMachine.getUserDataIds();
         List<IliasNode> nodes = nodesAndActions.getNodes();
 
         nodesAndActions.getActions().stream().forEach(action -> action.performAction(endpoint, userDataIds, nodes));
-        return "";
     }
 }
