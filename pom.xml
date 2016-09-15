@@ -42,9 +42,9 @@
     </licenses>
 
     <scm>
-        <connection>git@github.com:mavogel/ilias-client.git</connection>
-        <url>git@github.com:mavogel/ilias-client.git</url>
-        <developerConnection>git@github.com:mavogel/ilias-client.git</developerConnection>
+        <connection>scm:git:https://github.com/mavogel/ilias-client.git</connection>
+        <url>scm:git:https://github.com/mavogel/ilias-client.git</url>
+        <developerConnection>scm:git:https://github.com/mavogel/ilias-client.git</developerConnection>
     </scm>
 
     <dependencies>
