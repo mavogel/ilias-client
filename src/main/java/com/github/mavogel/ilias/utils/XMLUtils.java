@@ -156,10 +156,10 @@ public class XMLUtils {
         try {
             doc = builder.build(new ByteArrayInputStream(xmlString.getBytes()));
         } catch (JDOMException e) {
-            if(LOG.isDebugEnabled()) LOG.debug("Could not parse XML: " + xmlString);
+            LOG.error("Could not parse XML: " + xmlString);
             throw e;
         } catch (IOException e) {
-            if(LOG.isDebugEnabled()) LOG.debug("Could not create Inputstream for XML: " + xmlString);
+            LOG.error("Could not create Inputstream for XML: " + xmlString);
             throw e;
         }
         return doc;
