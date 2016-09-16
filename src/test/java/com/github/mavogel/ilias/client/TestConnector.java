@@ -29,6 +29,9 @@ import com.github.mavogel.ilias.model.LoginConfiguration;
 import com.github.mavogel.ilias.model.UserDataIds;
 import com.github.mavogel.ilias.utils.IliasUtils;
 
+import javax.xml.rpc.ServiceException;
+import java.rmi.RemoteException;
+
 /**
  * Establishes a connection to the ilias server for debugging purposes of the result xml.
  * <p>
@@ -36,7 +39,7 @@ import com.github.mavogel.ilias.utils.IliasUtils;
  */
 public class TestConnector {
 
-    public static void main(String[] args) throws  Exception{
+    public static void main(String[] args) throws RemoteException {
         // == prepare
         String endpoint = "";
         String client = "";
@@ -44,14 +47,23 @@ public class TestConnector {
         String password = "";
         int maxFolderDepth = 5;
         LoginConfiguration loginConfiguration = LoginConfiguration.asLDAPLogin(endpoint, client, username, password, maxFolderDepth);
-        ILIASSoapWebservicePortType wsEndpoint =
-                IliasUtils.createWsEndpoint(loginConfiguration);
-        UserDataIds userData = IliasUtils.getUserData(loginConfiguration, wsEndpoint);
+        ILIASSoapWebservicePortType wsEndpoint = null;
+        UserDataIds userData = null;
+        try {
+            wsEndpoint = IliasUtils.createWsEndpoint(loginConfiguration);
+            userData = IliasUtils.getUserData(loginConfiguration, wsEndpoint);
 
-        // == go
-        // TODO insert your action here
-
-        // == teardown
-        wsEndpoint.logout(userData.getSid());
+            // == go
+            // TODO insert your action here
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        } finally {
+            // == teardown
+            if (userData != null && userData.getSid() != null) {
+                wsEndpoint.logout(userData.getSid());
+            }
+        }
     }
 }
