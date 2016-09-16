@@ -261,6 +261,27 @@ public class XMLUtilsTest {
         assertEquals(registrationEnd, Long.valueOf(temporarilyAvailable.getChild("end").getText()).longValue());
     }
 
+    @Test
+    public void shouldActivateAndSetNewRegistrationDatesOnGroup() throws IOException, JDOMException {
+        // == prepare
+        final String testFile = TEST_RES_DIR + "groupInfoXMLWithoutRegPeriod.xml";
+        final String groupXml = Files.lines(Paths.get(testFile)).collect(Collectors.joining());
+
+        final long registrationStart = LocalDateTime.of(2014, Month.APRIL, 21, 14, 00).toEpochSecond(ZoneOffset.UTC);
+        final long registrationEnd = LocalDateTime.of(2014, Month.APRIL, 23, 14, 00).toEpochSecond(ZoneOffset.UTC);
+
+        // == go
+        String updatedGroupXml = XMLUtils.setRegistrationDates(groupXml, registrationStart, registrationEnd);
+
+        // == verify
+        Document expectedDoc = createDocFromXml(updatedGroupXml);
+        Element rootElement = expectedDoc.getRootElement();
+        Element temporarilyAvailable = rootElement.getChild("registration").getChild("temporarilyAvailable");
+
+        assertEquals(registrationStart, Long.valueOf(temporarilyAvailable.getChild("start").getText()).longValue());
+        assertEquals(registrationEnd, Long.valueOf(temporarilyAvailable.getChild("end").getText()).longValue());
+    }
+
     /**
      * Creates a {@link Document} from an xmlString
      *

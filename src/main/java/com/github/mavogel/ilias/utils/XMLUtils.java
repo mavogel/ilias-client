@@ -29,6 +29,7 @@ import com.github.mavogel.ilias.model.IliasNode;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.log4j.Logger;
+import org.jdom.Content;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -45,7 +46,7 @@ import java.util.stream.Collectors;
 
 /**
  * Util class for creating xml data and parsing xml result of the ilias system.
- *
+ * <p>
  * Created by mavogel on 9/5/16.
  */
 public class XMLUtils {
@@ -130,7 +131,7 @@ public class XMLUtils {
     /**
      * Creates an {@link IliasNode} from the course info xml.
      *
-     * @param courseRefId the course ref which is not contained in the course info xml
+     * @param courseRefId   the course ref which is not contained in the course info xml
      * @param courseInfoXml the course info xml to parse
      * @return the {@link IliasNode}
      * @throws JDOMException if no document for the xml parser could be created
@@ -184,8 +185,8 @@ public class XMLUtils {
         return objects.stream()
                 .filter(o -> isOfNodeType(nodeType, o))
                 .map(o -> new IliasNode(Integer.valueOf(o.getChild("References").getAttribute("ref_id").getValue().trim()).intValue(),
-                                        nodeType,
-                                        o.getChild("Title").getValue().trim()))
+                        nodeType,
+                        o.getChild("Title").getValue().trim()))
                 .collect(Collectors.toList());
     }
 
@@ -232,7 +233,8 @@ public class XMLUtils {
     }
 
     /**
-     * Sets the new registration start and end dates in the group xml and returns the update xml.
+     * Sets the new registration start and end dates in the group xml, even if there
+     * was no registration period before, and returns the update xml.
      *
      * @param groupXml          the groupXml
      * @param registrationStart the new registration start
@@ -246,9 +248,18 @@ public class XMLUtils {
         Document doc = createSaxDocFromString(groupXml);
 
         Element rootElement = doc.getRootElement();
-        Element temporarilyAvailable = rootElement.getChild("registration").getChild("temporarilyAvailable");
-        temporarilyAvailable.getChild("start").setText(String.valueOf(registrationStart));
-        temporarilyAvailable.getChild("end").setText(String.valueOf(registrationEnd));
+        Element registration = rootElement.getChild("registration");
+        Element temporarilyAvailable = registration.getChild("temporarilyAvailable");
+        if (temporarilyAvailable != null) {
+            temporarilyAvailable.getChild("start").setText(String.valueOf(registrationStart));
+            temporarilyAvailable.getChild("end").setText(String.valueOf(registrationEnd));
+        } else {
+            Element addedTemporarilyAvailable = new Element("temporarilyAvailable");
+            Element addedStart = new Element("start").setText(String.valueOf(registrationStart));
+            Element addedEnd = new Element("end").setText(String.valueOf(registrationEnd));
+            addedTemporarilyAvailable.setContent(Arrays.asList(addedStart, addedEnd));
+            registration.addContent(addedTemporarilyAvailable);
+        }
         return new XMLOutputter().outputString(doc);
     }
 }
