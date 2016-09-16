@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-Version 1.0.0 (16-Sept-2016)
+**Version 1.0.0 (15-Sept-2016)**
 
 New:
 * added feature to remove all user from all or only some groups in a course
