@@ -1,11 +1,13 @@
 Release Notes
 =============
 
-**Version 1.1.0 (16-Sept-2016)**
+**Version 1.1.0 (xx-Sept-2016)**
 
 New:
 * The registration period will now also be set if there was none in the group before
 * Added a connector for printing to stout the returning xmls from the ws endpoint
+* Added a change detector to verify the expected structure of the result XMLs
+* Added a feature to create a Latex file with the groups and its members
 
 Bugfixes:
 
