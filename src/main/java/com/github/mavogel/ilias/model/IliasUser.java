@@ -27,7 +27,7 @@ package com.github.mavogel.ilias.model;/*
 import org.apache.commons.lang3.Validate;
 
 /**
- * Container for an ilias user.
+ * Container for an Ilias user.
  *
  * Created by mavogel on 9/20/16.
  */
@@ -36,16 +36,14 @@ public class IliasUser {
     private final String firstName;
     private final String lastName;
     private final String eMail;
-    private final String matriculationNumber;
 
-    public IliasUser(final String firstName, final String lastName, final String eMail, final String matriculationNumber) {
+    public IliasUser(final String firstName, final String lastName, final String eMail) {
         Validate.notEmpty(firstName, "first name is empty");
         Validate.notEmpty(lastName, "last name is empty");
         Validate.notEmpty(eMail, "eMail is empty");
         this.firstName = firstName;
         this.lastName = lastName;
         this.eMail = eMail;
-        this.matriculationNumber = matriculationNumber;
     }
 
     public String getFirstName() {
@@ -60,10 +58,6 @@ public class IliasUser {
         return eMail;
     }
 
-    public String getMatriculationNumber() {
-        return matriculationNumber;
-    }
-
     @Override
     public boolean equals(final Object o) {
         if (this == o) return true;
@@ -73,8 +67,7 @@ public class IliasUser {
 
         if (!firstName.equals(iliasUser.firstName)) return false;
         if (!lastName.equals(iliasUser.lastName)) return false;
-        if (!eMail.equals(iliasUser.eMail)) return false;
-        return matriculationNumber.equals(iliasUser.matriculationNumber);
+        return eMail.equals(iliasUser.eMail);
 
     }
 
@@ -83,7 +76,6 @@ public class IliasUser {
         int result = firstName.hashCode();
         result = 31 * result + lastName.hashCode();
         result = 31 * result + eMail.hashCode();
-        result = 31 * result + matriculationNumber.hashCode();
         return result;
     }
 
@@ -93,7 +85,6 @@ public class IliasUser {
         sb.append("firstName='").append(firstName).append('\'');
         sb.append(", lastName='").append(lastName).append('\'');
         sb.append(", eMail='").append(eMail).append('\'');
-        sb.append(", matriculationNumber='").append(matriculationNumber).append('\'');
         sb.append('}');
         return sb.toString();
     }

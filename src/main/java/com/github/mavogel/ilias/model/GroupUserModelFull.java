@@ -63,7 +63,7 @@ public class GroupUserModelFull {
         sb.append(groupNode.getTitle());
         if (!groupMembers.isEmpty()) {
             sb.append("' -> ").append(groupMembers.stream()
-                    .map(gm -> gm.getLastName() + "," + gm.getFirstName() + " - " + gm.getMatriculationNumber())
+                    .map(gm -> gm.getLastName() + "," + gm.getFirstName())
                     .collect(Collectors.joining(" | ")));
         }
         return sb.toString();

@@ -42,6 +42,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -296,9 +297,9 @@ public class XMLUtils {
 
         Element rootElement = doc.getRootElement();
         List<Element> users = rootElement.getChildren("User");
+        if (users == null || users.isEmpty()) return Collections.emptyList();
         return users.stream().map(u -> new IliasUser(u.getChild("Firstname").getText().trim(),
                 u.getChild("Lastname").getText().trim(),
-                u.getChild("Email").getText().trim(),
-                u.getChild("Matriculation").getText().trim())).collect(Collectors.toList());
+                u.getChild("Email").getText().trim())).collect(Collectors.toList());
     }
 }
