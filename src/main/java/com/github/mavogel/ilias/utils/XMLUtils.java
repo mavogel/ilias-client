@@ -26,6 +26,7 @@
 package com.github.mavogel.ilias.utils;
 
 import com.github.mavogel.ilias.model.IliasNode;
+import com.github.mavogel.ilias.model.IliasUser;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.log4j.Logger;
@@ -280,5 +281,24 @@ public class XMLUtils {
                 .filter(ro -> ro.getChild("Title").getText().trim().contains("grp_member"))
                 .mapToInt(ro -> Integer.valueOf(ro.getAttribute("obj_id").getValue()).intValue())
                 .findFirst().orElseThrow(() -> new RuntimeException("No member role id found"));
+    }
+
+    /**
+     * Parses the user records (firstname , lastname, email and matriculation number) from the group role xml.
+     *
+     * @param groupRoleXML the group role xml
+     * @return the users / members
+     * @throws JDOMException if no document for the xml parser could be created
+     * @throws IOException   if no InputStream could be created from the xmlString
+     */
+    public static List<IliasUser> parseIliasUserRecordsFromRole(final String groupRoleXML) throws JDOMException, IOException {
+        Document doc = createSaxDocFromString(groupRoleXML);
+
+        Element rootElement = doc.getRootElement();
+        List<Element> users = rootElement.getChildren("User");
+        return users.stream().map(u -> new IliasUser(u.getChild("Firstname").getText().trim(),
+                u.getChild("Lastname").getText().trim(),
+                u.getChild("Email").getText().trim(),
+                u.getChild("Matriculation").getText().trim())).collect(Collectors.toList());
     }
 }

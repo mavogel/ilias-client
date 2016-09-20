@@ -26,6 +26,7 @@
 package com.github.mavogel.ilias.utils;
 
 import com.github.mavogel.ilias.model.IliasNode;
+import com.github.mavogel.ilias.model.IliasUser;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -293,6 +294,20 @@ public class XMLUtilsTest {
 
         // == verify
         assertEquals(215170, memberRoleId);
+    }
+
+    @Test
+    public void shouldParseUserRecordsFromRole() throws IOException, JDOMException {
+        // == prepare
+        final String testFile = TEST_RES_DIR + "getUserForMemberRole.xml";
+        final String rolesXml = Files.lines(Paths.get(testFile)).collect(Collectors.joining());
+
+        // == go
+        List<IliasUser> userRecords = XMLUtils.parseIliasUserRecordsFromRole(rolesXml);
+
+        // == verify
+        assertEquals(1, userRecords.size());
+        assertEquals(new IliasUser("Dave", "Werner", "d.werner@my-company.com", "12345"), userRecords.get(0));
     }
 
     /**

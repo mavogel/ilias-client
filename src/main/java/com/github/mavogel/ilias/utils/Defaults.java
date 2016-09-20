@@ -56,4 +56,14 @@ public final class Defaults {
      * The format of the date in a user input
      */
     public static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+
+    /**
+     * Denotes that all roles should be attached by default.
+     */
+    public static final int ATTACH_ROLES = 1;
+
+    /**
+     * Denotes that only active users should be considered.
+     */
+    public static final int IS_ACTIVE = 1;
 }

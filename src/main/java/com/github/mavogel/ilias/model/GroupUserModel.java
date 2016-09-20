@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * A model for a group and its users.
+ * A model for a group and its users ids.
  *
  * Created by mavogel on 9/9/16.
  */
@@ -39,7 +39,7 @@ public class GroupUserModel {
     private List<Integer> groupMemberIds;
 
     public GroupUserModel(final IliasNode groupNode) {
-        Validate.notNull(groupNode, "Cannot create a group user model with a group");
+        Validate.notNull(groupNode, "group node is null");
         this.groupNode = groupNode;
         this.groupMemberIds = new ArrayList<>();
     }

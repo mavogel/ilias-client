@@ -32,10 +32,7 @@ import com.github.mavogel.ilias.model.UserDataIds;
 import com.github.mavogel.ilias.state.ChangeAction;
 import com.github.mavogel.ilias.state.ToolState;
 import com.github.mavogel.ilias.state.ToolStateMachine;
-import com.github.mavogel.ilias.state.states.action.GrantFileUploadToGroupMembersAction;
-import com.github.mavogel.ilias.state.states.action.RemoveUploadedMaterialsAction;
-import com.github.mavogel.ilias.state.states.action.RemoveUsersAction;
-import com.github.mavogel.ilias.state.states.action.SetRegistrationPeriodAction;
+import com.github.mavogel.ilias.state.states.action.*;
 import com.github.mavogel.ilias.utils.IOUtils;
 import com.github.mavogel.ilias.utils.IliasUtils;
 import org.apache.log4j.Logger;
@@ -64,7 +61,8 @@ public class ActionsOnGroupsState extends ToolState {
             new RemoveUploadedMaterialsAction(),
             new RemoveUsersAction(),
             new SetRegistrationPeriodAction(),
-            new GrantFileUploadToGroupMembersAction()
+            new GrantFileUploadToGroupMembersAction(),
+            new PrintGroupMembersAction()
     );
 
     /**

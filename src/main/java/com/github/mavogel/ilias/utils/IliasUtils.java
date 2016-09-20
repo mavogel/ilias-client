@@ -27,10 +27,8 @@ package com.github.mavogel.ilias.utils;
 
 import com.github.mavogel.client.ILIASSoapWebserviceLocator;
 import com.github.mavogel.client.ILIASSoapWebservicePortType;
-import com.github.mavogel.ilias.model.GroupUserModel;
-import com.github.mavogel.ilias.model.IliasNode;
-import com.github.mavogel.ilias.model.LoginConfiguration;
-import com.github.mavogel.ilias.model.UserDataIds;
+import com.github.mavogel.ilias.model.*;
+import com.sun.xml.internal.ws.api.streaming.XMLStreamReaderFactory;
 import org.apache.log4j.Logger;
 import org.jdom.JDOMException;
 
@@ -308,9 +306,9 @@ public class IliasUtils {
             unremovedUsers.add(removeMembersFromGroup(endpoint, sid, groupNode, groupMemberIds));
         }
 
-        if (!unremovedUsers.isEmpty() && unremovedUsers.stream().anyMatch(u -> u.hasMembers())) {
+        if (!unremovedUsers.isEmpty() && unremovedUsers.stream().anyMatch(GroupUserModel::hasMembers)) {
             LOG.error("Could not remove users from group(s): ");
-            unremovedUsers.stream().filter(u -> u.hasMembers()).forEach(LOG::error);
+            unremovedUsers.stream().filter(GroupUserModel::hasMembers).forEach(LOG::error);
         }
     }
 
@@ -383,13 +381,13 @@ public class IliasUtils {
      * <li>LEAVE</li>
      * <li>CREATE_FILE</li>
      * </ul>
-     * @see PermissionOperation
      *
      * @param endpoint   the {@link ILIASSoapWebservicePortType}
      * @param sid        the sid of the user obtained at the login
      * @param groupNodes the groups to set the file upload permission for members
      * @throws JDOMException if no document for the xml parser could be created
      * @throws IOException   if no InputStream could be created from the xmlString
+     * @see PermissionOperation
      */
     public static void grantFileUploadPermissionForMembers(final ILIASSoapWebservicePortType endpoint, final String sid, final List<IliasNode> groupNodes) throws JDOMException, IOException {
         for (IliasNode groupNode : groupNodes) {
@@ -420,6 +418,34 @@ public class IliasUtils {
                 LOG.error("File Upload permission NOT granted on group '" + groupNode.getRefId() + " - " + groupNode.getTitle() + " because of: " + e.getMessage());
             }
         }
+    }
+
+    /**
+     * Accumulates the users of a group.
+     * <p>
+     * Uses the trick that member of a group are assigned to the members role. Retrieves the members by this role.
+     * Normally a course / group administrator does not have any right on global user data.
+     *
+     * @param endpoint   the {@link ILIASSoapWebservicePortType}
+     * @param sid        the sid of the user obtained at the login
+     * @param groupNodes the groups to set the file upload permission for members
+     * @return a list of {@link GroupUserModelFull} models
+     * @throws JDOMException if no document for the xml parser could be created
+     * @throws IOException   if no InputStream could be created from the xmlString
+     */
+    public static List<GroupUserModelFull> getUsersForGroups(final ILIASSoapWebservicePortType endpoint, final String sid, final List<IliasNode> groupNodes) throws JDOMException, IOException {
+        List<GroupUserModelFull> groupUserModels = new ArrayList<>();
+        for (IliasNode groupNode : groupNodes) {
+            String localRolesForGroupXML = endpoint.getLocalRoles(sid, groupNode.getRefId());
+
+            int roleId = XMLUtils.parseGroupMemberRoleId(localRolesForGroupXML);
+            String usersForRoleXML = endpoint.getUsersForRole(sid, roleId, Defaults.ATTACH_ROLES, Defaults.IS_ACTIVE);
+
+            List<IliasUser> userRecords = XMLUtils.parseIliasUserRecordsFromRole(usersForRoleXML);
+            groupUserModels.add(new GroupUserModelFull(groupNode, userRecords));
+        }
+
+        return groupUserModels;
     }
 
     /**

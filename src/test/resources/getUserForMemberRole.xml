@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Users>
+    <UDFDefinitions>
+        <UDFDefinition Id="il_0_udf_2" Type="TEXT" Visible="FALSE" Changeable="FALSE" Required="FALSE" Searchable="FALSE"
+                       CourseExport="FALSE" GroupExport="FALSE" Certificate="FALSE" Export="TRUE"
+                       RegistrationVisible="FALSE" LocalUserAdministrationVisible="FALSE"
+                       LocalUserAdministrationChangeable="FALSE">
+            <UDFName>Lepsem</UDFName>
+        </UDFDefinition>
+        <UDFDefinition Id="il_0_udf_3" Type="TEXT" Visible="FALSE" Changeable="FALSE" Required="FALSE" Searchable="FALSE"
+                       CourseExport="FALSE" GroupExport="FALSE" Certificate="FALSE" Export="TRUE"
+                       RegistrationVisible="FALSE" LocalUserAdministrationVisible="FALSE"
+                       LocalUserAdministrationChangeable="FALSE">
+            <UDFName>Course</UDFName>
+        </UDFDefinition>
+        <UDFDefinition Id="il_0_udf_4" Type="TEXT" Visible="FALSE" Changeable="FALSE" Required="FALSE" Searchable="FALSE"
+                       CourseExport="FALSE" GroupExport="FALSE" Certificate="FALSE" Export="TRUE"
+                       RegistrationVisible="FALSE" LocalUserAdministrationVisible="FALSE"
+                       LocalUserAdministrationChangeable="FALSE">
+            <UDFName>Sem</UDFName>
+        </UDFDefinition>
+        <UDFDefinition Id="il_0_udf_5" Type="TEXT" Visible="FALSE" Changeable="FALSE" Required="FALSE" Searchable="FALSE"
+                       CourseExport="FALSE" GroupExport="FALSE" Certificate="FALSE" Export="TRUE"
+                       RegistrationVisible="FALSE" LocalUserAdministrationVisible="FALSE"
+                       LocalUserAdministrationChangeable="FALSE">
+            <UDFName>Art</UDFName>
+        </UDFDefinition>
+        <UDFDefinition Id="il_0_udf_6" Type="TEXT" Visible="FALSE" Changeable="FALSE" Required="FALSE" Searchable="FALSE"
+                       CourseExport="FALSE" GroupExport="FALSE" Certificate="FALSE" Export="TRUE"
+                       RegistrationVisible="FALSE" LocalUserAdministrationVisible="FALSE"
+                       LocalUserAdministrationChangeable="FALSE">
+            <UDFName>Stats</UDFName>
+        </UDFDefinition>
+        <UDFDefinition Id="il_0_udf_7" Type="TEXT" Visible="FALSE" Changeable="FALSE" Required="FALSE" Searchable="FALSE"
+                       CourseExport="FALSE" GroupExport="FALSE" Certificate="FALSE" Export="TRUE"
+                       RegistrationVisible="FALSE" LocalUserAdministrationVisible="FALSE"
+                       LocalUserAdministrationChangeable="FALSE">
+            <UDFName>DOZ</UDFName>
+        </UDFDefinition>
+        <UDFDefinition Id="il_0_udf_8" Type="TEXT" Visible="FALSE" Changeable="FALSE" Required="FALSE" Searchable="FALSE"
+                       CourseExport="FALSE" GroupExport="FALSE" Certificate="FALSE" Export="TRUE"
+                       RegistrationVisible="FALSE" LocalUserAdministrationVisible="FALSE"
+                       LocalUserAdministrationChangeable="FALSE">
+            <UDFName>PO</UDFName>
+        </UDFDefinition>
+    </UDFDefinitions>
+    <User Id="il_0_usr_234691" Language="en" Action="Update">
+        <Login>weda9999</Login>
+        <Role Id="il_0_role_4" Type="Global">Student</Role>
+        <Role Id="il_0_role_5" Type="Global">Guest</Role>
+        <Role Id="il_0_role_37187" Type="Local">il_crs_member_7576</Role>
+        <Role Id="il_0_role_57765" Type="Local">il_crs_member_19086</Role>
+        <Firstname>Dave</Firstname>
+        <Lastname>Werner</Lastname>
+        <Email>d.werner@my-company.com</Email>
+        <Matriculation>12345</Matriculation>
+        <Active>true</Active>
+        <TimeLimitOwner>7</TimeLimitOwner>
+        <TimeLimitUnlimited>1</TimeLimitUnlimited>
+        <TimeLimitFrom>1474365483</TimeLimitFrom>
+        <TimeLimitUntil>1474365483</TimeLimitUntil>
+        <TimeLimitMessage>0</TimeLimitMessage>
+        <ApproveDate>2016-09-20 11:58:03</ApproveDate>
+        <AgreeDate>2015-10-05 12:36:58</AgreeDate>
+        <AuthMode type="ldap"/>
+        <ExternalAccount>voma1041</ExternalAccount>
+        <Look Skin="skin1" Style="skin1"/>
+        <LastUpdate>2016-09-20 11:58:03</LastUpdate>
+        <LastLogin>2016-09-20 11:58:03</LastLogin>
+        <UserDefinedField Id="il_0_udf_2" Name="Lepsem">3</UserDefinedField>
+        <UserDefinedField Id="il_0_udf_3" Name="Def1">FFM</UserDefinedField>
+        <UserDefinedField Id="il_0_udf_4" Name="Def2">3</UserDefinedField>
+        <UserDefinedField Id="il_0_udf_5" Name="Def3">Studies</UserDefinedField>
+        <UserDefinedField Id="il_0_udf_6" Name="Def4">imma</UserDefinedField>
+        <UserDefinedField Id="il_0_udf_7" Name="Def5"></UserDefinedField>
+        <UserDefinedField Id="il_0_udf_8" Name="Def6">5</UserDefinedField>
+    </User>
+</Users>
