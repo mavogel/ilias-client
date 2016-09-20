@@ -423,12 +423,12 @@ public class IliasUtils {
     /**
      * Accumulates the users of a group.
      * <p>
-     * Uses the trick that member of a group are assigned to the members role. Retrieves the members by this role.
+     * Uses the trick that members of a group are assigned to the members role. Retrieves the members by this role.
      * Normally a course / group administrator does not have any right on global user data.
      *
      * @param endpoint   the {@link ILIASSoapWebservicePortType}
      * @param sid        the sid of the user obtained at the login
-     * @param groupNodes the groups to set the file upload permission for members
+     * @param groupNodes the groups to get the users/members from
      * @return a list of {@link GroupUserModelFull} models
      * @throws JDOMException if no document for the xml parser could be created
      * @throws IOException   if no InputStream could be created from the xmlString
