@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Objects>
+    <Object type="role" obj_id="215169">
+        <Title>il_grp_admin_146479</Title>
+        <Description>Groupadmin of group obj_no.215167</Description>
+        <Owner>0</Owner>
+        <CreateDate>2015-03-17 12:14:28</CreateDate>
+        <LastUpdate>2016-09-20 12:12:17</LastUpdate>
+        <ImportId/>
+    </Object>
+    <Object type="role" obj_id="215170">
+        <Title>il_grp_member_146479</Title>
+        <Description>Groupmember of group obj_no.215167</Description>
+        <Owner>0</Owner>
+        <CreateDate>2015-03-17 12:14:28</CreateDate>
+        <LastUpdate>2015-03-17 12:14:28</LastUpdate>
+        <ImportId/>
+    </Object>
+</Objects>

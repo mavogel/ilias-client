@@ -1,4 +1,4 @@
-package com.github.mavogel.ilias.state.states.permissions;/*
+package com.github.mavogel.ilias.state.states.action;/*
  *  The MIT License (MIT)
  *
  *  Copyright (c) 2016 Manuel Vogel
@@ -29,17 +29,34 @@ import com.github.mavogel.ilias.model.IliasNode;
 import com.github.mavogel.ilias.model.UserDataIds;
 import com.github.mavogel.ilias.state.ChangeAction;
 import com.github.mavogel.ilias.utils.IOUtils;
+import com.github.mavogel.ilias.utils.IliasUtils;
+import org.apache.log4j.Logger;
+import org.jdom.JDOMException;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
+ * Represents the action for granting the group member the permission to uplaod files.
+ *
  * Created by mavogel on 9/20/16.
  */
-public class GrantFileUploadToGroupMembers implements ChangeAction {
+public class GrantFileUploadToGroupMembersAction implements ChangeAction {
+
+    private static Logger LOG = Logger.getLogger(GrantFileUploadToGroupMembersAction.class);
 
     @Override
     public String performAction(final ILIASSoapWebservicePortType endpoint, final UserDataIds userDataIds, final List<IliasNode> nodes) {
-        return null;
+        LOG.info("Grant file upload to group members");
+        confirm();
+
+        final String sid = userDataIds.getSid();
+        try {
+            IliasUtils.grantFileUploadPermissionForMembers(endpoint, sid, nodes);
+        } catch (IOException | JDOMException e) {
+            LOG.error("Error creating xml parser: " + e.getMessage());
+        }
+        return "";
     }
 
     @Override

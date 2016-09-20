@@ -282,6 +282,19 @@ public class XMLUtilsTest {
         assertEquals(registrationEnd, Long.valueOf(temporarilyAvailable.getChild("end").getText()).longValue());
     }
 
+    @Test
+    public void shouldParseMemberRoleIdFromGroupXml() throws IOException, JDOMException {
+        // == prepare
+        final String testFile = TEST_RES_DIR + "localRolesForGroup.xml";
+        final String localRolesFromGroupXML = Files.lines(Paths.get(testFile)).collect(Collectors.joining());
+
+        // == go
+        int memberRoleId = XMLUtils.parseGroupMemberRoleId(localRolesFromGroupXML);
+
+        // == verify
+        assertEquals(215170, memberRoleId);
+    }
+
     /**
      * Creates a {@link Document} from an xmlString
      *

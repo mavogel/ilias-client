@@ -262,4 +262,23 @@ public class XMLUtils {
         }
         return new XMLOutputter().outputString(doc);
     }
+
+    /**
+     * Parses the group member role id from a given group xml.
+     *
+     * @param localRolesForGroupXML the local roles of a group xml
+     * @return the member role id of the group
+     * @throws JDOMException if no document for the xml parser could be created
+     * @throws IOException   if no InputStream could be created from the xmlString
+     */
+    public static int parseGroupMemberRoleId(final String localRolesForGroupXML) throws JDOMException, IOException {
+        Document doc = createSaxDocFromString(localRolesForGroupXML);
+
+        Element rootElement = doc.getRootElement();
+        List<Element> roleObjects = rootElement.getChildren("Object");
+        return roleObjects.stream()
+                .filter(ro -> ro.getChild("Title").getText().trim().contains("grp_member"))
+                .mapToInt(ro -> Integer.valueOf(ro.getAttribute("obj_id").getValue()).intValue())
+                .findFirst().orElseThrow(() -> new RuntimeException("No member role id found"));
+    }
 }

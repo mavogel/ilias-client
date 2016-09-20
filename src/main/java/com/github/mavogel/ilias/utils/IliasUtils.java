@@ -45,7 +45,7 @@ import java.util.List;
 
 /**
  * Util class for operations against the endpoint.
- *
+ * <p>
  * Created by mavogel on 9/5/16.
  */
 public class IliasUtils {
@@ -252,7 +252,7 @@ public class IliasUtils {
         List<IliasNode> fileRefIds = new ArrayList<>();
         for (IliasNode groupNode : groupNodes) {
             List<IliasNode> fileNodes = getRefIdsOfChildrenFromCurrentNode(endpoint, sid, userId, groupNode.getRefId(), IliasNode.Type.FILE);
-            if(fileNodes.isEmpty()) {
+            if (fileNodes.isEmpty()) {
                 LOG.info("No files to remove for group '" + groupNode.getTitle() + "'");
             }
             if (LOG.isDebugEnabled()) {
@@ -303,7 +303,7 @@ public class IliasUtils {
 
             String groupXml = endpoint.getGroup(sid, groupNode.getRefId());
             List<Integer> groupMemberIds = XMLUtils.parseGroupMemberIds(groupXml);
-            if(groupMemberIds.isEmpty()) LOG.info("No members to remove from Group '" + groupNode.getTitle() + "'");
+            if (groupMemberIds.isEmpty()) LOG.info("No members to remove from Group '" + groupNode.getTitle() + "'");
 
             unremovedUsers.add(removeMembersFromGroup(endpoint, sid, groupNode, groupMemberIds));
         }
@@ -370,6 +370,54 @@ public class IliasUtils {
                 LOG.info("Updated group '" + groupNode.getRefId() + " - " + groupNode.getTitle() + "' with new registration period starting at " + registrationStart + " and ending at " + registrationEnd);
             } else {
                 LOG.error("Failed to set registration date on group '" + groupNode.getRefId() + " - " + groupNode.getTitle() + "'");
+            }
+        }
+    }
+
+    /**
+     * Grants the file upload permission for members. Overrides the existing permission and sets the five permissions:
+     * <ul>
+     * <li>VISIBLE</li>
+     * <li>READ</li>
+     * <li>JOIN</li>
+     * <li>LEAVE</li>
+     * <li>CREATE_FILE</li>
+     * </ul>
+     * @see PermissionOperation
+     *
+     * @param endpoint   the {@link ILIASSoapWebservicePortType}
+     * @param sid        the sid of the user obtained at the login
+     * @param groupNodes the groups to set the file upload permission for members
+     * @throws JDOMException if no document for the xml parser could be created
+     * @throws IOException   if no InputStream could be created from the xmlString
+     */
+    public static void grantFileUploadPermissionForMembers(final ILIASSoapWebservicePortType endpoint, final String sid, final List<IliasNode> groupNodes) throws JDOMException, IOException {
+        for (IliasNode groupNode : groupNodes) {
+            String localRolesForGroupXML = null;
+            try {
+                localRolesForGroupXML = endpoint.getLocalRoles(sid, groupNode.getRefId());
+            } catch (RemoteException e) {
+                LOG.error("Local roles could not be retrieved for group '" + groupNode.getRefId() + " - " + groupNode.getTitle() + " because of: " + e.getMessage());
+                LOG.error("Continuing with next one");
+                continue;
+            }
+
+            int roleId = XMLUtils.parseGroupMemberRoleId(localRolesForGroupXML);
+
+            try {
+                boolean isPermissionGranted = endpoint.grantPermissions(sid, groupNode.getRefId(), roleId,
+                        PermissionOperation.build(PermissionOperation.VISIBLE,
+                                PermissionOperation.READ,
+                                PermissionOperation.JOIN,
+                                PermissionOperation.LEAVE,
+                                PermissionOperation.CREATE_FILE));
+                if (isPermissionGranted) {
+                    LOG.info("File Upload permission granted on group '" + groupNode.getRefId() + " - " + groupNode.getTitle());
+                } else {
+                    LOG.error("File Upload permission NOT granted on group '" + groupNode.getRefId() + " - " + groupNode.getTitle());
+                }
+            } catch (RemoteException e) {
+                LOG.error("File Upload permission NOT granted on group '" + groupNode.getRefId() + " - " + groupNode.getTitle() + " because of: " + e.getMessage());
             }
         }
     }

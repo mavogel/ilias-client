@@ -1,17 +1,25 @@
 Release Notes
 =============
 
-**Version 1.1.0 (xx-Sept-2016)**
+**Version 1.2.0 (xx-Sept-2016)**
 
 New:
-* The registration period will now also be set if there was none in the group before
-* Added a connector for testing purposes to print the returning xmls from the ws endpoint
 * Added a change detector to verify the expected structure of the result XMLs
-* Added a feature to grant file upload permission to group members
 
 Bugfixes:
 
 Improvements:
+
+**Version 1.1.0 (xx-Sept-2016)**
+
+New:
+* Added a feature to grant file upload permission to group members
+* Added a feature to write the users of groups in a compileable latex file 
+
+Bugfixes:
+
+Improvements:
+* Added a connector for testing purposes to print the returning xmls from the ws endpoint
 
 
 **Version 1.0.0 (15-Sept-2016)**
