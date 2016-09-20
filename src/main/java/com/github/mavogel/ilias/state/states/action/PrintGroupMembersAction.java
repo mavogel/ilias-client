@@ -28,15 +28,24 @@ import com.github.mavogel.client.ILIASSoapWebservicePortType;
 import com.github.mavogel.ilias.model.GroupUserModelFull;
 import com.github.mavogel.ilias.model.IliasNode;
 import com.github.mavogel.ilias.model.UserDataIds;
+import com.github.mavogel.ilias.printer.LatexOutputPrinter;
+import com.github.mavogel.ilias.printer.OutputPrinter;
 import com.github.mavogel.ilias.state.ChangeAction;
+import com.github.mavogel.ilias.utils.IOUtils;
 import com.github.mavogel.ilias.utils.IliasUtils;
 import org.apache.log4j.Logger;
 import org.jdom.JDOMException;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
 /**
+ * Represents the action for retrieving all groups with its users and stores the in
+ * a Latex file. It's kept simple atm.
+ *
  * Created by mavogel on 9/20/16.
  */
 public class PrintGroupMembersAction implements ChangeAction {
@@ -50,8 +59,8 @@ public class PrintGroupMembersAction implements ChangeAction {
 
         final String sid = userDataIds.getSid();
         try {
-            List<GroupUserModelFull> usersPerGroup = IliasUtils.getUsersForGroups(endpoint, sid, nodes);
-            // TODO pass to printer...
+            List<GroupUserModelFull> membersPerGroup = IliasUtils.getUsersForGroups(endpoint, sid, nodes);
+//            new LatexOutputPrinter(membersPerGroup).print(new BufferedOutputStream(new FileOutputStream("name.tex")));
         } catch (IOException | JDOMException e) {
             LOG.error("Error creating xml parser: " + e.getMessage());
         }
