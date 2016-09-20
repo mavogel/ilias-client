@@ -66,7 +66,7 @@ public interface ChangeAction {
     default String actionName(final String prefix) {
         StringBuilder sb = new StringBuilder();
         if (prefix != null && !prefix.isEmpty()) sb.append(prefix);
-        sb.append(this.getClass().getSimpleName().replace("Change", ""));
+        sb.append(this.getClass().getSimpleName().replace("Action", ""));
         return sb.toString();
     }
 }

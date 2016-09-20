@@ -32,9 +32,9 @@ import com.github.mavogel.ilias.model.UserDataIds;
 import com.github.mavogel.ilias.state.ChangeAction;
 import com.github.mavogel.ilias.state.ToolState;
 import com.github.mavogel.ilias.state.ToolStateMachine;
-import com.github.mavogel.ilias.state.states.action.RemoveUploadedMaterialsChange;
-import com.github.mavogel.ilias.state.states.action.RemoveUsersChange;
-import com.github.mavogel.ilias.state.states.action.SetRegistrationPeriodChange;
+import com.github.mavogel.ilias.state.states.action.RemoveUploadedMaterialsAction;
+import com.github.mavogel.ilias.state.states.action.RemoveUsersAction;
+import com.github.mavogel.ilias.state.states.action.SetRegistrationPeriodAction;
 import com.github.mavogel.ilias.utils.IOUtils;
 import com.github.mavogel.ilias.utils.IliasUtils;
 import org.apache.log4j.Logger;
@@ -60,9 +60,9 @@ public class ActionsOnGroupsState extends ToolState {
      * The choices on groups.
      */
     private static final List<ChangeAction> ACTION_CHOICES = Arrays.asList(
-            new RemoveUploadedMaterialsChange(),
-            new RemoveUsersChange(),
-            new SetRegistrationPeriodChange()
+            new RemoveUploadedMaterialsAction(),
+            new RemoveUsersAction(),
+            new SetRegistrationPeriodAction()
     );
 
     /**

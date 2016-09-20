@@ -1,4 +1,4 @@
-package com.github.mavogel.ilias.state.states.action;/*
+/*
  *  The MIT License (MIT)
  *
  *  Copyright (c) 2016 Manuel Vogel
@@ -23,31 +23,47 @@ package com.github.mavogel.ilias.state.states.action;/*
  *
  *  https://opensource.org/licenses/MIT
  */
+package com.github.mavogel.ilias.state.states.action;
 
 import com.github.mavogel.client.ILIASSoapWebservicePortType;
 import com.github.mavogel.ilias.model.IliasNode;
 import com.github.mavogel.ilias.model.UserDataIds;
 import com.github.mavogel.ilias.state.ChangeAction;
+import com.github.mavogel.ilias.utils.IOUtils;
+import com.github.mavogel.ilias.utils.IliasUtils;
 import org.apache.log4j.Logger;
+import org.jdom.JDOMException;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
- * Represents the action to create a Latex file with the groups and its members.
+ * Represents the action for removing the uploaded materials.
  *
- * Created by mavogel on 9/16/16.
+ * Created by mavogel on 9/9/16.
  */
-public class CreateGroupsWithMembersFile implements ChangeAction {
+public class RemoveUploadedMaterialsAction implements ChangeAction {
 
-    private static Logger LOG = Logger.getLogger(RemoveUploadedMaterialsChange.class);
+    private static Logger LOG = Logger.getLogger(RemoveUploadedMaterialsAction.class);
 
     @Override
-    public String performAction(final ILIASSoapWebservicePortType endpoint, final UserDataIds userDataIds, final List<IliasNode> nodes) {
-        return null;
+    public String performAction(final ILIASSoapWebservicePortType endpoint, final UserDataIds userDataIds,
+                                final List<IliasNode> nodes) {
+        LOG.info("Removing uploaded materials from groups");
+        confirm();
+
+        final String sid = userDataIds.getSid();
+        final int userId = userDataIds.getUserId();
+        try {
+            IliasUtils.deleteObjects(endpoint, sid, IliasUtils.retrieveFileRefIdsFromGroups(endpoint, sid, userId, nodes));
+        } catch (IOException | JDOMException e) {
+            LOG.error("Error creating xml parser: " + e.getMessage());
+        }
+        return "";
     }
 
     @Override
     public boolean confirm() {
-        return false;
+        return IOUtils.readAndParseUserConfirmation();
     }
 }

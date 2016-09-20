@@ -5,9 +5,9 @@ Release Notes
 
 New:
 * The registration period will now also be set if there was none in the group before
-* Added a connector for printing to stout the returning xmls from the ws endpoint
+* Added a connector for testing purposes to print the returning xmls from the ws endpoint
 * Added a change detector to verify the expected structure of the result XMLs
-* Added a feature to create a Latex file with the groups and its members
+* Added a feature to grant file upload permission to group members
 
 Bugfixes:
 

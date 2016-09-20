@@ -27,7 +27,6 @@ package com.github.mavogel.ilias.state.states.action;
 
 import com.github.mavogel.client.ILIASSoapWebservicePortType;
 import com.github.mavogel.ilias.model.IliasNode;
-import com.github.mavogel.ilias.model.RegistrationPeriod;
 import com.github.mavogel.ilias.model.UserDataIds;
 import com.github.mavogel.ilias.state.ChangeAction;
 import com.github.mavogel.ilias.utils.IOUtils;
@@ -39,25 +38,23 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Represents the action for setting a new registration period.
+ * Represents the action for removing/excluding the users of a group.
  *
- * Created by mavogel on 9/9/16.
+ * Created by mavogel on 9/7/16.
  */
-public class SetRegistrationPeriodChange implements ChangeAction {
+public class RemoveUsersAction implements ChangeAction {
 
-    private static Logger LOG = Logger.getLogger(SetRegistrationPeriodChange.class);
+    private static Logger LOG = Logger.getLogger(RemoveUsersAction.class);
 
     @Override
     public String performAction(final ILIASSoapWebservicePortType endpoint, final UserDataIds userDataIds,
                                 final List<IliasNode> nodes) {
-        LOG.info("Setting registration date");
-        RegistrationPeriod registrationPeriod = IOUtils.readAndParseRegistrationDates();
+        LOG.info("Removing users from groups");
         confirm();
 
         final String sid = userDataIds.getSid();
         try {
-            IliasUtils.setRegistrationDatesOnGroups(endpoint, sid, nodes,
-                    registrationPeriod.getRegistrationStart(), registrationPeriod.getRegistrationEnd());
+            IliasUtils.removeAllMembersFromGroups(endpoint, sid, nodes);
         } catch (IOException | JDOMException e) {
             LOG.error("Error creating xml parser: " + e.getMessage());
         }
