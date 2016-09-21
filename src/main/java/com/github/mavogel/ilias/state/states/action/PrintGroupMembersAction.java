@@ -32,6 +32,7 @@ import com.github.mavogel.ilias.model.IliasNode;
 import com.github.mavogel.ilias.model.UserDataIds;
 import com.github.mavogel.ilias.printer.VelocityOutputPrinter;
 import com.github.mavogel.ilias.state.ChangeAction;
+import com.github.mavogel.ilias.utils.Defaults;
 import com.github.mavogel.ilias.utils.IOUtils;
 import com.github.mavogel.ilias.utils.IliasUtils;
 import org.apache.log4j.Logger;
@@ -79,7 +80,7 @@ public class PrintGroupMembersAction implements ChangeAction {
             try {
                 List<GroupUserModelFull> membersPerGroup = IliasUtils.getUsersForGroups(endpoint, sid, nodes);
                 IntStream.range(0, VelocityOutputPrinter.OutputType.values().length)
-                        .mapToObj(i -> VelocityOutputPrinter.OutputType.getAtIndex(i).asDisplayString(" --> [" + i + "] "))
+                        .mapToObj(i -> VelocityOutputPrinter.OutputType.getAtIndex(i).asDisplayString(Defaults.GET_CHOICE_PREFIX(i)))
                         .forEach(LOG::info);
                 List<Integer> outputChoicesIdx = IOUtils.readAndParseChoicesFromUser(Arrays.stream(VelocityOutputPrinter.OutputType.values()).collect(Collectors.toList()));
 
