@@ -42,7 +42,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 /**
- * Base class for all printers.
+ * Output writer based on velocity templates.
  * <p>
  * Created by mavogel on 9/20/16.
  */
