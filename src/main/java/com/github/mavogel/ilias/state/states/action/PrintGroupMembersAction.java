@@ -97,7 +97,7 @@ public class PrintGroupMembersAction implements ChangeAction {
                     boolean isTemplateWritten = false;
                     while (!isTemplateWritten) {
                         try {
-                            VelocityOutputPrinter.print(outputType, templatePath, contextMap); // TODO interface
+                            VelocityOutputPrinter.print(outputType, templatePath, contextMap);
                             isTemplateWritten = true;
                             LOG.info(outputType + " output successfully written!");
                         } catch (Exception e) {

@@ -28,7 +28,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * TODO
+ * Represents the models for a set of given action which shall be applied to each node.
  *
  * Created by mavogel on 9/11/16.
  */
