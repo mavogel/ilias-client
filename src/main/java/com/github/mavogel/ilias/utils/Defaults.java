@@ -66,4 +66,21 @@ public final class Defaults {
      * Denotes that only active users should be considered.
      */
     public static final int IS_ACTIVE = 1;
+
+    /**
+     * The prefix for printing choices
+     *
+     * @param index the index
+     * @return the prefix string
+     */
+    public static String GET_CHOICE_PREFIX(int index) {
+        return "## --> [" + index + "] ";
+    }
+
+    /**
+     * @return the visual surrounding of the choices
+     */
+    public static String GET_CHOICE_AROUND() {
+        return "###################################";
+    }
 }

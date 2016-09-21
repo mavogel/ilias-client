@@ -33,6 +33,7 @@ import com.github.mavogel.ilias.state.ChangeAction;
 import com.github.mavogel.ilias.state.ToolState;
 import com.github.mavogel.ilias.state.ToolStateMachine;
 import com.github.mavogel.ilias.state.states.action.*;
+import com.github.mavogel.ilias.utils.Defaults;
 import com.github.mavogel.ilias.utils.IOUtils;
 import com.github.mavogel.ilias.utils.IliasUtils;
 import org.apache.log4j.Logger;
@@ -100,18 +101,21 @@ public class ActionsOnGroupsState extends ToolState {
 
     @Override
     protected IliasAction printAndParseExecutionChoices(final List<IliasNode> nodeChoices) {
+        LOG.info(Defaults.GET_CHOICE_AROUND());
         IntStream.range(0, nodeChoices.size())
-                .mapToObj(i -> nodeChoices.get(i).asDisplayString(" --> [" + i + "] "))
+                .mapToObj(i -> nodeChoices.get(i).asDisplayString(Defaults.GET_CHOICE_PREFIX(i)))
                 .forEach(LOG::info);
-
+        LOG.info(Defaults.GET_CHOICE_AROUND());
         List<Integer> indexesOfChosenNodes = IOUtils.readAndParseChoicesFromUser(nodeChoices);
         List<IliasNode> choseIliasNodes = indexesOfChosenNodes.stream()
                 .map(idx -> nodeChoices.get(idx))
                 .collect(Collectors.toList());
 
+        LOG.info(Defaults.GET_CHOICE_AROUND());
         IntStream.range(0, ACTION_CHOICES.size())
-                .mapToObj(i -> ACTION_CHOICES.get(i).actionName(" --> [" + i + "] "))
+                .mapToObj(i -> ACTION_CHOICES.get(i).actionName(Defaults.GET_CHOICE_PREFIX(i)))
                 .forEach(LOG::info);
+        LOG.info(Defaults.GET_CHOICE_AROUND());
         List<Integer> indexesOfChosenActions = IOUtils.readAndParseChoicesFromUser(ACTION_CHOICES);
         List<ChangeAction> choseActions = indexesOfChosenActions.stream()
                 .map(idx -> ACTION_CHOICES.get(idx))

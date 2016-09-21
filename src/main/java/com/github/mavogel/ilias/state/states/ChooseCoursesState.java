@@ -30,6 +30,7 @@ import com.github.mavogel.ilias.model.IliasAction;
 import com.github.mavogel.ilias.model.IliasNode;
 import com.github.mavogel.ilias.state.ToolState;
 import com.github.mavogel.ilias.state.ToolStateMachine;
+import com.github.mavogel.ilias.utils.Defaults;
 import com.github.mavogel.ilias.utils.IOUtils;
 import com.github.mavogel.ilias.utils.IliasUtils;
 import org.apache.log4j.Logger;
@@ -88,9 +89,11 @@ public class ChooseCoursesState extends ToolState {
 
     @Override
     protected IliasAction printAndParseExecutionChoices(final List<IliasNode> nodeChoices) {
+        LOG.info(Defaults.GET_CHOICE_AROUND());
         IntStream.range(0, nodeChoices.size())
-                .mapToObj(i -> nodeChoices.get(i).asDisplayString(" --> [" + i + "] "))
-                .forEach(System.out::println);
+                .mapToObj(i -> nodeChoices.get(i).asDisplayString(Defaults.GET_CHOICE_PREFIX(i)))
+                .forEach(LOG::info);
+        LOG.info(Defaults.GET_CHOICE_AROUND());
 
         // TODO only single nodes due to printing or change context keys
         List<Integer> indexesOfChosenNodes = IOUtils.readAndParseChoicesFromUser(nodeChoices);
