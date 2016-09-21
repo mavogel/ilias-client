@@ -44,9 +44,8 @@ public interface ChangeAction {
      * @param endpoint    the endpoint of the Webservice
      * @param userDataIds the ids of the users
      * @param nodes       the nodes to perform the action on
-     * @return the summary of the performed action
      */
-    String performAction(final ILIASSoapWebservicePortType endpoint, final UserDataIds userDataIds,
+    void performAction(final ILIASSoapWebservicePortType endpoint, final UserDataIds userDataIds,
                          final List<IliasNode> nodes);
 
     /**

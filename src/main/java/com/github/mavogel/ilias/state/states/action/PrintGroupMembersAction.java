@@ -72,7 +72,7 @@ public class PrintGroupMembersAction implements ChangeAction {
     }
 
     @Override
-    public String performAction(final ILIASSoapWebservicePortType endpoint, final UserDataIds userDataIds, final List<IliasNode> nodes) {
+    public void performAction(final ILIASSoapWebservicePortType endpoint, final UserDataIds userDataIds, final List<IliasNode> nodes) {
         LOG.info("Print group members");
         if (confirm()) {
             final String sid = userDataIds.getSid();
@@ -112,11 +112,7 @@ public class PrintGroupMembersAction implements ChangeAction {
             } catch (IOException | JDOMException e) {
                 LOG.error("Error creating xml parser: " + e.getMessage());
             }
-
-            return "";
         }
-
-        return "";
     }
 
     @Override

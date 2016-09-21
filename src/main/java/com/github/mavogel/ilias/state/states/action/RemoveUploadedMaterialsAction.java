@@ -47,7 +47,7 @@ public class RemoveUploadedMaterialsAction implements ChangeAction {
     private static Logger LOG = Logger.getLogger(RemoveUploadedMaterialsAction.class);
 
     @Override
-    public String performAction(final ILIASSoapWebservicePortType endpoint, final UserDataIds userDataIds,
+    public void performAction(final ILIASSoapWebservicePortType endpoint, final UserDataIds userDataIds,
                                 final List<IliasNode> nodes) {
         LOG.info("Removing uploaded materials from groups");
         if(confirm()) {
@@ -59,8 +59,6 @@ public class RemoveUploadedMaterialsAction implements ChangeAction {
                 LOG.error("Error creating xml parser: " + e.getMessage());
             }
         }
-
-        return "";
     }
 
     @Override

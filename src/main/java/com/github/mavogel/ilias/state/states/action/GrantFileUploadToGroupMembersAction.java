@@ -46,7 +46,7 @@ public class GrantFileUploadToGroupMembersAction implements ChangeAction {
     private static Logger LOG = Logger.getLogger(GrantFileUploadToGroupMembersAction.class);
 
     @Override
-    public String performAction(final ILIASSoapWebservicePortType endpoint, final UserDataIds userDataIds, final List<IliasNode> nodes) {
+    public void performAction(final ILIASSoapWebservicePortType endpoint, final UserDataIds userDataIds, final List<IliasNode> nodes) {
         LOG.info("Grant file upload to group members");
         if (confirm()) {
             final String sid = userDataIds.getSid();
@@ -56,8 +56,6 @@ public class GrantFileUploadToGroupMembersAction implements ChangeAction {
                 LOG.error("Error creating xml parser: " + e.getMessage());
             }
         }
-
-        return "";
     }
 
     @Override

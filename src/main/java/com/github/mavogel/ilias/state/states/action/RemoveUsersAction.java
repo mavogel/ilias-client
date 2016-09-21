@@ -47,7 +47,7 @@ public class RemoveUsersAction implements ChangeAction {
     private static Logger LOG = Logger.getLogger(RemoveUsersAction.class);
 
     @Override
-    public String performAction(final ILIASSoapWebservicePortType endpoint, final UserDataIds userDataIds,
+    public void performAction(final ILIASSoapWebservicePortType endpoint, final UserDataIds userDataIds,
                                 final List<IliasNode> nodes) {
         LOG.info("Removing users from groups");
         if(confirm()) {
@@ -58,8 +58,6 @@ public class RemoveUsersAction implements ChangeAction {
                 LOG.error("Error creating xml parser: " + e.getMessage());
             }
         }
-
-        return "";
     }
 
     @Override
