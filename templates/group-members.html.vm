@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>$title</title>
+</head>
+<body>
+<table>
+    #foreach( $mpg in $membersPerGroup )
+        #set($groupNode = $mpg.getGroupNode())
+        #set($members = $mpg.getGroupMembers())
+        <thead><tr><td>$groupNode.getTitle()</td>
+        #foreach( $col in $columnsCount )
+            <td>Exercise ${col}</td>
+        #end
+        </tr></thead>
+        #foreach( $member in $members )
+            <tr>
+            <td>$member.getLastName() $member.getFirstName()</td>
+            #foreach( $col in $columnsCount )
+                <td></td>
+            #end
+            </tr>
+        #end
+    #end
+</table>
+</body>
+</html>
