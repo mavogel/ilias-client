@@ -57,6 +57,14 @@ public class GroupUserModelFull {
         this.groupMembers.add(groupMemberToAdd);
     }
 
+    public IliasNode getGroupNode() {
+        return groupNode;
+    }
+
+    public List<IliasUser> getGroupMembers() {
+        return groupMembers;
+    }
+
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("Group '");

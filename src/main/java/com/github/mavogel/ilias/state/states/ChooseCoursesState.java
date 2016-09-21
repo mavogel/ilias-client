@@ -92,6 +92,7 @@ public class ChooseCoursesState extends ToolState {
                 .mapToObj(i -> nodeChoices.get(i).asDisplayString(" --> [" + i + "] "))
                 .forEach(System.out::println);
 
+        // TODO only single nodes due to printing
         List<Integer> indexesOfChosenNodes = IOUtils.readAndParseChoicesFromUser(nodeChoices);
         List<IliasNode> choseIliasNodes = indexesOfChosenNodes.stream()
                 .map(idx -> nodeChoices.get(idx))

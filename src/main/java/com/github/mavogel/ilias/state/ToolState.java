@@ -108,7 +108,7 @@ public abstract class ToolState {
      * Returns a string for displaying the information of the state
      * on the command line.
      *
-     * @param prefix an optional prefix
+     * @param prefix an optional header
      * @return the string
      */
     public String asDisplayString(final String prefix) {

@@ -28,7 +28,6 @@ package com.github.mavogel.ilias.utils;
 import com.github.mavogel.client.ILIASSoapWebserviceLocator;
 import com.github.mavogel.client.ILIASSoapWebservicePortType;
 import com.github.mavogel.ilias.model.*;
-import com.sun.xml.internal.ws.api.streaming.XMLStreamReaderFactory;
 import org.apache.log4j.Logger;
 import org.jdom.JDOMException;
 

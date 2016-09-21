@@ -1,4 +1,6 @@
-package com.github.mavogel.ilias.state.states.action;/*
+package com.github.mavogel.ilias.state.states.action;
+
+/*
  *  The MIT License (MIT)
  *
  *  Copyright (c) 2016 Manuel Vogel
@@ -28,47 +30,97 @@ import com.github.mavogel.client.ILIASSoapWebservicePortType;
 import com.github.mavogel.ilias.model.GroupUserModelFull;
 import com.github.mavogel.ilias.model.IliasNode;
 import com.github.mavogel.ilias.model.UserDataIds;
-import com.github.mavogel.ilias.printer.LatexOutputPrinter;
-import com.github.mavogel.ilias.printer.OutputPrinter;
+import com.github.mavogel.ilias.printer.VelocityOutputPrinter;
 import com.github.mavogel.ilias.state.ChangeAction;
 import com.github.mavogel.ilias.utils.IOUtils;
 import com.github.mavogel.ilias.utils.IliasUtils;
 import org.apache.log4j.Logger;
 import org.jdom.JDOMException;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * Represents the action for retrieving all groups with its users and stores the in
  * a Latex file. It's kept simple atm.
- *
+ * <p>
  * Created by mavogel on 9/20/16.
  */
 public class PrintGroupMembersAction implements ChangeAction {
 
-    private static Logger LOG = Logger.getLogger(GrantFileUploadToGroupMembersAction.class);
+    private static Logger LOG = Logger.getLogger(PrintGroupMembersAction.class);
+
+    public enum ContextKeys {
+        TITLE("title"),
+        MEMBERS_PER_GROUP("membersPerGroup"),
+        COLUMS_ORDER("columnsOrder"),
+        COLUMS_COUNT("columnsCount");
+
+        private final String velocityKey;
+
+        ContextKeys(final String velocityKey) {
+            this.velocityKey = velocityKey;
+        }
+
+        public String getVelocityKey() {
+            return velocityKey;
+        }
+    }
 
     @Override
     public String performAction(final ILIASSoapWebservicePortType endpoint, final UserDataIds userDataIds, final List<IliasNode> nodes) {
         LOG.info("Print group members");
-        confirm();
+        if (confirm()) {
+            final String sid = userDataIds.getSid();
+            try {
+                List<GroupUserModelFull> membersPerGroup = IliasUtils.getUsersForGroups(endpoint, sid, nodes);
+                IntStream.range(0, VelocityOutputPrinter.OutputType.values().length)
+                        .mapToObj(i -> VelocityOutputPrinter.OutputType.getAtIndex(i).asDisplayString(" --> [" + i + "] "))
+                        .forEach(LOG::info);
+                List<Integer> outputChoicesIdx = IOUtils.readAndParseChoicesFromUser(Arrays.stream(VelocityOutputPrinter.OutputType.values()).collect(Collectors.toList()));
 
-        final String sid = userDataIds.getSid();
-        try {
-            List<GroupUserModelFull> membersPerGroup = IliasUtils.getUsersForGroups(endpoint, sid, nodes);
-//            new LatexOutputPrinter(membersPerGroup).print(new BufferedOutputStream(new FileOutputStream("name.tex")));
-        } catch (IOException | JDOMException e) {
-            LOG.error("Error creating xml parser: " + e.getMessage());
+                HashMap<String, Object> contextMap = new HashMap<>();
+                for (Integer idxChoice : outputChoicesIdx) {
+                    VelocityOutputPrinter.OutputType outputType = VelocityOutputPrinter.OutputType.getAtIndex(idxChoice);
+                    LOG.info("Path to template for '" + outputType + "':");
+                    String templatePath = IOUtils.readLine();
+
+                    contextMap.put(ContextKeys.TITLE.getVelocityKey(), "Title"); // TODO -> course
+                    contextMap.put(ContextKeys.MEMBERS_PER_GROUP.getVelocityKey(), membersPerGroup);
+                    contextMap.put(ContextKeys.COLUMS_ORDER.getVelocityKey(), "| c | p{2.5cm} | p{2.5cm} | p{2.5cm} | p{2.5cm} | p{2.5cm} |");
+                    contextMap.put(ContextKeys.COLUMS_COUNT.getVelocityKey(), Arrays.asList("1", "2", "3", "4", "5"));
+
+                    boolean isTemplateWritten = false;
+                    while (!isTemplateWritten) {
+                        try {
+                            VelocityOutputPrinter.print(outputType, templatePath, contextMap); // TODO interface
+                            isTemplateWritten = true;
+                            LOG.info(outputType + " output successfully written!");
+                        } catch (Exception e) {
+                            outputType = VelocityOutputPrinter.OutputType.getAtIndex(idxChoice);
+                            LOG.info("Path to template for '" + outputType + "':");
+                            templatePath = IOUtils.readLine();
+                        }
+                    }
+
+                    contextMap.clear();
+                }
+            } catch (IOException | JDOMException e) {
+                LOG.error("Error creating xml parser: " + e.getMessage());
+            }
+
+            return "";
         }
+
         return "";
     }
 
     @Override
     public boolean confirm() {
-        return true;
+       return true;
     }
 }

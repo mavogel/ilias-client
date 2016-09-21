@@ -40,7 +40,7 @@ import java.util.List;
 
 /**
  * Represents the action for setting a new registration period.
- *
+ * <p>
  * Created by mavogel on 9/9/16.
  */
 public class SetRegistrationPeriodAction implements ChangeAction {
@@ -52,14 +52,14 @@ public class SetRegistrationPeriodAction implements ChangeAction {
                                 final List<IliasNode> nodes) {
         LOG.info("Setting registration date");
         RegistrationPeriod registrationPeriod = IOUtils.readAndParseRegistrationDates();
-        confirm();
-
-        final String sid = userDataIds.getSid();
-        try {
-            IliasUtils.setRegistrationDatesOnGroups(endpoint, sid, nodes,
-                    registrationPeriod.getRegistrationStart(), registrationPeriod.getRegistrationEnd());
-        } catch (IOException | JDOMException e) {
-            LOG.error("Error creating xml parser: " + e.getMessage());
+        if (confirm()) {
+            final String sid = userDataIds.getSid();
+            try {
+                IliasUtils.setRegistrationDatesOnGroups(endpoint, sid, nodes,
+                        registrationPeriod.getRegistrationStart(), registrationPeriod.getRegistrationEnd());
+            } catch (IOException | JDOMException e) {
+                LOG.error("Error creating xml parser: " + e.getMessage());
+            }
         }
         return "";
     }

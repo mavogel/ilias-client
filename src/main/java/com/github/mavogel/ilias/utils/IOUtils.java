@@ -43,7 +43,7 @@ import java.util.stream.Stream;
 
 /**
  * Util class for operations of reading, parsing and validating user input.
- *
+ * <p>
  * Created by mavogel on 9/7/16.
  */
 public class IOUtils {
@@ -80,12 +80,13 @@ public class IOUtils {
                 List<String> trimmedSplit = Arrays.stream(line.split(","))
                         .map(StringUtils::deleteWhitespace)
                         .collect(Collectors.toList());
-                
+
                 // == step 2: checks for invalids
                 Optional<String> invalidChoice = trimmedSplit.stream()
                         .filter(s -> !digit.matcher(s).matches() && !range.matcher(s).matches())
                         .findAny();
-                if (invalidChoice.isPresent()) throw new IllegalArgumentException("Contains invalid indexes and/or ranges or an invalid wildcard!");
+                if (invalidChoice.isPresent())
+                    throw new IllegalArgumentException("Contains invalid indexes and/or ranges or an invalid wildcard!");
 
                 // == step 3: parse digits
                 digitsInput = trimmedSplit.stream()
@@ -264,5 +265,14 @@ public class IOUtils {
         }
 
         return choice;
+    }
+
+    /**
+     * Just reads the next line from System in and deleting whitespaces.
+     *
+     * @return the line
+     */
+    public static String readLine() {
+        return StringUtils.deleteWhitespace(new Scanner(System.in).nextLine());
     }
 }

@@ -1,0 +1,30 @@
+\documentclass[11pt, a4paper, oneside]{proc}
+\title{$title}
+\begin{document}
+\maketitle
+%
+\begin{table}[htp]
+\begin{center}
+\begin{tabular}{$columnsOrder}
+\hline
+#foreach( $mpg in $membersPerGroup )
+    #set($groupNode = $mpg.getGroupNode())
+    #set($members = $mpg.getGroupMembers())
+    \textbf{$groupNode.getTitle()}
+    #foreach( $col in $columnsCount )
+    & Exercise ${col}
+    #end
+    \\ \hline
+    #foreach( $member in $members )
+        $member.getLastName() $member.getFirstName()
+        #foreach( $col in $columnsCount )
+        &
+        #end
+        \\ \hline
+    #end
+#end
+\end{tabular}
+\end{center}
+\end{table}
+%
+\end{document}

@@ -60,7 +60,7 @@ public interface ChangeAction {
     /**
      * The name of the action
      *
-     * @param prefix an optional prefix
+     * @param prefix an optional header
      * @return its name
      */
     default String actionName(final String prefix) {

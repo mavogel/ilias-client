@@ -25,3 +25,6 @@ out/
 *.properties
 out.xml
 pom.xml.releaseBackup
+*.log
+*.tex
+*.html

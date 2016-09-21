@@ -4,7 +4,7 @@
 
     <groupId>com.github.mavogel</groupId>
     <artifactId>ilias-client</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.1.0-SNAPSHOT</version>
     <name>The Ilias cmd Client</name>
     <url>https://github.com/mavogel/ilias-client</url>
 
@@ -111,6 +111,13 @@
             <groupId>jdom</groupId>
             <artifactId>jdom</artifactId>
             <version>1.1</version>
+        </dependency>
+
+        <!-- Templating -->
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity</artifactId>
+            <version>1.7</version>
         </dependency>
 
         <!-- Testing -->

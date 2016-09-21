@@ -17,9 +17,10 @@ New:
 * Added a feature to write the users of groups in a compileable latex file 
 
 Bugfixes:
+* Fixed confirm bug. Negative confirmation is now considered in choice. 
 
 Improvements:
-* Added a connector for testing purposes to print the returning xmls from the ws endpoint
+* Added a connector for testing purposes to print the returning XML strings from the ws endpoint
 
 
 **Version 1.0.0 (15-Sept-2016)**

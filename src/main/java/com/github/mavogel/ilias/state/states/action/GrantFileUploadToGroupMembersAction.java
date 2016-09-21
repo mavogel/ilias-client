@@ -38,7 +38,7 @@ import java.util.List;
 
 /**
  * Represents the action for granting the group member the permission to uplaod files.
- *
+ * <p>
  * Created by mavogel on 9/20/16.
  */
 public class GrantFileUploadToGroupMembersAction implements ChangeAction {
@@ -48,14 +48,15 @@ public class GrantFileUploadToGroupMembersAction implements ChangeAction {
     @Override
     public String performAction(final ILIASSoapWebservicePortType endpoint, final UserDataIds userDataIds, final List<IliasNode> nodes) {
         LOG.info("Grant file upload to group members");
-        confirm();
-
-        final String sid = userDataIds.getSid();
-        try {
-            IliasUtils.grantFileUploadPermissionForMembers(endpoint, sid, nodes);
-        } catch (IOException | JDOMException e) {
-            LOG.error("Error creating xml parser: " + e.getMessage());
+        if (confirm()) {
+            final String sid = userDataIds.getSid();
+            try {
+                IliasUtils.grantFileUploadPermissionForMembers(endpoint, sid, nodes);
+            } catch (IOException | JDOMException e) {
+                LOG.error("Error creating xml parser: " + e.getMessage());
+            }
         }
+
         return "";
     }
 

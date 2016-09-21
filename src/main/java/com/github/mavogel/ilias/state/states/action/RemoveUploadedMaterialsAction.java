@@ -50,15 +50,16 @@ public class RemoveUploadedMaterialsAction implements ChangeAction {
     public String performAction(final ILIASSoapWebservicePortType endpoint, final UserDataIds userDataIds,
                                 final List<IliasNode> nodes) {
         LOG.info("Removing uploaded materials from groups");
-        confirm();
-
-        final String sid = userDataIds.getSid();
-        final int userId = userDataIds.getUserId();
-        try {
-            IliasUtils.deleteObjects(endpoint, sid, IliasUtils.retrieveFileRefIdsFromGroups(endpoint, sid, userId, nodes));
-        } catch (IOException | JDOMException e) {
-            LOG.error("Error creating xml parser: " + e.getMessage());
+        if(confirm()) {
+            final String sid = userDataIds.getSid();
+            final int userId = userDataIds.getUserId();
+            try {
+                IliasUtils.deleteObjects(endpoint, sid, IliasUtils.retrieveFileRefIdsFromGroups(endpoint, sid, userId, nodes));
+            } catch (IOException | JDOMException e) {
+                LOG.error("Error creating xml parser: " + e.getMessage());
+            }
         }
+
         return "";
     }
 
