@@ -434,7 +434,9 @@ public class IliasUtils {
      */
     public static List<GroupUserModelFull> getUsersForGroups(final ILIASSoapWebservicePortType endpoint, final String sid, final List<IliasNode> groupNodes) throws JDOMException, IOException {
         List<GroupUserModelFull> groupUserModels = new ArrayList<>();
+        LOG.info("-- Collecting users for groups. Be patient...");
         for (IliasNode groupNode : groupNodes) {
+            LOG.info("--- Processing '" + groupNode.getTitle() + "'");
             String localRolesForGroupXML = endpoint.getLocalRoles(sid, groupNode.getRefId());
 
             int roleId = XMLUtils.parseGroupMemberRoleId(localRolesForGroupXML);

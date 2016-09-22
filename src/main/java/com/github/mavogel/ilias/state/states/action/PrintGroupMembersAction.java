@@ -90,10 +90,17 @@ public class PrintGroupMembersAction implements ChangeAction {
                     LOG.info("Path to template for '" + outputType + "':");
                     String templatePath = IOUtils.readLine();
 
-                    contextMap.put(ContextKeys.TITLE.getVelocityKey(), "Title"); // TODO -> course
-                    contextMap.put(ContextKeys.MEMBERS_PER_GROUP.getVelocityKey(), membersPerGroup);
-                    contextMap.put(ContextKeys.COLUMS_ORDER.getVelocityKey(), "| c | p{2.5cm} | p{2.5cm} | p{2.5cm} | p{2.5cm} | p{2.5cm} |");
-                    contextMap.put(ContextKeys.COLUMS_COUNT.getVelocityKey(), Arrays.asList("1", "2", "3", "4", "5"));
+                    switch (outputType) {
+                        case LATEX:
+                            contextMap.put(ContextKeys.COLUMS_ORDER.getVelocityKey(), "| c | p{2.5cm} | p{2.5cm} | p{2.5cm} | p{2.5cm} | p{2.5cm} |");
+                        case HTML:
+                            contextMap.put(ContextKeys.TITLE.getVelocityKey(), "Title"); // TODO -> course
+                            contextMap.put(ContextKeys.MEMBERS_PER_GROUP.getVelocityKey(), membersPerGroup);
+                            contextMap.put(ContextKeys.COLUMS_COUNT.getVelocityKey(), Arrays.asList("1", "2", "3", "4", "5"));
+                            break;
+                        default:
+                            throw new RuntimeException("output type '" + outputType + "' not yet implemented for filling context map!");
+                    }
 
                     boolean isTemplateWritten = false;
                     while (!isTemplateWritten) {
@@ -118,6 +125,6 @@ public class PrintGroupMembersAction implements ChangeAction {
 
     @Override
     public boolean confirm() {
-       return true;
+        return true;
     }
 }
