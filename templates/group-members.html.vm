@@ -32,21 +32,23 @@
     #foreach( $mpg in $membersPerGroup )
         #set($groupNode = $mpg.getGroupNode())
         #set($members = $mpg.getGroupMembers())
-        <thead><tr><th>$groupNode.getTitle()</th>
-        #foreach( $col in $columnsCount )
-            <th>Exercise ${col}</th>
-        #end
-        </tr></thead>
-        <tbody>
-        #foreach( $member in $members )
-            <tr>
-            <td>$member.getLastName() $member.getFirstName()</td>
+        #if ( !$members.isEmpty() )
+            <thead><tr><th>$groupNode.getTitle()</th>
             #foreach( $col in $columnsCount )
-                <td></td>
+                <th>Exercise ${col}</th>
             #end
-            </tr>
+            </tr></thead>
+            <tbody>
+            #foreach( $member in $members )
+                <tr>
+                <td>$member.getLastName() $member.getFirstName()</td>
+                #foreach( $col in $columnsCount )
+                    <td></td>
+                #end
+                </tr>
+            #end
+            </tbody>
         #end
-        </tbody>
     #end
 </table>
 </body>

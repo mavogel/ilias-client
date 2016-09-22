@@ -10,17 +10,19 @@
 #foreach( $mpg in $membersPerGroup )
     #set($groupNode = $mpg.getGroupNode())
     #set($members = $mpg.getGroupMembers())
-    \textbf{$groupNode.getTitle()}
-    #foreach( $col in $columnsCount )
-    & Exercise ${col}
-    #end
-    \\ \hline
-    #foreach( $member in $members )
-        $member.getLastName() $member.getFirstName()
+    #if ( !$members.isEmpty() )
+        \textbf{$groupNode.getTitle()}
         #foreach( $col in $columnsCount )
-        &
+        & Exercise ${col}
         #end
         \\ \hline
+        #foreach( $member in $members )
+            $member.getLastName() $member.getFirstName()
+            #foreach( $col in $columnsCount )
+            &
+            #end
+            \\ \hline
+        #end
     #end
 #end
 \end{tabular}
