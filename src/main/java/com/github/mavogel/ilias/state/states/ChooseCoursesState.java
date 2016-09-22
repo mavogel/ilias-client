@@ -38,6 +38,7 @@ import org.jdom.JDOMException;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -45,7 +46,7 @@ import java.util.stream.IntStream;
 
 /**
  * The state for choosing courses.
- *
+ * <p>
  * Created by mavogel on 9/7/16.
  */
 public class ChooseCoursesState extends ToolState {
@@ -56,7 +57,7 @@ public class ChooseCoursesState extends ToolState {
      * Creates the choose courses state.
      *
      * @param stateMachine the state machine
-     * @param successors its successors
+     * @param successors   its successors
      */
     public ChooseCoursesState(final ToolStateMachine stateMachine, final ToolState... successors) {
         super(stateMachine);
@@ -95,8 +96,12 @@ public class ChooseCoursesState extends ToolState {
                 .forEach(LOG::info);
         LOG.info(Defaults.GET_CHOICE_AROUND());
 
-        // TODO only single nodes due to printing or change context keys
-        List<Integer> indexesOfChosenNodes = IOUtils.readAndParseChoicesFromUser(nodeChoices);
+        // TODO only single nodes atm due to printing or change context keys
+        // IOUtils.readAndParseChoicesFromUser(nodeChoices);
+        int singleChoice = IOUtils.readAndParseSingleChoiceFromUser(nodeChoices);
+        List<Integer> indexesOfChosenNodes = new ArrayList<>();
+        indexesOfChosenNodes.add(singleChoice);
+
         List<IliasNode> choseIliasNodes = indexesOfChosenNodes.stream()
                 .map(idx -> nodeChoices.get(idx))
                 .collect(Collectors.toList());

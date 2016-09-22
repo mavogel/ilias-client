@@ -9,6 +9,7 @@ Features:
 Bugfixes:
 
 Improvements:
+* Using jline for cmd line autocomplete
 
 **Version 1.1.0 (22-Sept-2016)**
 
