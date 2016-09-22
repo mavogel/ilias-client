@@ -3,17 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <title>$title</title>
+    <style>
+        body {
+            font-family: Menlo;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th {
+            width: 120px;
+            text-align: center;
+            padding: 15px;
+            background-color: #209cff;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        td {
+            padding: 10px;
+        }
+    </style>
 </head>
 <body>
+<h1>$title</h1>
 <table>
     #foreach( $mpg in $membersPerGroup )
         #set($groupNode = $mpg.getGroupNode())
         #set($members = $mpg.getGroupMembers())
-        <thead><tr><td>$groupNode.getTitle()</td>
+        <thead><tr><th>$groupNode.getTitle()</th>
         #foreach( $col in $columnsCount )
-            <td>Exercise ${col}</td>
+            <th>Exercise ${col}</th>
         #end
         </tr></thead>
+        <tbody>
         #foreach( $member in $members )
             <tr>
             <td>$member.getLastName() $member.getFirstName()</td>
@@ -22,6 +46,7 @@
             #end
             </tr>
         #end
+        </tbody>
     #end
 </table>
 </body>

@@ -81,6 +81,6 @@ public final class Defaults {
      * @return the visual surrounding of the choices
      */
     public static String GET_CHOICE_AROUND() {
-        return "###################################";
+        return "#################################################";
     }
 }
