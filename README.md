@@ -31,12 +31,13 @@ This is achieved by the following steps:
 Usage
 =====
 ```bash
-$ git clone https://github.com/mavogel/ilias-client.git && cd ilias-client
+# get latest tag: https://github.com/mavogel/ilias-client/tags
+$ cd ilias-client-x.x.x
 $ mvn clean package
 $ cp config.properties.template config.properties
 $ # adapt your settings 
 $ vi config.properties
-$ java -jar ilias-client-1.0.0.jar config.properties
+$ java -jar ilias-client-x.x.x.jar config.properties
 ```
 
 Important notes
