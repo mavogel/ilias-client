@@ -1,15 +1,15 @@
 Release Notes
 =============
 
-**Version 1.2.0 (xx-Sept-2016)**
+**Version 1.1.1 (xx-Oct-2016)**
 
 Features:
-* Added a change detector to verify the expected structure of the result XMLs
 
 Bugfixes:
+* ByteStream errors on Windows
 
 Improvements:
-* Using jline for cmd line autocomplete
+* Html template enhanced with bootstrap
 
 **Version 1.1.0 (22-Sept-2016)**
 
