@@ -25,6 +25,7 @@ package com.github.mavogel.ilias.printer;/*
  */
 
 import com.github.mavogel.ilias.utils.Defaults;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
@@ -156,7 +157,7 @@ public class VelocityOutputPrinter {
         } else {
             fileName = templateName.substring(lastIndexOf + 1).replace(outputType.getTemplateExtension(), "") + outputType.getFileExtension();
         }
-        String datedFileName = Defaults.DATE_FORMAT.format(ZonedDateTime.now()) + "_" + fileName;
+        String datedFileName = StringUtils.remove(Defaults.DATE_FORMAT.format(ZonedDateTime.now()) + "_" + fileName, ':'); //  TODO check
 
         LOG.info("Writing to file '" + datedFileName + "'");
         return new FileWriter(datedFileName);

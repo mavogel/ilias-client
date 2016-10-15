@@ -1,13 +1,16 @@
 Release Notes
 =============
 
-**Version 1.1.1 (15-Oct-2016)**
+**Version 1.1.1 (xx-Oct-2016)**
 
 Features:
 
 Bugfixes:
 * ByteStream errors on Windows
 * Fixed ignored of property files.
+* Template output filename was not correct for Windows
+* Template output is now UTF-8 TODO
+* Use default value for property maxFolderDepth if given but empty TODO
 
 Improvements:
 * Html template enhanced with bootstrap
