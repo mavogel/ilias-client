@@ -22,7 +22,7 @@ out/
 .DS_Store
 
 # Misc
-*.properties
+config.properties
 out.xml
 pom.xml.releaseBackup
 *.log

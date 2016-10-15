@@ -1,12 +1,13 @@
 Release Notes
 =============
 
-**Version 1.1.1 (xx-Oct-2016)**
+**Version 1.1.1 (15-Oct-2016)**
 
 Features:
 
 Bugfixes:
 * ByteStream errors on Windows
+* Fixed ignored of property files.
 
 Improvements:
 * Html template enhanced with bootstrap

@@ -27,19 +27,17 @@ package com.github.mavogel.ilias.utils;
 
 import com.github.mavogel.ilias.model.IliasNode;
 import com.github.mavogel.ilias.model.IliasUser;
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.log4j.Logger;
-import org.jdom.Content;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 import org.jdom.output.XMLOutputter;
 
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -159,7 +157,7 @@ public class XMLUtils {
         SAXBuilder builder = new SAXBuilder();
         Document doc;
         try {
-            doc = builder.build(new ByteArrayInputStream(xmlString.getBytes()));
+            doc = builder.build(new ByteArrayInputStream(xmlString.getBytes(Charset.forName("UTF-8"))));
         } catch (JDOMException e) {
             LOG.error("Could not parse XML: " + xmlString);
             throw e;
