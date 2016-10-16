@@ -4,7 +4,7 @@
 
     <groupId>com.github.mavogel</groupId>
     <artifactId>ilias-client</artifactId>
-    <version>1.1.1-SNAPSHOT</version>
+    <version>1.1.1</version>
     <name>The Ilias cmd Client</name>
     <url>https://github.com/mavogel/ilias-client</url>
 
@@ -43,7 +43,7 @@
         <connection>scm:git:https://github.com/mavogel/ilias-client.git</connection>
         <url>scm:git:https://github.com/mavogel/ilias-client.git</url>
         <developerConnection>scm:git:https://github.com/mavogel/ilias-client.git</developerConnection>
-      <tag>HEAD</tag>
+      <tag>ilias-client-1.1.1</tag>
   </scm>
 
     <dependencies>
