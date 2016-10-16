@@ -61,7 +61,7 @@ public final class Defaults {
     /**
      * The format of the date for prefixing the output template files.
      */
-    public static final DateTimeFormatter OUTFILE_DATE_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy-hhmmss");
+    public static final DateTimeFormatter OUTFILE_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd-hhmmss");
 
     /**
      * Denotes that all roles should be attached by default.
