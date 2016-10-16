@@ -55,15 +55,16 @@ public class VelocityOutputPrinter {
      * The possible output types.
      */
     public enum OutputType {
-        HTML(0, ".html.vm"),
-        LATEX(1, ".tex.vm");
-
-        private final String templateExtension;
+        HTML(0, ".html.vm", "templates" + System.getProperty("file.separator") + "group-members.html.vm"),
+        LATEX(1, ".tex.vm", "templates" + System.getProperty("file.separator") + "group-members.tex.vm");
         private final int index;
+        private final String templateExtension;
+        private final String defaultTemplateLocation;
 
-        OutputType(final int index, final String templateExtension) {
+        OutputType(final int index, final String templateExtension, final String defaultTemplateLocation) {
             this.templateExtension = templateExtension;
             this.index = index;
+            this.defaultTemplateLocation = defaultTemplateLocation;
         }
 
         public String getTemplateExtension() {
@@ -72,6 +73,10 @@ public class VelocityOutputPrinter {
 
         public String getFileExtension() {
             return templateExtension.replace(".vm", "");
+        }
+
+        public String getDefaultTemplateLocation() {
+            return defaultTemplateLocation;
         }
 
         /**
