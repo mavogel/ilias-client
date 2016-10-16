@@ -25,6 +25,7 @@ out/
 config.properties
 out.xml
 pom.xml.releaseBackup
+release.properties
 *.log
 *.tex
 *.html
