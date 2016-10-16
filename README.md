@@ -7,7 +7,7 @@ Ilias-client: A cmd client for the [ilias](http://ilias.de/) e-Learning platform
 
 A command line interface client for accessing (a small part of at the moment of) the [SOAP](https://en.wikipedia.org/wiki/SOAP) interface of the Ilias e-Learning platform.
 
-Requires JDK 1.8 or higher and Maven.
+Requires [jdk8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) or higher and [maven](https://maven.apache.org/).
 
 Purpose
 =======
@@ -21,7 +21,7 @@ Implemented use cases
 2. Remove all uploaded material from all or only some groups in one or more courses.
 3. Sets or update a new registration period in all or only some groups in one or more courses.
 4. File upload permission can be set for the group members role.
-5. Groups with its members can be passed to Velocity template and printed. Two example templates are provided. 
+5. Groups with its members can be passed to Velocity template and printed. Two example templates are provided which are located in `templates`. 
 
 This is achieved by the following steps:
 - Creating the Webservice endpoint
@@ -52,14 +52,16 @@ Important notes
 Latest Release Notes
 ====================
 
-**Version 1.1.0 (22-Sept-2016)**
-
-Features:
-* Added a feature to grant file upload permission to group members
-* Added a feature to write the users of groups in a compileable latex and/or html file 
+**Version 1.1.1 (16-Oct-2016)**
 
 Bugfixes:
-* Fixed confirm bug. Negative confirmation is now considered in choice. 
+* ByteStream errors on Windows
+* Fixed ignore of property files.
+* Template output filename is now correct for Windows
+* Template output charset is now UTF-8
+* Default value for property maxFolderDepth is used if given but empty
+* Standard templates are now used if none is given
 
 Improvements:
-* Added a connector for testing purposes to print the returning XML strings from the ws endpoint
+* HTML template enhanced with bootstrap
+* Added title of course to output template file

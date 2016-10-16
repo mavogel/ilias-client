@@ -10,3 +10,4 @@ Improvements:
 * Make templates more customizeable from cmd line input (columns and name of columns)
 * Groups for a course should be cached
 * Shutdownhook is not trigged on Windows for CTRL+C
+* Add Travis CI
