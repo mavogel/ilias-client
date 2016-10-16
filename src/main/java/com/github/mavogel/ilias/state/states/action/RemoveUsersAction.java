@@ -29,6 +29,7 @@ import com.github.mavogel.client.ILIASSoapWebservicePortType;
 import com.github.mavogel.ilias.model.IliasNode;
 import com.github.mavogel.ilias.model.UserDataIds;
 import com.github.mavogel.ilias.state.ChangeAction;
+import com.github.mavogel.ilias.state.ToolStateMachine;
 import com.github.mavogel.ilias.utils.IOUtils;
 import com.github.mavogel.ilias.utils.IliasUtils;
 import org.apache.log4j.Logger;
@@ -36,6 +37,7 @@ import org.jdom.JDOMException;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Represents the action for removing/excluding the users of a group.
@@ -47,8 +49,8 @@ public class RemoveUsersAction implements ChangeAction {
     private static Logger LOG = Logger.getLogger(RemoveUsersAction.class);
 
     @Override
-    public void performAction(final ILIASSoapWebservicePortType endpoint, final UserDataIds userDataIds,
-                                final List<IliasNode> nodes) {
+    public void performAction(final ILIASSoapWebservicePortType endpoint, Map<ToolStateMachine.ContextKey, List<IliasNode>> context,
+                              final UserDataIds userDataIds, final List<IliasNode> nodes) {
         LOG.info("Removing users from groups");
         if(confirm()) {
             final String sid = userDataIds.getSid();

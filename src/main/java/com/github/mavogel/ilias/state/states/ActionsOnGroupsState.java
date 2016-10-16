@@ -43,12 +43,13 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
  * The state for actions on groups.
- *
+ * <p>
  * Created by mavogel on 9/7/16.
  */
 public class ActionsOnGroupsState extends ToolState {
@@ -70,7 +71,7 @@ public class ActionsOnGroupsState extends ToolState {
      * Creates the action on groups state.
      *
      * @param stateMachine the state machine
-     * @param successors its successors
+     * @param successors   its successors
      */
     public ActionsOnGroupsState(final ToolStateMachine stateMachine, final ToolState... successors) {
         super(stateMachine);
@@ -91,7 +92,7 @@ public class ActionsOnGroupsState extends ToolState {
 
         final List<IliasNode> courses = stateMachine.getContext().get(ToolStateMachine.ContextKey.COURSES);
         try {
-            return IliasUtils.retrieveGroupRefIdsFromCourses(endpoint, sid, userId, courses,maxFolderDepth);
+            return IliasUtils.retrieveGroupRefIdsFromCourses(endpoint, sid, userId, courses, maxFolderDepth);
         } catch (JDOMException | IOException e) {
             LOG.error("Error creating xml parser: " + e.getMessage());
             this.stateMachine.setState(stateMachine.getChooseCoursesState());
@@ -126,9 +127,10 @@ public class ActionsOnGroupsState extends ToolState {
     @Override
     protected void doExecute(final IliasAction nodesAndActions) {
         final ILIASSoapWebservicePortType endpoint = stateMachine.getEndPoint();
+        Map<ToolStateMachine.ContextKey, List<IliasNode>> context = stateMachine.getContext();
         UserDataIds userDataIds = stateMachine.getUserDataIds();
         List<IliasNode> nodes = nodesAndActions.getNodes();
 
-        nodesAndActions.getActions().stream().forEach(action -> action.performAction(endpoint, userDataIds, nodes));
+        nodesAndActions.getActions().stream().forEach(action -> action.performAction(endpoint, context, userDataIds, nodes));
     }
 }

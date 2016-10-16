@@ -32,6 +32,7 @@ import com.github.mavogel.ilias.model.IliasNode;
 import com.github.mavogel.ilias.model.UserDataIds;
 import com.github.mavogel.ilias.printer.VelocityOutputPrinter;
 import com.github.mavogel.ilias.state.ChangeAction;
+import com.github.mavogel.ilias.state.ToolStateMachine;
 import com.github.mavogel.ilias.utils.Defaults;
 import com.github.mavogel.ilias.utils.IOUtils;
 import com.github.mavogel.ilias.utils.IliasUtils;
@@ -42,6 +43,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -73,7 +75,8 @@ public class PrintGroupMembersAction implements ChangeAction {
     }
 
     @Override
-    public void performAction(final ILIASSoapWebservicePortType endpoint, final UserDataIds userDataIds, final List<IliasNode> nodes) {
+    public void performAction(final ILIASSoapWebservicePortType endpoint, Map<ToolStateMachine.ContextKey, List<IliasNode>> context,
+                              final UserDataIds userDataIds, final List<IliasNode> nodes) {
         LOG.info("Print group members");
         if (confirm()) {
             final String sid = userDataIds.getSid();
@@ -94,7 +97,7 @@ public class PrintGroupMembersAction implements ChangeAction {
                         case LATEX:
                             contextMap.put(ContextKeys.COLUMS_ORDER.getVelocityKey(), "| c | p{2.5cm} | p{2.5cm} | p{2.5cm} | p{2.5cm} | p{2.5cm} |");
                         case HTML:
-                            contextMap.put(ContextKeys.TITLE.getVelocityKey(), "Title"); // TODO -> course
+                            contextMap.put(ContextKeys.TITLE.getVelocityKey(), context.get(ToolStateMachine.ContextKey.COURSES).get(0).getTitle()); // TODO atm we only have one course in the context
                             contextMap.put(ContextKeys.MEMBERS_PER_GROUP.getVelocityKey(), membersPerGroup);
                             contextMap.put(ContextKeys.COLUMS_COUNT.getVelocityKey(), Arrays.asList("1", "2", "3", "4", "5"));
                             break;

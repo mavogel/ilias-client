@@ -13,7 +13,8 @@ Bugfixes:
 * Use default value for property maxFolderDepth if given but empty
 
 Improvements:
-* Html template enhanced with bootstrap
+* HTML template enhanced with bootstrap
+* Added title of course to output template file
 
 **Version 1.1.0 (22-Sept-2016)**
 

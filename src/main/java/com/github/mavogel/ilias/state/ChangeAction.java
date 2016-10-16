@@ -30,10 +30,11 @@ import com.github.mavogel.ilias.model.IliasNode;
 import com.github.mavogel.ilias.model.UserDataIds;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Interface to actions on nodes.
- *
+ * <p>
  * Created by mavogel on 9/7/16.
  */
 public interface ChangeAction {
@@ -42,11 +43,12 @@ public interface ChangeAction {
      * Performs the action of the state.
      *
      * @param endpoint    the endpoint of the Webservice
+     * @param context     the current context of the statemachine
      * @param userDataIds the ids of the users
      * @param nodes       the nodes to perform the action on
      */
-    void performAction(final ILIASSoapWebservicePortType endpoint, final UserDataIds userDataIds,
-                         final List<IliasNode> nodes);
+    void performAction(final ILIASSoapWebservicePortType endpoint, Map<ToolStateMachine.ContextKey, List<IliasNode>> context,
+                       final UserDataIds userDataIds, final List<IliasNode> nodes);
 
     /**
      * Prints and requests a confirmation from the user for the upcoming action.<br>
