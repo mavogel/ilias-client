@@ -159,7 +159,7 @@ public class VelocityOutputPrinter {
      */
     private static OutputStreamWriter createFileWriter(final OutputType outputType, final String templateName) throws IOException {
         final String fileName;
-        int lastIndexOf = templateName.lastIndexOf('/');
+        int lastIndexOf = templateName.lastIndexOf(System.getProperty("file.separator"));
         if (lastIndexOf == -1) {
             fileName = templateName.replace(outputType.getTemplateExtension(), "") + outputType.getFileExtension();
         } else {
