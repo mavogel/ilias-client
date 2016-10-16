@@ -34,10 +34,8 @@ import org.apache.velocity.exception.MethodInvocationException;
 import org.apache.velocity.exception.ParseErrorException;
 import org.apache.velocity.exception.ResourceNotFoundException;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
+import java.io.*;
+import java.nio.charset.Charset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -120,11 +118,12 @@ public class VelocityOutputPrinter {
         }
 
         Velocity.init();
+        Writer writer = null;
         try {
             final Template template = Velocity.getTemplate(templateName);
             final VelocityContext context = new VelocityContext();
             contextMap.forEach((k, v) -> context.put(k, v));
-            final Writer writer = new BufferedWriter(createFileWriter(outputType, templateName));
+            writer = new BufferedWriter(createFileWriter(outputType, templateName));
             template.merge(context, writer);
             writer.flush();
         } catch (ResourceNotFoundException rnfe) {
@@ -139,6 +138,8 @@ public class VelocityOutputPrinter {
         } catch (Exception e) {
             LOG.error("Error: " + e.getMessage());
             throw e;
+        } finally {
+            if (writer != null) writer.close();
         }
     }
 
@@ -148,10 +149,10 @@ public class VelocityOutputPrinter {
      *
      * @param outputType   the output type
      * @param templateName the name of the template
-     * @return the FileWriter
+     * @return the OutputStreamWriter
      * @throws IOException if the file could not be created.
      */
-    private static FileWriter createFileWriter(final OutputType outputType, final String templateName) throws IOException {
+    private static OutputStreamWriter createFileWriter(final OutputType outputType, final String templateName) throws IOException {
         final String fileName;
         int lastIndexOf = templateName.lastIndexOf('/');
         if (lastIndexOf == -1) {
@@ -162,6 +163,6 @@ public class VelocityOutputPrinter {
         String datedFileName = Defaults.OUTFILE_DATE_FORMAT.format(ZonedDateTime.now()) + "_" + fileName;
 
         LOG.info("Writing to file '" + datedFileName + "'");
-        return new FileWriter(datedFileName);
+        return new OutputStreamWriter(new FileOutputStream(datedFileName), Charset.forName("UTF-8"));
     }
 }

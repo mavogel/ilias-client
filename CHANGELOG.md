@@ -9,7 +9,7 @@ Bugfixes:
 * ByteStream errors on Windows
 * Fixed ignored of property files.
 * Template output filename was not correct for Windows
-* Template output is now UTF-8 TODO
+* Template output is now UTF-8
 * Use default value for property maxFolderDepth if given but empty TODO
 
 Improvements:
