@@ -52,6 +52,11 @@ Important notes
 Latest Release Notes
 ====================
 
+**Version 1.1.2 (16-Oct-2016)**
+
+Bugfixes:
+* Replaced platform dependend file separator in output file name creation
+
 **Version 1.1.1 (16-Oct-2016)**
 
 Bugfixes:
