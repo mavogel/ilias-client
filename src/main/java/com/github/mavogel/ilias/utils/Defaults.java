@@ -28,6 +28,7 @@ package com.github.mavogel.ilias.utils;
 import org.apache.log4j.Level;
 
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 /**
  * Default constants.
@@ -53,9 +54,14 @@ public final class Defaults {
     public static final String CHOICE_WILDCARD = "A";
 
     /**
-     * The format of the date in a user input
+     * The format of the date in a user input.
      */
     public static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+
+    /**
+     * The format of the date for prefixing the output template files.
+     */
+    public static final DateTimeFormatter OUTFILE_DATE_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy-hhmmss");
 
     /**
      * Denotes that all roles should be attached by default.

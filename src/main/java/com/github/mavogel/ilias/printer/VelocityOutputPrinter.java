@@ -39,7 +39,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -157,7 +159,7 @@ public class VelocityOutputPrinter {
         } else {
             fileName = templateName.substring(lastIndexOf + 1).replace(outputType.getTemplateExtension(), "") + outputType.getFileExtension();
         }
-        String datedFileName = StringUtils.remove(Defaults.DATE_FORMAT.format(ZonedDateTime.now()) + "_" + fileName, ':'); //  TODO check
+        String datedFileName = Defaults.OUTFILE_DATE_FORMAT.format(ZonedDateTime.now()) + "_" + fileName;
 
         LOG.info("Writing to file '" + datedFileName + "'");
         return new FileWriter(datedFileName);
