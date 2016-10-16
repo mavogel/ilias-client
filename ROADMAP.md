@@ -7,5 +7,6 @@ Features:
 Improvements:
 * Using jline for cmd line autocomplete
 * If user is not admin in any of his courses, display an explanation dialog how to fix it in Ilias.
-* Use std templates if none is given
+* Make templates more customizeable from cmd line input (columns and name of columns)
+* Groups for a course should be cached
 * Shutdownhook is not trigged on Windows for CTRL+C
