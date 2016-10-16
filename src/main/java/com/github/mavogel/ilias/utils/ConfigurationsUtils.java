@@ -70,7 +70,7 @@ public class ConfigurationsUtils {
             client = config.getString("login.client");
             username = config.getString("login.username");
             password = config.getString("login.password");
-            maxFolderDepth = config.getInt("maxFolderDepth", Defaults.MAX_FOLDER_DEPTH);
+            maxFolderDepth = config.getString("maxFolderDepth", String.valueOf(Defaults.MAX_FOLDER_DEPTH)).isEmpty() ? Defaults.MAX_FOLDER_DEPTH : Integer.valueOf(config.getString("maxFolderDepth", String.valueOf(Defaults.MAX_FOLDER_DEPTH)));
             logLevel= Level.toLevel(config.getString("log.level", Defaults.LOG_LEVEL.toString()), Defaults.LOG_LEVEL);
             if (password == null || password.isEmpty()) {
                 Console console = System.console();

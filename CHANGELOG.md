@@ -10,7 +10,7 @@ Bugfixes:
 * Fixed ignored of property files.
 * Template output filename was not correct for Windows
 * Template output is now UTF-8
-* Use default value for property maxFolderDepth if given but empty TODO
+* Use default value for property maxFolderDepth if given but empty
 
 Improvements:
 * Html template enhanced with bootstrap

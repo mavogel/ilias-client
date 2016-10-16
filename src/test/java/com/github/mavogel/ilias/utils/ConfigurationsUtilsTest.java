@@ -125,6 +125,23 @@ public class ConfigurationsUtilsTest {
         assertEquals(5, validLoginConfiguration.getMaxFolderDepth());
     }
 
+    @Test
+    public void shouldReadStdWithEmptyFolderDepthConfiguration() throws Exception {
+        // == prepare
+        String testFile = TEST_RES_DIR + "testConfigFolderDepthEmpty.properties";
+
+        // == go
+        LoginConfiguration validLoginConfiguration = ConfigurationsUtils.createLoginConfiguration(testFile);
+
+        // == verify
+        assertEquals(LoginConfiguration.LOGIN_MODE.STD, validLoginConfiguration.getLoginMode());
+        assertEquals("https://mycompany.com/webservice/soap/server.php", validLoginConfiguration.getEndpoint());
+        assertEquals("MY_CLIENT", validLoginConfiguration.getClient());
+        assertEquals("user", validLoginConfiguration.getUsername());
+        assertEquals("pass", validLoginConfiguration.getPassword());
+        assertEquals(5, validLoginConfiguration.getMaxFolderDepth());
+    }
+
     @Test(expected = RuntimeException.class)
     public void shouldFailDueToUnknownMode() throws Exception {
         // == prepare
