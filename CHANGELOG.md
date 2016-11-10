@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+**Version 1.1.3 (xx-Nov-2016)**
+
+Improvements:
+* Added travis for automated testing.
+
 **Version 1.1.2 (16-Oct-2016)**
 
 Bugfixes:
