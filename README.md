@@ -1,6 +1,5 @@
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
 [![Travis Build Status](https://travis-ci.org/mavogel/ilias-client.svg?branch=master)](https://travis-ci.org/mavogel/ilias-client)
-<!--[![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/64700ul3m9y88agi/branch/master?svg=true)](https://ci.appveyor.com/project/FibreFoX/javafx-maven-plugin/branch/master)-->
 
 Ilias-client: A cmd client for the [ilias](http://ilias.de/) e-Learning platform
 ================================================================================
@@ -13,7 +12,7 @@ Purpose
 =======
 The purpose was to automate recurring tasks, which can actually only be done by multiple clicks in the Ilias GUI. This takes a lot of time and lots of clicks.
    
-These automated task are described in the use cases section.
+These automated tasks are described in the use cases section.
 
 Implemented use cases
 =====================
