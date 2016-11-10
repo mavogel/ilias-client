@@ -1,0 +1,4 @@
+# travis runs implicitly 'mvn test' and 'mvn install' if it finds a 'pom.xml' in the root.
+# see https://docs.travis-ci.com/user/languages/java/
+language: java
+jdk: oraclejdk8
