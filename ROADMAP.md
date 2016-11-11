@@ -13,7 +13,8 @@ Roadmap
 ### SHOULD
 1. Add Travis CI for deploying to maven central.
   - Get [Sonatype](http://central.sonatype.org/pages/ossrh-guide.html) OSS account.
-  - Add the following [instructions](https://gist.github.com/letmaik/4060735) to the `.travis.yml`
+  - Add the following [instructions](https://gist.github.com/letmaik/4060735) to the `.travis.yml` 
+  and revise `util` from google guava (for gh docs).
   - Add maven central batch to README.
 2. Test the statemachine with integration tests.
 3. Using jline for cmd line autocomplete.
