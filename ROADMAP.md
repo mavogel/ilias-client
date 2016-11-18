@@ -21,3 +21,5 @@ Roadmap
 
 ### COULD
 1. shutdown-hook is not triggered on Windows for CTRL+C.
+2. Run Bulk calls to Ilias in parallel.
+3. Add `guice` DI library.
