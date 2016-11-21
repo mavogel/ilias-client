@@ -11,13 +11,9 @@ Roadmap
 3. Groups for a course should be cached.
 
 ### SHOULD
-1. Add Travis CI for deploying to maven central.
-  - Get [Sonatype](http://central.sonatype.org/pages/ossrh-guide.html) OSS account.
-  - Add the following [instructions](https://gist.github.com/letmaik/4060735) to the `.travis.yml` 
-  and revise `util` from google guava (for gh docs).
-  - Add maven central batch to README.
-2. Test the statemachine with integration tests.
-3. Using jline for cmd line autocomplete.
+1. Test the statemachine with integration tests.
+2. Using jline for cmd line autocomplete.
+3. Revise `util` from google guava (for gh docs).
 
 ### COULD
 1. shutdown-hook is not triggered on Windows for CTRL+C.

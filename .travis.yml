@@ -1,4 +1,10 @@
-# travis runs implicitly 'mvn test' and 'mvn install' if it finds a 'pom.xml' in the root.
-# see https://docs.travis-ci.com/user/languages/java/
 language: java
 jdk: oraclejdk8
+
+env:
+  global:
+  - secure: ZuUN3NT0PiardFrtjrmLcfy2Us1eu5CPRxMvSBXWJIcE4PG6wJFigscZ4xa3PGAc0Hx0HqueYY+w2gvRtEld8x/85eW+Xd4ZHf9l5Ju4LCCGe23XeMgzARgjmY52xTfPaV1B6kd/CMP9NKTD8Zas8TOe9VCvFUCY/T/kCMRK6WpEg8pgs9ae3fZacqboqNbU3cFSd+pTVUxW0s5Juxsj85f0N/U4tVyQM/YRpGSUFl2OeJ/2hJ7pttQ3u0EGGzoWcrAmTSafFGGQCywm7RSttB9kuaCMKDnrkUAcsIfsmLdRZj5jRVOnnyqGx8J3GETgFDomq208xBmwxbv2ayOpRmCB5uVNCstW+JuqwigrdiiJbWVB5i07fZu/ffjeCItujID3zdnGZqOwxvQr6a3S+lMhnU8bn9aab8lI06TsluCE1Bn6Cg+6KmIg3cebl20v5r8UXeAENNfmCtbkG7nEHoD1tnOl/vX/VTaf7NbVOlqa5jk+BH5Ao8f8l2xQy45HDTQOyf/TPnrWa679979+JVxbZXDEsL9+4CkAwytRcLIBsNLydMS0rLp1v+Q+j0vdxc6xMdEvBCI9YajvNHab1k4Dy/46LOsGvElMSvaZlpTW32v+yhq5s1X18wesrBi5oGPabgyxclKZ3kPt20Pwj1qwLjEa8jyUiF9GvwGUyik=
+  - secure: QVAUV5FklgvxVLYitwxNAQMV4U/0F3Gbj3aNvi59hN/5j2QtbXURl77KDHfaBOXIDyuU/gAiH3hEfLzjcpBMb/ACpnW3p1XsP9MzkjB4Kdbq24t/HLRZEPoQSSIwpkSp5E4t9Ztx1TNHvyjoaPCIWJ4rE7xBwXLrGb61Uiu3uXyPIbJ66OAdKCYXwEP58xNfN3uApiriTTQMhp8yzJPlbYocAEaWCNQWAFsv/SRh2q3t+qEjL4et4cuxW3NpxJdCGAl7N70pPvYmF7BRfPlzM/2GPARXXYHzQWbxnEMQ3kKd8vpUlVPKFefG03EYtqBm8igLbou9g2mz8bPn1ydoSA1IYfH7kWjI5T+CYE/jKTomppSDmixOwwB6m8B+immS2SjPnKn5VnanIafUUixugnEuhxVJ/1J6keVH5PHYpyg35g9wQ7iEdSf41w7tRLWLLEriXVp8WD4IRj3c0aogEoFxgxbjT6YECITMhuMk7YD0AFrmvGiQMONwexaN0ZY8svDq+7P9SDkmW7nHgN/iCPqinrDAphhqRQ86q/8v8UnVgS1F9Qs+vrsEBK5bXyChIlWQQEsBa767EMkwiBeFuoA0/EJ7bAoEWKmBpsESSsSek9kLi9xhM4RP08nCRiBNUpy/LxkgY4gRVzXg92EWUEBfAzTiZJaCgV7lbk5FZNo=
+
+after_success:
+  - "[[ $TRAVIS_BRANCH == \"master\" ]] && { mvn deploy --settings settings.xml -DskipTests=true -B };"
