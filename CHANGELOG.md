@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-**Version 1.1.3 (21-Nov-2016)**
+**Version 1.1.3 (22-Nov-2016)**
 
 Improvements:
 * Added travis for automated testing and deploying to maven central.
