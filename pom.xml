@@ -7,7 +7,7 @@
     <version>1.1.4-SNAPSHOT</version>
     <name>The Ilias cmd Client</name>
     <url>https://github.com/mavogel/ilias-client</url>
-    <description>A command line interface client for accessing (a small part atm of) the SOAP interface of the Ilias e-Learning platform.</description>
+    <description>A command line interface client for accessing (a small part atm only of) the SOAP interface of the Ilias e-Learning platform.</description>
 
     <developers>
         <developer>
