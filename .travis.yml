@@ -7,16 +7,15 @@ before_install:
   - echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import
   - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust
 deploy:
-  skip_cleanup: true
-  -
-    provider: script
+  - provider: script
     script: .travis/deploy.sh
+    skip_cleanup: true
     on:
       repo: mavogel/ilias-client
       branch: master
-  -
-    provider: script
+  - provider: script
     script: .travis/deploy.sh
+    skip_cleanup: true
     on:
       repo: mavogel/ilias-client
       tags: true
