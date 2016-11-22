@@ -11,7 +11,7 @@ deploy:
     provider: script
     script: .travis/deploy.sh
     on:
-      repo: mvogel/ilias-client
+      repo: mavogel/ilias-client
       branch: master
       jdk: oraclejdk8
   -
