@@ -15,6 +15,7 @@
             <id>mavogel</id>
             <name>Manuel Vogel</name>
             <email>mavogel@posteo.de</email>
+            <url>https://github.com/mavogel</url>
             <roles>
                 <role>owner</role>
                 <role>developer</role>
