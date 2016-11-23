@@ -14,7 +14,6 @@ Roadmap
 1. Test the statemachine with integration tests.
 2. Using jline for cmd line autocomplete.
 3. Revise `util` from google guava (for gh docs).
-4. Deploy releases to Maven central. See [guide](https://dracoblue.net/dev/uploading-snapshots-and-releases-to-maven-central-with-travis/)
 
 ### COULD
 1. shutdown-hook is not triggered on Windows for CTRL+C.

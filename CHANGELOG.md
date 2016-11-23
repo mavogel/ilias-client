@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+**Version 1.1.4 (23-Nov-2016)**
+
+Bugfixes:
+* Fixed releasing to maven central due to missing project description. 
+
 **Version 1.1.3 (22-Nov-2016)**
 
 Improvements:
