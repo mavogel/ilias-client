@@ -241,8 +241,8 @@ public class IOUtilsTest {
                 .thenReturn("2014-01-31T54:00:00")
                 .thenReturn("20140:00")
                 .thenReturn("2014-01-3114:00:00")
-                .thenReturn("2014-01-11T14:00:00") // start
-                .thenReturn("2013-12-23T16:00:00")
+                .thenReturn("  2014-01-11T14:00:00   ") // start
+                .thenReturn("2013-12-23T16:00:00  ")
                 .thenReturn("2014-01-22T16:00:00"); // end
 
         // == go

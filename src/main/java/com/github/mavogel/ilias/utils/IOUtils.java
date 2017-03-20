@@ -136,7 +136,7 @@ public class IOUtils {
         while (!isCorrectInput) {
             try {
                 LOG.info("A single choice only! (E.g.: 1)");
-                line = scanner.nextLine();
+                line = StringUtils.deleteWhitespace(scanner.nextLine());
                 userChoice = Integer.valueOf(line);
                 isCorrectInput = isInRange(choices, userChoice);
             } catch (NumberFormatException nfe) {
@@ -214,7 +214,7 @@ public class IOUtils {
         Scanner scanner = new Scanner(System.in);
         while (!validStart) {
             LOG.info("Registration start: ");
-            String line = scanner.nextLine();
+            String line = StringUtils.deleteWhitespace(scanner.nextLine());
             try {
                 registrationStart = LocalDateTime.parse(line, Defaults.DATE_FORMAT);
                 validStart = true;
