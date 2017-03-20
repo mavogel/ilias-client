@@ -3,7 +3,6 @@ Roadmap
 
 ## Features:
 * Change detector to verify the expected structure of the result XMLs.
-* Change max members allowed in a group.
 
 ## Improvements:
 ### MUST

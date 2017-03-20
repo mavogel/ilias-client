@@ -18,7 +18,8 @@ These automated tasks are described in the use cases section.
 ## Implemented use cases
 1. Remove all user from all or only some groups in one or more courses.
 2. Remove all uploaded material from all or only some groups in one or more courses.
-3. Sets or update a new registration period in all or only some groups in one or more courses.
+3. Sets or update a registration period in all or only some groups in one or more courses.
+3. Sets or update a maximum amount of members in all or only some groups in one or more courses.
 4. File upload permission can be set for the group members role.
 5. Groups with its members can be passed to Velocity template and printed. Two example templates are provided which are located in `templates`. 
 
