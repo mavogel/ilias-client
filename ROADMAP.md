@@ -10,6 +10,7 @@ Roadmap
 1. If user is not admin in any of his courses, display an explanation dialog how to fix it in Ilias.
 2. Make templates more customizable from cmd line input (columns and name of columns).
 3. Groups for a course should be cached.
+4. Handle whitespaces in user input.
 
 ### SHOULD
 1. shutdown-hook is not triggered on Windows for CTRL+C.

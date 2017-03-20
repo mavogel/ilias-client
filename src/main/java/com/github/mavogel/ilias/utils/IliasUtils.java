@@ -372,6 +372,30 @@ public class IliasUtils {
     }
 
     /**
+     * Sets the maximum number of members on all groups.
+     *
+     * @param endpoint        the {@link ILIASSoapWebservicePortType}
+     * @param sid             the sid of the user obtained at the login
+     * @param groupNodes      the groups to set the new dates
+     * @param maxGroupMembers the maximum amount to set
+     * @throws JDOMException if no document for the xml parser could be created
+     * @throws IOException   if no InputStream could be created from the xmlString
+     */
+    public static void setMaxMembersOnGroups(final ILIASSoapWebservicePortType endpoint, final String sid,
+                                             final List<IliasNode> groupNodes, final int maxGroupMembers) throws IOException, JDOMException {
+        for (IliasNode groupNode : groupNodes) {
+            String groupXml = endpoint.getGroup(sid, groupNode.getRefId());
+            String updatedGroupXml = XMLUtils.setMaxGroupMembers(groupXml, maxGroupMembers);
+            boolean isGroupUpdated = endpoint.updateGroup(sid, groupNode.getRefId(), updatedGroupXml);
+            if (isGroupUpdated) {
+                LOG.info("Updated group '" + groupNode.getRefId() + " - " + groupNode.getTitle() + "' with new max group members " + maxGroupMembers);
+            } else {
+                LOG.error("Failed to set max members on group '" + groupNode.getRefId() + " - " + groupNode.getTitle() + "'");
+            }
+        }
+    }
+
+    /**
      * Grants the file upload permission for members. Overrides the existing permission and sets the five permissions:
      * <ul>
      * <li>VISIBLE</li>

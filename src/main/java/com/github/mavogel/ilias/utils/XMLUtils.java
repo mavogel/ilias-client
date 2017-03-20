@@ -264,6 +264,34 @@ public class XMLUtils {
     }
 
     /**
+     * Sets the new maximum amount of member in the group xml, even if there
+     * was no maximum amount before, and returns the update xml.
+     *
+     * @param groupXml        the groupXml
+     * @param maxGroupMembers the new maximum members of the group
+     * @return the updated groupXml
+     * @throws JDOMException if no document for the xml parser could be created
+     * @throws IOException   if no InputStream could be created from the xmlString
+     */
+    public static String setMaxGroupMembers(final String groupXml, final int maxGroupMembers) throws JDOMException, IOException {
+        Document doc = createSaxDocFromString(groupXml);
+
+        Element rootElement = doc.getRootElement();
+        Element registration = rootElement.getChild("registration");
+        Element maxMembers = registration.getChild("maxMembers");
+        if (maxMembers != null) {
+            maxMembers.getAttribute("enabled").setValue("Yes");
+            maxMembers.setText(String.valueOf(maxGroupMembers));
+        } else {
+            Element addedMaxMembers = new Element("maxMembers")
+                    .setText(String.valueOf(maxGroupMembers))
+                    .setAttribute("enabled", "Yes");
+            registration.addContent(addedMaxMembers);
+        }
+        return new XMLOutputter().outputString(doc);
+    }
+
+    /**
      * Parses the group member role id from a given group xml.
      *
      * @param localRolesForGroupXML the local roles of a group xml

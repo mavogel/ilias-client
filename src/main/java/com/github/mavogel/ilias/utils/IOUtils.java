@@ -241,6 +241,33 @@ public class IOUtils {
     }
 
     /**
+     * Reads and parses a positive integer.
+     *
+     * @return the positive integer.
+     */
+    public static int readAndParsePositiveInteger() {
+        boolean isCorrectInput = false;
+        String line = null;
+        int positiveInteger = -1;
+
+        Scanner scanner = new Scanner(System.in);
+        while (!isCorrectInput) {
+            try {
+                LOG.info("Enter a positive integer:");
+                line = StringUtils.deleteWhitespace(scanner.nextLine());
+                positiveInteger = Integer.valueOf(line);
+                isCorrectInput = positiveInteger >= 0;
+            } catch (NumberFormatException nfe) {
+                LOG.error("'" + line + "' is not a positive integer! Try again");
+            } catch (IllegalArgumentException iae) {
+                LOG.error(iae.getMessage());
+            }
+        }
+
+        return positiveInteger;
+    }
+
+    /**
      * Reads and parses the confirmation of the user for an action.
      *
      * @return <code>true</code> if the user confirmed with Y for YES, <code>false</code> otherwise.

@@ -254,6 +254,38 @@ public class IOUtilsTest {
     }
 
     @Test
+    public void shouldParseValidPositiveInteger() throws Exception {
+        // == train
+        Scanner scanner = PowerMockito.mock(Scanner.class);
+        PowerMockito.whenNew(Scanner.class).withArguments(System.in).thenReturn(scanner);
+        PowerMockito.when(scanner.nextLine())
+                .thenReturn("   3 ");
+
+        // == go
+        int positiveInteger = IOUtils.readAndParsePositiveInteger();
+
+        // == verify
+        assertEquals(3, positiveInteger);
+    }
+
+    @Test
+    public void shouldParsePositiveIntegerSeveralTimes() throws Exception {
+        // == train
+        Scanner scanner = PowerMockito.mock(Scanner.class);
+        PowerMockito.whenNew(Scanner.class).withArguments(System.in).thenReturn(scanner);
+        PowerMockito.when(scanner.nextLine())
+                .thenReturn("   -3 ")
+                .thenReturn("   ab 4 ")
+                .thenReturn("   66 ");
+
+        // == go
+        int positiveInteger = IOUtils.readAndParsePositiveInteger();
+
+        // == verify
+        assertEquals(66, positiveInteger);
+    }
+
+    @Test
     public void shouldParseValidUserConfirmation() throws Exception {
         // == train
         Scanner scanner = PowerMockito.mock(Scanner.class);

@@ -283,6 +283,44 @@ public class XMLUtilsTest {
     }
 
     @Test
+    public void shouldSetNewMaxMembersOnGroup() throws IOException, JDOMException {
+        // == prepare
+        final String testFile = TEST_RES_DIR + "groupInfo.xml";
+        final String groupXml = Files.lines(Paths.get(testFile)).collect(Collectors.joining());
+        int maxGroupMembers = 5;
+
+        // == go
+        String updatedGroupXml = XMLUtils.setMaxGroupMembers(groupXml, maxGroupMembers);
+
+        // == verify
+        Document expectedDoc = createDocFromXml(updatedGroupXml);
+        Element rootElement = expectedDoc.getRootElement();
+        Element registration = rootElement.getChild("registration");
+
+        assertEquals(maxGroupMembers, Long.valueOf(registration.getChild("maxMembers").getText()).longValue());
+        assertEquals("Yes", registration.getChild("maxMembers").getAttribute("enabled").getValue());
+    }
+
+    @Test
+    public void shouldActivateAndSetNewMaxMembersOnGroup() throws IOException, JDOMException {
+        // == prepare
+        final String testFile = TEST_RES_DIR + "groupInfoWithoutMaxMembers.xml";
+        final String groupXml = Files.lines(Paths.get(testFile)).collect(Collectors.joining());
+        int maxGroupMembers = 7;
+
+        // == go
+        String updatedGroupXml = XMLUtils.setMaxGroupMembers(groupXml, maxGroupMembers);
+
+        // == verify
+        Document expectedDoc = createDocFromXml(updatedGroupXml);
+        Element rootElement = expectedDoc.getRootElement();
+        Element registration = rootElement.getChild("registration");
+
+        assertEquals(maxGroupMembers, Long.valueOf(registration.getChild("maxMembers").getText()).longValue());
+        assertEquals("Yes", registration.getChild("maxMembers").getAttribute("enabled").getValue());
+    }
+
+    @Test
     public void shouldParseMemberRoleIdFromGroupXml() throws IOException, JDOMException {
         // == prepare
         final String testFile = TEST_RES_DIR + "localRolesForGroup.xml";

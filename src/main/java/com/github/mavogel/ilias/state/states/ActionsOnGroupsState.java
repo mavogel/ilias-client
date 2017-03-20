@@ -63,6 +63,7 @@ public class ActionsOnGroupsState extends ToolState {
             new RemoveUploadedMaterialsAction(),
             new RemoveUsersAction(),
             new SetRegistrationPeriodAction(),
+            new SetMaxMembersAction(),
             new GrantFileUploadToGroupMembersAction(),
             new PrintGroupMembersAction()
     );
