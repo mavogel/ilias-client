@@ -1,6 +1,15 @@
 Release Notes
 =============
 
+**Version 1.1.6 (21-June-2017)**
+
+Bugfixes:
+* Fixed default template usage from classpath.
+
+Docs:
+* Made README easier to understand.
+* Update on ROADMAP.
+
 **Version 1.1.5 (20-Mar-2017)**
 
 Features: 

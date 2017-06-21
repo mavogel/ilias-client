@@ -9,11 +9,11 @@ Roadmap
 1. If user is not admin in any of his courses, display an explanation dialog how to fix it in Ilias.
 2. Make templates more customizable from cmd line input (columns and name of columns).
 3. Groups for a course should be cached.
-4. Handle whitespaces in user input.
+4. Repeating actions on groups (new transition)
 
 ### SHOULD
 1. shutdown-hook is not triggered on Windows for CTRL+C.
-2. Test the statemachine with integration tests.
+2. Test the statemachine with integration tests and add coverage report.
 3. Using jline for cmd line autocomplete.
 4. Check this [.travis.yml](https://github.com/OpenFeign/feign/blob/master/.travis.yml) for releasing.
 
@@ -23,3 +23,4 @@ Roadmap
 3. Revise `util` from google guava (for gh docs).
 4. Evaluate `feign` for HTTP client
 5. add checkstyle.xml
+6. Release it as a docker container.
