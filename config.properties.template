@@ -2,16 +2,16 @@
 # Usually: https://ilias.mycompany.com/webservice/soap/server.php
 endpoint=
 #
-# STD (for standard login), LDAP, CAS (currently unsupported)
+# STD (for standard login) or LDAP
 login.mode=
 #
-# Client id for login. As your administrator for the client_id
+# Client id for login. Ask your administrator for the client_id
 login.client=
 #
 # Name of the user you want to login
 login.username=
 #
-# If not given or empty it will be promted on cmd line
+# If not given or empty it will be prompted on cmd line
 login.password=
 #
 # The maximum depth to search in the tree starting from the root node
@@ -22,4 +22,3 @@ maxFolderDepth=
 # The logging level of the application. Default is INFO if not given or empty
 # Choose between: OFF, FATAL, ERROR, WARN, INFO, DEBUG, ALL
 log.level=
-

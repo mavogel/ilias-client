@@ -97,7 +97,6 @@ public class PrintGroupMembersAction implements ChangeAction {
                         case LATEX:
                             contextMap.put(ContextKeys.COLUMS_ORDER.getVelocityKey(), "| c | p{2.5cm} | p{2.5cm} | p{2.5cm} | p{2.5cm} | p{2.5cm} |");
                         case HTML:
-                            if (templatePath.isEmpty()) { templatePath = outputType.getDefaultTemplateLocation(); }
                             contextMap.put(ContextKeys.TITLE.getVelocityKey(), context.get(ToolStateMachine.ContextKey.COURSES).get(0).getTitle()); // TODO atm we only have one course in the context
                             contextMap.put(ContextKeys.MEMBERS_PER_GROUP.getVelocityKey(), membersPerGroup);
                             contextMap.put(ContextKeys.COLUMS_COUNT.getVelocityKey(), Arrays.asList("1", "2", "3", "4", "5"));

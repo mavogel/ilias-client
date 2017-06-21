@@ -30,9 +30,12 @@ import org.apache.log4j.Logger;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
+import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.exception.MethodInvocationException;
 import org.apache.velocity.exception.ParseErrorException;
 import org.apache.velocity.exception.ResourceNotFoundException;
+import org.apache.velocity.runtime.RuntimeConstants;
+import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 
 import java.io.*;
 import java.nio.charset.Charset;
@@ -111,17 +114,33 @@ public class VelocityOutputPrinter {
     /**
      * Prints the header, content and output to the given print stream.
      *
+     * @param outputType         the desired output type. @see {@link OutputType}
+     * @param templateName       the name of the template, if empty the default template from classpath will be used
+     * @param contextMap         the context for velocity
+     * @throws Exception in case of a error, so the caller can handle it
+     */
+    public static void print(final OutputType outputType, final String templateName, final Map<String, Object> contextMap) throws Exception {
+
+        if (templateName.trim().isEmpty()) {
+            printWithDefaultTemplate(outputType, contextMap);
+        } else {
+            if (!templateName.contains(outputType.getTemplateExtension())) {
+                LOG.error("Extension of output type '" + outputType.getTemplateExtension() + "' does not match with the templateExtension of the template.");
+                throw new Exception();
+            }
+            printWithCustomTemplate(outputType, templateName, contextMap);
+        }
+    }
+
+    /**
+     * Prints the header, content and output to the given print stream with a custom template.
+     *
      * @param outputType   the desired output type. @see {@link OutputType}
      * @param templateName the name of the template
      * @param contextMap   the context for velocity
      * @throws Exception in case of a error, so the caller can handle it
      */
-    public static void print(final OutputType outputType, final String templateName, final Map<String, Object> contextMap) throws Exception {
-        if (!templateName.contains(outputType.getTemplateExtension())) {
-            LOG.error("Extension of output type '" + outputType.getTemplateExtension() + "' does not match with the templateExtension of the template.");
-            throw new Exception();
-        }
-
+    private static void printWithCustomTemplate(final OutputType outputType, final String templateName, final Map<String, Object> contextMap) throws Exception {
         Velocity.init();
         Writer writer = null;
         try {
@@ -129,6 +148,7 @@ public class VelocityOutputPrinter {
             final VelocityContext context = new VelocityContext();
             contextMap.forEach((k, v) -> context.put(k, v));
             writer = new BufferedWriter(createFileWriter(outputType, templateName));
+
             template.merge(context, writer);
             writer.flush();
         } catch (ResourceNotFoundException rnfe) {
@@ -142,6 +162,48 @@ public class VelocityOutputPrinter {
             throw new Exception(mie.getMessage());
         } catch (Exception e) {
             LOG.error("Error: " + e.getMessage());
+            throw e;
+        } finally {
+            if (writer != null) writer.close();
+        }
+    }
+
+    /**
+     * Prints the header, content and output to the given print stream with the default template from the classpath.
+     *
+     * @param outputType   the desired output type. @see {@link OutputType}
+     * @param contextMap   the context for velocity
+     * @throws Exception in case of a error, so the caller can handle it
+     */
+    private static void printWithDefaultTemplate(final OutputType outputType, final Map<String, Object> contextMap) throws Exception {
+        VelocityEngine ve = new VelocityEngine();
+        ve.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
+        ve.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
+        ve.init();
+
+        Writer writer = null;
+        final String templateName = outputType.getDefaultTemplateLocation();
+        try {
+            VelocityContext context = new VelocityContext();
+            contextMap.forEach((k, v) -> context.put(k, v));
+            Template template = ve.getTemplate(templateName, "UTF-8");
+            writer = new BufferedWriter(createFileWriter(outputType, templateName));
+
+            template.merge(context, writer);
+            writer.flush();
+        } catch (ResourceNotFoundException rnfe) {
+            LOG.error("Couldn't find the template with name '" + templateName + "'");
+            throw new Exception(rnfe.getMessage());
+        } catch (ParseErrorException pee) {
+            LOG.error("Syntax error: problem parsing the template ' " + templateName + "': " + pee.getMessage());
+            throw new Exception(pee.getMessage());
+        } catch (MethodInvocationException mie) {
+            LOG.error("An invoked method on the template '" + templateName + "' threw an error: " + mie.getMessage());
+            throw new Exception(mie.getMessage());
+        } catch (Exception e) {
+            LOG.error("Error: " + e.getMessage());
+            LOG.error("Cause: " + e.getCause());
+            Arrays.stream(e.getStackTrace()).forEach(LOG::error);
             throw e;
         } finally {
             if (writer != null) writer.close();
