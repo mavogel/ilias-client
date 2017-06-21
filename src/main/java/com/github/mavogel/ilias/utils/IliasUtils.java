@@ -121,7 +121,7 @@ public class IliasUtils {
             case CAS:
                 throw new UnsupportedOperationException("Login with CAS is not yet supported");
         }
-        return new UserDataIds(endpoint.getUserIdBySid(sid), sid);
+        return new UserDataIds(endpoint.getUserIdBySid(sid), sid, loginConfiguration.getUsername());
     }
 
     /**

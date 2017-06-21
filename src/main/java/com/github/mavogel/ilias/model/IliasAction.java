@@ -71,4 +71,11 @@ public class IliasAction {
     public List<ChangeAction> getActions() {
         return actions;
     }
+
+    /**
+     * @return true if the IliasAction has neither nodes nor actios, false otherwise
+     */
+    public boolean isCompletelyEmpty() {
+        return this.nodes.isEmpty() && this.actions.isEmpty();
+    }
 }

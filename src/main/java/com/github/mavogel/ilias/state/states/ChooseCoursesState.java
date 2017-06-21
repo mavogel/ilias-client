@@ -90,6 +90,15 @@ public class ChooseCoursesState extends ToolState {
 
     @Override
     protected IliasAction printAndParseExecutionChoices(final List<IliasNode> nodeChoices) {
+        if(nodeChoices.isEmpty()) {
+            LOG.info("======================== HINT =========================");
+            LOG.info("Found no courses you're admin of with userId '" + stateMachine.getUserDataIds().getUsername() + "'");
+            LOG.info("Please add your user in the Ilias GUI as admin");
+            LOG.info("to at least one course and enter 'ChooseCourses' again");
+            LOG.info("=======================================================");
+            return new IliasAction();
+        }
+
         LOG.info(Defaults.GET_CHOICE_AROUND());
         IntStream.range(0, nodeChoices.size())
                 .mapToObj(i -> nodeChoices.get(i).asDisplayString(Defaults.GET_CHOICE_PREFIX(i)))
@@ -102,15 +111,17 @@ public class ChooseCoursesState extends ToolState {
         List<Integer> indexesOfChosenNodes = new ArrayList<>();
         indexesOfChosenNodes.add(singleChoice);
 
-        List<IliasNode> choseIliasNodes = indexesOfChosenNodes.stream()
+        List<IliasNode> chosenIliasNodes = indexesOfChosenNodes.stream()
                 .map(idx -> nodeChoices.get(idx))
                 .collect(Collectors.toList());
 
-        return new IliasAction(choseIliasNodes, null);
+        return new IliasAction(chosenIliasNodes, null);
     }
 
     @Override
     protected void doExecute(final IliasAction nodesAndActions) {
-        stateMachine.getContext().put(ToolStateMachine.ContextKey.COURSES, nodesAndActions.getNodes());
+        if(!nodesAndActions.isCompletelyEmpty()) {
+            stateMachine.getContext().put(ToolStateMachine.ContextKey.COURSES, nodesAndActions.getNodes());
+        }
     }
 }

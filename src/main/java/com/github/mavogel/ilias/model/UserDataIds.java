@@ -26,24 +26,27 @@ import org.apache.commons.lang3.Validate;
 
 /**
  * Model for the user data ids: 'userId' and 'sid'.
- *
+ * <p>
  * Created by mavogel on 9/5/16.
  */
 public class UserDataIds {
 
     private int userId;
     private String sid;
+    private String username;
 
     /**
      * C'tor
      *
-     * @param userId the id of the
-     * @param sid    the sid of the user obtained after login
+     * @param userId   the id of the
+     * @param sid      the sid of the user obtained after login
+     * @param username the username for displaying hints
      */
-    public UserDataIds(final int userId, final String sid) {
+    public UserDataIds(final int userId, final String sid, final String username) {
         Validate.isTrue(sid != null && !sid.isEmpty(), "'sid' cannot be null or empty");
         this.userId = userId;
         this.sid = sid;
+        this.username = username;
     }
 
     /**
@@ -58,5 +61,12 @@ public class UserDataIds {
      */
     public String getSid() {
         return sid;
+    }
+
+    /**
+     * @return the username
+     */
+    public String getUsername() {
+        return username;
     }
 }
