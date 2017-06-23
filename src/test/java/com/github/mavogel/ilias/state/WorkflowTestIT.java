@@ -34,12 +34,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.mockito.verification.VerificationMode;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.rmi.RemoteException;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -66,7 +66,7 @@ public class WorkflowTestIT {
 
         // == train
         PowerMockito.when(IliasUtils.getCoursesForUser(endpointMock, userDateIds.getSid(),
-                                                       userDateIds.getUserId(), IliasUtils.DisplayStatus.ADMIN))
+                userDateIds.getUserId(), IliasUtils.DisplayStatus.ADMIN))
                 .thenReturn(noCourses);
         PowerMockito.when(IOUtils.readAndParseSingleChoiceFromUser(Mockito.anyList())).thenReturn(0, 2);
 
@@ -79,7 +79,70 @@ public class WorkflowTestIT {
                 userDateIds.getUserId(), IliasUtils.DisplayStatus.ADMIN);
         PowerMockito.verifyStatic(Mockito.times(2));
         IOUtils.readAndParseSingleChoiceFromUser(Mockito.anyList());
+    }
 
+    @Test
+    public void shouldOneNCoursesAndQuitThen() throws Exception {
+        // == prepare
+        final List<IliasNode> courses = Arrays.asList(new IliasNode(1, IliasNode.Type.COURSE, "My Course"));
+
+        // == train
+        PowerMockito.when(IliasUtils.getCoursesForUser(endpointMock, userDateIds.getSid(),
+                userDateIds.getUserId(), IliasUtils.DisplayStatus.ADMIN))
+                .thenReturn(courses);
+        PowerMockito.when(IOUtils.readAndParseSingleChoiceFromUser(Mockito.anyList())).thenReturn(0, 2);
+
+        // == go
+        createToolStateMachine().start();
+
+        // == verify
+        PowerMockito.verifyStatic(Mockito.times(1));
+        IliasUtils.getCoursesForUser(endpointMock, userDateIds.getSid(),
+                userDateIds.getUserId(), IliasUtils.DisplayStatus.ADMIN);
+        PowerMockito.verifyStatic(Mockito.times(2));
+        IOUtils.readAndParseSingleChoiceFromUser(Mockito.anyList());
+    }
+
+    @Test
+    public void shouldFind3GroupsInOneNCoursesAndRemoveUsers() throws Exception {
+        // == prepare
+        final List<IliasNode> courses = Arrays.asList(new IliasNode(1, IliasNode.Type.COURSE, "My Course"));
+        final List<IliasNode> groups = Arrays.asList(
+                new IliasNode(11, IliasNode.Type.GROUP, "Group 1"),
+                new IliasNode(12, IliasNode.Type.GROUP, "Group 2"),
+                new IliasNode(13, IliasNode.Type.GROUP, "Group 3"));
+
+        // == train
+        PowerMockito.when(IliasUtils.getCoursesForUser(endpointMock, userDateIds.getSid(),
+                userDateIds.getUserId(), IliasUtils.DisplayStatus.ADMIN))
+                .thenReturn(courses);
+        PowerMockito.when(IliasUtils.retrieveGroupRefIdsFromCourses(endpointMock, userDateIds.getSid(),
+                userDateIds.getUserId(), courses, 5)).thenReturn(groups);
+        // 0: choose course; 1: actionsOnGroups; 1 quit
+        PowerMockito.when(IOUtils.readAndParseSingleChoiceFromUser(Mockito.anyList())).thenReturn(0, 1, 1);
+
+        PowerMockito.when(IOUtils.readAndParseChoicesFromUser(Mockito.anyList()))
+                // 0,1,2: choosen groups;
+                .thenReturn(Arrays.asList(0, 1, 2))
+                // 1: remove users action
+                .thenReturn(Arrays.asList(1));
+
+        PowerMockito.when(IOUtils.readAndParseUserConfirmation()).thenReturn(true);
+        PowerMockito.doNothing().when(IliasUtils.class, "removeAllMembersFromGroups", endpointMock, userDateIds.getSid(), groups);
+
+        // == go
+        createToolStateMachine().start();
+
+        // == verify
+        PowerMockito.verifyStatic(Mockito.times(1));
+        IliasUtils.getCoursesForUser(endpointMock, userDateIds.getSid(),
+                userDateIds.getUserId(), IliasUtils.DisplayStatus.ADMIN);
+        PowerMockito.verifyStatic(Mockito.times(3));
+        IOUtils.readAndParseSingleChoiceFromUser(Mockito.anyList());
+        PowerMockito.verifyStatic(Mockito.times(2));
+        IOUtils.readAndParseChoicesFromUser(Mockito.anyList());
+        PowerMockito.verifyStatic(Mockito.times(1));
+        IliasUtils.removeAllMembersFromGroups(endpointMock, userDateIds.getSid(), groups);
     }
 
     ////////////////
