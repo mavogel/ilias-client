@@ -30,13 +30,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -59,53 +57,36 @@ public class IOUtils {
      * @return the choice of the user.
      */
     public static List<Integer> readAndParseChoicesFromUser(final List<?> choices) {
-        boolean isCorrectInputDigits = false, isCorrectInputRanges = false;
+        boolean isCorrectDigits = false, isCorrectRanges = false;
         String line = null;
-        final Pattern range = Pattern.compile("(\\d+)-(\\d+)");
-        final Pattern digit = Pattern.compile("\\d+");
-        List<Integer> digitsInput = null;
-        List<String[]> rangesInput = null;
+        List<Integer> digits = null;
+        List<String[]> ranges = null;
 
         Scanner scanner = new Scanner(System.in);
-        while (!(isCorrectInputDigits && isCorrectInputRanges)) {
+        while (!(isCorrectDigits && isCorrectRanges)) {
             try {
                 LOG.info("Your choice: \n - Comma separated choices and/or ranges (e.g.: 1, 2, 4-6, 8, 10-15 -> or a combination) \n - The Wildcard 'A' for selecting all choices");
                 line = scanner.nextLine();
 
-                // == step 1: check for wild card first
-                if (StringUtils.deleteWhitespace(line).equalsIgnoreCase(Defaults.CHOICE_WILDCARD.toLowerCase())) {
+                if (containsWildcard(line)) {
                     return IntStream.range(0, choices.size()).mapToObj(Integer::valueOf).collect(Collectors.toList());
                 }
+                // == 1
+                List<String> trimmedSplit = splitAndTrim(line);
+                checkForInvalidCharacters(trimmedSplit);
 
-                List<String> trimmedSplit = Arrays.stream(line.split(","))
-                        .map(StringUtils::deleteWhitespace)
-                        .collect(Collectors.toList());
+                // == 2
+                digits = parseDigits(trimmedSplit);
+                isCorrectDigits = checkInputDigits(choices, digits);
 
-                // == step 2: checks for invalids
-                Optional<String> invalidChoice = trimmedSplit.stream()
-                        .filter(s -> !digit.matcher(s).matches() && !range.matcher(s).matches())
-                        .findAny();
-                if (invalidChoice.isPresent())
-                    throw new IllegalArgumentException("Contains invalid indexes and/or ranges or an invalid wildcard!");
-
-                // == step 3: parse digits
-                digitsInput = trimmedSplit.stream()
-                        .filter(s -> digit.matcher(s).matches())
-                        .map(Integer::valueOf)
-                        .collect(Collectors.toList());
-                isCorrectInputDigits = digitsInput.stream().allMatch(idx -> isInRange(choices, idx));
-
-                // == step 4: parse ranges
-                rangesInput = trimmedSplit.stream()
-                        .filter(s -> range.matcher(s).matches())
-                        .map(r -> r.split("-"))
-                        .collect(Collectors.toList());
-                isCorrectInputRanges = rangesInput.stream().allMatch(r -> isInMeaningfulRange(choices, Integer.valueOf(r[0]), Integer.valueOf(r[1])));
+                // == 3
+                ranges = parseRanges(trimmedSplit);
+                isCorrectRanges = checkRanges(choices, ranges);
             } catch (NumberFormatException nfe) {
-                if (!isCorrectInputDigits) {
+                if (!isCorrectDigits) {
                     LOG.error("'" + line + "' contains incorrect indexes! Try again");
                 }
-                if (!isCorrectInputRanges) {
+                if (!isCorrectRanges) {
                     LOG.error("'" + line + "' contains incorrect ranges! Try again");
                 }
             } catch (Exception e) {
@@ -113,10 +94,106 @@ public class IOUtils {
             }
         }
 
+        return concatDigitsAndRanges(digits, ranges);
+    }
+
+    /**
+     * Concatenates the digits and ranges to a distinct and sorted range: 1,3,4,6,7,...
+     *
+     * @param digitsInput the single digits
+     * @param rangesInput the ranges @see {@link Defaults#RANGE_PATTERN} for details
+     * @return the sorted range
+     */
+    private static List<Integer> concatDigitsAndRanges(final List<Integer> digitsInput, final List<String[]> rangesInput) {
         return Stream.concat(digitsInput.stream(), expandRanges(rangesInput).orElse(Stream.empty()))
                 .sorted()
                 .distinct()
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Splits with ',' and trims each token.
+     *
+     * @param line the line to split
+     * @return the tokens
+     */
+    private static List<String> splitAndTrim(final String line) {
+        return Arrays.stream(line.split(","))
+                .map(StringUtils::deleteWhitespace)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Checks the ranges if they are meaningful against the choices.
+     *
+     * @param choices the choices
+     * @param ranges the ranges
+     * @return true of they are correct, false otherwise
+     */
+    private static boolean checkRanges(final List<?> choices, final List<String[]> ranges) {
+        return ranges.stream().allMatch(r -> isInMeaningfulRange(choices, Integer.valueOf(r[0]), Integer.valueOf(r[1])));
+    }
+
+    /**
+     * Checks the digits if they are in range against the choices.
+     *
+     * @param choices the choices
+     * @param digits the digits
+     * @return true of they are correct, false otherwise
+     */
+    private static boolean checkInputDigits(final List<?> choices, final List<Integer> digits) {
+        return digits.stream().allMatch(idx -> isInRange(choices, idx));
+    }
+
+    /**
+     * Parses the ranges from the tokens.
+     *
+     * @param tokens the tokens @see {@link IOUtils#splitAndTrim(String)}
+     * @return the ranges
+     */
+    private static List<String[]> parseRanges(final List<String> tokens) {
+        return tokens.stream()
+                .filter(s -> Defaults.RANGE_PATTERN.matcher(s).matches())
+                .map(r -> r.split("-"))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Parses the digits from the tokens
+     *
+     * @param tokens the tokens @see {@link IOUtils#splitAndTrim(String)}
+     * @return the tokens
+     */
+    private static List<Integer> parseDigits(final List<String> tokens) {
+        return tokens.stream()
+                .filter(s -> Defaults.DIGIT_PATTERN.matcher(s).matches())
+                .map(Integer::valueOf)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Checks for valid characters in tokens.
+     *
+     * @param tokens the tokens @see {@link IOUtils#splitAndTrim(String)}
+     * @throws IllegalArgumentException if there is an invalid token
+     */
+    private static void checkForInvalidCharacters(final List<String> tokens) {
+        Optional<String> invalidChoice = tokens.stream()
+                .filter(s -> !Defaults.DIGIT_PATTERN.matcher(s).matches() && !Defaults.RANGE_PATTERN.matcher(s).matches())
+                .findAny();
+        if (invalidChoice.isPresent())
+            throw new IllegalArgumentException("Contains invalid indexes and/or ranges or an invalid wildcard!");
+    }
+
+
+    /**
+     * Checks if the line contains the {@link Defaults#CHOICE_WILDCARD} character.
+     *
+     * @param line the line to check
+     * @return true if it contains the character, false otherwise
+     */
+    private static boolean containsWildcard(final String line) {
+        return StringUtils.deleteWhitespace(line).equalsIgnoreCase(Defaults.CHOICE_WILDCARD.toLowerCase());
     }
 
     /**

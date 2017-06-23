@@ -29,6 +29,7 @@ import org.apache.log4j.Level;
 
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 /**
  * Default constants.
@@ -72,6 +73,16 @@ public final class Defaults {
      * Denotes that only active users should be considered.
      */
     public static final int IS_ACTIVE = 1;
+
+    /**
+     * The pattern for input digits.
+     */
+    public static final Pattern DIGIT_PATTERN = Pattern.compile("\\d+");
+
+    /**
+     * The pattern for input ranges.
+     */
+    public static final Pattern RANGE_PATTERN = Pattern.compile("(\\d+)-(\\d+)");
 
     /**
      * The prefix for printing choices
