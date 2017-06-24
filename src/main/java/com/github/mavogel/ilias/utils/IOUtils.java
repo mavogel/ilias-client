@@ -94,6 +94,7 @@ public class IOUtils {
             }
         }
 
+        scanner.close();
         return concatDigitsAndRanges(digits, ranges);
     }
 
@@ -223,6 +224,7 @@ public class IOUtils {
             }
         }
 
+        scanner.close();
         return userChoice;
     }
 
@@ -314,6 +316,7 @@ public class IOUtils {
             }
         }
 
+        scanner.close();
         return new RegistrationPeriod(registrationStart, registrationEnd);
     }
 
@@ -341,6 +344,7 @@ public class IOUtils {
             }
         }
 
+        scanner.close();
         return positiveInteger;
     }
 
@@ -368,6 +372,7 @@ public class IOUtils {
             }
         }
 
+        scanner.close();
         return choice;
     }
 
@@ -377,6 +382,9 @@ public class IOUtils {
      * @return the line
      */
     public static String readLine() {
-        return StringUtils.deleteWhitespace(new Scanner(System.in).nextLine());
+        Scanner scanner = new Scanner(System.in);
+        String nextLine = scanner.nextLine();
+        scanner.close();
+        return StringUtils.deleteWhitespace(nextLine);
     }
 }
