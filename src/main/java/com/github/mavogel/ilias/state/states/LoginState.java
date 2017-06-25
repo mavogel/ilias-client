@@ -32,6 +32,7 @@ import com.github.mavogel.ilias.model.LoginConfiguration;
 import com.github.mavogel.ilias.state.ToolState;
 import com.github.mavogel.ilias.state.ToolStateMachine;
 import com.github.mavogel.ilias.utils.IliasUtils;
+import com.github.mavogel.ilias.wrapper.soap.SoapEndpoint;
 import org.apache.log4j.Logger;
 
 import javax.xml.rpc.ServiceException;
@@ -90,21 +91,28 @@ public class LoginState extends ToolState {
     @Override
     protected void doExecute(final IliasAction nodesAndActions) {
         try {
-            ILIASSoapWebservicePortType endpoint = IliasUtils.createWsEndpoint(loginConfiguration);
-            stateMachine.setEndPoint(endpoint);
-            stateMachine.setUserDataId(IliasUtils.getUserData(loginConfiguration, endpoint));
+            this.stateMachine.setIliasEndpoint(SoapEndpoint.createAndGetInstance(loginConfiguration));
             LOG.info(String.format("Logged in successfully as '%s'", loginConfiguration.getUsername()));
-        } catch (ServiceException e) {
-            LOG.error("Could not establish webservice at '" + loginConfiguration.getEndpoint() + "'");
-            stateMachine.setState(stateMachine.getQuitState());
-        } catch (RemoteException e) {
-            Throwable cause = e.getCause();
-            if (cause instanceof UnknownHostException) {
-                LOG.error("Could not establish connection to endpoint '" + loginConfiguration.getEndpoint()+ "'");
-            } else {
-                LOG.error("Error retrieving the user data: " + e.getMessage());
-            }
+        } catch (Exception e) {
             stateMachine.setState(stateMachine.getQuitState());
         }
+
+//        try {
+//            ILIASSoapWebservicePortType endpoint = IliasUtils.createWsEndpoint(loginConfiguration);
+//            stateMachine.setEndPoint(endpoint);
+//            stateMachine.setUserDataId(IliasUtils.getUserData(loginConfiguration, endpoint));
+//            LOG.info(String.format("Logged in successfully as '%s'", loginConfiguration.getUsername()));
+//        } catch (ServiceException e) {
+//            LOG.error("Could not establish webservice at '" + loginConfiguration.getEndpoint() + "'");
+//            stateMachine.setState(stateMachine.getQuitState());
+//        } catch (RemoteException e) {
+//            Throwable cause = e.getCause();
+//            if (cause instanceof UnknownHostException) {
+//                LOG.error("Could not establish connection to endpoint '" + loginConfiguration.getEndpoint()+ "'");
+//            } else {
+//                LOG.error("Error retrieving the user data: " + e.getMessage());
+//            }
+//            stateMachine.setState(stateMachine.getQuitState());
+//        }
     }
 }

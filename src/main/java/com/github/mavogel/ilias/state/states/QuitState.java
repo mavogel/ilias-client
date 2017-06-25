@@ -31,6 +31,7 @@ import com.github.mavogel.ilias.model.IliasNode;
 import com.github.mavogel.ilias.model.UserDataIds;
 import com.github.mavogel.ilias.state.ToolState;
 import com.github.mavogel.ilias.state.ToolStateMachine;
+import com.github.mavogel.ilias.wrapper.IliasEndpoint;
 import org.apache.log4j.Logger;
 
 import java.rmi.RemoteException;
@@ -73,20 +74,28 @@ public class QuitState extends ToolState {
 
     @Override
     protected void doExecute(final IliasAction nodesAndActions) {
-        ILIASSoapWebservicePortType endPoint = this.stateMachine.getEndPoint();
-        UserDataIds userDataIds = this.stateMachine.getUserDataIds();
-        if (userDataIds != null && endPoint != null) {
-            try {
-                boolean isLoggedOut = endPoint.logout(userDataIds.getSid());
-                if (isLoggedOut) {
-                    LOG.info("Successfully logged out for sid: '" + userDataIds.getSid() + "'");
-                } else {
-                    LOG.error("Could not log out!");
-                }
-            } catch (RemoteException e) {
-                LOG.error("Could not log out: " + e.getMessage());
-            }
+        IliasEndpoint endpoint = this.stateMachine.getIliasEndpoint();
+        try {
+            endpoint.logout();
+        } catch (Exception e) {
+            LOG.error("Could not log out: " + e.getMessage());
         }
         this.stateMachine.stop();
+
+        //        ILIASSoapWebservicePortType endPoint = this.stateMachine.getEndPoint();
+//        UserDataIds userDataIds = this.stateMachine.getUserDataIds();
+//        if (userDataIds != null && endPoint != null) {
+//            try {
+//                boolean isLoggedOut = endPoint.logout(userDataIds.getSid());
+//                if (isLoggedOut) {
+//                    LOG.info("Successfully logged out for sid: '" + userDataIds.getSid() + "'");
+//                } else {
+//                    LOG.error("Could not log out!");
+//                }
+//            } catch (RemoteException e) {
+//                LOG.error("Could not log out: " + e.getMessage());
+//            }
+//        }
+//        this.stateMachine.stop();
     }
 }

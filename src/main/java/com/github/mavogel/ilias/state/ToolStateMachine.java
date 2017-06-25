@@ -30,6 +30,8 @@ import com.github.mavogel.ilias.model.IliasNode;
 import com.github.mavogel.ilias.model.LoginConfiguration;
 import com.github.mavogel.ilias.model.UserDataIds;
 import com.github.mavogel.ilias.state.states.*;
+import com.github.mavogel.ilias.wrapper.IliasEndpoint;
+import com.github.mavogel.ilias.wrapper.soap.SoapEndpoint;
 
 import java.util.HashMap;
 import java.util.List;
@@ -54,6 +56,8 @@ public class ToolStateMachine {
          */
         GROUPS
     }
+
+    private IliasEndpoint iliasEndpoint;
 
     private UserDataIds userDataId;
     private ILIASSoapWebservicePortType endPoint;
@@ -120,6 +124,15 @@ public class ToolStateMachine {
      */
     public void setEndPoint(final ILIASSoapWebservicePortType endPoint) {
         this.endPoint = endPoint;
+    }
+
+    // TODO new
+    public IliasEndpoint getIliasEndpoint() {
+        return iliasEndpoint;
+    }
+
+    public void setIliasEndpoint(final IliasEndpoint iliasEndpoint) {
+        this.iliasEndpoint = iliasEndpoint;
     }
 
     /**

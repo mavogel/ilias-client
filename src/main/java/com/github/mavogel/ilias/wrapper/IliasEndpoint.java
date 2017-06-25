@@ -42,11 +42,10 @@ public interface IliasEndpoint {
     /**
      * Retrieves the user data from the Ilias backend.
      *
-     * @param loginConfiguration the login data
      * @return the data ids of the user
      * @throws Exception in case of a failure. Detailed logs are written.
      */
-    UserDataIds getUserData(final LoginConfiguration loginConfiguration) throws Exception;
+    UserDataIds getUserData() throws Exception;
 
     /**
      * Logs out the user.

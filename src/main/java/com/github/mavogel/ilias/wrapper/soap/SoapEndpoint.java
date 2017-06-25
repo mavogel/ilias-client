@@ -58,7 +58,8 @@ public class SoapEndpoint implements IliasEndpoint {
     private UserDataIds userDataIds;
 
     /**
-     * Creates the endpoint of the Ilias SOAP interface.
+     * Creates the endpoint of the Ilias SOAP interface and retrieves
+     * the user data.
      *
      * @param loginConfiguration the config of the login
      * @throws Exception if the endpoint could not be established
@@ -99,10 +100,16 @@ public class SoapEndpoint implements IliasEndpoint {
             LOG.error("Could not establish webservice at '" + loginConfiguration.getEndpoint() + "'");
             throw new Exception();
         }
+
+        this.getAndSetUserData();
     }
 
-    @Override
-    public UserDataIds getUserData(final LoginConfiguration loginConfiguration) throws Exception {
+    /**
+     * Gets and set the user data.
+     *
+     * @throws Exception
+     */
+    private void getAndSetUserData() throws Exception {
         try {
             String sid = "";
             switch (loginConfiguration.getLoginMode()) {
@@ -118,7 +125,6 @@ public class SoapEndpoint implements IliasEndpoint {
                     throw new UnsupportedOperationException("Login with CAS is not yet supported");
             }
             userDataIds = new UserDataIds(endpoint.getUserIdBySid(sid), sid, loginConfiguration.getUsername());
-            return userDataIds;
         } catch (RemoteException e) {
             Throwable cause = e.getCause();
             if (cause instanceof UnknownHostException) {
@@ -128,6 +134,11 @@ public class SoapEndpoint implements IliasEndpoint {
             }
             throw new Exception();
         }
+    }
+
+    @Override
+    public UserDataIds getUserData() throws Exception {
+        return this.userDataIds;
     }
 
     @Override
