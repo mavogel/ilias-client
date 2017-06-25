@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+**Version 1.1.7 (xx-June-2017)**
+
+Tests:
+* Integration tests and add coverage report.
+
 **Version 1.1.6 (21-June-2017)**
 
 Bugfixes:
