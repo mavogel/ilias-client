@@ -1,5 +1,6 @@
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
 [![Travis Build Status](https://travis-ci.org/mavogel/ilias-client.svg?branch=master)](https://travis-ci.org/mavogel/ilias-client)
+[![Code Coverage](https://img.shields.io/codecov/c/github/mavogel/ilias-client/feature/it-tests.svg)](https://codecov.io/github/mavogel/ilias-client?branch=feature/it-tests)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.mavogel/ilias-client/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.mavogel/ilias-client)
 <!--[![GitHub version](https://badge.fury.io/gh/mavogel%2Filias-client.png)](https://github.com/mavogel/ilias-client/releases)-->
 

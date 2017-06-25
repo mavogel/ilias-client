@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.mavogel</groupId>
@@ -7,7 +8,9 @@
     <version>1.1.7-SNAPSHOT</version>
     <name>The Ilias cmd Client</name>
     <url>https://github.com/mavogel/ilias-client</url>
-    <description>A command line interface client for accessing (a small part atm only of) the SOAP interface of the Ilias e-Learning platform.</description>
+    <description>A command line interface client for accessing (a small part atm only of) the SOAP interface of the
+        Ilias e-Learning platform.
+    </description>
 
     <developers>
         <developer>
@@ -249,7 +252,8 @@
                         </goals>
                         <configuration>
                             <transformers>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <mainClass>com.github.mavogel.ilias.Starter</mainClass>
                                 </transformer>
                             </transformers>
@@ -291,7 +295,18 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>2.7</version>
+                <configuration>
+                    <formats>
+                        <format>html</format>
+                        <format>xml</format>
+                    </formats>
+                    <check/>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
-
 </project>
