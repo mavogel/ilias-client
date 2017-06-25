@@ -49,8 +49,8 @@ import java.util.List;
  * Simulates complete workflows by mocking the ilias backend calls.
  */
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({ToolStateMachine.class, Workflow.class, IliasUtils.class, IOUtils.class})
-public class Workflow {
+@PrepareForTest({ToolStateMachine.class, WorkflowTest.class, IliasUtils.class, IOUtils.class})
+public class WorkflowTest {
 
     private LoginConfiguration loginConfiguration;
     private ILIASSoapWebserviceBindingStub endpointMock;
