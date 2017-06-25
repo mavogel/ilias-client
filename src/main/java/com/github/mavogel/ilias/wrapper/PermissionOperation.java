@@ -1,4 +1,4 @@
-package com.github.mavogel.ilias.utils;/*
+package com.github.mavogel.ilias.wrapper;/*
  *  The MIT License (MIT)
  *
  *  Copyright (c) 2016 Manuel Vogel

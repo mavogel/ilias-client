@@ -23,10 +23,11 @@
  *
  *  https://opensource.org/licenses/MIT
  */
-package com.github.mavogel.ilias.utils;
+package com.github.mavogel.ilias.wrapper.soap;
 
 import com.github.mavogel.ilias.model.IliasNode;
 import com.github.mavogel.ilias.model.IliasUser;
+import com.github.mavogel.ilias.utils.IliasUtils;
 import com.github.mavogel.ilias.wrapper.DisplayStatus;
 import org.apache.commons.lang3.Validate;
 import org.apache.log4j.Logger;
@@ -50,9 +51,9 @@ import java.util.stream.Collectors;
  * <p>
  * Created by mavogel on 9/5/16.
  */
-public class XMLUtils {
+public class SoapXMLUtils {
 
-    private static Logger LOG = Logger.getLogger(XMLUtils.class);
+    private static Logger LOG = Logger.getLogger(SoapXMLUtils.class);
 
     /**
      * Creates the result xml string used for getting the courses of a user.
@@ -228,7 +229,7 @@ public class XMLUtils {
         List<Element> members = rootElement.getChildren("member");
         return members.stream()
                 .map(m -> m.getAttribute("id").getValue())
-                .map(XMLUtils::extractId)
+                .map(SoapXMLUtils::extractId)
                 .collect(Collectors.toList());
     }
 

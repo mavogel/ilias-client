@@ -23,23 +23,23 @@
  *
  *  https://opensource.org/licenses/MIT
  */
-package com.github.mavogel.ilias.utils;
+package com.github.mavogel.ilias.wrapper.soap;
 
 import com.github.mavogel.ilias.model.IliasNode;
 import com.github.mavogel.ilias.model.IliasUser;
+import com.github.mavogel.ilias.utils.IliasUtils;
+import com.github.mavogel.ilias.wrapper.soap.SoapXMLUtils;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 import org.junit.Test;
 
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.*;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -52,7 +52,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Created by mavogel on 9/5/16.
  */
-public class XMLUtilsTest {
+public class SoapXMLUtilsTest {
 
     private static final String FILE_SEP = System.getProperty("file.separator");
     private static final String BASE_DIR = System.getProperty("user.dir");
@@ -68,7 +68,7 @@ public class XMLUtilsTest {
                 .append("</column></row></result>").toString();
 
         // == go
-        String adminCoursesResultXml = XMLUtils.createCoursesResultXml(122, IliasUtils.DisplayStatus.ADMIN);
+        String adminCoursesResultXml = SoapXMLUtils.createCoursesResultXml(122, IliasUtils.DisplayStatus.ADMIN);
 
         // == verify
         assertEquals(expected, adminCoursesResultXml);
@@ -84,7 +84,7 @@ public class XMLUtilsTest {
                 .append("</column></row></result>").toString();
 
         // == go
-        String adminCoursesResultXml = XMLUtils.createCoursesResultXml(122, IliasUtils.DisplayStatus.ADMIN,
+        String adminCoursesResultXml = SoapXMLUtils.createCoursesResultXml(122, IliasUtils.DisplayStatus.ADMIN,
                 IliasUtils.DisplayStatus.OWNER);
 
         // == verify
@@ -98,7 +98,7 @@ public class XMLUtilsTest {
         final String courseXml = Files.lines(Paths.get(testFile)).collect(Collectors.joining());
 
         // == go
-        List<Integer> courseRefIds = XMLUtils.parseCourseRefIds(courseXml);
+        List<Integer> courseRefIds = SoapXMLUtils.parseCourseRefIds(courseXml);
 
         // == verify
         assertTrue(courseRefIds != null);
@@ -112,7 +112,7 @@ public class XMLUtilsTest {
         final String courseXml = Files.lines(Paths.get(testFile)).collect(Collectors.joining());
 
         // == go
-        List<Integer> courseRefIds = XMLUtils.parseCourseRefIds(courseXml);
+        List<Integer> courseRefIds = SoapXMLUtils.parseCourseRefIds(courseXml);
 
         // == verify
         assertTrue(courseRefIds != null);
@@ -126,7 +126,7 @@ public class XMLUtilsTest {
         final String courseXml = Files.lines(Paths.get(testFile)).collect(Collectors.joining());
 
         // == go
-        List<Integer> courseRefIds = XMLUtils.parseCourseRefIds(courseXml);
+        List<Integer> courseRefIds = SoapXMLUtils.parseCourseRefIds(courseXml);
 
         // == verify
         assertTrue(courseRefIds != null);
@@ -141,7 +141,7 @@ public class XMLUtilsTest {
         final int courseRefId = 13345;
 
         // == go
-        IliasNode iliasNode = XMLUtils.createsFromCourseNodeInfo(courseRefId, courseXml);
+        IliasNode iliasNode = SoapXMLUtils.createsFromCourseNodeInfo(courseRefId, courseXml);
 
         // == verify
         assertEquals(13345, iliasNode.getRefId());
@@ -156,7 +156,7 @@ public class XMLUtilsTest {
         final String nodeXml = Files.lines(Paths.get(testFile)).collect(Collectors.joining());
 
         // == go
-        List<IliasNode> folderNodes = XMLUtils.parseRefIdsOfNodeType(IliasNode.Type.FOLDER, nodeXml);
+        List<IliasNode> folderNodes = SoapXMLUtils.parseRefIdsOfNodeType(IliasNode.Type.FOLDER, nodeXml);
 
         // == verify
         assertTrue(folderNodes != null);
@@ -175,7 +175,7 @@ public class XMLUtilsTest {
         final String nodeXml = Files.lines(Paths.get(testFile)).collect(Collectors.joining());
 
         // == go
-        List<IliasNode> groupNodes = XMLUtils.parseRefIdsOfNodeType(IliasNode.Type.GROUP, nodeXml);
+        List<IliasNode> groupNodes = SoapXMLUtils.parseRefIdsOfNodeType(IliasNode.Type.GROUP, nodeXml);
 
         // == verify
         assertTrue(groupNodes != null);
@@ -189,7 +189,7 @@ public class XMLUtilsTest {
         final String nodeXml = Files.lines(Paths.get(testFile)).collect(Collectors.joining());
 
         // == go
-        List<IliasNode> groupNodes = XMLUtils.parseRefIdsOfNodeType(IliasNode.Type.GROUP, nodeXml);
+        List<IliasNode> groupNodes = SoapXMLUtils.parseRefIdsOfNodeType(IliasNode.Type.GROUP, nodeXml);
 
         // == verify
         assertTrue(groupNodes != null);
@@ -203,7 +203,7 @@ public class XMLUtilsTest {
         final String nodeXml = Files.lines(Paths.get(testFile)).collect(Collectors.joining());
 
         // == go
-        List<IliasNode> folderNodes = XMLUtils.parseRefIdsOfNodeType(IliasNode.Type.FILE, nodeXml);
+        List<IliasNode> folderNodes = SoapXMLUtils.parseRefIdsOfNodeType(IliasNode.Type.FILE, nodeXml);
 
         // == verify
         assertTrue(folderNodes != null);
@@ -219,7 +219,7 @@ public class XMLUtilsTest {
         final String groupXml = Files.lines(Paths.get(testFile)).collect(Collectors.joining());
 
         // == go
-        List<Integer> memberIds = XMLUtils.parseGroupMemberIds(groupXml);
+        List<Integer> memberIds = SoapXMLUtils.parseGroupMemberIds(groupXml);
 
         // == verify
         assertTrue(memberIds != null);
@@ -233,7 +233,7 @@ public class XMLUtilsTest {
         final String groupXml = Files.lines(Paths.get(testFile)).collect(Collectors.joining());
 
         // == go
-        List<Integer> memberIds = XMLUtils.parseGroupMemberIds(groupXml);
+        List<Integer> memberIds = SoapXMLUtils.parseGroupMemberIds(groupXml);
 
         // == verify
         assertTrue(memberIds != null);
@@ -250,7 +250,7 @@ public class XMLUtilsTest {
         final long registrationEnd = LocalDateTime.of(2014, Month.APRIL, 23, 14, 00).toEpochSecond(ZoneOffset.UTC);
 
         // == go
-        String updatedGroupXml = XMLUtils.setRegistrationDates(groupXml, registrationStart, registrationEnd);
+        String updatedGroupXml = SoapXMLUtils.setRegistrationDates(groupXml, registrationStart, registrationEnd);
 
         // == verify
         Document expectedDoc = createDocFromXml(updatedGroupXml);
@@ -271,7 +271,7 @@ public class XMLUtilsTest {
         final long registrationEnd = LocalDateTime.of(2014, Month.APRIL, 23, 14, 00).toEpochSecond(ZoneOffset.UTC);
 
         // == go
-        String updatedGroupXml = XMLUtils.setRegistrationDates(groupXml, registrationStart, registrationEnd);
+        String updatedGroupXml = SoapXMLUtils.setRegistrationDates(groupXml, registrationStart, registrationEnd);
 
         // == verify
         Document expectedDoc = createDocFromXml(updatedGroupXml);
@@ -290,7 +290,7 @@ public class XMLUtilsTest {
         int maxGroupMembers = 5;
 
         // == go
-        String updatedGroupXml = XMLUtils.setMaxGroupMembers(groupXml, maxGroupMembers);
+        String updatedGroupXml = SoapXMLUtils.setMaxGroupMembers(groupXml, maxGroupMembers);
 
         // == verify
         Document expectedDoc = createDocFromXml(updatedGroupXml);
@@ -309,7 +309,7 @@ public class XMLUtilsTest {
         int maxGroupMembers = 7;
 
         // == go
-        String updatedGroupXml = XMLUtils.setMaxGroupMembers(groupXml, maxGroupMembers);
+        String updatedGroupXml = SoapXMLUtils.setMaxGroupMembers(groupXml, maxGroupMembers);
 
         // == verify
         Document expectedDoc = createDocFromXml(updatedGroupXml);
@@ -327,7 +327,7 @@ public class XMLUtilsTest {
         final String localRolesFromGroupXML = Files.lines(Paths.get(testFile)).collect(Collectors.joining());
 
         // == go
-        int memberRoleId = XMLUtils.parseGroupMemberRoleId(localRolesFromGroupXML);
+        int memberRoleId = SoapXMLUtils.parseGroupMemberRoleId(localRolesFromGroupXML);
 
         // == verify
         assertEquals(215170, memberRoleId);
@@ -340,7 +340,7 @@ public class XMLUtilsTest {
         final String rolesXml = Files.lines(Paths.get(testFile)).collect(Collectors.joining());
 
         // == go
-        List<IliasUser> userRecords = XMLUtils.parseIliasUserRecordsFromRole(rolesXml);
+        List<IliasUser> userRecords = SoapXMLUtils.parseIliasUserRecordsFromRole(rolesXml);
 
         // == verify
         assertEquals(1, userRecords.size());
@@ -354,7 +354,7 @@ public class XMLUtilsTest {
         final String rolesXml = Files.lines(Paths.get(testFile)).collect(Collectors.joining());
 
         // == go
-        List<IliasUser> userRecords = XMLUtils.parseIliasUserRecordsFromRole(rolesXml);
+        List<IliasUser> userRecords = SoapXMLUtils.parseIliasUserRecordsFromRole(rolesXml);
 
         // == verify
         assertEquals(2, userRecords.size());

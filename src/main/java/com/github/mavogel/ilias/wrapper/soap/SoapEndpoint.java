@@ -1,4 +1,4 @@
-package com.github.mavogel.ilias.wrapper;/*
+package com.github.mavogel.ilias.wrapper.soap;/*
  *  The MIT License (MIT)
  *
  *  Copyright (c) 2017 Manuel Vogel
@@ -28,8 +28,9 @@ import com.github.mavogel.client.ILIASSoapWebserviceLocator;
 import com.github.mavogel.client.ILIASSoapWebservicePortType;
 import com.github.mavogel.ilias.model.*;
 import com.github.mavogel.ilias.utils.Defaults;
-import com.github.mavogel.ilias.utils.PermissionOperation;
-import com.github.mavogel.ilias.utils.XMLUtils;
+import com.github.mavogel.ilias.wrapper.PermissionOperation;
+import com.github.mavogel.ilias.wrapper.DisplayStatus;
+import com.github.mavogel.ilias.wrapper.IliasEndpoint;
 import org.apache.log4j.Logger;
 
 import javax.xml.rpc.ServiceException;
@@ -150,11 +151,11 @@ public class SoapEndpoint implements IliasEndpoint {
         List<IliasNode> courses = new ArrayList<>();
 
         String foundCourses = endpoint.getCoursesForUser(userDataIds.getSid(),
-                XMLUtils.createCoursesResultXml2(userDataIds.getUserId(), status)); // TODO rename later
+                SoapXMLUtils.createCoursesResultXml2(userDataIds.getUserId(), status)); // TODO rename later
         if (LOG.isDebugEnabled()) LOG.debug("CoursesXML for user : " + foundCourses);
-        List<Integer> courseRefIds = XMLUtils.parseCourseRefIds(foundCourses);
+        List<Integer> courseRefIds = SoapXMLUtils.parseCourseRefIds(foundCourses);
         for (Integer courseRefId : courseRefIds) { // checked exceptions and lambdas...
-            IliasNode courseNode = XMLUtils.createsFromCourseNodeInfo(courseRefId, endpoint.getCourseXML(userDataIds.getSid(), courseRefId));
+            IliasNode courseNode = SoapXMLUtils.createsFromCourseNodeInfo(courseRefId, endpoint.getCourseXML(userDataIds.getSid(), courseRefId));
             if (LOG.isDebugEnabled()) LOG.debug("Found Course: " + courseNode);
             courses.add(courseNode);
         }
@@ -209,7 +210,7 @@ public class SoapEndpoint implements IliasEndpoint {
         if (LOG.isDebugEnabled()) {
             LOG.debug("Getting RefIds of children of node with refId + " + nodeRefId + " and of type " + nodeType.name() + " with xml:\n " + currentNodeXml);
         }
-        return XMLUtils.parseRefIdsOfNodeType(nodeType, currentNodeXml);
+        return SoapXMLUtils.parseRefIdsOfNodeType(nodeType, currentNodeXml);
     }
 
     @Override
@@ -224,7 +225,7 @@ public class SoapEndpoint implements IliasEndpoint {
                 continue;
             }
 
-            int roleId = XMLUtils.parseGroupMemberRoleId(localRolesForGroupXML);
+            int roleId = SoapXMLUtils.parseGroupMemberRoleId(localRolesForGroupXML);
 
             try {
                 boolean isPermissionGranted = endpoint.grantPermissions(userDataIds.getSid(), group.getRefId(), roleId,
@@ -252,11 +253,11 @@ public class SoapEndpoint implements IliasEndpoint {
             LOG.info("--- Processing '" + group.getTitle() + "'");
             String localRolesForGroupXML = endpoint.getLocalRoles(userDataIds.getSid(), group.getRefId());
 
-            int roleId = XMLUtils.parseGroupMemberRoleId(localRolesForGroupXML);
+            int roleId = SoapXMLUtils.parseGroupMemberRoleId(localRolesForGroupXML);
             String usersForRoleXML = endpoint.getUsersForRole(userDataIds.getSid(), roleId,
                     Defaults.ATTACH_ROLES, Defaults.IS_ACTIVE);
 
-            List<IliasUser> userRecords = XMLUtils.parseIliasUserRecordsFromRole(usersForRoleXML);
+            List<IliasUser> userRecords = SoapXMLUtils.parseIliasUserRecordsFromRole(usersForRoleXML);
             groupUserModels.add(new GroupUserModelFull(group, userRecords));
         }
 
@@ -302,7 +303,7 @@ public class SoapEndpoint implements IliasEndpoint {
             if (LOG.isDebugEnabled()) LOG.debug("Removing member from group: " + group.getTitle());
 
             String groupXml = endpoint.getGroup(userDataIds.getSid(), group.getRefId());
-            List<Integer> groupMemberIds = XMLUtils.parseGroupMemberIds(groupXml);
+            List<Integer> groupMemberIds = SoapXMLUtils.parseGroupMemberIds(groupXml);
             if (groupMemberIds.isEmpty()) LOG.info("No members to remove from Group '" + group.getTitle() + "'");
 
             unremovedUsers.add(removeMembersFromGroup(group, groupMemberIds));
@@ -347,7 +348,7 @@ public class SoapEndpoint implements IliasEndpoint {
     public void setMaxMembersOnGroups(final List<IliasNode> groups, final int maxGroupMembers) throws Exception {
         for (IliasNode group : groups) {
             String groupXml = endpoint.getGroup(userDataIds.getSid(), group.getRefId());
-            String updatedGroupXml = XMLUtils.setMaxGroupMembers(groupXml, maxGroupMembers);
+            String updatedGroupXml = SoapXMLUtils.setMaxGroupMembers(groupXml, maxGroupMembers);
             boolean isGroupUpdated = endpoint.updateGroup(userDataIds.getSid(), group.getRefId(), updatedGroupXml);
             if (isGroupUpdated) {
                 LOG.info("Updated group '" + group.getRefId() + " - " + group.getTitle() + "' with new max group members " + maxGroupMembers);
@@ -363,7 +364,7 @@ public class SoapEndpoint implements IliasEndpoint {
         final long newEnd = toEpochSecond(end);
         for (IliasNode group : groups) {
             String groupXml = endpoint.getGroup(userDataIds.getSid(), group.getRefId());
-            String updatedGroupXml = XMLUtils.setRegistrationDates(groupXml, newStart, newEnd);
+            String updatedGroupXml = SoapXMLUtils.setRegistrationDates(groupXml, newStart, newEnd);
             boolean isGroupUpdated = endpoint.updateGroup(userDataIds.getSid(), group.getRefId(), updatedGroupXml);
             if (isGroupUpdated) {
                 LOG.info("Updated group '" + group.getRefId() + " - " + group.getTitle() + "' with new registration period starting at " + start + " and ending at " + end);
