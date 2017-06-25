@@ -26,17 +26,19 @@ package com.github.mavogel.ilias.wrapper;/*
 
 import com.github.mavogel.client.ILIASSoapWebserviceLocator;
 import com.github.mavogel.client.ILIASSoapWebservicePortType;
-import com.github.mavogel.ilias.model.GroupUserModelFull;
-import com.github.mavogel.ilias.model.IliasNode;
-import com.github.mavogel.ilias.model.LoginConfiguration;
-import com.github.mavogel.ilias.model.UserDataIds;
+import com.github.mavogel.ilias.model.*;
+import com.github.mavogel.ilias.utils.Defaults;
+import com.github.mavogel.ilias.utils.PermissionOperation;
 import com.github.mavogel.ilias.utils.XMLUtils;
 import org.apache.log4j.Logger;
 
 import javax.xml.rpc.ServiceException;
 import java.net.UnknownHostException;
 import java.rmi.RemoteException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -212,37 +214,175 @@ public class SoapEndpoint implements IliasEndpoint {
 
     @Override
     public void grantFileUploadPermissionForMembers(final List<IliasNode> groups) throws Exception {
+        for (IliasNode group : groups) {
+            String localRolesForGroupXML = null;
+            try {
+                localRolesForGroupXML = endpoint.getLocalRoles(userDataIds.getSid(), group.getRefId());
+            } catch (RemoteException e) {
+                LOG.error("Local roles could not be retrieved for group '" + group.getRefId() + " - " + group.getTitle() + " because of: " + e.getMessage());
+                LOG.error("Continuing with next one");
+                continue;
+            }
 
+            int roleId = XMLUtils.parseGroupMemberRoleId(localRolesForGroupXML);
+
+            try {
+                boolean isPermissionGranted = endpoint.grantPermissions(userDataIds.getSid(), group.getRefId(), roleId,
+                        PermissionOperation.build(PermissionOperation.VISIBLE,
+                                PermissionOperation.READ,
+                                PermissionOperation.JOIN,
+                                PermissionOperation.LEAVE,
+                                PermissionOperation.CREATE_FILE));
+                if (isPermissionGranted) {
+                    LOG.info("File Upload permission granted on group '" + group.getRefId() + " - " + group.getTitle());
+                } else {
+                    LOG.error("File Upload permission NOT granted on group '" + group.getRefId() + " - " + group.getTitle());
+                }
+            } catch (RemoteException e) {
+                LOG.error("File Upload permission NOT granted on group '" + group.getRefId() + " - " + group.getTitle() + " because of: " + e.getMessage());
+            }
+        }
     }
 
     @Override
     public List<GroupUserModelFull> getUsersForGroups(final List<IliasNode> groups) throws Exception {
-        return null;
+        List<GroupUserModelFull> groupUserModels = new ArrayList<>();
+        LOG.info("-- Collecting users for groups. Be patient...");
+        for (IliasNode group : groups) {
+            LOG.info("--- Processing '" + group.getTitle() + "'");
+            String localRolesForGroupXML = endpoint.getLocalRoles(userDataIds.getSid(), group.getRefId());
+
+            int roleId = XMLUtils.parseGroupMemberRoleId(localRolesForGroupXML);
+            String usersForRoleXML = endpoint.getUsersForRole(userDataIds.getSid(), roleId,
+                    Defaults.ATTACH_ROLES, Defaults.IS_ACTIVE);
+
+            List<IliasUser> userRecords = XMLUtils.parseIliasUserRecordsFromRole(usersForRoleXML);
+            groupUserModels.add(new GroupUserModelFull(group, userRecords));
+        }
+
+        return groupUserModels;
     }
 
     @Override
     public List<IliasNode> getFilesFromGroups(final List<IliasNode> groups) throws Exception {
-        return null;
+        List<IliasNode> fileRefIds = new ArrayList<>();
+        for (IliasNode group : groups) {
+            List<IliasNode> fileNodes = getRefIdsOfChildrenFromCurrentNode(group.getRefId(), IliasNode.Type.FILE);
+            if (fileNodes.isEmpty()) {
+                LOG.info("No files to remove for group '" + group.getTitle() + "'");
+            }
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Adding file idRefs from group '" + group.getRefId() + " - " + group.getTitle() + "': " + fileNodes);
+            }
+            fileRefIds.addAll(fileNodes);
+        }
+        return fileRefIds;
     }
 
     @Override
-    public void deleteObjectNodes(final List<IliasNode> files) throws Exception {
-
+    public void deleteObjectNodes(final List<IliasNode> nodes) throws Exception {
+        for (IliasNode node : nodes) {
+            try {
+                boolean objectDeleted = endpoint.deleteObject(userDataIds.getSid(), node.getRefId());
+                if (objectDeleted) {
+                    LOG.info("Delete node '" + node.getRefId() + " - " + node.getTitle() + "'");
+                } else {
+                    LOG.error("Could not delete node '" + node.getRefId() + " - " + node.getTitle() + "'");
+                }
+            } catch (RemoteException e) {
+                LOG.error("Could not delete node '" + node.getRefId() + " - " + node.getTitle() + "' due to a connection problem: " + e.getMessage());
+            }
+        }
     }
 
     @Override
     public void removeAllMembersFromGroups(final List<IliasNode> groups) throws Exception {
+        List<GroupUserModel> unremovedUsers = new ArrayList<>();
+        for (IliasNode group : groups) {
+            if (LOG.isDebugEnabled()) LOG.debug("Removing member from group: " + group.getTitle());
 
+            String groupXml = endpoint.getGroup(userDataIds.getSid(), group.getRefId());
+            List<Integer> groupMemberIds = XMLUtils.parseGroupMemberIds(groupXml);
+            if (groupMemberIds.isEmpty()) LOG.info("No members to remove from Group '" + group.getTitle() + "'");
+
+            unremovedUsers.add(removeMembersFromGroup(group, groupMemberIds));
+        }
+
+        if (!unremovedUsers.isEmpty() && unremovedUsers.stream().anyMatch(GroupUserModel::hasMembers)) {
+            LOG.error("Could not remove users from group(s): ");
+            unremovedUsers.stream().filter(GroupUserModel::hasMembers).forEach(LOG::error);
+        }
     }
 
-    @Override
-    public void setMaxMembersOnGroups(final List<IliasNode> groups) throws Exception {
+    /**
+     * Removes the members with the given ids from the group.
+     *
+     * @param group          the group node
+     * @param groupMemberIds the ids of the members of the group
+     * @return a {@link GroupUserModel} containing the member which could not be removed from the group.
+     * {@link GroupUserModel#hasMembers()} return <code>false</code> if all user could be removed.
+     */
+    private GroupUserModel removeMembersFromGroup(final IliasNode group, final List<Integer> groupMemberIds) {
+        GroupUserModel unremovedUsers = new GroupUserModel(group);
+        for (Integer groupMemberId : groupMemberIds) {
+            try {
+                boolean groupMemberExcluded = endpoint.excludeGroupMember(userDataIds.getSid(), group.getRefId(), groupMemberId);
+                if (groupMemberExcluded) {
+                    LOG.info("Excluded member with id:" + groupMemberId + " from group '" + group.getRefId() + " - " + group.getTitle() + "'");
+                } else {
+                    LOG.error("Could not exclude member with id:" + groupMemberId + " from group '" + group.getRefId() + " - " + group.getTitle() + "'");
+                    unremovedUsers.addGroupMemberId(groupMemberId);
+                }
+            } catch (Exception e) {
+                LOG.error("Could not exclude member with id:" + groupMemberId + " from group '" + group.getRefId() + " - " + group.getTitle() + "' because of " + e.getMessage());
+                unremovedUsers.addGroupMemberId(groupMemberId);
+            }
+        }
 
+        return unremovedUsers;
+    }
+
+
+    @Override
+    public void setMaxMembersOnGroups(final List<IliasNode> groups, final int maxGroupMembers) throws Exception {
+        for (IliasNode group : groups) {
+            String groupXml = endpoint.getGroup(userDataIds.getSid(), group.getRefId());
+            String updatedGroupXml = XMLUtils.setMaxGroupMembers(groupXml, maxGroupMembers);
+            boolean isGroupUpdated = endpoint.updateGroup(userDataIds.getSid(), group.getRefId(), updatedGroupXml);
+            if (isGroupUpdated) {
+                LOG.info("Updated group '" + group.getRefId() + " - " + group.getTitle() + "' with new max group members " + maxGroupMembers);
+            } else {
+                LOG.error("Failed to set max members on group '" + group.getRefId() + " - " + group.getTitle() + "'");
+            }
+        }
     }
 
     @Override
     public void setRegistrationDatesOnGroups(final List<IliasNode> groups, final LocalDateTime start, final LocalDateTime end) throws Exception {
+        final long newStart = toEpochSecond(start);
+        final long newEnd = toEpochSecond(end);
+        for (IliasNode group : groups) {
+            String groupXml = endpoint.getGroup(userDataIds.getSid(), group.getRefId());
+            String updatedGroupXml = XMLUtils.setRegistrationDates(groupXml, newStart, newEnd);
+            boolean isGroupUpdated = endpoint.updateGroup(userDataIds.getSid(), group.getRefId(), updatedGroupXml);
+            if (isGroupUpdated) {
+                LOG.info("Updated group '" + group.getRefId() + " - " + group.getTitle() + "' with new registration period starting at " + start + " and ending at " + end);
+            } else {
+                LOG.error("Failed to set registration date on group '" + group.getRefId() + " - " + group.getTitle() + "'");
+            }
+        }
+    }
 
+    /**
+     * Converts a {@link LocalDate} into epoch seconds represented in the
+     * time zone of the machine this tool is running. It's expected the ilias
+     * server is running in the same time zone.
+     *
+     * @param localDateTime the local date time to convert
+     * @return the seconds passed from the epoch
+     */
+    private static long toEpochSecond(final LocalDateTime localDateTime) {
+        return ZonedDateTime.of(localDateTime, ZoneId.systemDefault()).toEpochSecond();
     }
 
 }

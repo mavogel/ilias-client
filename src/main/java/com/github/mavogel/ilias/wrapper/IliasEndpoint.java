@@ -50,6 +50,7 @@ public interface IliasEndpoint {
 
     /**
      * Logs out the user.
+     *
      * @throws Exception in case of a failure. Detailed logs are written.
      */
     void logout() throws Exception;
@@ -59,8 +60,8 @@ public interface IliasEndpoint {
      *
      * @param status the status
      * @return the courses
-     * @see DisplayStatus for more details.
      * @throws Exception in case of a failure. Detailed logs are written.
+     * @see DisplayStatus for more details.
      */
     List<IliasNode> getCoursesForUser(final DisplayStatus... status) throws Exception;
 
@@ -119,18 +120,19 @@ public interface IliasEndpoint {
     /**
      * Set a maximum amount of members for the given groups.
      *
-     * @param groups the groups.
+     * @param groups          the groups.
+     * @param maxGroupMembers the maximum amount of group members to set
      * @throws Exception in case of a failure. Detailed logs are written.
      */
-    void setMaxMembersOnGroups(final List<IliasNode> groups) throws Exception;
+    void setMaxMembersOnGroups(final List<IliasNode> groups, final int maxGroupMembers) throws Exception;
 
     /**
      * Sets the registration start and end date for the given groups.<br>
      * Activates the registration for a group if it's not yet activated.
      *
      * @param groups the groups
-     * @param start the start date
-     * @param end the end data of the registration.
+     * @param start  the start date
+     * @param end    the end data of the registration.
      * @throws Exception in case of a failure. Detailed logs are written.
      */
     void setRegistrationDatesOnGroups(final List<IliasNode> groups, final LocalDateTime start, final LocalDateTime end) throws Exception;
