@@ -27,6 +27,7 @@ package com.github.mavogel.ilias.utils;
 
 import com.github.mavogel.ilias.model.IliasNode;
 import com.github.mavogel.ilias.model.IliasUser;
+import com.github.mavogel.ilias.wrapper.DisplayStatus;
 import org.apache.commons.lang3.Validate;
 import org.apache.log4j.Logger;
 import org.jdom.Document;
@@ -83,6 +84,16 @@ public class XMLUtils {
                 .append("<result><colspecs><colspec name=\"user_id\"/><colspec name=\"status\"/></colspecs><row><column>")
                 .append(userId).append("</column><column>")
                 .append(Arrays.stream(displayStati).mapToInt(s -> s.asNumber()).reduce((s1, s2) -> s1 | s2).getAsInt())
+                .append("</column></row></result>").toString();
+    }
+
+    public static String createCoursesResultXml2(final int userId, final DisplayStatus... displayStatus) {
+        Validate.notNull(displayStatus, "The displaystatus are null");
+        Validate.noNullElements(displayStatus, "One or more displayStatus are empty");
+        return new StringBuilder()
+                .append("<result><colspecs><colspec name=\"user_id\"/><colspec name=\"status\"/></colspecs><row><column>")
+                .append(userId).append("</column><column>")
+                .append(Arrays.stream(displayStatus).mapToInt(s -> s.asNumber()).reduce((s1, s2) -> s1 | s2).getAsInt())
                 .append("</column></row></result>").toString();
     }
 

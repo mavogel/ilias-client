@@ -44,13 +44,15 @@ public interface IliasEndpoint {
      *
      * @param loginConfiguration the login data
      * @return the data ids of the user
+     * @throws Exception in case of a failure. Detailed logs are written.
      */
-    UserDataIds getUserData(final LoginConfiguration loginConfiguration);
+    UserDataIds getUserData(final LoginConfiguration loginConfiguration) throws Exception;
 
     /**
      * Logs out the user.
+     * @throws Exception in case of a failure. Detailed logs are written.
      */
-    void logout();
+    void logout() throws Exception;
 
     /**
      * Retrieves the courses for the user he has the given status in.<br>
@@ -58,8 +60,9 @@ public interface IliasEndpoint {
      * @param status the status
      * @return the courses
      * @see DisplayStatus for more details.
+     * @throws Exception in case of a failure. Detailed logs are written.
      */
-    List<IliasNode> getCoursesForUser(final DisplayStatus... status);
+    List<IliasNode> getCoursesForUser(final DisplayStatus... status) throws Exception;
 
     /**
      * Retrieves the groups of a given course by serching until a maximum folder depth.
@@ -67,52 +70,59 @@ public interface IliasEndpoint {
      * @param course         the course
      * @param maxFolderDepth the maximum folder depth
      * @return the groups
+     * @throws Exception in case of a failure. Detailed logs are written.
      */
-    List<IliasNode> getGroupRefIdsFromCourses(final IliasNode course, final int maxFolderDepth);
+    List<IliasNode> getGroupRefIdsFromCourses(final IliasNode course, final int maxFolderDepth) throws Exception;
 
     /**
      * Grants file upload permission to the users of a group.
      *
      * @param groups the groups
+     * @throws Exception in case of a failure. Detailed logs are written.
      */
-    void grantFileUploadPermissionForMembers(final List<IliasNode> groups);
+    void grantFileUploadPermissionForMembers(final List<IliasNode> groups) throws Exception;
 
     /**
      * Retrieves the users for groups.
      *
      * @param groups the groups
      * @return the users
+     * @throws Exception in case of a failure. Detailed logs are written.
      */
-    List<GroupUserModelFull> getUsersForGroups(final List<IliasNode> groups);
+    List<GroupUserModelFull> getUsersForGroups(final List<IliasNode> groups) throws Exception;
 
     /**
      * Retrieves the file nodes from the given groups.
      *
      * @param groups the groups
      * @return the file nodes
+     * @throws Exception in case of a failure. Detailed logs are written.
      */
-    List<IliasNode> getFilesFromGroups(final List<IliasNode> groups);
+    List<IliasNode> getFilesFromGroups(final List<IliasNode> groups) throws Exception;
 
     /**
      * Deletes the given files.
      *
      * @param files the files to delete
+     * @throws Exception in case of a failure. Detailed logs are written.
      */
-    void deleteObjectNodes(final List<IliasNode> files);
+    void deleteObjectNodes(final List<IliasNode> files) throws Exception;
 
     /**
      * Removes all members from the given groups.
      *
      * @param groups the groups
+     * @throws Exception in case of a failure. Detailed logs are written.
      */
-    void removeAllMembersFromGroups(final List<IliasNode> groups);
+    void removeAllMembersFromGroups(final List<IliasNode> groups) throws Exception;
 
     /**
      * Set a maximum amount of members for the given groups.
      *
      * @param groups the groups.
+     * @throws Exception in case of a failure. Detailed logs are written.
      */
-    void setMaxMembersOnGroups(final List<IliasNode> groups);
+    void setMaxMembersOnGroups(final List<IliasNode> groups) throws Exception;
 
     /**
      * Sets the registration start and end date for the given groups.<br>
@@ -121,6 +131,7 @@ public interface IliasEndpoint {
      * @param groups the groups
      * @param start the start date
      * @param end the end data of the registration.
+     * @throws Exception in case of a failure. Detailed logs are written.
      */
-    void setRegistrationDatesOnGroups(final List<IliasNode> groups, final LocalDateTime start, final LocalDateTime end);
+    void setRegistrationDatesOnGroups(final List<IliasNode> groups, final LocalDateTime start, final LocalDateTime end) throws Exception;
 }
