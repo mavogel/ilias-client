@@ -24,25 +24,19 @@ package com.github.mavogel.ilias.state.states.action;/*
  *  https://opensource.org/licenses/MIT
  */
 
-import com.github.mavogel.client.ILIASSoapWebservicePortType;
 import com.github.mavogel.ilias.model.IliasNode;
-import com.github.mavogel.ilias.model.RegistrationPeriod;
-import com.github.mavogel.ilias.model.UserDataIds;
 import com.github.mavogel.ilias.state.ChangeAction;
 import com.github.mavogel.ilias.state.ToolStateMachine;
 import com.github.mavogel.ilias.utils.IOUtils;
-import com.github.mavogel.ilias.utils.IliasUtils;
 import com.github.mavogel.ilias.wrapper.IliasEndpoint;
 import org.apache.log4j.Logger;
-import org.jdom.JDOMException;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Represents the action to set the maximum amount of members in a group.
- *
+ * <p>
  * Created by mavogel on 3/19/17.
  */
 public class SetMaxMembersAction implements ChangeAction {
@@ -50,18 +44,14 @@ public class SetMaxMembersAction implements ChangeAction {
     private static Logger LOG = Logger.getLogger(SetMaxMembersAction.class);
 
     @Override
-    public void performAction(final IliasEndpoint iliasEndpoint,
+    public void performAction(final IliasEndpoint endpoint,
                               final Map<ToolStateMachine.ContextKey, List<IliasNode>> context,
                               final List<IliasNode> nodes) {
         LOG.info("Setting maximum amount of group members");
         int maxGroupMembers = IOUtils.readAndParsePositiveInteger();
         if (confirm()) {
-//            final String sid = userDataIds.getSid();
             try {
-                iliasEndpoint.setMaxMembersOnGroups(nodes, maxGroupMembers);
-//                IliasUtils.setMaxMembersOnGroups(endpoint, sid, nodes, maxGroupMembers);
-//            } catch (IOException | JDOMException e) {
-//                LOG.error("Error creating xml parser: " + e.getMessage());
+                endpoint.setMaxMembersOnGroups(nodes, maxGroupMembers);
             } catch (Exception e) {
                 LOG.error("Error setting max group members: " + e.getMessage());
             }

@@ -46,12 +46,10 @@ import java.util.List;
  * <p>
  * The SOAP endpoint wrapper for the Ilias backend.
  */
-public class SoapEndpoint extends AbstractIliasEndpoint implements IliasEndpoint {
+public class SoapEndpoint extends AbstractIliasEndpoint {
 
     private static Logger LOG = Logger.getLogger(SoapEndpoint.class);
-
     private ILIASSoapWebservicePortType endpoint;
-    private UserDataIds userDataIds;
 
     /**
      * C'tor (@see {@link AbstractIliasEndpoint})
@@ -105,12 +103,7 @@ public class SoapEndpoint extends AbstractIliasEndpoint implements IliasEndpoint
     }
 
     @Override
-    public UserDataIds getUserData() throws Exception {
-        return this.userDataIds;
-    }
-
-    @Override
-    public void logout() throws Exception {
+    public boolean logout() {
         if (userDataIds != null && endpoint != null) {
             try {
                 boolean isLoggedOut = endpoint.logout(userDataIds.getSid());
@@ -119,10 +112,13 @@ public class SoapEndpoint extends AbstractIliasEndpoint implements IliasEndpoint
                 } else {
                     LOG.error("Could not log out!");
                 }
+                return isLoggedOut;
             } catch (RemoteException e) {
                 LOG.error("Could not log out: " + e.getMessage());
+                return false;
             }
         }
+        return true;
     }
 
     @Override

@@ -25,24 +25,19 @@
  */
 package com.github.mavogel.ilias.state.states.action;
 
-import com.github.mavogel.client.ILIASSoapWebservicePortType;
 import com.github.mavogel.ilias.model.IliasNode;
-import com.github.mavogel.ilias.model.UserDataIds;
 import com.github.mavogel.ilias.state.ChangeAction;
 import com.github.mavogel.ilias.state.ToolStateMachine;
 import com.github.mavogel.ilias.utils.IOUtils;
-import com.github.mavogel.ilias.utils.IliasUtils;
 import com.github.mavogel.ilias.wrapper.IliasEndpoint;
 import org.apache.log4j.Logger;
-import org.jdom.JDOMException;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Represents the action for removing the uploaded materials.
- *
+ * <p>
  * Created by mavogel on 9/9/16.
  */
 public class RemoveUploadedMaterialsAction implements ChangeAction {
@@ -50,19 +45,14 @@ public class RemoveUploadedMaterialsAction implements ChangeAction {
     private static Logger LOG = Logger.getLogger(RemoveUploadedMaterialsAction.class);
 
     @Override
-    public void performAction(final IliasEndpoint iliasEndpoint,
+    public void performAction(final IliasEndpoint endpoint,
                               final Map<ToolStateMachine.ContextKey, List<IliasNode>> context,
                               final List<IliasNode> nodes) {
         LOG.info("Removing uploaded materials from groups");
-        if(confirm()) {
-//            final String sid = userDataIds.getSid();
-//            final int userId = userDataIds.getUserId();
+        if (confirm()) {
             try {
-                final List<IliasNode> files = iliasEndpoint.getFilesFromGroups(nodes);
-                iliasEndpoint.deleteObjectNodes(files);
-//                IliasUtils.deleteObjects(endpoint, sid, IliasUtils.retrieveFileRefIdsFromGroups(endpoint, sid, userId, nodes));
-//            } catch (IOException | JDOMException e) {
-//                LOG.error("Error creating xml parser: " + e.getMessage());
+                final List<IliasNode> files = endpoint.getFilesFromGroups(nodes);
+                endpoint.deleteObjectNodes(files);
             } catch (Exception e) {
                 LOG.error("Error removing uploaded materials: " + e.getMessage());
             }

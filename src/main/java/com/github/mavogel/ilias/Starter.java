@@ -25,20 +25,18 @@
  */
 package com.github.mavogel.ilias;
 
-import com.github.mavogel.client.ILIASSoapWebservicePortType;
 import com.github.mavogel.ilias.model.LoginConfiguration;
 import com.github.mavogel.ilias.model.UserDataIds;
 import com.github.mavogel.ilias.state.ToolStateMachine;
 import com.github.mavogel.ilias.utils.ConfigurationsUtils;
+import com.github.mavogel.ilias.wrapper.IliasEndpoint;
 import org.apache.commons.lang3.Validate;
 import org.apache.log4j.Logger;
-
-import java.rmi.RemoteException;
 
 /**
  * The starting point of the command line application by plumbing all together, registering the shutdown hook
  * and starting the state machine.
- *
+ * <p>
  * Created by mavogel on 8/29/16.
  */
 public class Starter {
@@ -75,17 +73,13 @@ public class Starter {
             public void run() {
                 if (stateMachine != null) {
                     UserDataIds userDataIds = stateMachine.getUserDataIds();
-                    ILIASSoapWebservicePortType endPoint = stateMachine.getEndPoint();
+                    IliasEndpoint endPoint = stateMachine.getEndpoint();
                     if (userDataIds != null && endPoint != null && !stateMachine.isInEndState()) {
-                        try {
-                            boolean isLoggedOut = endPoint.logout(userDataIds.getSid());
-                            if (isLoggedOut) {
-                                LOG.info("Successfully logged out for sid: '" + userDataIds.getSid() + "' before shutting down!");
-                            } else {
-                                LOG.error("Could not log out on shutdown!");
-                            }
-                        } catch (RemoteException e) {
-                            LOG.error("Could not log out on shutdown: " + e.getMessage());
+                        boolean isLoggedOut = endPoint.logout();
+                        if (isLoggedOut) {
+                            LOG.info("Successfully logged out for sid: '" + userDataIds.getSid() + "' before shutting down!");
+                        } else {
+                            LOG.error("Could not log out on shutdown!");
                         }
                     }
                 } else {

@@ -35,12 +35,20 @@ import java.time.ZonedDateTime;
 /**
  * Created by mavogel on 6/26/17.
  */
-public abstract class AbstractIliasEndpoint {
+public abstract class AbstractIliasEndpoint implements IliasEndpoint {
 
     protected LoginConfiguration loginConfiguration;
     protected UserDataIds userDataIds;
 
     /**
+     * @return the user data ids
+     */
+    public UserDataIds getUserDataIds() {
+        return userDataIds;
+    }
+
+    /**
+
      * Creates the connection to the endpoint and retrieves the user credentials
      *
      * @param loginConfiguration the login configuration data

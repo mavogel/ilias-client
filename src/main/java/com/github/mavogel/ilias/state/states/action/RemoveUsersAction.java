@@ -25,24 +25,19 @@
  */
 package com.github.mavogel.ilias.state.states.action;
 
-import com.github.mavogel.client.ILIASSoapWebservicePortType;
 import com.github.mavogel.ilias.model.IliasNode;
-import com.github.mavogel.ilias.model.UserDataIds;
 import com.github.mavogel.ilias.state.ChangeAction;
 import com.github.mavogel.ilias.state.ToolStateMachine;
 import com.github.mavogel.ilias.utils.IOUtils;
-import com.github.mavogel.ilias.utils.IliasUtils;
 import com.github.mavogel.ilias.wrapper.IliasEndpoint;
 import org.apache.log4j.Logger;
-import org.jdom.JDOMException;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Represents the action for removing/excluding the users of a group.
- *
+ * <p>
  * Created by mavogel on 9/7/16.
  */
 public class RemoveUsersAction implements ChangeAction {
@@ -50,17 +45,13 @@ public class RemoveUsersAction implements ChangeAction {
     private static Logger LOG = Logger.getLogger(RemoveUsersAction.class);
 
     @Override
-    public void performAction(final IliasEndpoint iliasEndpoint,
+    public void performAction(final IliasEndpoint endpoint,
                               final Map<ToolStateMachine.ContextKey, List<IliasNode>> context,
                               final List<IliasNode> nodes) {
         LOG.info("Removing users from groups");
-        if(confirm()) {
-//            final String sid = userDataIds.getSid();
+        if (confirm()) {
             try {
-                iliasEndpoint.removeAllMembersFromGroups(nodes);
-//                IliasUtils.removeAllMembersFromGroups(endpoint, sid, nodes);
-//            } catch (IOException | JDOMException e) {
-//                LOG.error("Error creating xml parser: " + e.getMessage());
+                endpoint.removeAllMembersFromGroups(nodes);
             } catch (Exception e) {
                 LOG.error("Error Removing users from groups: " + e.getMessage());
             }

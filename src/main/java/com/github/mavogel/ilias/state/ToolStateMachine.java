@@ -25,13 +25,11 @@
  */
 package com.github.mavogel.ilias.state;
 
-import com.github.mavogel.client.ILIASSoapWebservicePortType;
 import com.github.mavogel.ilias.model.IliasNode;
 import com.github.mavogel.ilias.model.LoginConfiguration;
 import com.github.mavogel.ilias.model.UserDataIds;
 import com.github.mavogel.ilias.state.states.*;
-import com.github.mavogel.ilias.wrapper.IliasEndpoint;
-import com.github.mavogel.ilias.wrapper.soap.SoapEndpoint;
+import com.github.mavogel.ilias.wrapper.AbstractIliasEndpoint;
 
 import java.util.HashMap;
 import java.util.List;
@@ -57,12 +55,7 @@ public class ToolStateMachine {
         GROUPS
     }
 
-    private IliasEndpoint iliasEndpoint;
-
-    private UserDataIds userDataId;
-    private ILIASSoapWebservicePortType endPoint;
-    private int maxFolderDepth;
-
+    private AbstractIliasEndpoint endpoint;
     private Map<ContextKey, List<IliasNode>> context;
 
     private boolean isInEndState;
@@ -80,7 +73,6 @@ public class ToolStateMachine {
      * @param loginConfiguration the configuration of the login
      */
     public ToolStateMachine(final LoginConfiguration loginConfiguration) {
-        this.maxFolderDepth = loginConfiguration.getMaxFolderDepth();
         this.isInEndState = false;
         this.context = new HashMap<>();
 
@@ -102,45 +94,23 @@ public class ToolStateMachine {
      * @return the user data ids
      */
     public UserDataIds getUserDataIds() {
-        return userDataId;
+        return this.endpoint.getUserDataIds();
     }
 
     /**
-     * @param userDataId the user data ids
+     * @return the endpoint
      */
-    public void setUserDataId(final UserDataIds userDataId) {
-        this.userDataId = userDataId;
+    public AbstractIliasEndpoint getEndpoint() {
+        return endpoint;
     }
 
     /**
-     * @return the ws endpoint
+     * @param endpoint the endpoint
      */
-    public ILIASSoapWebservicePortType getEndPoint() {
-        return endPoint;
+    public void setEndpoint(final AbstractIliasEndpoint endpoint) {
+        this.endpoint = endpoint;
     }
 
-    /**
-     * @param endPoint the ws endpoint
-     */
-    public void setEndPoint(final ILIASSoapWebservicePortType endPoint) {
-        this.endPoint = endPoint;
-    }
-
-    // TODO new
-    public IliasEndpoint getIliasEndpoint() {
-        return iliasEndpoint;
-    }
-
-    public void setIliasEndpoint(final IliasEndpoint iliasEndpoint) {
-        this.iliasEndpoint = iliasEndpoint;
-    }
-
-    /**
-     * @return the maximum folder depth
-     */
-    public int getMaxFolderDepth() {
-        return maxFolderDepth;
-    }
 
     /**
      * @return the current context

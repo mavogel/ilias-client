@@ -25,22 +25,17 @@
  */
 package com.github.mavogel.ilias.state.states;
 
-import com.github.mavogel.client.ILIASSoapWebservicePortType;
 import com.github.mavogel.ilias.model.IliasAction;
 import com.github.mavogel.ilias.model.IliasNode;
-import com.github.mavogel.ilias.model.UserDataIds;
 import com.github.mavogel.ilias.state.ChangeAction;
 import com.github.mavogel.ilias.state.ToolState;
 import com.github.mavogel.ilias.state.ToolStateMachine;
 import com.github.mavogel.ilias.state.states.action.*;
 import com.github.mavogel.ilias.utils.Defaults;
 import com.github.mavogel.ilias.utils.IOUtils;
-import com.github.mavogel.ilias.utils.IliasUtils;
 import com.github.mavogel.ilias.wrapper.IliasEndpoint;
 import org.apache.log4j.Logger;
-import org.jdom.JDOMException;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -87,34 +82,17 @@ public class ActionsOnGroupsState extends ToolState {
 
     @Override
     protected List<IliasNode> collectDataForExecution() {
-        IliasEndpoint iliasEndpoint = stateMachine.getIliasEndpoint();
+        IliasEndpoint endpoint = stateMachine.getEndpoint();
         final List<IliasNode> courses = stateMachine.getContext().get(ToolStateMachine.ContextKey.COURSES);
 
         try {
-            return iliasEndpoint.getGroupRefIdsFromCourses(courses.get(0)); // TODO only one course atm
+            return endpoint.getGroupRefIdsFromCourses(courses.get(0)); // TODO only one course atm
         } catch (Exception e) {
             this.stateMachine.setState(stateMachine.getChooseCoursesState());
         }
 
         return Collections.emptyList();
     }
-
-//    @Override
-//    protected List<IliasNode> collectDataForExecution() {
-//        ILIASSoapWebservicePortType endpoint = stateMachine.getEndPoint();
-//        final String sid = stateMachine.getUserDataIds().getSid();
-//        final int userId = stateMachine.getUserDataIds().getUserId();
-//        final int maxFolderDepth = stateMachine.getMaxFolderDepth();
-//
-//        final List<IliasNode> courses = stateMachine.getContext().get(ToolStateMachine.ContextKey.COURSES);
-//        try {
-//            return IliasUtils.retrieveGroupRefIdsFromCourses(endpoint, sid, userId, courses, maxFolderDepth);
-//        } catch (JDOMException | IOException e) {
-//            LOG.error("Error creating xml parser: " + e.getMessage());
-//            this.stateMachine.setState(stateMachine.getChooseCoursesState());
-//        }
-//        return Collections.emptyList();
-//    }
 
     @Override
     protected IliasAction printAndParseExecutionChoices(final List<IliasNode> nodeChoices) {
@@ -142,7 +120,7 @@ public class ActionsOnGroupsState extends ToolState {
 
     @Override
     protected void doExecute(final IliasAction nodesAndActions) {
-        IliasEndpoint iliasEndpoint = stateMachine.getIliasEndpoint();
+        IliasEndpoint iliasEndpoint = stateMachine.getEndpoint();
         Map<ToolStateMachine.ContextKey, List<IliasNode>> context = stateMachine.getContext();
         List<IliasNode> nodes = nodesAndActions.getNodes();
 

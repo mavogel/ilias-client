@@ -3,6 +3,10 @@ Release Notes
 
 **Version 1.1.7 (xx-June-2017)**
 
+Refactoring:
+* Wrapper for the SOAP interface to make it more generic and the app won't break 
+if there will be a REST interface in the future
+
 Tests:
 * Integration tests and add coverage report.
 

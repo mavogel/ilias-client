@@ -41,11 +41,11 @@ public interface ChangeAction {
     /**
      * Performs the action of the state.
      *
-     * @param iliasEndpoint the endpoint
-     * @param context       the current context of the state machine
-     * @param nodes         the nodes to perform the action on
+     * @param endpoint the endpoint
+     * @param context  the current context of the state machine
+     * @param nodes    the nodes to perform the action on
      */
-    void performAction(final IliasEndpoint iliasEndpoint,
+    void performAction(final IliasEndpoint endpoint,
                        final Map<ToolStateMachine.ContextKey, List<IliasNode>> context, final List<IliasNode> nodes);
 
     /**

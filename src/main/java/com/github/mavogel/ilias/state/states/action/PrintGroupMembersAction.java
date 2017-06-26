@@ -26,21 +26,16 @@ package com.github.mavogel.ilias.state.states.action;
  *  https://opensource.org/licenses/MIT
  */
 
-import com.github.mavogel.client.ILIASSoapWebservicePortType;
 import com.github.mavogel.ilias.model.GroupUserModelFull;
 import com.github.mavogel.ilias.model.IliasNode;
-import com.github.mavogel.ilias.model.UserDataIds;
 import com.github.mavogel.ilias.printer.VelocityOutputPrinter;
 import com.github.mavogel.ilias.state.ChangeAction;
 import com.github.mavogel.ilias.state.ToolStateMachine;
 import com.github.mavogel.ilias.utils.Defaults;
 import com.github.mavogel.ilias.utils.IOUtils;
-import com.github.mavogel.ilias.utils.IliasUtils;
 import com.github.mavogel.ilias.wrapper.IliasEndpoint;
 import org.apache.log4j.Logger;
-import org.jdom.JDOMException;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -76,15 +71,13 @@ public class PrintGroupMembersAction implements ChangeAction {
     }
 
     @Override
-    public void performAction(final IliasEndpoint iliasEndpoint,
+    public void performAction(final IliasEndpoint endpoint,
                               final Map<ToolStateMachine.ContextKey, List<IliasNode>> context,
                               final List<IliasNode> nodes) {
         LOG.info("Print group members");
         if (confirm()) {
-//            final String sid = userDataIds.getSid();
             try {
-//                List<GroupUserModelFull> membersPerGroup = IliasUtils.getUsersForGroups(endpoint, sid, nodes);
-                List<GroupUserModelFull> membersPerGroup = iliasEndpoint.getUsersForGroups(nodes);
+                List<GroupUserModelFull> membersPerGroup = endpoint.getUsersForGroups(nodes);
                 IntStream.range(0, VelocityOutputPrinter.OutputType.values().length)
                         .mapToObj(i -> VelocityOutputPrinter.OutputType.getAtIndex(i).asDisplayString(Defaults.GET_CHOICE_PREFIX(i)))
                         .forEach(LOG::info);
@@ -123,8 +116,6 @@ public class PrintGroupMembersAction implements ChangeAction {
 
                     contextMap.clear();
                 }
-//            } catch (IOException | JDOMException e) {
-//                LOG.error("Error creating xml parser: " + e.getMessage());
             } catch (Exception e) {
                 LOG.error("Error printing group members: " + e.getMessage());
             }

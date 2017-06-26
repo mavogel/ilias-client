@@ -26,7 +26,6 @@ package com.github.mavogel.ilias.wrapper;/*
 
 import com.github.mavogel.ilias.model.GroupUserModelFull;
 import com.github.mavogel.ilias.model.IliasNode;
-import com.github.mavogel.ilias.model.UserDataIds;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -39,19 +38,11 @@ import java.util.List;
 public interface IliasEndpoint {
 
     /**
-     * Retrieves the user data from the Ilias backend.
-     *
-     * @return the data ids of the user
-     * @throws Exception in case of a failure. Detailed logs are written.
-     */
-    UserDataIds getUserData() throws Exception;
-
-    /**
      * Logs out the user.
      *
-     * @throws Exception in case of a failure. Detailed logs are written.
+     * @return true if the user has been successfully logged out, false otherwise
      */
-    void logout() throws Exception;
+    boolean logout();
 
     /**
      * Retrieves the courses for the user he has the given status in.<br>

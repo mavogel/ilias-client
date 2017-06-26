@@ -25,21 +25,16 @@
  */
 package com.github.mavogel.ilias.state.states;
 
-import com.github.mavogel.client.ILIASSoapWebservicePortType;
 import com.github.mavogel.ilias.model.IliasAction;
 import com.github.mavogel.ilias.model.IliasNode;
 import com.github.mavogel.ilias.state.ToolState;
 import com.github.mavogel.ilias.state.ToolStateMachine;
 import com.github.mavogel.ilias.utils.Defaults;
 import com.github.mavogel.ilias.utils.IOUtils;
-import com.github.mavogel.ilias.utils.IliasUtils;
 import com.github.mavogel.ilias.wrapper.DisplayStatus;
 import com.github.mavogel.ilias.wrapper.IliasEndpoint;
 import org.apache.log4j.Logger;
-import org.jdom.JDOMException;
 
-import java.io.IOException;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -74,7 +69,7 @@ public class ChooseCoursesState extends ToolState {
 
     @Override
     protected List<IliasNode> collectDataForExecution() {
-        IliasEndpoint iliasEndpoint = stateMachine.getIliasEndpoint();
+        IliasEndpoint iliasEndpoint = stateMachine.getEndpoint();
         try {
             return iliasEndpoint.getCoursesForUser(DisplayStatus.ADMIN);
         } catch (Exception e) {
@@ -84,29 +79,12 @@ public class ChooseCoursesState extends ToolState {
         return Collections.emptyList();
     }
 
-//    @Override
-//    protected List<IliasNode> collectDataForExecution() {
-//        final ILIASSoapWebservicePortType endpoint = stateMachine.getEndPoint();
-//        final String sid = stateMachine.getUserDataIds().getSid();
-//        final int userId = stateMachine.getUserDataIds().getUserId();
-//
-//        try {
-//            return IliasUtils.getCoursesForUser(endpoint, sid, userId, IliasUtils.DisplayStatus.ADMIN);
-//        } catch (RemoteException e) {
-//            LOG.error("Could not retrieve courses for user : " + e.getMessage());
-//            this.stateMachine.setState(stateMachine.getQuitState());
-//        } catch (JDOMException | IOException e) {
-//            LOG.error("Error creating xml parser: " + e.getMessage());
-//            this.stateMachine.setState(stateMachine.getQuitState());
-//        }
-//        return Collections.emptyList();
-//    }
-
     @Override
     protected IliasAction printAndParseExecutionChoices(final List<IliasNode> nodeChoices) {
         if(nodeChoices.isEmpty()) {
             LOG.info("======================== HINT =========================");
-            LOG.info("Found no courses you're admin of with userId '" + stateMachine.getUserDataIds().getUsername() + "'");
+//            LOG.info("Found no courses you're admin of with userId '" + stateMachine.getUserDataIds().getUsername() + "'");
+            LOG.info("Found no courses you're admin of ");
             LOG.info("Please add your user in the Ilias GUI as admin");
             LOG.info("to at least one course and enter 'ChooseCourses' again");
             LOG.info("=======================================================");
