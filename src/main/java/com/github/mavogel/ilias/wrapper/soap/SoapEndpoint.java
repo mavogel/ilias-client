@@ -30,7 +30,6 @@ import com.github.mavogel.ilias.model.*;
 import com.github.mavogel.ilias.utils.Defaults;
 import com.github.mavogel.ilias.wrapper.AbstractIliasEndpoint;
 import com.github.mavogel.ilias.wrapper.DisplayStatus;
-import com.github.mavogel.ilias.wrapper.IliasEndpoint;
 import com.github.mavogel.ilias.wrapper.PermissionOperation;
 import org.apache.log4j.Logger;
 
@@ -126,7 +125,7 @@ public class SoapEndpoint extends AbstractIliasEndpoint {
         List<IliasNode> courses = new ArrayList<>();
 
         String foundCourses = endpoint.getCoursesForUser(userDataIds.getSid(),
-                SoapXMLUtils.createCoursesResultXml2(userDataIds.getUserId(), status)); // TODO rename later
+                SoapXMLUtils.createCoursesResultXml(userDataIds.getUserId(), status));
         if (LOG.isDebugEnabled()) LOG.debug("CoursesXML for user : " + foundCourses);
         List<Integer> courseRefIds = SoapXMLUtils.parseCourseRefIds(foundCourses);
         for (Integer courseRefId : courseRefIds) { // checked exceptions and lambdas...

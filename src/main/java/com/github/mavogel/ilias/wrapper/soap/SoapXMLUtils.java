@@ -27,7 +27,6 @@ package com.github.mavogel.ilias.wrapper.soap;
 
 import com.github.mavogel.ilias.model.IliasNode;
 import com.github.mavogel.ilias.model.IliasUser;
-import com.github.mavogel.ilias.utils.IliasUtils;
 import com.github.mavogel.ilias.wrapper.DisplayStatus;
 import org.apache.commons.lang3.Validate;
 import org.apache.log4j.Logger;
@@ -78,23 +77,13 @@ public class SoapXMLUtils {
      * &lt;/result&gt;
      * </pre>
      */
-    public static String createCoursesResultXml(final int userId, final IliasUtils.DisplayStatus... displayStati) {
+    public static String createCoursesResultXml(final int userId, final DisplayStatus... displayStati) {
         Validate.notNull(displayStati, "The displaystati are null");
         Validate.noNullElements(displayStati, "One or more displayStati are empty");
         return new StringBuilder()
                 .append("<result><colspecs><colspec name=\"user_id\"/><colspec name=\"status\"/></colspecs><row><column>")
                 .append(userId).append("</column><column>")
                 .append(Arrays.stream(displayStati).mapToInt(s -> s.asNumber()).reduce((s1, s2) -> s1 | s2).getAsInt())
-                .append("</column></row></result>").toString();
-    }
-
-    public static String createCoursesResultXml2(final int userId, final DisplayStatus... displayStatus) {
-        Validate.notNull(displayStatus, "The displaystatus are null");
-        Validate.noNullElements(displayStatus, "One or more displayStatus are empty");
-        return new StringBuilder()
-                .append("<result><colspecs><colspec name=\"user_id\"/><colspec name=\"status\"/></colspecs><row><column>")
-                .append(userId).append("</column><column>")
-                .append(Arrays.stream(displayStatus).mapToInt(s -> s.asNumber()).reduce((s1, s2) -> s1 | s2).getAsInt())
                 .append("</column></row></result>").toString();
     }
 

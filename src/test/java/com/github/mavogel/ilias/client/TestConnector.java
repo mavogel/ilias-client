@@ -24,12 +24,11 @@ package com.github.mavogel.ilias.client;/*
  *  https://opensource.org/licenses/MIT
  */
 
-import com.github.mavogel.client.ILIASSoapWebservicePortType;
 import com.github.mavogel.ilias.model.LoginConfiguration;
 import com.github.mavogel.ilias.model.UserDataIds;
-import com.github.mavogel.ilias.utils.IliasUtils;
+import com.github.mavogel.ilias.wrapper.AbstractIliasEndpoint;
+import com.github.mavogel.ilias.wrapper.EndpointBuilder;
 
-import javax.xml.rpc.ServiceException;
 import java.rmi.RemoteException;
 
 /**
@@ -47,22 +46,20 @@ public class TestConnector {
         String password = "";
         int maxFolderDepth = 5;
         LoginConfiguration loginConfiguration = LoginConfiguration.asLDAPLogin(endpoint, client, username, password, maxFolderDepth);
-        ILIASSoapWebservicePortType wsEndpoint = null;
+        AbstractIliasEndpoint endpointObject = null;
         UserDataIds userData = null;
         try {
-            wsEndpoint = IliasUtils.createWsEndpoint(loginConfiguration);
-            userData = IliasUtils.getUserData(loginConfiguration, wsEndpoint);
+            endpointObject = EndpointBuilder.build(EndpointBuilder.Type.SOAP, loginConfiguration);
+            userData = endpointObject.getUserDataIds();
 
             // == go
             // TODO insert your action here
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        } catch (RemoteException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             // == teardown
             if (userData != null && userData.getSid() != null) {
-                wsEndpoint.logout(userData.getSid());
+                endpointObject.logout();
             }
         }
     }

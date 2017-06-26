@@ -27,8 +27,7 @@ package com.github.mavogel.ilias.wrapper.soap;
 
 import com.github.mavogel.ilias.model.IliasNode;
 import com.github.mavogel.ilias.model.IliasUser;
-import com.github.mavogel.ilias.utils.IliasUtils;
-import com.github.mavogel.ilias.wrapper.soap.SoapXMLUtils;
+import com.github.mavogel.ilias.wrapper.DisplayStatus;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -39,13 +38,14 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.time.*;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -68,7 +68,7 @@ public class SoapXMLUtilsTest {
                 .append("</column></row></result>").toString();
 
         // == go
-        String adminCoursesResultXml = SoapXMLUtils.createCoursesResultXml(122, IliasUtils.DisplayStatus.ADMIN);
+        String adminCoursesResultXml = SoapXMLUtils.createCoursesResultXml(122, DisplayStatus.ADMIN);
 
         // == verify
         assertEquals(expected, adminCoursesResultXml);
@@ -84,8 +84,8 @@ public class SoapXMLUtilsTest {
                 .append("</column></row></result>").toString();
 
         // == go
-        String adminCoursesResultXml = SoapXMLUtils.createCoursesResultXml(122, IliasUtils.DisplayStatus.ADMIN,
-                IliasUtils.DisplayStatus.OWNER);
+        String adminCoursesResultXml = SoapXMLUtils.createCoursesResultXml(122, DisplayStatus.ADMIN,
+                DisplayStatus.OWNER);
 
         // == verify
         assertEquals(expected, adminCoursesResultXml);
