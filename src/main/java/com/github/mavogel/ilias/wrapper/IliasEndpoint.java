@@ -26,7 +26,6 @@ package com.github.mavogel.ilias.wrapper;/*
 
 import com.github.mavogel.ilias.model.GroupUserModelFull;
 import com.github.mavogel.ilias.model.IliasNode;
-import com.github.mavogel.ilias.model.LoginConfiguration;
 import com.github.mavogel.ilias.model.UserDataIds;
 
 import java.time.LocalDateTime;
@@ -68,11 +67,10 @@ public interface IliasEndpoint {
      * Retrieves the groups of a given course by serching until a maximum folder depth.
      *
      * @param course         the course
-     * @param maxFolderDepth the maximum folder depth
      * @return the groups
      * @throws Exception in case of a failure. Detailed logs are written.
      */
-    List<IliasNode> getGroupRefIdsFromCourses(final IliasNode course, final int maxFolderDepth) throws Exception;
+    List<IliasNode> getGroupRefIdsFromCourses(final IliasNode course) throws Exception;
 
     /**
      * Grants file upload permission to the users of a group.

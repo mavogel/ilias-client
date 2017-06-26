@@ -91,7 +91,8 @@ public class LoginState extends ToolState {
     @Override
     protected void doExecute(final IliasAction nodesAndActions) {
         try {
-            this.stateMachine.setIliasEndpoint(SoapEndpoint.createAndGetInstance(loginConfiguration));
+            // choose SOAP or REST here
+            this.stateMachine.setIliasEndpoint(new SoapEndpoint(loginConfiguration));
             LOG.info(String.format("Logged in successfully as '%s'", loginConfiguration.getUsername()));
         } catch (Exception e) {
             stateMachine.setState(stateMachine.getQuitState());

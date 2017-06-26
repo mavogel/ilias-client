@@ -32,6 +32,7 @@ import com.github.mavogel.ilias.state.ChangeAction;
 import com.github.mavogel.ilias.state.ToolStateMachine;
 import com.github.mavogel.ilias.utils.IOUtils;
 import com.github.mavogel.ilias.utils.IliasUtils;
+import com.github.mavogel.ilias.wrapper.IliasEndpoint;
 import org.apache.log4j.Logger;
 import org.jdom.JDOMException;
 
@@ -49,16 +50,21 @@ public class RemoveUploadedMaterialsAction implements ChangeAction {
     private static Logger LOG = Logger.getLogger(RemoveUploadedMaterialsAction.class);
 
     @Override
-    public void performAction(final ILIASSoapWebservicePortType endpoint, Map<ToolStateMachine.ContextKey, List<IliasNode>> context,
-                              final UserDataIds userDataIds, final List<IliasNode> nodes) {
+    public void performAction(final IliasEndpoint iliasEndpoint,
+                              final Map<ToolStateMachine.ContextKey, List<IliasNode>> context,
+                              final List<IliasNode> nodes) {
         LOG.info("Removing uploaded materials from groups");
         if(confirm()) {
-            final String sid = userDataIds.getSid();
-            final int userId = userDataIds.getUserId();
+//            final String sid = userDataIds.getSid();
+//            final int userId = userDataIds.getUserId();
             try {
-                IliasUtils.deleteObjects(endpoint, sid, IliasUtils.retrieveFileRefIdsFromGroups(endpoint, sid, userId, nodes));
-            } catch (IOException | JDOMException e) {
-                LOG.error("Error creating xml parser: " + e.getMessage());
+                final List<IliasNode> files = iliasEndpoint.getFilesFromGroups(nodes);
+                iliasEndpoint.deleteObjectNodes(files);
+//                IliasUtils.deleteObjects(endpoint, sid, IliasUtils.retrieveFileRefIdsFromGroups(endpoint, sid, userId, nodes));
+//            } catch (IOException | JDOMException e) {
+//                LOG.error("Error creating xml parser: " + e.getMessage());
+            } catch (Exception e) {
+                LOG.error("Error removing uploaded materials: " + e.getMessage());
             }
         }
     }

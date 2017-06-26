@@ -33,6 +33,8 @@ import com.github.mavogel.ilias.state.ToolStateMachine;
 import com.github.mavogel.ilias.utils.Defaults;
 import com.github.mavogel.ilias.utils.IOUtils;
 import com.github.mavogel.ilias.utils.IliasUtils;
+import com.github.mavogel.ilias.wrapper.DisplayStatus;
+import com.github.mavogel.ilias.wrapper.IliasEndpoint;
 import org.apache.log4j.Logger;
 import org.jdom.JDOMException;
 
@@ -72,21 +74,33 @@ public class ChooseCoursesState extends ToolState {
 
     @Override
     protected List<IliasNode> collectDataForExecution() {
-        final ILIASSoapWebservicePortType endpoint = stateMachine.getEndPoint();
-        final String sid = stateMachine.getUserDataIds().getSid();
-        final int userId = stateMachine.getUserDataIds().getUserId();
-
+        IliasEndpoint iliasEndpoint = stateMachine.getIliasEndpoint();
         try {
-            return IliasUtils.getCoursesForUser(endpoint, sid, userId, IliasUtils.DisplayStatus.ADMIN);
-        } catch (RemoteException e) {
-            LOG.error("Could not retrieve courses for user : " + e.getMessage());
-            this.stateMachine.setState(stateMachine.getQuitState());
-        } catch (JDOMException | IOException e) {
-            LOG.error("Error creating xml parser: " + e.getMessage());
+            return iliasEndpoint.getCoursesForUser(DisplayStatus.ADMIN);
+        } catch (Exception e) {
             this.stateMachine.setState(stateMachine.getQuitState());
         }
+
         return Collections.emptyList();
     }
+
+//    @Override
+//    protected List<IliasNode> collectDataForExecution() {
+//        final ILIASSoapWebservicePortType endpoint = stateMachine.getEndPoint();
+//        final String sid = stateMachine.getUserDataIds().getSid();
+//        final int userId = stateMachine.getUserDataIds().getUserId();
+//
+//        try {
+//            return IliasUtils.getCoursesForUser(endpoint, sid, userId, IliasUtils.DisplayStatus.ADMIN);
+//        } catch (RemoteException e) {
+//            LOG.error("Could not retrieve courses for user : " + e.getMessage());
+//            this.stateMachine.setState(stateMachine.getQuitState());
+//        } catch (JDOMException | IOException e) {
+//            LOG.error("Error creating xml parser: " + e.getMessage());
+//            this.stateMachine.setState(stateMachine.getQuitState());
+//        }
+//        return Collections.emptyList();
+//    }
 
     @Override
     protected IliasAction printAndParseExecutionChoices(final List<IliasNode> nodeChoices) {

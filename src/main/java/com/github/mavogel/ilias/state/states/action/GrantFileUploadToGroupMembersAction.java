@@ -31,6 +31,7 @@ import com.github.mavogel.ilias.state.ChangeAction;
 import com.github.mavogel.ilias.state.ToolStateMachine;
 import com.github.mavogel.ilias.utils.IOUtils;
 import com.github.mavogel.ilias.utils.IliasUtils;
+import com.github.mavogel.ilias.wrapper.IliasEndpoint;
 import org.apache.log4j.Logger;
 import org.jdom.JDOMException;
 
@@ -48,15 +49,18 @@ public class GrantFileUploadToGroupMembersAction implements ChangeAction {
     private static Logger LOG = Logger.getLogger(GrantFileUploadToGroupMembersAction.class);
 
     @Override
-    public void performAction(final ILIASSoapWebservicePortType endpoint, Map<ToolStateMachine.ContextKey, List<IliasNode>> context,
-                              final UserDataIds userDataIds, final List<IliasNode> nodes) {
+    public void performAction(final IliasEndpoint iliasEndpoint,
+                              final Map<ToolStateMachine.ContextKey, List<IliasNode>> context,
+                              final List<IliasNode> nodes) {
         LOG.info("Grant file upload to group members");
         if (confirm()) {
-            final String sid = userDataIds.getSid();
             try {
-                IliasUtils.grantFileUploadPermissionForMembers(endpoint, sid, nodes);
-            } catch (IOException | JDOMException e) {
-                LOG.error("Error creating xml parser: " + e.getMessage());
+                iliasEndpoint.grantFileUploadPermissionForMembers(nodes);
+//                IliasUtils.grantFileUploadPermissionForMembers(endpoint, sid, nodes);
+//            } catch (IOException | JDOMException e) {
+//                LOG.error("Error creating xml parser: " + e.getMessage());
+            } catch (Exception e) {
+                LOG.error("Error granting file upload to group members: " + e.getMessage());
             }
         }
     }

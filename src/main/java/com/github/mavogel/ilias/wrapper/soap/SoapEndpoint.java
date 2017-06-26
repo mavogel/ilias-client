@@ -28,18 +28,16 @@ import com.github.mavogel.client.ILIASSoapWebserviceLocator;
 import com.github.mavogel.client.ILIASSoapWebservicePortType;
 import com.github.mavogel.ilias.model.*;
 import com.github.mavogel.ilias.utils.Defaults;
-import com.github.mavogel.ilias.wrapper.PermissionOperation;
+import com.github.mavogel.ilias.wrapper.AbstractIliasEndpoint;
 import com.github.mavogel.ilias.wrapper.DisplayStatus;
 import com.github.mavogel.ilias.wrapper.IliasEndpoint;
+import com.github.mavogel.ilias.wrapper.PermissionOperation;
 import org.apache.log4j.Logger;
 
 import javax.xml.rpc.ServiceException;
 import java.net.UnknownHostException;
 import java.rmi.RemoteException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,49 +46,25 @@ import java.util.List;
  * <p>
  * The SOAP endpoint wrapper for the Ilias backend.
  */
-public class SoapEndpoint implements IliasEndpoint {
+public class SoapEndpoint extends AbstractIliasEndpoint implements IliasEndpoint {
 
-    private static SoapEndpoint INSTANCE;
     private static Logger LOG = Logger.getLogger(SoapEndpoint.class);
 
     private ILIASSoapWebservicePortType endpoint;
-    private static LoginConfiguration loginConfiguration;
     private UserDataIds userDataIds;
 
     /**
-     * Creates the endpoint of the Ilias SOAP interface and retrieves
-     * the user data.
+     * C'tor (@see {@link AbstractIliasEndpoint})
      *
-     * @param loginConfiguration the config of the login
-     * @throws Exception if the endpoint could not be established
+     * @param loginConfiguration the login configuration data
+     * @throws Exception @see {@link AbstractIliasEndpoint}
      */
-    public static SoapEndpoint createAndGetInstance(final LoginConfiguration loginConfiguration) throws Exception {
-        if (INSTANCE != null) {
-            throw new Exception("Instance already created. Use 'getInstance' instead");
-        }
-
-        SoapEndpoint.loginConfiguration = loginConfiguration;
-        return SoapEndpoint.getInstance();
+    public SoapEndpoint(final LoginConfiguration loginConfiguration) throws Exception {
+        super(loginConfiguration);
     }
 
-    /**
-     * The instance of the SOAP endpoint.
-     *
-     * @return the endpoint
-     * @throws Exception if the endpoint could not be established
-     */
-    public static SoapEndpoint getInstance() throws Exception {
-        if (INSTANCE == null) {
-            INSTANCE = new SoapEndpoint();
-        }
-
-        return INSTANCE;
-    }
-
-    /**
-     * C'tor
-     */
-    private SoapEndpoint() throws Exception {
+    @Override
+    protected void createAndSetEndpoint() throws Exception {
         ILIASSoapWebserviceLocator locator = new ILIASSoapWebserviceLocator();
         locator.setILIASSoapWebservicePortEndpointAddress(loginConfiguration.getEndpoint());
         if (LOG.isDebugEnabled()) LOG.debug("Creating endpoint at " + loginConfiguration.getEndpoint());
@@ -100,16 +74,10 @@ public class SoapEndpoint implements IliasEndpoint {
             LOG.error("Could not establish webservice at '" + loginConfiguration.getEndpoint() + "'");
             throw new Exception();
         }
-
-        this.getAndSetUserData();
     }
 
-    /**
-     * Gets and set the user data.
-     *
-     * @throws Exception
-     */
-    private void getAndSetUserData() throws Exception {
+    @Override
+    protected void getAndSetUserData() throws Exception {
         try {
             String sid = "";
             switch (loginConfiguration.getLoginMode()) {
@@ -174,10 +142,10 @@ public class SoapEndpoint implements IliasEndpoint {
     }
 
     @Override
-    public List<IliasNode> getGroupRefIdsFromCourses(final IliasNode course, final int maxFolderDepth) throws Exception {
+    public List<IliasNode> getGroupRefIdsFromCourses(final IliasNode course) throws Exception {
         List<IliasNode> groups = new ArrayList<>();
         LOG.info("-- Collecting groups from '" + course.getTitle() + "'");
-        this.retrieveGroupRefIdsFromNode(groups, course.getRefId(), 0, maxFolderDepth);
+        this.retrieveGroupRefIdsFromNode(groups, course.getRefId(), 0, loginConfiguration.getMaxFolderDepth());
         return groups;
     }
 
@@ -384,17 +352,4 @@ public class SoapEndpoint implements IliasEndpoint {
             }
         }
     }
-
-    /**
-     * Converts a {@link LocalDate} into epoch seconds represented in the
-     * time zone of the machine this tool is running. It's expected the ilias
-     * server is running in the same time zone.
-     *
-     * @param localDateTime the local date time to convert
-     * @return the seconds passed from the epoch
-     */
-    private static long toEpochSecond(final LocalDateTime localDateTime) {
-        return ZonedDateTime.of(localDateTime, ZoneId.systemDefault()).toEpochSecond();
-    }
-
 }

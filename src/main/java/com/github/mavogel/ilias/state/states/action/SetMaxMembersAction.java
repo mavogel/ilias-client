@@ -32,6 +32,7 @@ import com.github.mavogel.ilias.state.ChangeAction;
 import com.github.mavogel.ilias.state.ToolStateMachine;
 import com.github.mavogel.ilias.utils.IOUtils;
 import com.github.mavogel.ilias.utils.IliasUtils;
+import com.github.mavogel.ilias.wrapper.IliasEndpoint;
 import org.apache.log4j.Logger;
 import org.jdom.JDOMException;
 
@@ -49,16 +50,20 @@ public class SetMaxMembersAction implements ChangeAction {
     private static Logger LOG = Logger.getLogger(SetMaxMembersAction.class);
 
     @Override
-    public void performAction(final ILIASSoapWebservicePortType endpoint, final Map<ToolStateMachine.ContextKey,
-            List<IliasNode>> context, final UserDataIds userDataIds, final List<IliasNode> nodes) {
+    public void performAction(final IliasEndpoint iliasEndpoint,
+                              final Map<ToolStateMachine.ContextKey, List<IliasNode>> context,
+                              final List<IliasNode> nodes) {
         LOG.info("Setting maximum amount of group members");
         int maxGroupMembers = IOUtils.readAndParsePositiveInteger();
         if (confirm()) {
-            final String sid = userDataIds.getSid();
+//            final String sid = userDataIds.getSid();
             try {
-                IliasUtils.setMaxMembersOnGroups(endpoint, sid, nodes, maxGroupMembers);
-            } catch (IOException | JDOMException e) {
-                LOG.error("Error creating xml parser: " + e.getMessage());
+                iliasEndpoint.setMaxMembersOnGroups(nodes, maxGroupMembers);
+//                IliasUtils.setMaxMembersOnGroups(endpoint, sid, nodes, maxGroupMembers);
+//            } catch (IOException | JDOMException e) {
+//                LOG.error("Error creating xml parser: " + e.getMessage());
+            } catch (Exception e) {
+                LOG.error("Error setting max group members: " + e.getMessage());
             }
         }
     }

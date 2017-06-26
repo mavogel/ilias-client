@@ -33,6 +33,7 @@ import com.github.mavogel.ilias.state.ChangeAction;
 import com.github.mavogel.ilias.state.ToolStateMachine;
 import com.github.mavogel.ilias.utils.IOUtils;
 import com.github.mavogel.ilias.utils.IliasUtils;
+import com.github.mavogel.ilias.wrapper.IliasEndpoint;
 import org.apache.log4j.Logger;
 import org.jdom.JDOMException;
 
@@ -50,17 +51,21 @@ public class SetRegistrationPeriodAction implements ChangeAction {
     private static Logger LOG = Logger.getLogger(SetRegistrationPeriodAction.class);
 
     @Override
-    public void performAction(final ILIASSoapWebservicePortType endpoint, Map<ToolStateMachine.ContextKey, List<IliasNode>> context,
-                              final UserDataIds userDataIds, final List<IliasNode> nodes) {
+    public void performAction(final IliasEndpoint iliasEndpoint,
+                              final Map<ToolStateMachine.ContextKey, List<IliasNode>> context,
+                              final List<IliasNode> nodes) {
         LOG.info("Setting registration date");
         RegistrationPeriod registrationPeriod = IOUtils.readAndParseRegistrationDates();
         if (confirm()) {
-            final String sid = userDataIds.getSid();
+//            final String sid = userDataIds.getSid();
             try {
-                IliasUtils.setRegistrationDatesOnGroups(endpoint, sid, nodes,
-                        registrationPeriod.getRegistrationStart(), registrationPeriod.getRegistrationEnd());
-            } catch (IOException | JDOMException e) {
-                LOG.error("Error creating xml parser: " + e.getMessage());
+                iliasEndpoint.setRegistrationDatesOnGroups(nodes, registrationPeriod.getRegistrationStart(), registrationPeriod.getRegistrationEnd());
+//                IliasUtils.setRegistrationDatesOnGroups(endpoint, sid, nodes,
+//                        registrationPeriod.getRegistrationStart(), registrationPeriod.getRegistrationEnd());
+//            } catch (IOException | JDOMException e) {
+//                LOG.error("Error creating xml parser: " + e.getMessage());
+            } catch (Exception e) {
+                LOG.error("Error setting registration period: " + e.getMessage());
             }
         }
     }

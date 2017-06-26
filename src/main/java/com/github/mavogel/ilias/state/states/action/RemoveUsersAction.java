@@ -32,6 +32,7 @@ import com.github.mavogel.ilias.state.ChangeAction;
 import com.github.mavogel.ilias.state.ToolStateMachine;
 import com.github.mavogel.ilias.utils.IOUtils;
 import com.github.mavogel.ilias.utils.IliasUtils;
+import com.github.mavogel.ilias.wrapper.IliasEndpoint;
 import org.apache.log4j.Logger;
 import org.jdom.JDOMException;
 
@@ -49,15 +50,19 @@ public class RemoveUsersAction implements ChangeAction {
     private static Logger LOG = Logger.getLogger(RemoveUsersAction.class);
 
     @Override
-    public void performAction(final ILIASSoapWebservicePortType endpoint, Map<ToolStateMachine.ContextKey, List<IliasNode>> context,
-                              final UserDataIds userDataIds, final List<IliasNode> nodes) {
+    public void performAction(final IliasEndpoint iliasEndpoint,
+                              final Map<ToolStateMachine.ContextKey, List<IliasNode>> context,
+                              final List<IliasNode> nodes) {
         LOG.info("Removing users from groups");
         if(confirm()) {
-            final String sid = userDataIds.getSid();
+//            final String sid = userDataIds.getSid();
             try {
-                IliasUtils.removeAllMembersFromGroups(endpoint, sid, nodes);
-            } catch (IOException | JDOMException e) {
-                LOG.error("Error creating xml parser: " + e.getMessage());
+                iliasEndpoint.removeAllMembersFromGroups(nodes);
+//                IliasUtils.removeAllMembersFromGroups(endpoint, sid, nodes);
+//            } catch (IOException | JDOMException e) {
+//                LOG.error("Error creating xml parser: " + e.getMessage());
+            } catch (Exception e) {
+                LOG.error("Error Removing users from groups: " + e.getMessage());
             }
         }
     }
