@@ -192,7 +192,8 @@ public class WorkflowTest {
         PowerMockito.mockStatic(IOUtils.class);
         endpointMock = PowerMockito.mock(SoapEndpoint.class);
         PowerMockito.mockStatic(EndpointBuilder.class);
-        PowerMockito.when(EndpointBuilder.build(EndpointBuilder.Type.SOAP, loginConfiguration)).thenReturn(endpointMock);
+        PowerMockito.when(EndpointBuilder.build(Mockito.any(EndpointBuilder.Type.class), Mockito.eq(loginConfiguration)))
+                .thenReturn(endpointMock);
 
 //        toolStateMachineMock = PowerMockito.spy(new ToolStateMachine(loginConfiguration));
 //        PowerMockito.when(toolStateMachineMock.getUserDataIds()).thenReturn(userDateIds);
