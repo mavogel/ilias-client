@@ -27,8 +27,11 @@ package com.github.mavogel.ilias.wrapper.soap;/*
 import com.github.mavogel.client.ILIASSoapWebserviceBindingStub;
 import com.github.mavogel.client.ILIASSoapWebserviceLocator;
 import com.github.mavogel.client.ILIASSoapWebservicePortType;
+import com.github.mavogel.ilias.model.GroupUserModelFull;
 import com.github.mavogel.ilias.model.IliasNode;
+import com.github.mavogel.ilias.model.IliasUser;
 import com.github.mavogel.ilias.model.LoginConfiguration;
+import com.github.mavogel.ilias.utils.Defaults;
 import com.github.mavogel.ilias.wrapper.AbstractIliasEndpoint;
 import com.github.mavogel.ilias.wrapper.DisplayStatus;
 import com.github.mavogel.ilias.wrapper.PermissionOperation;
@@ -221,6 +224,50 @@ public class SoapEndpointTest {
         SoapXMLUtils.parseGroupMemberRoleId("group2RolesXML");
         Mockito.verify(endPointMock).grantPermissions(SID, 1, 11, allPermissions);
         Mockito.verify(endPointMock).grantPermissions(SID, 2, 22, allPermissions);
+    }
+
+    @Test
+    public void shouldGet5UsersFrom2Groups() throws Exception {
+        // == prepare
+        List<IliasNode> groups = Arrays.asList(
+                new IliasNode(1, IliasNode.Type.GROUP, "Group 1"),
+                new IliasNode(2, IliasNode.Type.GROUP, "Group 2")
+        );
+        final List<IliasUser> group1UserRecords = Arrays.asList(
+                new IliasUser("firstname1", "lastname1", "mail1"),
+                new IliasUser("firstname2", "lastname2", "mail2"),
+                new IliasUser("firstname3", "lastname3", "mail3")
+        );
+        final List<IliasUser> group2UserRecords = Arrays.asList(
+                new IliasUser("firstname4", "lastname4", "mail4"),
+                new IliasUser("firstname5", "lastname5", "mail5"),
+                new IliasUser("firstname6", "lastname6", "mail6"),
+                new IliasUser("firstname7", "lastname7", "mail7")
+        );
+
+        // == train
+        PowerMockito.when(endPointMock.getLocalRoles(SID, 1)).thenReturn("group1RolesXML");
+        PowerMockito.when(endPointMock.getLocalRoles(SID, 2)).thenReturn("group2RolesXML");
+        PowerMockito.mockStatic(SoapXMLUtils.class);
+        PowerMockito.when(SoapXMLUtils.parseGroupMemberRoleId("group1RolesXML")).thenReturn(11);
+        PowerMockito.when(SoapXMLUtils.parseGroupMemberRoleId("group2RolesXML")).thenReturn(22);
+        PowerMockito.when(endPointMock.getUsersForRole(SID, 11, Defaults.ATTACH_ROLES, Defaults.IS_ACTIVE))
+            .thenReturn("usersForRole11XML");
+        PowerMockito.when(endPointMock.getUsersForRole(SID, 22, Defaults.ATTACH_ROLES, Defaults.IS_ACTIVE))
+                .thenReturn("usersForRole22XML");
+        PowerMockito.when(SoapXMLUtils.parseIliasUserRecordsFromRole("usersForRole11XML"))
+                .thenReturn(group1UserRecords);
+        PowerMockito.when(SoapXMLUtils.parseIliasUserRecordsFromRole("usersForRole22XML"))
+                .thenReturn(group2UserRecords);
+
+
+        // == go
+        List<GroupUserModelFull> groupUserModels = classUnderTest.getUsersForGroups(groups);
+
+        // == verify
+        assertEquals(2, groupUserModels.size());
+        assertEquals(3, groupUserModels.get(0).getGroupMembers().size());
+        assertEquals(4, groupUserModels.get(1).getGroupMembers().size());
     }
 
 }
