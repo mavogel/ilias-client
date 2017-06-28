@@ -137,15 +137,15 @@ public class SoapEndpoint extends AbstractIliasEndpoint {
     }
 
     @Override
-    public List<IliasNode> getGroupRefIdsFromCourses(final IliasNode course) throws Exception {
+    public List<IliasNode> getGroupsFromCourse(final IliasNode course) throws Exception {
         List<IliasNode> groups = new ArrayList<>();
         LOG.info("-- Collecting groups from '" + course.getTitle() + "'");
-        this.retrieveGroupRefIdsFromNode(groups, course.getRefId(), 0, loginConfiguration.getMaxFolderDepth());
+        this.getAndAddGroupsFromNode(groups, course.getRefId(), 0, loginConfiguration.getMaxFolderDepth());
         return groups;
     }
 
     /**
-     * Retrieves the refIds of all groups of the given refId of a node/object in the ilias tree.
+     * Retrieves and adds the refIds of all groups of the given refId of a node/object in the ilias tree.
      * A node can also contain folder trees. The maxDepth parameter limits the search depth.
      *
      * @param groups       the accumulated group ref ids
@@ -153,38 +153,39 @@ public class SoapEndpoint extends AbstractIliasEndpoint {
      * @param currentDepth the current depth of the search
      * @param maxDepth     the maximum folder depth to search
      */
-    private void retrieveGroupRefIdsFromNode(final List<IliasNode> groups, final int nodeRefId,
-                                             final int currentDepth, final int maxDepth) throws Exception {
+    private void getAndAddGroupsFromNode(final List<IliasNode> groups, final int nodeRefId,
+                                         final int currentDepth, final int maxDepth) throws Exception {
         if (LOG.isDebugEnabled()) {
             LOG.debug("Retrieve Group refIds in depth " + currentDepth + " of node: " + nodeRefId);
         }
         if (currentDepth <= maxDepth) {
-            List<IliasNode> folderChildrenNodes = getRefIdsOfChildrenFromCurrentNode(nodeRefId, IliasNode.Type.FOLDER);
-            for (IliasNode folderChildNode : folderChildrenNodes) {
+            List<IliasNode> folderChildNodes = getChildNodesFromCurrentNode(nodeRefId, IliasNode.Type.FOLDER);
+            for (IliasNode folderChildNode : folderChildNodes) {
                 // climb down the tree :)
-                retrieveGroupRefIdsFromNode(groups, folderChildNode.getRefId(), currentDepth + 1, maxDepth);
+                getAndAddGroupsFromNode(groups, folderChildNode.getRefId(), currentDepth + 1, maxDepth);
             }
 
             // accumulate refIds from groups
-            groups.addAll(getRefIdsOfChildrenFromCurrentNode(nodeRefId, IliasNode.Type.GROUP));
+            groups.addAll(getChildNodesFromCurrentNode(nodeRefId, IliasNode.Type.GROUP));
         }
     }
 
     /**
      * Retrieves the children of the given {@link com.github.mavogel.ilias.model.IliasNode.Type} of
-     * the given node with the nideRefId
+     * the given node with the nodeRefId
      *
      * @param nodeRefId the refId of the node
      * @param nodeType  the desired type of children nodes
      * @return the information of the children as {@link IliasNode}
      */
-    private List<IliasNode> getRefIdsOfChildrenFromCurrentNode(final int nodeRefId, final IliasNode.Type nodeType) throws Exception {
+    private List<IliasNode> getChildNodesFromCurrentNode(final int nodeRefId, final IliasNode.Type nodeType) throws Exception {
         String currentNodeXml = endpoint.getTreeChilds(userDataIds.getSid(), nodeRefId,
                 IliasNode.Type.compose(nodeType), userDataIds.getUserId());
         if (LOG.isDebugEnabled()) {
             LOG.debug("Getting RefIds of children of node with refId + " + nodeRefId + " and of type " + nodeType.name() + " with xml:\n " + currentNodeXml);
         }
-        return SoapXMLUtils.parseRefIdsOfNodeType(nodeType, currentNodeXml);
+        List<IliasNode> iliasNodes = SoapXMLUtils.parseRefIdsOfNodeType(nodeType, currentNodeXml);
+        return iliasNodes;
     }
 
     @Override
@@ -242,7 +243,7 @@ public class SoapEndpoint extends AbstractIliasEndpoint {
     public List<IliasNode> getFilesFromGroups(final List<IliasNode> groups) throws Exception {
         List<IliasNode> fileRefIds = new ArrayList<>();
         for (IliasNode group : groups) {
-            List<IliasNode> fileNodes = getRefIdsOfChildrenFromCurrentNode(group.getRefId(), IliasNode.Type.FILE);
+            List<IliasNode> fileNodes = getChildNodesFromCurrentNode(group.getRefId(), IliasNode.Type.FILE);
             if (fileNodes.isEmpty()) {
                 LOG.info("No files to remove for group '" + group.getTitle() + "'");
             }

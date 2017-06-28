@@ -86,7 +86,7 @@ public class ActionsOnGroupsState extends ToolState {
         final List<IliasNode> courses = stateMachine.getContext().get(ToolStateMachine.ContextKey.COURSES);
 
         try {
-            return endpoint.getGroupRefIdsFromCourses(courses.get(0)); // TODO only one course atm
+            return endpoint.getGroupsFromCourse(courses.get(0)); // TODO only one course atm
         } catch (Exception e) {
             this.stateMachine.setState(stateMachine.getChooseCoursesState());
         }

@@ -40,6 +40,7 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -54,14 +55,16 @@ import static org.junit.Assert.assertEquals;
 public class SoapEndpointTest {
 
     private static final String SID = "sid-123";
-    public static final int USER_ID = 5678;
+    private static final int USER_ID = 5678;
+    private static final int MAX_FOLDER_DEPTH = 2;
+
     private SoapEndpoint classUnderTest;
     private ILIASSoapWebservicePortType endPointMock;
 
     @Before
     public void setUp() throws Exception {
         // == prepare
-        final LoginConfiguration loginConfiguration = LoginConfiguration.asLDAPLogin("myEndpoint", "client_id", "user", "pwd", 5);
+        final LoginConfiguration loginConfiguration = LoginConfiguration.asLDAPLogin("myEndpoint", "client_id", "user", "pwd", MAX_FOLDER_DEPTH);
 
         // == train
         final ILIASSoapWebserviceLocator locatorMock = PowerMockito.mock(ILIASSoapWebserviceLocator.class);
@@ -121,6 +124,62 @@ public class SoapEndpointTest {
         Mockito.verify(endPointMock, Mockito.times(courseRefIds.size())).getCourseXML(Mockito.eq(SID), Mockito.anyInt());
         PowerMockito.verifyStatic(Mockito.times(courseRefIds.size()));
         SoapXMLUtils.createsFromCourseNodeInfo(Mockito.anyInt(), Mockito.anyString());
+    }
+
+    @Test
+    public void shouldGet3GroupsFrom2FoldersFromCourse() throws Exception {
+        // == prepare
+        List<IliasNode> foundFolders = Arrays.asList(
+                new IliasNode(1, IliasNode.Type.FOLDER, "Folder 1"),
+                new IliasNode(2, IliasNode.Type.FOLDER, "Folder 2")
+        );
+        final List<IliasNode> folder1Groups = Arrays.asList(new IliasNode(3, IliasNode.Type.GROUP, "Group 1"));
+        final List<IliasNode> folder2Groups = Arrays.asList(new IliasNode(4, IliasNode.Type.GROUP, "Group 2"));
+
+        // == train
+        PowerMockito.when(endPointMock.getTreeChilds(SID, 0, IliasNode.Type.compose(IliasNode.Type.FOLDER), USER_ID))
+                .thenReturn("courseXML");
+        PowerMockito.when(endPointMock.getTreeChilds(SID, 1, IliasNode.Type.compose(IliasNode.Type.FOLDER), USER_ID))
+                .thenReturn("folder1XML");
+        PowerMockito.when(endPointMock.getTreeChilds(SID, 2, IliasNode.Type.compose(IliasNode.Type.FOLDER), USER_ID))
+                .thenReturn("folder2XML");
+        PowerMockito.mockStatic(SoapXMLUtils.class);
+        PowerMockito.when(SoapXMLUtils.parseRefIdsOfNodeType(IliasNode.Type.FOLDER, "courseXML"))
+                .thenReturn(foundFolders);
+        PowerMockito.when(SoapXMLUtils.parseRefIdsOfNodeType(IliasNode.Type.FOLDER, "folder1XML"))
+                .thenReturn(Collections.emptyList());
+        PowerMockito.when(SoapXMLUtils.parseRefIdsOfNodeType(IliasNode.Type.FOLDER, "folder2XML"))
+                .thenReturn(Collections.emptyList());
+        PowerMockito.when(endPointMock.getTreeChilds(SID, 1, IliasNode.Type.compose(IliasNode.Type.GROUP), USER_ID))
+                .thenReturn("group1XML");
+        PowerMockito.when(endPointMock.getTreeChilds(SID, 2, IliasNode.Type.compose(IliasNode.Type.GROUP), USER_ID))
+                .thenReturn("group2XML");
+        PowerMockito.when(SoapXMLUtils.parseRefIdsOfNodeType(IliasNode.Type.GROUP, "group1XML"))
+                .thenReturn(folder1Groups);
+        PowerMockito.when(SoapXMLUtils.parseRefIdsOfNodeType(IliasNode.Type.GROUP, "group2XML"))
+                .thenReturn(folder2Groups);
+
+
+        // == go
+        List<IliasNode> groupsFromCourse = classUnderTest.getGroupsFromCourse(new IliasNode(0, IliasNode.Type.COURSE, "My Course"));
+
+        // == verify
+        assertEquals(2, groupsFromCourse.size());
+        Mockito.verify(endPointMock).getTreeChilds(SID, 0, IliasNode.Type.compose(IliasNode.Type.FOLDER), USER_ID);
+        Mockito.verify(endPointMock).getTreeChilds(SID, 1, IliasNode.Type.compose(IliasNode.Type.FOLDER), USER_ID);
+        Mockito.verify(endPointMock).getTreeChilds(SID, 2, IliasNode.Type.compose(IliasNode.Type.FOLDER), USER_ID);
+        PowerMockito.verifyStatic(Mockito.times(1));
+        SoapXMLUtils.parseRefIdsOfNodeType(IliasNode.Type.FOLDER, "courseXML");
+        PowerMockito.verifyStatic(Mockito.times(1));
+        SoapXMLUtils.parseRefIdsOfNodeType(IliasNode.Type.FOLDER, "folder1XML");
+        PowerMockito.verifyStatic(Mockito.times(1));
+        SoapXMLUtils.parseRefIdsOfNodeType(IliasNode.Type.FOLDER, "folder2XML");
+        Mockito.verify(endPointMock).getTreeChilds(SID, 1, IliasNode.Type.compose(IliasNode.Type.GROUP), USER_ID);
+        PowerMockito.verifyStatic(Mockito.times(1));
+        SoapXMLUtils.parseRefIdsOfNodeType(IliasNode.Type.GROUP, "group1XML");
+        Mockito.verify(endPointMock).getTreeChilds(SID, 2, IliasNode.Type.compose(IliasNode.Type.GROUP), USER_ID);
+        PowerMockito.verifyStatic(Mockito.times(1));
+        SoapXMLUtils.parseRefIdsOfNodeType(IliasNode.Type.GROUP, "group2XML");
     }
 
 }

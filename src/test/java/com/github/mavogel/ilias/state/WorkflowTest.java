@@ -111,7 +111,7 @@ public class WorkflowTest {
 
         // == train
         PowerMockito.when(endpointMock.getCoursesForUser(DisplayStatus.ADMIN)).thenReturn(courses);
-        PowerMockito.when(endpointMock.getGroupRefIdsFromCourses(courses.get(0))).thenReturn(groups);
+        PowerMockito.when(endpointMock.getGroupsFromCourse(courses.get(0))).thenReturn(groups);
         // 0: choose course; 1: actionsOnGroups; 1 quit
         PowerMockito.when(IOUtils.readAndParseSingleChoiceFromUser(Mockito.anyList())).thenReturn(0, 1, 1);
 
@@ -151,7 +151,7 @@ public class WorkflowTest {
 
         // == train
         PowerMockito.when(endpointMock.getCoursesForUser(DisplayStatus.ADMIN)).thenReturn(courses);
-        PowerMockito.when(endpointMock.getGroupRefIdsFromCourses(courses.get(0))).thenReturn(groups);
+        PowerMockito.when(endpointMock.getGroupsFromCourse(courses.get(0))).thenReturn(groups);
         // 0: choose course; 1: actionsOnGroups; 1 quit
         PowerMockito.when(IOUtils.readAndParseSingleChoiceFromUser(Mockito.anyList())).thenReturn(0, 1, 1);
 
