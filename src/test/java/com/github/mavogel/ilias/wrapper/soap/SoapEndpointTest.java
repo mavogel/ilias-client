@@ -310,4 +310,27 @@ public class SoapEndpointTest {
         assertEquals(3, files.size());
     }
 
+    @Test
+    public void shouldDelete1ObjectNodeAndFailOnOthers() throws Exception {
+        // == prepare
+        List<IliasNode> files = Arrays.asList(
+                new IliasNode(1, IliasNode.Type.FILE, "File 1"),
+                new IliasNode(2, IliasNode.Type.FILE, "File 2"),
+                new IliasNode(3, IliasNode.Type.FILE, "File 3")
+        );
+
+        // == train
+        PowerMockito.when(endPointMock.deleteObject(SID, 1)).thenReturn(true);
+        PowerMockito.when(endPointMock.deleteObject(SID, 2)).thenReturn(false);
+        PowerMockito.when(endPointMock.deleteObject(SID, 3)).thenThrow(new RemoteException("failed"));
+
+        // == go
+        classUnderTest.deleteObjectNodes(files);
+
+        // == verify
+        Mockito.verify(endPointMock).deleteObject(SID, 1);
+        Mockito.verify(endPointMock).deleteObject(SID, 2);
+        Mockito.verify(endPointMock).deleteObject(SID, 3);
+    }
+
 }
