@@ -270,4 +270,44 @@ public class SoapEndpointTest {
         assertEquals(4, groupUserModels.get(1).getGroupMembers().size());
     }
 
+    @Test
+    public void shouldGet3FilesFrom3Groups() throws Exception {
+        // == prepare
+        List<IliasNode> groups = Arrays.asList(
+                new IliasNode(1, IliasNode.Type.GROUP, "Group 1"),
+                new IliasNode(2, IliasNode.Type.GROUP, "Group 2"),
+                new IliasNode(3, IliasNode.Type.GROUP, "Group 3")
+
+        );
+        List<IliasNode> group1Files = Arrays.asList(
+                new IliasNode(11, IliasNode.Type.FILE, "File 1")
+        );
+        List<IliasNode> group2Files = Arrays.asList(
+                new IliasNode(22, IliasNode.Type.FILE, "File 2"),
+                new IliasNode(23, IliasNode.Type.FILE, "File 3")
+        );
+
+        // == train
+        PowerMockito.when(endPointMock.getTreeChilds(SID, 1, IliasNode.Type.compose(IliasNode.Type.FILE), USER_ID))
+                .thenReturn("group1XML");
+        PowerMockito.when(endPointMock.getTreeChilds(SID, 2, IliasNode.Type.compose(IliasNode.Type.FILE), USER_ID))
+                .thenReturn("group2XML");
+        PowerMockito.when(endPointMock.getTreeChilds(SID, 3, IliasNode.Type.compose(IliasNode.Type.FILE), USER_ID))
+                .thenReturn("group3XML");
+        PowerMockito.mockStatic(SoapXMLUtils.class);
+        PowerMockito.when(SoapXMLUtils.parseRefIdsOfNodeType(IliasNode.Type.FILE, "group1XML"))
+                .thenReturn(group1Files);
+        PowerMockito.when(SoapXMLUtils.parseRefIdsOfNodeType(IliasNode.Type.FILE, "group2XML"))
+                .thenReturn(group2Files);
+        PowerMockito.when(SoapXMLUtils.parseRefIdsOfNodeType(IliasNode.Type.FILE, "group3XML"))
+                .thenReturn(Collections.emptyList());
+
+
+        // == go
+        List<IliasNode> files = classUnderTest.getFilesFromGroups(groups);
+
+        // == verify
+        assertEquals(3, files.size());
+    }
+
 }
