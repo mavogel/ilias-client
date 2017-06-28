@@ -38,12 +38,14 @@ import com.github.mavogel.ilias.wrapper.PermissionOperation;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.rmi.RemoteException;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -401,6 +403,39 @@ public class SoapEndpointTest {
 
         // == go
         classUnderTest.setMaxMembersOnGroups(groups, 4);
+
+        // == verify
+        Mockito.verify(endPointMock).getGroup(SID, 1);
+        Mockito.verify(endPointMock).getGroup(SID, 2);
+        Mockito.verify(endPointMock).updateGroup(SID, 1, "updatedGroup1XML");
+        Mockito.verify(endPointMock).updateGroup(SID, 2, "updatedGroup2XML");
+    }
+
+    @Test
+    public void shouldSetRegistraionDatesOn2GroupsAndFailOnSecond() throws Exception {
+        // == prepare
+        List<IliasNode> groups = Arrays.asList(
+                new IliasNode(1, IliasNode.Type.GROUP, "Group 1"),
+                new IliasNode(2, IliasNode.Type.GROUP, "Group 2")
+
+        );
+        // == train
+        PowerMockito.when(endPointMock.getGroup(SID, 1)).thenReturn("group1XML");
+        PowerMockito.when(endPointMock.getGroup(SID, 2)).thenReturn("group2XML");
+
+        PowerMockito.mockStatic(SoapXMLUtils.class);
+        PowerMockito.when(SoapXMLUtils.setRegistrationDates(Mockito.eq("group1XML"), Mockito.anyLong(), Mockito.anyLong()))
+                .thenReturn("updatedGroup1XML");
+        PowerMockito.when(SoapXMLUtils.setRegistrationDates(Mockito.eq("group2XML"), Mockito.anyLong(), Mockito.anyLong()))
+                .thenReturn("updatedGroup2XML");
+
+        PowerMockito.when(endPointMock.updateGroup(SID, 1, "updatedGroup1XML"))
+                .thenReturn(true);
+        PowerMockito.when(endPointMock.updateGroup(SID, 2, "updatedGroup2XML"))
+                .thenReturn(false);
+
+        // == go
+        classUnderTest.setRegistrationDatesOnGroups(groups, LocalDateTime.of(2015, 1, 1, 12, 0), LocalDateTime.of(2015, 1, 1, 14, 0));
 
         // == verify
         Mockito.verify(endPointMock).getGroup(SID, 1);
