@@ -31,6 +31,7 @@ import com.github.mavogel.ilias.utils.IOUtils;
 import com.github.mavogel.ilias.wrapper.AbstractIliasEndpoint;
 import com.github.mavogel.ilias.wrapper.DisplayStatus;
 import com.github.mavogel.ilias.wrapper.EndpointBuilder;
+import com.github.mavogel.ilias.wrapper.IliasEndpoint;
 import com.github.mavogel.ilias.wrapper.soap.SoapEndpoint;
 import org.junit.Before;
 import org.junit.Test;
@@ -55,7 +56,7 @@ import java.util.List;
 public class WorkflowTest {
 
     private LoginConfiguration loginConfiguration;
-    private SoapEndpoint endpointMock;
+    private AbstractIliasEndpoint endpointMock;
     private UserDataIds userDateIds;
 //    private ToolStateMachine toolStateMachineMock;
 
@@ -190,7 +191,7 @@ public class WorkflowTest {
         loginConfiguration = LoginConfiguration.asLDAPLogin("myEndpoint", "client_id", "user", "pwd", 5);
         userDateIds = new UserDataIds(123, "sid", loginConfiguration.getUsername());
         PowerMockito.mockStatic(IOUtils.class);
-        endpointMock = PowerMockito.mock(SoapEndpoint.class);
+        endpointMock = PowerMockito.mock(AbstractIliasEndpoint.class);
         PowerMockito.mockStatic(EndpointBuilder.class);
         PowerMockito.when(EndpointBuilder.build(Mockito.any(EndpointBuilder.Type.class), Mockito.eq(loginConfiguration)))
                 .thenReturn(endpointMock);
