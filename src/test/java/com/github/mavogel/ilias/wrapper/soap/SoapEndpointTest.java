@@ -112,7 +112,7 @@ public class SoapEndpointTest {
         PowerMockito.when(SoapXMLUtils.parseCourseRefIds(foundCourses)).thenReturn(courseRefIds);
 
         for (int courseRefId : courseRefIds) {
-            PowerMockito.when(endPointMock.getCourseXML(SID, courseRefId)).thenReturn("Course " + courseRefId +  " XML");
+            PowerMockito.when(endPointMock.getCourseXML(SID, courseRefId)).thenReturn("Course " + courseRefId + " XML");
             PowerMockito.when(SoapXMLUtils.createsFromCourseNodeInfo(Mockito.eq(courseRefId), Mockito.anyString())).thenReturn(new IliasNode(courseRefId, IliasNode.Type.COURSE, "Course " + courseRefId));
         }
 
@@ -252,7 +252,7 @@ public class SoapEndpointTest {
         PowerMockito.when(SoapXMLUtils.parseGroupMemberRoleId("group1RolesXML")).thenReturn(11);
         PowerMockito.when(SoapXMLUtils.parseGroupMemberRoleId("group2RolesXML")).thenReturn(22);
         PowerMockito.when(endPointMock.getUsersForRole(SID, 11, Defaults.ATTACH_ROLES, Defaults.IS_ACTIVE))
-            .thenReturn("usersForRole11XML");
+                .thenReturn("usersForRole11XML");
         PowerMockito.when(endPointMock.getUsersForRole(SID, 22, Defaults.ATTACH_ROLES, Defaults.IS_ACTIVE))
                 .thenReturn("usersForRole22XML");
         PowerMockito.when(SoapXMLUtils.parseIliasUserRecordsFromRole("usersForRole11XML"))
@@ -374,6 +374,39 @@ public class SoapEndpointTest {
         Mockito.verify(endPointMock).excludeGroupMember(SID, 2, 23);
         Mockito.verify(endPointMock, Mockito.never()).excludeGroupMember(
                 Mockito.eq(SID), Mockito.eq(3), Mockito.anyInt());
+    }
+
+    @Test
+    public void shouldSetMaxMembersTo4On2GroupsAndFailOnSecond() throws Exception {
+        // == prepare
+        List<IliasNode> groups = Arrays.asList(
+                new IliasNode(1, IliasNode.Type.GROUP, "Group 1"),
+                new IliasNode(2, IliasNode.Type.GROUP, "Group 2")
+
+        );
+        // == train
+        PowerMockito.when(endPointMock.getGroup(SID, 1)).thenReturn("group1XML");
+        PowerMockito.when(endPointMock.getGroup(SID, 2)).thenReturn("group2XML");
+
+        PowerMockito.mockStatic(SoapXMLUtils.class);
+        PowerMockito.when(SoapXMLUtils.setMaxGroupMembers("group1XML", 4))
+                .thenReturn("updatedGroup1XML");
+        PowerMockito.when(SoapXMLUtils.setMaxGroupMembers("group2XML", 4))
+                .thenReturn("updatedGroup2XML");
+
+        PowerMockito.when(endPointMock.updateGroup(SID, 1, "updatedGroup1XML"))
+                .thenReturn(true);
+        PowerMockito.when(endPointMock.updateGroup(SID, 2, "updatedGroup2XML"))
+                .thenReturn(false);
+
+        // == go
+        classUnderTest.setMaxMembersOnGroups(groups, 4);
+
+        // == verify
+        Mockito.verify(endPointMock).getGroup(SID, 1);
+        Mockito.verify(endPointMock).getGroup(SID, 2);
+        Mockito.verify(endPointMock).updateGroup(SID, 1, "updatedGroup1XML");
+        Mockito.verify(endPointMock).updateGroup(SID, 2, "updatedGroup2XML");
     }
 
 }
