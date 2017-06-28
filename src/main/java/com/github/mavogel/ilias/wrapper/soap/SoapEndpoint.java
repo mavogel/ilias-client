@@ -279,9 +279,11 @@ public class SoapEndpoint extends AbstractIliasEndpoint {
 
             String groupXml = endpoint.getGroup(userDataIds.getSid(), group.getRefId());
             List<Integer> groupMemberIds = SoapXMLUtils.parseGroupMemberIds(groupXml);
-            if (groupMemberIds.isEmpty()) LOG.info("No members to remove from Group '" + group.getTitle() + "'");
-
-            unremovedUsers.add(removeMembersFromGroup(group, groupMemberIds));
+            if (groupMemberIds.isEmpty()) {
+                LOG.info("No members to remove from Group '" + group.getTitle() + "'");
+            } else {
+                unremovedUsers.add(removeMembersFromGroup(group, groupMemberIds));
+            }
         }
 
         if (!unremovedUsers.isEmpty() && unremovedUsers.stream().anyMatch(GroupUserModel::hasMembers)) {

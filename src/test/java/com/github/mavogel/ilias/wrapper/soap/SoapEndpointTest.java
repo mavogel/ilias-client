@@ -333,4 +333,47 @@ public class SoapEndpointTest {
         Mockito.verify(endPointMock).deleteObject(SID, 3);
     }
 
+    @Test
+    public void shouldRemoveMembersFrom3GroupsAndFailOn1Group() throws Exception {
+        // == prepare
+        List<IliasNode> groups = Arrays.asList(
+                new IliasNode(1, IliasNode.Type.GROUP, "Group 1"),
+                new IliasNode(2, IliasNode.Type.GROUP, "Group 2"),
+                new IliasNode(3, IliasNode.Type.GROUP, "Group 3")
+
+        );
+        // == train
+        PowerMockito.when(endPointMock.getGroup(SID, 1)).thenReturn("group1XML");
+        PowerMockito.when(endPointMock.getGroup(SID, 2)).thenReturn("group2XML");
+        PowerMockito.when(endPointMock.getGroup(SID, 3)).thenReturn("group3XML");
+
+        PowerMockito.mockStatic(SoapXMLUtils.class);
+        PowerMockito.when(SoapXMLUtils.parseGroupMemberIds("group1XML"))
+                .thenReturn(Arrays.asList(11));
+        PowerMockito.when(SoapXMLUtils.parseGroupMemberIds("group2XML"))
+                .thenReturn(Arrays.asList(22, 23));
+        PowerMockito.when(SoapXMLUtils.parseGroupMemberIds("group3XML"))
+                .thenReturn(Collections.emptyList());
+
+        PowerMockito.when(endPointMock.excludeGroupMember(SID, 1, 11))
+                .thenReturn(true);
+        PowerMockito.when(endPointMock.excludeGroupMember(SID, 2, 22))
+                .thenReturn(true);
+        PowerMockito.when(endPointMock.excludeGroupMember(SID, 2, 23))
+                .thenReturn(false);
+
+        // == go
+        classUnderTest.removeAllMembersFromGroups(groups);
+
+        // == verify
+        Mockito.verify(endPointMock).getGroup(SID, 1);
+        Mockito.verify(endPointMock).getGroup(SID, 2);
+        Mockito.verify(endPointMock).getGroup(SID, 3);
+        Mockito.verify(endPointMock).excludeGroupMember(SID, 1, 11);
+        Mockito.verify(endPointMock).excludeGroupMember(SID, 2, 22);
+        Mockito.verify(endPointMock).excludeGroupMember(SID, 2, 23);
+        Mockito.verify(endPointMock, Mockito.never()).excludeGroupMember(
+                Mockito.eq(SID), Mockito.eq(3), Mockito.anyInt());
+    }
+
 }
