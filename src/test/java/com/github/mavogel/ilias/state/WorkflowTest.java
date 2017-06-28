@@ -26,6 +26,7 @@ package com.github.mavogel.ilias.state;/*
 
 import com.github.mavogel.ilias.model.IliasNode;
 import com.github.mavogel.ilias.model.LoginConfiguration;
+import com.github.mavogel.ilias.model.RegistrationPeriod;
 import com.github.mavogel.ilias.model.UserDataIds;
 import com.github.mavogel.ilias.utils.IOUtils;
 import com.github.mavogel.ilias.wrapper.AbstractIliasEndpoint;
@@ -41,6 +42,7 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -84,7 +86,7 @@ public class WorkflowTest {
     }
 
     @Test
-    public void shouldOneNCoursesAndQuitThen() throws Exception {
+    public void shouldFindOneCourseAndQuitThen() throws Exception {
         // == prepare
         final List<IliasNode> courses = Arrays.asList(new IliasNode(1, IliasNode.Type.COURSE, "My Course"));
 
@@ -182,6 +184,62 @@ public class WorkflowTest {
         Mockito.verify(endpointMock, Mockito.times(1)).removeAllMembersFromGroups(groups);
         Mockito.verify(endpointMock, Mockito.times(1)).getFilesFromGroups(groups);
         Mockito.verify(endpointMock, Mockito.times(1)).deleteObjectNodes(files);
+    }
+
+    @Test
+    public void shouldFind4GroupsInOneNCoursesAndSetMaxMembersAndRegDateAndFileUploadPermission() throws Exception {
+        // == prepare
+        final List<IliasNode> courses = Arrays.asList(new IliasNode(1, IliasNode.Type.COURSE, "My Course"));
+        final List<IliasNode> groups = Arrays.asList(
+                new IliasNode(11, IliasNode.Type.GROUP, "Group 1"),
+                new IliasNode(12, IliasNode.Type.GROUP, "Group 2"),
+                new IliasNode(13, IliasNode.Type.GROUP, "Group 3"),
+                new IliasNode(14, IliasNode.Type.GROUP, "Group 4"));
+        LocalDateTime now = LocalDateTime.now();
+        RegistrationPeriod registrationPeriod = new RegistrationPeriod(now, now);
+
+        // == train
+        PowerMockito.when(endpointMock.getCoursesForUser(DisplayStatus.ADMIN)).thenReturn(courses);
+        PowerMockito.when(endpointMock.getGroupsFromCourse(courses.get(0))).thenReturn(groups);
+        // 0: choose course; 1: actionsOnGroups; 1 quit
+        PowerMockito.when(IOUtils.readAndParseSingleChoiceFromUser(Mockito.anyList())).thenReturn(0, 1, 1);
+
+        PowerMockito.when(IOUtils.readAndParseChoicesFromUser(Mockito.anyList()))
+                // 0,1,2,3: choosen groups;
+                .thenReturn(Arrays.asList(0, 1, 2, 3))
+                // 2: remove set reg period; 3: set max users; 4: grant file upload permission
+                .thenReturn(Arrays.asList(2, 3, 4));
+
+        PowerMockito.when(IOUtils.readAndParseUserConfirmation()).thenReturn(true);
+        PowerMockito.when(IOUtils.readAndParseRegistrationDates()).thenReturn(registrationPeriod);
+        PowerMockito.when(IOUtils.readAndParsePositiveInteger()).thenReturn(6);
+        PowerMockito.doNothing().when(endpointMock, "setRegistrationDatesOnGroups",
+                groups, registrationPeriod.getRegistrationStart(), registrationPeriod.getRegistrationEnd());
+        PowerMockito.doNothing().when(endpointMock, "setMaxMembersOnGroups", groups, 6);
+        PowerMockito.doNothing().when(endpointMock, "grantFileUploadPermissionForMembers", groups);
+
+        // == go
+        createToolStateMachine().start();
+
+        // == verify
+        Mockito.verify(endpointMock, Mockito.times(1)).getCoursesForUser(DisplayStatus.ADMIN);
+
+        PowerMockito.verifyStatic(Mockito.times(3));
+        IOUtils.readAndParseSingleChoiceFromUser(Mockito.anyList());
+
+        PowerMockito.verifyStatic(Mockito.times(2));
+        IOUtils.readAndParseChoicesFromUser(Mockito.anyList());
+
+        PowerMockito.verifyStatic(Mockito.times(1));
+        IOUtils.readAndParseRegistrationDates();
+
+        PowerMockito.verifyStatic(Mockito.times(1));
+        IOUtils.readAndParsePositiveInteger();
+
+        Mockito.verify(endpointMock, Mockito.times(1)).setRegistrationDatesOnGroups(
+                groups, registrationPeriod.getRegistrationStart(), registrationPeriod.getRegistrationEnd());
+        Mockito.verify(endpointMock, Mockito.times(1)).setMaxMembersOnGroups(groups, 6);
+        Mockito.verify(endpointMock, Mockito.times(1)).grantFileUploadPermissionForMembers(groups);
     }
 
     ////////////////
