@@ -31,6 +31,7 @@ import com.github.mavogel.ilias.model.IliasNode;
 import com.github.mavogel.ilias.model.LoginConfiguration;
 import com.github.mavogel.ilias.wrapper.AbstractIliasEndpoint;
 import com.github.mavogel.ilias.wrapper.DisplayStatus;
+import com.github.mavogel.ilias.wrapper.PermissionOperation;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,6 +40,7 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+import java.rmi.RemoteException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -100,7 +102,7 @@ public class SoapEndpointTest {
         List<Integer> courseRefIds = Arrays.asList(1, 2, 3);
 
         // == train
-        PowerMockito.when(endPointMock.getCoursesForUser(Mockito.eq(SID), Mockito.eq("courseXML")))
+        PowerMockito.when(endPointMock.getCoursesForUser(SID, "courseXML"))
                 .thenReturn(foundCourses);
         PowerMockito.mockStatic(SoapXMLUtils.class);
         PowerMockito.when(SoapXMLUtils.createCoursesResultXml(USER_ID, DisplayStatus.ADMIN)).thenReturn("courseXML");
@@ -180,6 +182,45 @@ public class SoapEndpointTest {
         Mockito.verify(endPointMock).getTreeChilds(SID, 2, IliasNode.Type.compose(IliasNode.Type.GROUP), USER_ID);
         PowerMockito.verifyStatic(Mockito.times(1));
         SoapXMLUtils.parseRefIdsOfNodeType(IliasNode.Type.GROUP, "group2XML");
+    }
+
+    @Test
+    public void shouldGrantFileUploadPermissionForMembersForOneGroupAndFailOnSecond() throws Exception {
+        // == prepare
+        List<IliasNode> groups = Arrays.asList(
+                new IliasNode(1, IliasNode.Type.GROUP, "Group 1"),
+                new IliasNode(2, IliasNode.Type.GROUP, "Group 2"),
+                new IliasNode(3, IliasNode.Type.GROUP, "Group 3")
+        );
+
+        int[] allPermissions = PermissionOperation.build(PermissionOperation.VISIBLE,
+                PermissionOperation.READ,
+                PermissionOperation.JOIN,
+                PermissionOperation.LEAVE,
+                PermissionOperation.CREATE_FILE);
+
+        // == train
+        PowerMockito.when(endPointMock.getLocalRoles(SID, 1)).thenReturn("group1RolesXML");
+        PowerMockito.when(endPointMock.getLocalRoles(SID, 2)).thenReturn("group2RolesXML");
+        PowerMockito.when(endPointMock.getLocalRoles(SID, 3)).thenThrow(new RemoteException());
+        PowerMockito.mockStatic(SoapXMLUtils.class);
+        PowerMockito.when(SoapXMLUtils.parseGroupMemberRoleId("group1RolesXML")).thenReturn(11);
+        PowerMockito.when(SoapXMLUtils.parseGroupMemberRoleId("group2RolesXML")).thenReturn(22);
+        PowerMockito.when(endPointMock.grantPermissions(SID, 1, 11, allPermissions)).thenReturn(true);
+        PowerMockito.when(endPointMock.grantPermissions(SID, 2, 22, allPermissions)).thenReturn(false);
+
+        // == go
+        classUnderTest.grantFileUploadPermissionForMembers(groups);
+
+        // == verify
+        Mockito.verify(endPointMock).getLocalRoles(SID, 1);
+        Mockito.verify(endPointMock).getLocalRoles(SID, 2);
+        Mockito.verify(endPointMock).getLocalRoles(SID, 3);
+        PowerMockito.verifyStatic(Mockito.times(1));
+        SoapXMLUtils.parseGroupMemberRoleId("group1RolesXML");
+        SoapXMLUtils.parseGroupMemberRoleId("group2RolesXML");
+        Mockito.verify(endPointMock).grantPermissions(SID, 1, 11, allPermissions);
+        Mockito.verify(endPointMock).grantPermissions(SID, 2, 22, allPermissions);
     }
 
 }
