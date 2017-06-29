@@ -8,6 +8,30 @@
 A command line interface client for accessing (a small part of at the moment of) the [SOAP](https://en.wikipedia.org/wiki/SOAP) interface of the Ilias e-Learning platform.
 The purpose was to automate recurring tasks, which can actually only be done by multiple clicks in the GUI. This takes a lot of time and lots of clicks.
 
+```ascii
+ _______ __                       
+|       |  |--.-----.             
+|.|   | |     |  -__|             
+`-|.  |-|__|__|_____|             
+  |:  |                           
+  |::.|                           
+  `---'                           
+ ___ ___     ___ _______ _______  
+|   |   |   |   |   _   |   _   | 
+|.  |.  |   |.  |.  1   |   1___| 
+|.  |.  |___|.  |.  _   |____   | 
+|:  |:  1   |:  |:  |   |:  1   | 
+|::.|::.. . |::.|::.|:. |::.. . | 
+`---`-------`---`--- ---`-------' 
+ _______ __ __             __     
+|   _   |  |__.-----.-----|  |_   
+|.  1___|  |  |  -__|     |   _|  
+|.  |___|__|__|_____|__|__|____|  
+|:  1   |                         
+|::.. . |                         
+`-------'   
+```
+
 ## Table of Contents
 - [Features](#features)
 - [Usage](#usage)
@@ -17,19 +41,22 @@ The purpose was to automate recurring tasks, which can actually only be done by 
 - [License](#license)
 
 ## <a name="features"></a>Features
-1. **Remove all users** from all or only some groups in one or more courses.
-2. **Remove all uploaded materials** from all or only some groups in one or more courses.
-3. **Set or update a registration period** in all or only some groups in one or more courses.
-3. **Set or update a maximum amount of members** in all or only some groups in one or more courses.
+1. **Remove all users** from all or only some groups in one course.
+2. **Remove all uploaded materials** from all or only some groups in one course.
+3. **Set or update a registration period** in all or only some groups in one course.
+3. **Set or update a maximum amount of members** in all or only some groups in one course.
 4. **File upload permission** can be set for the group members role.
-5. **Groups with its members can be** passed to Velocity template and **printed**. Two example templates are provided which are located in `src/main/resources/templates`. 
+5. **Groups with its members can be** passed to Velocity template and **printed**. Two example templates are provided in `src/main/resources/templates`. 
 
 ## <a name="usage"></a>Usage
-You can download the built artifact from Sonatype which is preferred or built it on your own. [jdk8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) is required in both cases.
+You can download the built artifact from Sonatype which is preferred or built it on your own. 
+
+A [jdk8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) is required in both cases.
 
 ### <a name="quick-start"></a>Quick start 
 
-1. Download the latest [RELEASE](https://oss.sonatype.org/content/groups/staging/com/github/mavogel/ilias-client/)
+1. Download the latest [RELEASE](https://oss.sonatype.org/content/groups/staging/com/github/mavogel/ilias-client/) and 
+look for the latest version folder and then the `ilias-client-x.x.x.jar`.
 2. Create a `config.properties` file with the following content and fill in your data:
 ```properties
 # The endpoint of the Ilias Webservice Port
@@ -63,7 +90,7 @@ $ java -jar ilias-client-x.x.x.jar config.properties
 ```
 
 ### <a name="built-it-on-your-own"></a>Built it on your own
-Additionally requires [maven](https://maven.apache.org/).
+This additionally requires [maven](https://maven.apache.org/).
 
 ```bash
 $ git clone https://github.com/mavogel/ilias-client.git && cd ilias-client 
