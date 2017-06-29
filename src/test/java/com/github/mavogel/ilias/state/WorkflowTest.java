@@ -24,15 +24,12 @@ package com.github.mavogel.ilias.state;/*
  *  https://opensource.org/licenses/MIT
  */
 
-import com.github.mavogel.ilias.model.IliasNode;
-import com.github.mavogel.ilias.model.LoginConfiguration;
-import com.github.mavogel.ilias.model.RegistrationPeriod;
-import com.github.mavogel.ilias.model.UserDataIds;
+import com.github.mavogel.ilias.model.*;
+import com.github.mavogel.ilias.printer.VelocityOutputPrinter;
 import com.github.mavogel.ilias.utils.IOUtils;
 import com.github.mavogel.ilias.wrapper.AbstractIliasEndpoint;
 import com.github.mavogel.ilias.wrapper.DisplayStatus;
 import com.github.mavogel.ilias.wrapper.EndpointBuilder;
-import com.github.mavogel.ilias.wrapper.IliasEndpoint;
 import com.github.mavogel.ilias.wrapper.soap.SoapEndpoint;
 import org.junit.Before;
 import org.junit.Test;
@@ -54,7 +51,7 @@ import java.util.List;
  */
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({ToolStateMachine.class, WorkflowTest.class, IOUtils.class,
-        AbstractIliasEndpoint.class, SoapEndpoint.class, EndpointBuilder.class})
+        AbstractIliasEndpoint.class, SoapEndpoint.class, EndpointBuilder.class, VelocityOutputPrinter.class})
 public class WorkflowTest {
 
     private LoginConfiguration loginConfiguration;
@@ -104,7 +101,7 @@ public class WorkflowTest {
     }
 
     @Test
-    public void shouldFind3GroupsInOneNCoursesAndRemoveUsers() throws Exception {
+    public void shouldFind3GroupsInOneCourseAndRemoveUsers() throws Exception {
         // == prepare
         final List<IliasNode> courses = Arrays.asList(new IliasNode(1, IliasNode.Type.COURSE, "My Course"));
         final List<IliasNode> groups = Arrays.asList(
@@ -140,7 +137,7 @@ public class WorkflowTest {
     }
 
     @Test
-    public void shouldFind4GroupsInOneNCoursesAndRemoveUsersAndUploadedMaterial() throws Exception {
+    public void shouldFind4GroupsInOneCourseAndRemoveUsersAndUploadedMaterial() throws Exception {
         // == prepare
         final List<IliasNode> courses = Arrays.asList(new IliasNode(1, IliasNode.Type.COURSE, "My Course"));
         final List<IliasNode> groups = Arrays.asList(
@@ -187,7 +184,7 @@ public class WorkflowTest {
     }
 
     @Test
-    public void shouldFind4GroupsInOneNCoursesAndSetMaxMembersAndRegDateAndFileUploadPermission() throws Exception {
+    public void shouldFind4GroupsInOneCourseAndSetMaxMembersAndRegDateAndFileUploadPermission() throws Exception {
         // == prepare
         final List<IliasNode> courses = Arrays.asList(new IliasNode(1, IliasNode.Type.COURSE, "My Course"));
         final List<IliasNode> groups = Arrays.asList(
@@ -240,6 +237,72 @@ public class WorkflowTest {
                 groups, registrationPeriod.getRegistrationStart(), registrationPeriod.getRegistrationEnd());
         Mockito.verify(endpointMock, Mockito.times(1)).setMaxMembersOnGroups(groups, 6);
         Mockito.verify(endpointMock, Mockito.times(1)).grantFileUploadPermissionForMembers(groups);
+    }
+
+    @Test
+    public void shouldFind4GroupsInOneCourseAndPrintGroupMembers() throws Exception {
+        // == prepare
+        final List<IliasNode> courses = Arrays.asList(new IliasNode(1, IliasNode.Type.COURSE, "My Course"));
+        IliasNode group1 = new IliasNode(11, IliasNode.Type.GROUP, "Group 1");
+        IliasNode group2 = new IliasNode(12, IliasNode.Type.GROUP, "Group 2");
+        IliasNode group3 = new IliasNode(13, IliasNode.Type.GROUP, "Group 3");
+        IliasNode group4 = new IliasNode(14, IliasNode.Type.GROUP, "Group 4");
+        final List<IliasNode> groups = Arrays.asList(group1, group2, group3, group4);
+        final List<GroupUserModelFull> users = Arrays.asList(
+                new GroupUserModelFull(group1, Arrays.asList(
+                        new IliasUser("f1", "n1", "mail1")
+                )),
+                new GroupUserModelFull(group2, Arrays.asList(
+                        new IliasUser("f2", "n2", "mail2"),
+                        new IliasUser("f3", "n3", "mail3")
+                )),
+                new GroupUserModelFull(group3, Arrays.asList(
+                        new IliasUser("f4", "n4", "mail4"),
+                        new IliasUser("f5", "n5", "mail5"),
+                        new IliasUser("f6", "n6", "mail6")
+                )),
+                new GroupUserModelFull(group4)
+        );
+
+        // == train
+        PowerMockito.when(endpointMock.getCoursesForUser(DisplayStatus.ADMIN)).thenReturn(courses);
+        PowerMockito.when(endpointMock.getGroupsFromCourse(courses.get(0))).thenReturn(groups);
+        PowerMockito.when(endpointMock.getUsersForGroups(groups)).thenReturn(users);
+        // 0: choose course; 1: actionsOnGroups; 1 quit
+        PowerMockito.when(IOUtils.readAndParseSingleChoiceFromUser(Mockito.anyList())).thenReturn(0, 1, 1);
+
+        PowerMockito.when(IOUtils.readAndParseChoicesFromUser(Mockito.anyList()))
+                // 0,1,2,3: choosen groups;
+                .thenReturn(Arrays.asList(0, 1, 2, 3))
+                // 5: print group members
+                .thenReturn(Arrays.asList(5))
+                // 0: HTML, 1: Latex
+                .thenReturn(Arrays.asList(0, 1));
+
+        PowerMockito.when(IOUtils.readAndParseUserConfirmation()).thenReturn(true);
+        PowerMockito.when(IOUtils.readLine()).thenReturn(""); // use default templates
+        PowerMockito.mockStatic(VelocityOutputPrinter.class);
+        PowerMockito.doNothing().when(VelocityOutputPrinter.class, "print",
+                Mockito.any(VelocityOutputPrinter.OutputType.class), Mockito.anyString(), Mockito.anyMap());
+
+
+        // == go
+        createToolStateMachine().start();
+
+        // == verify
+        Mockito.verify(endpointMock, Mockito.times(1)).getCoursesForUser(DisplayStatus.ADMIN);
+
+        PowerMockito.verifyStatic(Mockito.times(3));
+        IOUtils.readAndParseSingleChoiceFromUser(Mockito.anyList());
+
+        PowerMockito.verifyStatic(Mockito.times(3));
+        IOUtils.readAndParseChoicesFromUser(Mockito.anyList());
+
+        PowerMockito.verifyStatic(Mockito.times(2));
+        IOUtils.readLine();
+
+        PowerMockito.verifyStatic(Mockito.times(2));
+        VelocityOutputPrinter.print(Mockito.any(VelocityOutputPrinter.OutputType.class), Mockito.anyString(), Mockito.anyMap());
     }
 
     ////////////////

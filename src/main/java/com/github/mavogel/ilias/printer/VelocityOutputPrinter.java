@@ -114,9 +114,9 @@ public class VelocityOutputPrinter {
     /**
      * Prints the header, content and output to the given print stream.
      *
-     * @param outputType         the desired output type. @see {@link OutputType}
-     * @param templateName       the name of the template, if empty the default template from classpath will be used
-     * @param contextMap         the context for velocity
+     * @param outputType   the desired output type. @see {@link OutputType}
+     * @param templateName the name of the template, if empty the default template from classpath will be used
+     * @param contextMap   the context for velocity
      * @throws Exception in case of a error, so the caller can handle it
      */
     public static void print(final OutputType outputType, final String templateName, final Map<String, Object> contextMap) throws Exception {
@@ -171,8 +171,8 @@ public class VelocityOutputPrinter {
     /**
      * Prints the header, content and output to the given print stream with the default template from the classpath.
      *
-     * @param outputType   the desired output type. @see {@link OutputType}
-     * @param contextMap   the context for velocity
+     * @param outputType the desired output type. @see {@link OutputType}
+     * @param contextMap the context for velocity
      * @throws Exception in case of a error, so the caller can handle it
      */
     private static void printWithDefaultTemplate(final OutputType outputType, final Map<String, Object> contextMap) throws Exception {

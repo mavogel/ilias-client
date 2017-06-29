@@ -81,7 +81,8 @@ public class PrintGroupMembersAction implements ChangeAction {
                 IntStream.range(0, VelocityOutputPrinter.OutputType.values().length)
                         .mapToObj(i -> VelocityOutputPrinter.OutputType.getAtIndex(i).asDisplayString(Defaults.GET_CHOICE_PREFIX(i)))
                         .forEach(LOG::info);
-                List<Integer> outputChoicesIdx = IOUtils.readAndParseChoicesFromUser(Arrays.stream(VelocityOutputPrinter.OutputType.values()).collect(Collectors.toList()));
+                List<Integer> outputChoicesIdx = IOUtils.readAndParseChoicesFromUser(Arrays.stream(VelocityOutputPrinter.OutputType.values())
+                        .collect(Collectors.toList()));
 
                 HashMap<String, Object> contextMap = new HashMap<>();
                 for (Integer idxChoice : outputChoicesIdx) {
