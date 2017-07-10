@@ -6,13 +6,14 @@ Release Notes
 Refactoring:
 * Wrapper for the SOAP interface to make it more generic and the app won't break 
 if there will be a REST interface in the future
+* More detailed log message on logout.
 
 Tests:
 * Integration tests and add coverage report.
 
 Bugfixes:
 * Error log for wrong login.client clarified
-* NullPointer 
+* NullPointer fix when endpoint was not created
 
 **Version 1.1.6 (21-June-2017)**
 
