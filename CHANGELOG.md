@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-**Version 1.2.0 (xx-June-2017)**
+**Version 1.2.0 (10-July-2017)**
 
 Refactoring:
 * Wrapper for the SOAP interface to make it more generic and the app won't break 
@@ -9,6 +9,10 @@ if there will be a REST interface in the future
 
 Tests:
 * Integration tests and add coverage report.
+
+Bugfixes:
+* Error log for wrong login.client clarified
+* NullPointer 
 
 **Version 1.1.6 (21-June-2017)**
 
