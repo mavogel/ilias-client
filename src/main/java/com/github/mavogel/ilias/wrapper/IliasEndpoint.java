@@ -40,9 +40,10 @@ public interface IliasEndpoint {
     /**
      * Logs out the user.
      *
+     * @param caller the details about the caller to be logged.
      * @return true if the user has been successfully logged out, false otherwise
      */
-    boolean logout();
+    boolean logout(final String caller);
 
     /**
      * Retrieves the courses for the user he has the given status in.<br>

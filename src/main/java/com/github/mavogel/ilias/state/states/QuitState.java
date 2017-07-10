@@ -73,7 +73,7 @@ public class QuitState extends ToolState {
     protected void doExecute(final IliasAction nodesAndActions) {
         IliasEndpoint endpoint = this.stateMachine.getEndpoint();
         try {
-            endpoint.logout();
+            endpoint.logout("");
         } catch (Exception e) {
             if (e instanceof NullPointerException) {
                 LOG.error("No log out needed");

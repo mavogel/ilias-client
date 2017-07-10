@@ -59,7 +59,7 @@ public class TestConnector {
         } finally {
             // == teardown
             if (userData != null && userData.getSid() != null) {
-                endpointObject.logout();
+                endpointObject.logout("");
             }
         }
     }

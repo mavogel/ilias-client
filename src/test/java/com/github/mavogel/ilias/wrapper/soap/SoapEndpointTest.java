@@ -94,7 +94,7 @@ public class SoapEndpointTest {
         PowerMockito.when(endPointMock.logout(SID)).thenReturn(true);
 
         // == go
-        classUnderTest.logout();
+        classUnderTest.logout("Test Class");
 
         // == verify
         Mockito.verify(endPointMock).logout(SID);

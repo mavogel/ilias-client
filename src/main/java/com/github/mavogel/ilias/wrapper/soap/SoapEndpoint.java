@@ -108,12 +108,12 @@ public class SoapEndpoint extends AbstractIliasEndpoint {
     }
 
     @Override
-    public boolean logout() {
+    public boolean logout(final String caller) {
         if (userDataIds != null && endpoint != null) {
             try {
                 boolean isLoggedOut = endpoint.logout(userDataIds.getSid());
                 if (isLoggedOut) {
-                    LOG.info("Successfully logged out for sid: '" + userDataIds.getSid() + "'");
+                    LOG.info("Successfully logged out for sid: '" + userDataIds.getSid() + "'" + caller);
                 } else {
                     LOG.error("Could not log out!");
                 }

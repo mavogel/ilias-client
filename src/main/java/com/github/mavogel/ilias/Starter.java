@@ -77,12 +77,7 @@ public class Starter {
                     Optional<UserDataIds> userDataIds = stateMachine.getUserDataIds();
                     IliasEndpoint endPoint = stateMachine.getEndpoint();
                     if (userDataIds.isPresent() && endPoint != null && !stateMachine.isInEndState()) {
-                        boolean isLoggedOut = endPoint.logout();
-                        if (isLoggedOut) {
-                            LOG.info("Successfully logged out for sid: '" + userDataIds.get().getSid() + "' before shutting down!");
-                        } else {
-                            LOG.error("Could not log out on shutdown!");
-                        }
+                        endPoint.logout(" before shutting down!");
                     }
                 } else {
                     LOG.info("No connection had to be closed on shutdown hook!");
