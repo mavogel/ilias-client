@@ -95,7 +95,13 @@ public class SoapEndpoint extends AbstractIliasEndpoint {
             if (cause instanceof UnknownHostException) {
                 LOG.error("Could not establish connection to endpoint '" + loginConfiguration.getEndpoint() + "'");
             } else {
-                LOG.error("Error retrieving the user data: " + e.getMessage());
+                String errorMsg = "";
+                if (e.getMessage().contains("SAXParseException")) {
+                    errorMsg = "login.client is wrong!";
+                } else {
+                    errorMsg = e.getMessage();
+                }
+                LOG.error("Error logging in: " + errorMsg);
             }
             throw new Exception();
         }
