@@ -33,6 +33,8 @@ import com.github.mavogel.ilias.wrapper.IliasEndpoint;
 import org.apache.commons.lang3.Validate;
 import org.apache.log4j.Logger;
 
+import java.util.Optional;
+
 /**
  * The starting point of the command line application by plumbing all together, registering the shutdown hook
  * and starting the state machine.
@@ -72,12 +74,12 @@ public class Starter {
             @Override
             public void run() {
                 if (stateMachine != null) {
-                    UserDataIds userDataIds = stateMachine.getUserDataIds();
+                    Optional<UserDataIds> userDataIds = stateMachine.getUserDataIds();
                     IliasEndpoint endPoint = stateMachine.getEndpoint();
-                    if (userDataIds != null && endPoint != null && !stateMachine.isInEndState()) {
+                    if (userDataIds.isPresent() && endPoint != null && !stateMachine.isInEndState()) {
                         boolean isLoggedOut = endPoint.logout();
                         if (isLoggedOut) {
-                            LOG.info("Successfully logged out for sid: '" + userDataIds.getSid() + "' before shutting down!");
+                            LOG.info("Successfully logged out for sid: '" + userDataIds.get().getSid() + "' before shutting down!");
                         } else {
                             LOG.error("Could not log out on shutdown!");
                         }

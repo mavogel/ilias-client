@@ -34,6 +34,7 @@ import com.github.mavogel.ilias.wrapper.AbstractIliasEndpoint;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Created by mavogel on 9/6/16.
@@ -93,8 +94,12 @@ public class ToolStateMachine {
     /**
      * @return the user data ids
      */
-    public UserDataIds getUserDataIds() {
-        return this.endpoint.getUserDataIds();
+    public Optional<UserDataIds> getUserDataIds() {
+        if (this.endpoint != null) {
+            return Optional.of(this.endpoint.getUserDataIds());
+        } else {
+            return Optional.empty();
+        }
     }
 
     /**
@@ -131,6 +136,7 @@ public class ToolStateMachine {
     /////////////////////////////////////
     // Starter and stopper
     /////////////////////////////////////
+
     /**
      * Starts the state machine until the {@link QuitState} is left.
      */

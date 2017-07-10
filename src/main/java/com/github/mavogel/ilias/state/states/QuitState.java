@@ -37,7 +37,7 @@ import java.util.List;
 
 /**
  * The state performing the quit of the application and the logout at the endpoint.
- *
+ * <p>
  * Created by mavogel on 9/7/16.
  */
 public class QuitState extends ToolState {
@@ -75,7 +75,11 @@ public class QuitState extends ToolState {
         try {
             endpoint.logout();
         } catch (Exception e) {
-            LOG.error("Could not log out: " + e.getMessage());
+            if (e instanceof NullPointerException) {
+                LOG.error("No log out needed");
+            } else {
+                LOG.error("Could not log out: " + e.getMessage());
+            }
         }
         this.stateMachine.stop();
     }
