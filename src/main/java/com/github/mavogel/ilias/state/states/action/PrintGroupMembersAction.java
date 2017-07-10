@@ -78,6 +78,16 @@ public class PrintGroupMembersAction implements ChangeAction {
         if (confirm()) {
             try {
                 List<GroupUserModelFull> membersPerGroup = endpoint.getUsersForGroups(nodes);
+                if (membersPerGroup.isEmpty()) {
+                    LOG.info("======================== HINT =========================");
+                    LOG.info("Could not retrieve users for groups ");
+                    LOG.info("Please add your user in the Ilias GUI as admin");
+                    LOG.info("to each group and re-run this action");
+                    LOG.info("=======================================================");
+                    return;
+                }
+
+
                 IntStream.range(0, VelocityOutputPrinter.OutputType.values().length)
                         .mapToObj(i -> VelocityOutputPrinter.OutputType.getAtIndex(i).asDisplayString(Defaults.GET_CHOICE_PREFIX(i)))
                         .forEach(LOG::info);
