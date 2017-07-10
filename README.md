@@ -2,9 +2,8 @@
 [![Travis Build Status](https://travis-ci.org/mavogel/ilias-client.svg?branch=master)](https://travis-ci.org/mavogel/ilias-client)
 [![Code Coverage](https://img.shields.io/codecov/c/github/mavogel/ilias-client/master.svg)](https://codecov.io/github/mavogel/ilias-client?branch=master)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.mavogel/ilias-client/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.mavogel/ilias-client)
-<!--[![GitHub version](https://badge.fury.io/gh/mavogel%2Filias-client.png)](https://github.com/mavogel/ilias-client/releases)-->
 
-# Ilias-client: A cmd client for the [ilias](http://ilias.de/) e-Learning platform
+# Ilias-client: A command line client for the [ilias](http://ilias.de/) e-Learning platform
 A command line interface client for accessing (a small part of at the moment of) the [SOAP](https://en.wikipedia.org/wiki/SOAP) interface of the Ilias e-Learning platform.
 The purpose was to automate recurring tasks, which can actually only be done by multiple clicks in the GUI. This takes a lot of time and lots of clicks.
 
@@ -55,21 +54,20 @@ A [jdk8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-
 
 ### <a name="quick-start"></a>Quick start 
 
-1. Download the latest [RELEASE](https://oss.sonatype.org/content/groups/staging/com/github/mavogel/ilias-client/) and 
-look for the latest version folder and then the `ilias-client-x.x.x.jar`.
+1. Download the latest [RELEASE](https://oss.sonatype.org/content/groups/staging/com/github/mavogel/ilias-client/1.2.0/ilias-client-1.2.0.jar)
 2. Create a `config.properties` file with the following content and fill in your data:
 ```properties
 # The endpoint of the Ilias Webservice Port
-# Usually: https://ilias.mycompany.com/webservice/soap/server.php
+# -> https://<ILIAS-HOST>/webservice/soap/server.php
 endpoint=
 #
-# STD (for standard login) or LDAP
+# The mode to login: STD (for standard login) or LDAP
 login.mode=LDAP
 #
-# Client id for login. Ask your administrator for the client_id
+# Client id for login. Ask your administrator for the 'client_id'
 login.client=
 #
-# Name of the user you want to login
+# The name of the user you want to login
 login.username=
 #
 # If not given or empty it will be prompted on cmd line
@@ -86,7 +84,12 @@ log.level=INFO
 ```
 3. Start it
 ```bash
-$ java -jar ilias-client-x.x.x.jar config.properties
+# is java8 installed?
+$ java -version
+# navigate to the folder you downloaded the jar
+$ cd ~/Downloads
+# run it
+$ java -jar ilias-client-1.2.0.jar config.properties
 ```
 
 ### <a name="built-it-on-your-own"></a>Built it on your own
