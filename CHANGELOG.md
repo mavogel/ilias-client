@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+**Version 1.3.0 (07-Nov-2017)**
+
+Refactoring:
+* Integration of splitted out `ilias-client-lib`.
+
 **Version 1.2.0 (10-July-2017)**
 
 Refactoring:
