@@ -40,12 +40,15 @@ The purpose was to automate recurring tasks, which can actually only be done by 
 - [License](#license)
 
 ## <a name="features"></a>Features
+Basically the features of the [ilias-client-lib](https://github.com/mavogel/ilias-client-lib) is implemented.
+See [here](https://github.com/mavogel/ilias-client-lib#features) for more details.
+
 1. **Remove all users** from all or only some groups in one course.
 2. **Remove all uploaded materials** from all or only some groups in one course.
 3. **Set or update a registration period** in all or only some groups in one course.
 3. **Set or update a maximum amount of members** in all or only some groups in one course.
 4. **File upload permission** can be set for the group members role.
-5. **Groups with its members can be** passed to Velocity template and **printed**. Two example templates are provided in `src/main/resources/templates`. 
+5. **Groups with its members** can be passed to Velocity template and **printed**. Two example templates are provided in `src/main/resources/templates`.
 
 ## <a name="usage"></a>Usage
 You can download the built artifact from Sonatype which is preferred or built it on your own. 
