@@ -25,11 +25,11 @@
  */
 package com.github.mavogel.ilias.state;
 
-import com.github.mavogel.ilias.model.IliasNode;
-import com.github.mavogel.ilias.model.LoginConfiguration;
-import com.github.mavogel.ilias.model.UserDataIds;
+import com.github.mavogel.ilias.lib.model.IliasNode;
+import com.github.mavogel.ilias.lib.model.LoginConfiguration;
+import com.github.mavogel.ilias.lib.model.UserDataIds;
 import com.github.mavogel.ilias.state.states.*;
-import com.github.mavogel.ilias.wrapper.AbstractIliasEndpoint;
+import com.github.mavogel.ilias.lib.wrapper.AbstractIliasEndpoint;
 
 import java.util.HashMap;
 import java.util.List;

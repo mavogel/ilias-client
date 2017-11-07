@@ -25,7 +25,7 @@
  */
 package com.github.mavogel.ilias.utils;
 
-import com.github.mavogel.ilias.model.LoginConfiguration;
+import com.github.mavogel.ilias.lib.model.LoginConfiguration;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;

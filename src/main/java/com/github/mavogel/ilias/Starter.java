@@ -25,11 +25,11 @@
  */
 package com.github.mavogel.ilias;
 
-import com.github.mavogel.ilias.model.LoginConfiguration;
-import com.github.mavogel.ilias.model.UserDataIds;
+import com.github.mavogel.ilias.lib.model.LoginConfiguration;
+import com.github.mavogel.ilias.lib.model.UserDataIds;
 import com.github.mavogel.ilias.state.ToolStateMachine;
 import com.github.mavogel.ilias.utils.ConfigurationsUtils;
-import com.github.mavogel.ilias.wrapper.IliasEndpoint;
+import com.github.mavogel.ilias.lib.wrapper.IliasEndpoint;
 import org.apache.commons.lang3.Validate;
 import org.apache.log4j.Logger;
 

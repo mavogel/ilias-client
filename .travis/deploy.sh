@@ -21,4 +21,4 @@ else
     echo "not on a tag -> keep snapshot version in pom.xml"
 fi
 
-mvn clean deploy --settings .travis/settings.xml -DskipTests=true -B -U
+mvn clean deploy -P sign --settings .travis/settings.xml -DskipTests=true -B -U

@@ -25,11 +25,11 @@
  */
 package com.github.mavogel.ilias.state.states.action;
 
-import com.github.mavogel.ilias.model.IliasNode;
+import com.github.mavogel.ilias.lib.model.IliasNode;
 import com.github.mavogel.ilias.state.ChangeAction;
 import com.github.mavogel.ilias.state.ToolStateMachine;
 import com.github.mavogel.ilias.utils.IOUtils;
-import com.github.mavogel.ilias.wrapper.IliasEndpoint;
+import com.github.mavogel.ilias.lib.wrapper.IliasEndpoint;
 import org.apache.log4j.Logger;
 
 import java.util.List;

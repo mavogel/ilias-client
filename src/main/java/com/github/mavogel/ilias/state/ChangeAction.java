@@ -25,8 +25,9 @@
  */
 package com.github.mavogel.ilias.state;
 
-import com.github.mavogel.ilias.model.IliasNode;
-import com.github.mavogel.ilias.wrapper.IliasEndpoint;
+
+import com.github.mavogel.ilias.lib.model.IliasNode;
+import com.github.mavogel.ilias.lib.wrapper.IliasEndpoint;
 
 import java.util.List;
 import java.util.Map;

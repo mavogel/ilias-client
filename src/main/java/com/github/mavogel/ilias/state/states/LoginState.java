@@ -26,12 +26,12 @@
 package com.github.mavogel.ilias.state.states;
 
 import com.github.mavogel.ilias.model.IliasAction;
-import com.github.mavogel.ilias.model.IliasNode;
-import com.github.mavogel.ilias.model.LoginConfiguration;
+import com.github.mavogel.ilias.lib.model.IliasNode;
+import com.github.mavogel.ilias.lib.model.LoginConfiguration;
 import com.github.mavogel.ilias.state.ToolState;
 import com.github.mavogel.ilias.state.ToolStateMachine;
-import com.github.mavogel.ilias.wrapper.AbstractIliasEndpoint;
-import com.github.mavogel.ilias.wrapper.EndpointBuilder;
+import com.github.mavogel.ilias.lib.wrapper.AbstractIliasEndpoint;
+import com.github.mavogel.ilias.lib.EndpointBuilder;
 import org.apache.log4j.Logger;
 
 import java.util.Collections;

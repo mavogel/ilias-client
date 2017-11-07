@@ -25,7 +25,7 @@
  */
 package com.github.mavogel.ilias.utils;
 
-import com.github.mavogel.ilias.model.LoginConfiguration;
+import com.github.mavogel.ilias.lib.model.LoginConfiguration;
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.FileBasedConfiguration;
 import org.apache.commons.configuration2.PropertiesConfiguration;

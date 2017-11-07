@@ -24,13 +24,14 @@ package com.github.mavogel.ilias.state;/*
  *  https://opensource.org/licenses/MIT
  */
 
-import com.github.mavogel.ilias.model.*;
+import com.github.mavogel.ilias.lib.EndpointBuilder;
+import com.github.mavogel.ilias.lib.model.*;
+import com.github.mavogel.ilias.lib.wrapper.AbstractIliasEndpoint;
+import com.github.mavogel.ilias.lib.wrapper.DisplayStatus;
+import com.github.mavogel.ilias.lib.wrapper.soap.SoapEndpoint;
+import com.github.mavogel.ilias.model.RegistrationPeriod;
 import com.github.mavogel.ilias.printer.VelocityOutputPrinter;
 import com.github.mavogel.ilias.utils.IOUtils;
-import com.github.mavogel.ilias.wrapper.AbstractIliasEndpoint;
-import com.github.mavogel.ilias.wrapper.DisplayStatus;
-import com.github.mavogel.ilias.wrapper.EndpointBuilder;
-import com.github.mavogel.ilias.wrapper.soap.SoapEndpoint;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

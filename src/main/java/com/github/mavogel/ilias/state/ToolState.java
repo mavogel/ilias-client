@@ -25,13 +25,14 @@
  */
 package com.github.mavogel.ilias.state;
 
+import com.github.mavogel.ilias.lib.model.IliasNode;
 import com.github.mavogel.ilias.model.IliasAction;
-import com.github.mavogel.ilias.model.IliasNode;
-import com.github.mavogel.ilias.state.states.LoginState;
 import com.github.mavogel.ilias.utils.IOUtils;
 import org.apache.log4j.Logger;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 

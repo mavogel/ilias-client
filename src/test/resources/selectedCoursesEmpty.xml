@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<result>
-    <colspecs>
-        <colspec idx="0" name="ref_id"/>
-        <colspec idx="1" name="xml"/>
-        <colspec idx="2" name="parent_ref_id"/>
-    </colspecs>
-    <rows></rows>
-</result>

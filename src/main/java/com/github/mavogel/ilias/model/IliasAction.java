@@ -22,6 +22,7 @@
  */
 package com.github.mavogel.ilias.model;
 
+import com.github.mavogel.ilias.lib.model.IliasNode;
 import com.github.mavogel.ilias.state.ChangeAction;
 
 import java.util.Collections;

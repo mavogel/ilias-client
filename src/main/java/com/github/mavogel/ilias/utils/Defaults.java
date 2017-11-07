@@ -65,16 +65,6 @@ public final class Defaults {
     public static final DateTimeFormatter OUTFILE_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd-hhmmss");
 
     /**
-     * Denotes that all roles should be attached by default.
-     */
-    public static final int ATTACH_ROLES = 1;
-
-    /**
-     * Denotes that only active users should be considered.
-     */
-    public static final int IS_ACTIVE = 1;
-
-    /**
      * The pattern for input digits.
      */
     public static final Pattern DIGIT_PATTERN = Pattern.compile("\\d+");
